@@ -1,0 +1,528 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#111111">
+<title>Daily Planner</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{
+  --bg:#F4F4F0;--white:#FFFFFF;--border:#E0E0DA;--text:#111111;
+  --text2:#444444;--muted:#888888;--gold:#C8960C;--red:#C0392B;
+  --purple:#8E44AD;--green:#27AE60;--pink:#E8A0BF;--blue:#2980B9;
+}
+html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Display',sans-serif;color:var(--text);overflow-x:hidden;}
+
+/* HEADER */
+.header{background:#111;padding:env(safe-area-inset-top,20px) 16px 16px;position:sticky;top:0;z-index:100;}
+.header-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;}
+.header-label{font-size:9px;letter-spacing:3px;color:var(--gold);font-weight:800;margin-bottom:4px;font-family:monospace;}
+.header-date{font-size:20px;font-weight:900;color:#fff;}
+.save-btn{padding:8px 16px;border-radius:8px;border:none;background:var(--gold);color:#111;font-size:11px;font-weight:800;cursor:pointer;letter-spacing:0.5px;flex-shrink:0;}
+.save-btn.saved{background:var(--green);color:#fff;}
+.progress-row{display:flex;justify-content:space-between;margin-bottom:6px;}
+.progress-label{font-size:10px;color:#555;font-weight:600;letter-spacing:0.5px;}
+.progress-val{font-size:10px;font-weight:700;}
+.prog-track{height:3px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;}
+.prog-fill{height:100%;border-radius:2px;background:var(--gold);transition:width 0.4s;}
+
+/* TABS */
+.tabs{display:flex;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:99;overflow-x:auto;}
+.tab{padding:12px 16px;font-size:12px;font-weight:700;color:var(--muted);border:none;background:transparent;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;}
+.tab.active{color:var(--text);border-bottom-color:var(--text);}
+
+/* CONTENT */
+.content{padding:14px 16px 100px;max-width:680px;margin:0 auto;}
+
+/* OUTCOMES CARD */
+.outcomes-card{background:#FFFBF0;border:1px solid #DDB830;border-radius:12px;padding:16px;margin-bottom:14px;}
+.card-label{font-size:9px;font-weight:800;letter-spacing:2px;margin-bottom:10px;}
+.outcome-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.outcome-num{font-size:12px;color:var(--gold);font-weight:900;font-family:monospace;width:22px;flex-shrink:0;}
+.outcome-input{flex:1;background:rgba(255,255,255,0.8);border:1px solid var(--border);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;font-family:inherit;}
+.frog-label{font-size:9px;color:var(--red);font-weight:800;letter-spacing:1.5px;margin-bottom:6px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(200,150,12,0.2);}
+.frog-input{width:100%;background:#FFF5F0;border:1px solid rgba(192,57,43,0.3);border-radius:6px;padding:8px 10px;color:var(--red);font-size:13px;font-weight:600;font-family:inherit;}
+
+/* BLOCKS */
+.block{background:var(--white);border:1px solid var(--border);border-left:4px solid var(--border);border-radius:8px;padding:12px 13px;margin-bottom:7px;transition:opacity 0.2s;}
+.block.done{opacity:0.5;}
+.block-inner{display:flex;gap:11px;align-items:flex-start;}
+.check{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);background:transparent;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:all 0.15s;}
+.check.checked{background:var(--green);border-color:var(--green);}
+.check-mark{font-size:9px;color:#fff;font-weight:900;display:none;}
+.check.checked .check-mark{display:block;}
+.block-body{flex:1;min-width:0;}
+.block-meta{display:flex;align-items:center;gap:7px;margin-bottom:4px;flex-wrap:wrap;}
+.block-time{font-size:11px;color:var(--muted);font-family:monospace;font-weight:700;background:#F0F0EC;padding:2px 6px;border-radius:3px;flex-shrink:0;}
+.block-tag{font-size:8px;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:3px;flex-shrink:0;}
+.block-title{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:3px;line-height:1.3;}
+.block.done .block-title{text-decoration:line-through;color:var(--muted);}
+.block-note{font-size:12px;color:var(--text2);line-height:1.6;}
+.block-actions{display:flex;gap:4px;flex-shrink:0;}
+.act{width:26px;height:26px;border-radius:5px;border:1px solid var(--border);background:#F8F8F4;color:var(--muted);cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;}
+.act.del{background:#FFF0F0;border-color:#FFCCCC;color:#CC4444;}
+
+/* EDIT MODE */
+.edit-form{display:flex;flex-direction:column;gap:8px;}
+.edit-row{display:flex;gap:7px;}
+.edit-input{width:100%;background:#F8F8F4;border:1px solid var(--border);border-radius:6px;padding:7px 9px;color:var(--text);font-size:13px;font-family:inherit;}
+.edit-select{flex:1;background:#F8F8F4;border:1px solid var(--border);border-radius:6px;padding:7px 9px;color:var(--text);font-size:12px;font-family:inherit;}
+.edit-time{width:90px;background:#F8F8F4;border:1px solid var(--border);border-radius:6px;padding:7px 9px;color:var(--gold);font-size:12px;font-family:monospace;font-weight:700;}
+.edit-textarea{width:100%;background:#F8F8F4;border:1px solid var(--border);border-radius:6px;padding:7px 9px;color:var(--text2);font-size:12px;font-family:inherit;resize:vertical;}
+.edit-done{background:#111;border:none;color:#fff;padding:8px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:800;width:100%;}
+
+/* ADD BLOCK */
+.add-section{margin-top:10px;}
+.add-btn{width:100%;background:var(--white);border:1px dashed var(--gold);color:var(--gold);padding:12px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;}
+.add-form{background:var(--white);border:1px dashed var(--gold);border-radius:10px;padding:16px;margin-top:8px;}
+.add-title-label{font-size:9px;color:var(--gold);font-weight:800;letter-spacing:2px;margin-bottom:10px;}
+.add-actions{display:flex;gap:8px;margin-top:8px;}
+.add-confirm{flex:1;background:#111;border:none;color:#fff;padding:10px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:800;}
+.add-cancel{background:#F8F8F4;border:1px solid var(--border);color:var(--muted);padding:10px 16px;border-radius:7px;cursor:pointer;font-size:13px;}
+.reset-btn{width:100%;background:#FFF5F5;border:1px solid #FFCCCC;color:#CC4444;padding:11px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;margin-top:8px;}
+
+/* NOTES TAB */
+.notes-section{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px;margin-bottom:12px;}
+.notes-textarea{width:100%;background:#F8F8F4;border:1px solid var(--border);border-radius:7px;padding:10px 12px;color:var(--text);font-size:13px;font-family:inherit;line-height:1.7;resize:vertical;}
+.goals-list{list-style:none;}
+.goal-item{display:flex;gap:12px;padding:9px 0;border-bottom:1px solid #EEEEEE;align-items:flex-start;}
+.goal-num{color:#7B68EE;font-family:monospace;font-size:11px;font-weight:800;flex-shrink:0;min-width:24px;}
+.goal-text{font-size:13px;color:var(--text);line-height:1.5;}
+.chief-aim{font-size:13px;color:#8B6914;line-height:1.85;font-style:italic;font-weight:500;}
+.win-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+
+/* BOTTOM BAR */
+.bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#111;padding:10px 16px env(safe-area-inset-bottom,10px);display:flex;justify-content:space-between;align-items:center;z-index:200;}
+.bottom-hint{font-size:10px;color:#333;letter-spacing:0.3px;}
+.bottom-save{padding:8px 20px;border-radius:7px;border:none;background:var(--gold);color:#111;font-size:12px;font-weight:800;cursor:pointer;}
+.bottom-save.saved{background:var(--green);color:#fff;}
+
+/* SETUP OVERLAY */
+.setup-overlay{position:fixed;inset:0;background:#111;z-index:999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;}
+.setup-title{font-size:9px;letter-spacing:3px;color:var(--gold);margin-bottom:14px;font-family:monospace;}
+.setup-h1{font-size:26px;font-weight:900;color:#fff;margin-bottom:8px;text-align:center;}
+.setup-sub{font-size:13px;color:#555;margin-bottom:32px;text-align:center;line-height:1.6;}
+.setup-input{width:100%;max-width:400px;background:#1a1a1a;border:1px solid #333;border-radius:10px;padding:14px 16px;color:var(--gold);font-size:13px;font-family:monospace;margin-bottom:10px;}
+.setup-note{font-size:11px;color:#444;text-align:center;margin-bottom:24px;max-width:360px;line-height:1.6;}
+.setup-btn{width:100%;max-width:400px;padding:15px;border-radius:12px;border:none;background:var(--gold);color:#111;font-size:15px;font-weight:800;cursor:pointer;}
+.setup-skip{margin-top:12px;font-size:12px;color:#444;cursor:pointer;text-decoration:underline;}
+</style>
+</head>
+<body>
+
+<!-- Cloud storage configured -->
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-top">
+    <div>
+      <div class="header-label">DAILY OPERATING SYSTEM</div>
+      <div class="header-date" id="headerDate">Loading...</div>
+    </div>
+    <button class="save-btn" id="saveBtn" onclick="saveData()">SAVE</button>
+  </div>
+  <div id="progressArea">
+    <div class="progress-row">
+      <span class="progress-label">PROGRESS</span>
+      <span class="progress-val" id="progressVal" style="color:var(--gold)">0/0</span>
+    </div>
+    <div class="prog-track"><div class="prog-fill" id="progFill" style="width:0%"></div></div>
+  </div>
+</div>
+
+<!-- TABS -->
+<div class="tabs">
+  <button class="tab active" onclick="switchTab('today',this)">📋 Today</button>
+  <button class="tab" onclick="switchTab('tomorrow',this)">⏭ Tomorrow</button>
+  <button class="tab" onclick="switchTab('notes',this)">📝 Notes</button>
+</div>
+
+<!-- CONTENT -->
+<div class="content" id="mainContent"></div>
+
+<!-- BOTTOM BAR -->
+<div class="bottom-bar">
+  <span class="bottom-hint">4:15 PM → screenshot calendar → send to Claude → build tomorrow</span>
+  <button class="bottom-save" id="bottomSaveBtn" onclick="saveData()">SAVE</button>
+</div>
+
+<script>
+// ─── BLOCK TYPES ────────────────────────────────────────
+const TYPES = {
+  LO_PROSPECT: {label:"LO PROSPECTING", color:"#111", bg:"#F5C518"},
+  RE_PROSPECT: {label:"RE PROSPECTING", color:"#fff",  bg:"#8E44AD"},
+  FOLLOWUP:    {label:"FOLLOW-UP",      color:"#111", bg:"#E8A0BF"},
+  DECISION:    {label:"DECISION CALL",  color:"#fff",  bg:"#C0392B"},
+  SCHEDULED:   {label:"SCHEDULED CALL", color:"#fff",  bg:"#E67E22"},
+  PIPELINE:    {label:"PIPELINE AUDIT", color:"#111", bg:"#2ECC71"},
+  RESEARCH:    {label:"RESEARCH",       color:"#111", bg:"#5DADE2"},
+  ADMIN:       {label:"ADMIN",          color:"#111", bg:"#BFC9CA"},
+  READING:     {label:"READING",        color:"#111", bg:"#76D7C4"},
+  NUTRITION:   {label:"NUTRITION",      color:"#111", bg:"#F7DC6F"},
+  GYM:         {label:"GYM",            color:"#fff",  bg:"#E74C3C"},
+  ROUTINE:     {label:"ROUTINE",        color:"#fff",  bg:"#5D6D7E"},
+  BREAK:       {label:"BREAK",          color:"#111", bg:"#D5DBDB"},
+  REVIEW:      {label:"REVIEW",         color:"#111", bg:"#F5C518"},
+};
+
+// ─── DEFAULT TEMPLATE ───────────────────────────────────
+const TEMPLATE = [
+  {id:"t01",time:"6:00 AM", type:"ROUTINE",    title:"Wake + Water",                  note:"Feet on floor. No snooze. 16oz water. No phone for 30 min."},
+  {id:"t02",time:"6:10 AM", type:"ROUTINE",    title:"Affirmations + Chief Aim",      note:"Read chief aim out loud. Identity statements. Say income gate question 3x."},
+  {id:"t03",time:"6:20 AM", type:"ROUTINE",    title:"Rewrite 10 Goals By Hand",      note:"Notebook, by hand, 4 minutes. Tracy non-negotiable."},
+  {id:"t04",time:"6:30 AM", type:"READING",    title:"Read 20 Min + Coffee",          note:"Tracy / Hill / Hardy / Grover / OFL craft. Physical book. No phone."},
+  {id:"t05",time:"6:50 AM", type:"ROUTINE",    title:"Write 3 Outcomes + Frog",       note:"3 specific pipeline actions. Paper only. Names and actions — not vague."},
+  {id:"t06",time:"7:00 AM", type:"GYM",        title:"Gym — 50 Minutes",              note:"Mon=Chest/Tri  Tue=Back/Bi  Wed=Shoulders  Thu=Lower+Back  Fri=Full Body"},
+  {id:"t07",time:"7:55 AM", type:"ROUTINE",    title:"Shower + Fully Dressed",        note:"Cold finish 30 sec. Shirt, pants, shoes."},
+  {id:"t08",time:"8:15 AM", type:"NUTRITION",  title:"Meal 1 — 5 Eggs + Banana",     note:"Same every day. Zero decision fatigue."},
+  {id:"t09",time:"8:30 AM", type:"ROUTINE",    title:"Drive — Car = Classroom",       note:"Audio book only. Rehearse income gate question out loud."},
+  {id:"t10",time:"9:00 AM", type:"LO_PROSPECT",title:"LO Prospecting Block 1",        note:"LO track only. Paladin handoffs + first contacts. Income goal conversation on every call. Log every attempt in CRM immediately."},
+  {id:"t11",time:"10:30 AM",type:"BREAK",      title:"Walk Outside — 10 Min",         note:"No phone. Outdoor light resets cortisol."},
+  {id:"t12",time:"10:40 AM",type:"FOLLOWUP",   title:"LO Follow-Up Block",            note:"Day 1→3→7→14 cadence. Text first, call if no response."},
+  {id:"t13",time:"11:30 AM",type:"ADMIN",      title:"CRM Logging + Coordination",    note:"Log every call. 90 sec per call. Coordinate with Mike/Dave/Pat."},
+  {id:"t14",time:"12:00 PM",type:"NUTRITION",  title:"Meal 2 + Walk Outside",         note:"Ground beef + rice. Then 10 min outside."},
+  {id:"t15",time:"12:20 PM",type:"RE_PROSPECT",title:"RE Prospecting Block",          note:"RE team outreach only. Coordinate with Pat Fenton first. Never mix with LO track."},
+  {id:"t16",time:"12:50 PM",type:"RESEARCH",   title:"Research + Call Prep",          note:"Prep for afternoon calls. LinkedIn, production numbers, previous call notes."},
+  {id:"t17",time:"1:10 PM", type:"FOLLOWUP",   title:"LO Follow-Up Block 2",          note:"LO candidates who didn't respond this morning. Re-engage stalled candidates."},
+  {id:"t18",time:"1:40 PM", type:"SCHEDULED",  title:"Scheduled Calls Window",        note:"Decision calls, pro formas, Call 3s with Mike and Dave."},
+  {id:"t19",time:"2:30 PM", type:"NUTRITION",  title:"Meal 3",                        note:"Ground beef container + cottage cheese on side."},
+  {id:"t20",time:"2:45 PM", type:"PIPELINE",   title:"Pipeline Audit — 45 Min",       note:"Every active candidate. Correct stage? Full handoff package? Who is stalled?"},
+  {id:"t21",time:"3:30 PM", type:"LO_PROSPECT",title:"LO Prospecting Block 2",        note:"Warm LO re-engagements only. Texts preferred."},
+  {id:"t22",time:"4:00 PM", type:"REVIEW",     title:"Tracy's Two Questions",         note:"(1) What did I do right? (2) What would I do differently? Write in notebook."},
+  {id:"t23",time:"4:15 PM", type:"ROUTINE",    title:"Plan Tomorrow",                 note:"Screenshot calendar → drop to Claude → get schedule built. Write 3 outcomes."},
+  {id:"t24",time:"4:30 PM", type:"ROUTINE",    title:"Hard Stop — Work Ends",         note:"Laptop closed. You solve the debt by executing clean hours."},
+  {id:"t25",time:"5:30 PM", type:"NUTRITION",  title:"Meal 4 — Dinner",               note:"High protein + veg. Eat slowly. Defense against night binge."},
+  {id:"t26",time:"9:00 PM", type:"ROUTINE",    title:"Evening Journal",               note:"3 wins. 1 lesson. Tomorrow's frog. Read chief aim out loud."},
+  {id:"t27",time:"9:45 PM", type:"ROUTINE",    title:"Sleep Setup",                   note:"Pre-fill water. Set lamp. Magnesium 400mg. Phone in drawer."},
+  {id:"t28",time:"10:00 PM",type:"ROUTINE",    title:"Lights Out",                    note:"Non-negotiable."},
+];
+
+const GOALS = [
+  "I earn $20,000 per month by December 31, 2026",
+  "I am completely debt-free — all $22,000 cleared — by December 31, 2026",
+  "I weigh 195 lbs by May 12, 2027",
+  "I own my first home by May 12, 2027",
+  "Grace and I are living together by July 2026",
+  "I have $50,000 in savings by May 12, 2027",
+  "I run every prospecting call with a clean income goal conversation — zero premature pitches",
+  "I am physically active 6 days per week with zero knee pain by August 2026",
+  "I am completely free from weed — Day 1 was May 12, 2026",
+  "I am the most reliable and precise operator on the Matt Weaver Team by September 2026"
+];
+
+// ─── STATE ──────────────────────────────────────────────
+let API_KEY = '$2a$10$NyyXvn9j8.HX5rM0oKCjnuo9GxmQVT/hRnTLslt.ks00E/ViRfF0G';
+let BIN_ID  = localStorage.getItem('jsonbin_bin') || '';
+let currentTab = 'today';
+let editingId = null;
+let showAddForm = false;
+let newBlock = {time:'',type:'LO_PROSPECT',title:'',note:''};
+
+const dayKey = (off=0) => {
+  const d = new Date(); d.setDate(d.getDate()+off);
+  return `day-${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()}`;
+};
+
+let STATE = {
+  today: {blocks: TEMPLATE.map(b=>({...b,done:false})), outcomes:['','',''], frog:'', wins:['','',''], notes:''},
+  tomorrow: {blocks: TEMPLATE.map(b=>({...b,done:false,id:'t'+Math.random().toString(36).slice(2,8)})), outcomes:['','',''], frog:''},
+};
+
+// ─── JSONBIN API ─────────────────────────────────────────
+async function loadFromCloud() {
+  if(!API_KEY) return;
+  try {
+    if(!BIN_ID) {
+      // Create new bin
+      const r = await fetch('https://api.jsonbin.io/v3/b', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','X-Master-Key':API_KEY,'X-Bin-Name':'planner-data'},
+        body: JSON.stringify(STATE)
+      });
+      const d = await r.json();
+      if(d.metadata?.id) { BIN_ID = d.metadata.id; localStorage.setItem('jsonbin_bin', BIN_ID); }
+    } else {
+      const r = await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}/latest`, {
+        headers:{'X-Master-Key':API_KEY}
+      });
+      const d = await r.json();
+      if(d.record) STATE = d.record;
+    }
+  } catch(e) { console.log('Cloud load failed, using local'); }
+}
+
+async function saveToCloud() {
+  if(!API_KEY || !BIN_ID) { localStorage.setItem('planner_state', JSON.stringify(STATE)); return false; }
+  try {
+    await fetch(`https://api.jsonbin.io/v3/b/${BIN_ID}`, {
+      method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':API_KEY},
+      body: JSON.stringify(STATE)
+    });
+    localStorage.setItem('planner_state', JSON.stringify(STATE));
+    return true;
+  } catch(e) { localStorage.setItem('planner_state', JSON.stringify(STATE)); return false; }
+}
+
+function saveApiKey() {
+  const k = document.getElementById('apiKeyInput').value.trim();
+  if(!k) return;
+  API_KEY = k;
+  localStorage.setItem('jsonbin_key', k);
+  document.getElementById('setupOverlay').style.display = 'none';
+  loadFromCloud().then(render);
+}
+
+function skipSetup() {
+  const saved = localStorage.getItem('planner_state');
+  if(saved) try { STATE = JSON.parse(saved); } catch(e) {}
+  document.getElementById('setupOverlay').style.display = 'none';
+  render();
+}
+
+// ─── SAVE ────────────────────────────────────────────────
+async function saveData() {
+  const btn = document.getElementById('saveBtn');
+  const btn2 = document.getElementById('bottomSaveBtn');
+  btn.textContent = '...'; btn2.textContent = '...';
+  const ok = await saveToCloud();
+  btn.textContent = ok ? '✓ SAVED' : '✓ LOCAL';
+  btn2.textContent = ok ? '✓ SAVED' : '✓ LOCAL';
+  btn.classList.add('saved'); btn2.classList.add('saved');
+  setTimeout(()=>{ btn.textContent='SAVE'; btn2.textContent='SAVE'; btn.classList.remove('saved'); btn2.classList.remove('saved'); }, 2500);
+}
+
+// ─── RENDER ──────────────────────────────────────────────
+function render() {
+  updateHeader();
+  const c = document.getElementById('mainContent');
+  if(currentTab === 'today' || currentTab === 'tomorrow') {
+    renderDayTab(c, currentTab);
+  } else {
+    renderNotesTab(c);
+  }
+}
+
+function updateHeader() {
+  const days = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  const months = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  const d = new Date();
+  document.getElementById('headerDate').textContent = days[d.getDay()] + ', ' + months[d.getMonth()] + ' ' + d.getDate();
+
+  if(currentTab === 'notes') {
+    document.getElementById('progressArea').style.display = 'none';
+    return;
+  }
+  document.getElementById('progressArea').style.display = 'block';
+  const data = STATE[currentTab];
+  const done = data.blocks.filter(b=>b.done).length;
+  const total = data.blocks.length;
+  const pct = total ? Math.round((done/total)*100) : 0;
+  document.getElementById('progressVal').textContent = `${done}/${total} — ${pct}%`;
+  document.getElementById('progressVal').style.color = pct>=80?'var(--green)':pct>=50?'var(--gold)':'var(--muted)';
+  document.getElementById('progFill').style.width = pct+'%';
+  document.getElementById('progFill').style.background = pct>=80?'var(--green)':'var(--gold)';
+}
+
+function renderDayTab(c, tabKey) {
+  const data = STATE[tabKey];
+  const label = tabKey === 'today' ? "TODAY'S" : "TOMORROW'S";
+  let html = '';
+
+  // Outcomes
+  html += `<div class="outcomes-card">
+    <div class="card-label" style="color:var(--gold)">${label} 3 OUTCOMES</div>
+    ${[0,1,2].map(i=>`
+      <div class="outcome-row">
+        <span class="outcome-num">0${i+1}</span>
+        <input class="outcome-input" value="${esc(data.outcomes?.[i]||'')}" oninput="STATE['${tabKey}'].outcomes[${i}]=this.value" placeholder="Specific pipeline action ${i+1}..." />
+      </div>`).join('')}
+    <div class="frog-label">THE FROG — MOST IMPORTANT ACTION</div>
+    <input class="frog-input" value="${esc(data.frog||'')}" oninput="STATE['${tabKey}'].frog=this.value" placeholder="The single highest-leverage thing you must do today..." />
+  </div>`;
+
+  // Blocks
+  data.blocks.forEach(b => {
+    const ty = TYPES[b.type]||TYPES.ROUTINE;
+    if(editingId === b.id) {
+      html += renderEditBlock(b, tabKey);
+    } else {
+      html += `<div class="block${b.done?' done':''}" style="border-left-color:${ty.bg}" id="blk-${b.id}">
+        <div class="block-inner">
+          <div class="check${b.done?' checked':''}" onclick="toggleBlock('${tabKey}','${b.id}')">
+            <span class="check-mark">✓</span>
+          </div>
+          <div class="block-body">
+            <div class="block-meta">
+              <span class="block-time">${b.time}</span>
+              <span class="block-tag" style="color:${ty.color};background:${ty.bg}">${ty.label}</span>
+            </div>
+            <div class="block-title">${esc(b.title)}</div>
+            ${b.note?`<div class="block-note">${esc(b.note)}</div>`:''}
+          </div>
+          <div class="block-actions">
+            <div class="act" onclick="startEdit('${b.id}')">✎</div>
+            <div class="act del" onclick="deleteBlock('${tabKey}','${b.id}')">×</div>
+          </div>
+        </div>
+      </div>`;
+    }
+  });
+
+  // Add form
+  html += `<div class="add-section">`;
+  if(showAddForm) {
+    html += `<div class="add-form">
+      <div class="add-title-label">NEW BLOCK</div>
+      <div class="edit-row">
+        <input class="edit-time" id="nb-time" value="${newBlock.time}" oninput="newBlock.time=this.value" placeholder="9:00 AM" />
+        <select class="edit-select" id="nb-type" onchange="newBlock.type=this.value">
+          ${Object.entries(TYPES).map(([k,v])=>`<option value="${k}"${newBlock.type===k?' selected':''}>${v.label}</option>`).join('')}
+        </select>
+      </div>
+      <input class="edit-input" id="nb-title" value="${newBlock.title}" oninput="newBlock.title=this.value" placeholder="Block title — e.g. Ken Nastasi Decision Call" style="margin-top:7px;" />
+      <textarea class="edit-textarea" id="nb-note" rows="2" oninput="newBlock.note=this.value" placeholder="Candidate name, phone, objective..." style="margin-top:7px;">${newBlock.note}</textarea>
+      <div class="add-actions">
+        <button class="add-confirm" onclick="addBlock('${tabKey}')">+ Add Block</button>
+        <button class="add-cancel" onclick="showAddForm=false;render()">Cancel</button>
+      </div>
+    </div>`;
+  } else {
+    html += `<button class="add-btn" onclick="showAddForm=true;render()">+ Add Block</button>`;
+  }
+  html += `<button class="reset-btn" onclick="resetDay('${tabKey}')">Reset to Default Schedule</button></div>`;
+
+  c.innerHTML = html;
+}
+
+function renderEditBlock(b, tabKey) {
+  return `<div class="block" style="border-left-color:var(--gold)">
+    <div class="edit-form">
+      <div class="edit-row">
+        <input class="edit-time" value="${b.time}" oninput="updateBlock('${tabKey}','${b.id}','time',this.value)" />
+        <select class="edit-select" onchange="updateBlock('${tabKey}','${b.id}','type',this.value)">
+          ${Object.entries(TYPES).map(([k,v])=>`<option value="${k}"${b.type===k?' selected':''}>${v.label}</option>`).join('')}
+        </select>
+      </div>
+      <input class="edit-input" value="${esc(b.title)}" oninput="updateBlock('${tabKey}','${b.id}','title',this.value)" />
+      <textarea class="edit-textarea" rows="2" oninput="updateBlock('${tabKey}','${b.id}','note',this.value)">${esc(b.note||'')}</textarea>
+      <button class="edit-done" onclick="editingId=null;render()">Done Editing</button>
+    </div>
+  </div>`;
+}
+
+function renderNotesTab(c) {
+  const d = STATE.today;
+  let html = '';
+
+  // Chief Aim
+  html += `<div class="notes-section">
+    <div class="card-label" style="color:var(--gold);margin-bottom:8px;">CHIEF AIM — READ OUT LOUD EVERY MORNING</div>
+    <p class="chief-aim">"By May 12, 2027 I earn $250,000 or more annually, I live in my first home with Grace, I weigh 195 lbs, I am debt-free, and I am healthy, confident, and happy. I achieve this by executing my daily system without negotiation, every single day."</p>
+  </div>`;
+
+  // 10 Goals
+  html += `<div class="notes-section">
+    <div class="card-label" style="color:#7B68EE;margin-bottom:10px;">10 GOALS — REWRITE BY HAND EVERY MORNING</div>
+    <ul class="goals-list">
+      ${GOALS.map((g,i)=>`<li class="goal-item"><span class="goal-num">${String(i+1).padStart(2,'0')}</span><span class="goal-text">${g}</span></li>`).join('')}
+    </ul>
+  </div>`;
+
+  // 3 Wins
+  html += `<div class="notes-section" style="background:#F0FBF6;border-color:#A9DFBF;">
+    <div class="card-label" style="color:#1E8449;margin-bottom:10px;">3 WINS TODAY — WRITE EVERY NIGHT</div>
+    ${[0,1,2].map(i=>`
+      <div class="win-row">
+        <span style="font-size:14px">🔥</span>
+        <input class="outcome-input" style="background:rgba(255,255,255,0.8);border-color:#A9DFBF;" value="${esc(d.wins?.[i]||'')}" oninput="STATE.today.wins[${i}]=this.value" placeholder="Win ${i+1}..." />
+      </div>`).join('')}
+  </div>`;
+
+  // Daily notes
+  html += `<div class="notes-section">
+    <div class="card-label" style="color:var(--blue);margin-bottom:8px;">DAILY NOTES</div>
+    <textarea class="notes-textarea" rows="6" oninput="STATE.today.notes=this.value" placeholder="What happened today? What did you learn? What would you do differently?">${esc(d.notes||'')}</textarea>
+  </div>`;
+
+  // Block legend
+  html += `<div class="notes-section">
+    <div class="card-label" style="color:var(--muted);margin-bottom:10px;">BLOCK TYPE LEGEND</div>
+    <div style="display:flex;flex-wrap:wrap;gap:6px;">
+      ${Object.entries(TYPES).map(([k,v])=>`<span style="font-size:9px;font-weight:800;color:${v.color};background:${v.bg};padding:4px 10px;border-radius:4px;">${v.label}</span>`).join('')}
+    </div>
+  </div>`;
+
+  c.innerHTML = html;
+}
+
+// ─── ACTIONS ─────────────────────────────────────────────
+function toggleBlock(tab, id) {
+  const b = STATE[tab].blocks.find(x=>x.id===id);
+  if(b) b.done = !b.done;
+  render();
+}
+
+function startEdit(id) { editingId = id; showAddForm = false; render(); }
+
+function updateBlock(tab, id, field, val) {
+  const b = STATE[tab].blocks.find(x=>x.id===id);
+  if(b) b[field] = val;
+}
+
+function deleteBlock(tab, id) {
+  if(!confirm('Delete this block?')) return;
+  STATE[tab].blocks = STATE[tab].blocks.filter(x=>x.id!==id);
+  render();
+}
+
+function addBlock(tab) {
+  if(!newBlock.time || !newBlock.title) { alert('Add a time and title'); return; }
+  const block = {...newBlock, id:'u'+Math.random().toString(36).slice(2,8), done:false};
+  STATE[tab].blocks.push(block);
+  STATE[tab].blocks.sort((a,b)=>toMin(a.time)-toMin(b.time));
+  newBlock = {time:'',type:'LO_PROSPECT',title:'',note:''};
+  showAddForm = false;
+  render();
+}
+
+function resetDay(tab) {
+  if(!confirm('Reset to default schedule?')) return;
+  STATE[tab].blocks = TEMPLATE.map(b=>({...b,done:false,id:'t'+Math.random().toString(36).slice(2,8)}));
+  render();
+}
+
+function toMin(t) {
+  if(!t) return 9999;
+  const p = t.trim().split(' ');
+  const mer = p[1]||'AM';
+  const [hh,mm] = (p[0]||'0:0').split(':').map(Number);
+  let h = hh;
+  if(mer==='PM'&&h!==12) h+=12;
+  if(mer==='AM'&&h===12) h=0;
+  return h*60+(mm||0);
+}
+
+function esc(s) {
+  return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function switchTab(tab, el) {
+  currentTab = tab;
+  editingId = null;
+  showAddForm = false;
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  el.classList.add('active');
+  render();
+}
+
+// ─── INIT ────────────────────────────────────────────────
+window.onload = () => {
+  loadFromCloud().then(render);
+};
+</script>
+</body>
+</html>

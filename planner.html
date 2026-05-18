@@ -94,6 +94,25 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Dis
 .chief-aim{font-size:13px;color:#8B6914;line-height:1.85;font-style:italic;font-weight:500;}
 .win-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
 
+/* AI BUILDER */
+.ai-builder{background:#1a1a2e;border:2px solid #C8960C;border-radius:14px;padding:18px;margin-bottom:16px;}
+.ai-builder-label{font-size:9px;font-weight:800;letter-spacing:2px;color:#C8960C;margin-bottom:10px;}
+.ai-builder-title{font-size:16px;font-weight:900;color:#fff;margin-bottom:6px;}
+.ai-builder-sub{font-size:12px;color:#666;margin-bottom:14px;line-height:1.5;}
+.ai-upload-area{border:2px dashed #333;border-radius:10px;padding:24px;text-align:center;cursor:pointer;margin-bottom:12px;transition:border-color 0.2s;}
+.ai-upload-area:hover{border-color:#C8960C;}
+.ai-upload-area.has-image{border-color:#C8960C;background:rgba(200,150,12,0.05);}
+.ai-upload-icon{font-size:32px;margin-bottom:8px;}
+.ai-upload-text{font-size:13px;color:#666;font-weight:600;}
+.ai-upload-hint{font-size:11px;color:#444;margin-top:4px;}
+.ai-preview{width:100%;max-height:200px;object-fit:contain;border-radius:8px;margin-bottom:12px;display:none;}
+.ai-build-btn{width:100%;padding:14px;border-radius:10px;border:none;background:#C8960C;color:#111;font-size:14px;font-weight:800;cursor:pointer;letter-spacing:0.5px;}
+.ai-build-btn:disabled{background:#444;color:#666;cursor:default;}
+.ai-status{font-size:12px;color:#888;text-align:center;margin-top:10px;min-height:18px;line-height:1.5;}
+.ai-status.loading{color:#C8960C;}
+.ai-status.success{color:#27AE60;}
+.ai-status.error{color:#C0392B;}
+
 /* BOTTOM BAR */
 .bottom-bar{position:fixed;bottom:0;left:0;right:0;background:#111;padding:10px 16px env(safe-area-inset-bottom,10px);display:flex;justify-content:space-between;align-items:center;z-index:200;}
 .bottom-hint{font-size:10px;color:#333;letter-spacing:0.3px;}
@@ -114,6 +133,9 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Dis
 <body>
 
 <!-- Cloud storage configured -->
+
+<!-- HIDDEN FILE INPUT -->
+<input type="file" id="calendarUpload" accept="image/*" style="display:none" onchange="handleImageUpload(event)" />
 
 <!-- HEADER -->
 <div class="header">
@@ -220,6 +242,150 @@ let currentTab = 'today';
 let editingId = null;
 let showAddForm = false;
 let newBlock = {time:'',type:'LO_PROSPECT',title:'',note:''};
+
+// AI Builder state
+let aiImageBase64 = '';
+let aiBuilding = false;
+let aiStatus = {type:'', msg:''};
+
+// ─── AI SCHEDULE BUILDER ─────────────────────────────────
+function handleImageUpload(event) {
+  const file = event.target.files[0];
+  if(!file) return;
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    aiImageBase64 = e.target.result; // full data URL
+    aiStatus = {type:'', msg:'Calendar loaded. Tap Build My Schedule.'};
+    render();
+  };
+  reader.readAsDataURL(file);
+}
+
+async function buildScheduleWithAI() {
+  if(!aiImageBase64 || aiBuilding) return;
+  aiBuilding = true;
+  aiStatus = {type:'loading', msg:'Claude is reading your calendar and building your schedule...'};
+  render();
+
+  try {
+    // Get tomorrow's date info
+    const tomorrow = new Date();
+    tomorrow.setDate(tomorrow.getDate() + 1);
+    const dayNames = ['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    const dayName = dayNames[tomorrow.getDay()];
+    const gymDays = {Monday:'Chest + Triceps', Tuesday:'Back + Biceps', Wednesday:'Shoulders + Core', Thursday:'Lower Body + Back', Friday:'Full Body', Saturday:'Active Recovery', Sunday:'Rest'};
+    const gymDay = gymDays[dayName] || 'Rest';
+
+    // Extract base64 data only
+    const base64Data = aiImageBase64.split(',')[1];
+    const mediaType = aiImageBase64.split(';')[0].split(':')[1];
+
+    const systemPrompt = `You are a scheduling assistant for a recruiting operator at CrossCountry Mortgage on the Matt Weaver Team (Originate for Life platform). 
+
+The user runs two recruiting tracks:
+- LO TRACK: qualifying loan originators for the Advisor seat. Paladin does warm outreach first, then this person runs Call 1 (qualification + income goal conversation), then Call 2 (pro forma walkthrough), then Call 3 (peer validation with Mike Reed and Dave Leibowitz), then Call 4 (decision conversation). Income goals MUST be surfaced before showing any comp model.
+- RE TRACK: outreach to real estate teams for formal BD partnerships. Pat Fenton leads this track. Never mix RE and LO outreach.
+
+Their daily schedule framework:
+- Wake 6 AM, gym 7 AM (${dayName} = ${gymDay}), office by 9 AM
+- Morning peak window 9-11 AM = LO Prospecting (new outreach, Paladin handoffs)
+- 10:40 AM = LO Follow-Up (Day 1/3/7/14 cadence)
+- 12:20 PM = RE Prospecting block
+- Afternoon = research, follow-up block 2, scheduled calls, pipeline audit
+- 4:15 PM = Plan tomorrow, 4:30 PM hard stop
+
+BLOCK TYPES available: LO_PROSPECT, RE_PROSPECT, FOLLOWUP, DECISION, SCHEDULED, PIPELINE, RESEARCH, ADMIN, READING, NUTRITION, GYM, ROUTINE, BREAK, REVIEW
+
+Look at the calendar screenshot and identify all appointments for ${dayName}. Build a complete day schedule that:
+1. Keeps the standard morning routine (wake, affirmations, goals, reading, gym, shower, meal, drive)
+2. Places each calendar appointment at its exact time with the correct block type
+3. For each appointment, identify if it's LO or RE track and use the right block type (DECISION for decision calls, SCHEDULED for other calls, RE_PROSPECT for RE meetings)
+4. Fills gaps intelligently with LO_PROSPECT, FOLLOWUP, RESEARCH, PIPELINE blocks
+5. Includes nutrition blocks and the evening routine
+
+Return ONLY a valid JSON array of blocks. No explanation, no markdown, just the raw JSON array.
+
+Each block must have: id (unique string like "ai1", "ai2" etc), time (like "9:00 AM"), type (from the list above), title (clear specific name), note (specific context/objective for that block), done (false)
+
+For appointment blocks, include the person's name in the title and their context in the note (e.g. what stage they're at, what the objective of the call is).`;
+
+    const response = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'anthropic-dangerous-direct-browser-access': 'true'
+      },
+      body: JSON.stringify({
+        model: 'claude-opus-4-5',
+        max_tokens: 4000,
+        system: systemPrompt,
+        messages: [{
+          role: 'user',
+          content: [
+            {
+              type: 'image',
+              source: {
+                type: 'base64',
+                media_type: mediaType,
+                data: base64Data
+              }
+            },
+            {
+              type: 'text',
+              text: `This is my calendar for tomorrow, ${dayName}. Build my complete day schedule as a JSON array of blocks. Include all appointments you can see plus fill the open windows with the right work blocks. Be specific about each appointment — what it is, who it's with, and what the objective is.`
+            }
+          ]
+        }]
+      })
+    });
+
+    const data = await response.json();
+    
+    if(data.error) throw new Error(data.error.message);
+
+    const text = data.content[0].text;
+    
+    // Parse JSON from response
+    let blocks;
+    try {
+      // Try to find JSON array in response
+      const match = text.match(/\[[\s\S]*\]/);
+      if(!match) throw new Error('No JSON found');
+      blocks = JSON.parse(match[0]);
+    } catch(e) {
+      throw new Error('Could not parse schedule from Claude response');
+    }
+
+    // Validate and clean blocks
+    const validTypes = Object.keys(TYPES);
+    blocks = blocks.map((b, i) => ({
+      id: b.id || 'ai'+i,
+      time: b.time || '9:00 AM',
+      type: validTypes.includes(b.type) ? b.type : 'SCHEDULED',
+      title: b.title || 'Block',
+      note: b.note || '',
+      done: false
+    }));
+
+    // Sort by time
+    blocks.sort((a,b) => toMin(a.time) - toMin(b.time));
+
+    // Set as tomorrow's schedule
+    STATE.tomorrow.blocks = blocks;
+
+    aiBuilding = false;
+    aiStatus = {type:'success', msg:`✓ Schedule built — ${blocks.length} blocks created from your calendar. Review and hit Save.`};
+    aiImageBase64 = '';
+    
+    await saveToCloud();
+    render();
+
+  } catch(e) {
+    aiBuilding = false;
+    aiStatus = {type:'error', msg:'Error: ' + (e.message || 'Something went wrong. Try again.')};
+    render();
+  }
+}
 
 const dayKey = (off=0) => {
   const d = new Date(); d.setDate(d.getDate()+off);
@@ -331,6 +497,26 @@ function renderDayTab(c, tabKey) {
   const data = STATE[tabKey];
   const label = tabKey === 'today' ? "TODAY'S" : "TOMORROW'S";
   let html = '';
+
+  // AI Builder — only show on tomorrow tab
+  if(tabKey === 'tomorrow') {
+    html += `<div class="ai-builder">
+      <div class="ai-builder-label">✨ AI SCHEDULE BUILDER</div>
+      <div class="ai-builder-title">Build Tomorrow From Your Calendar</div>
+      <div class="ai-builder-sub">Upload a screenshot of tomorrow's calendar and Claude will build your complete schedule around your appointments automatically.</div>
+      <div class="ai-upload-area${aiImageBase64?' has-image':''}" onclick="document.getElementById('calendarUpload').click()" id="uploadArea">
+        ${aiImageBase64
+          ? `<div class="ai-upload-icon">📅</div><div class="ai-upload-text">Calendar loaded — tap Build Schedule</div><div class="ai-upload-hint">Tap here to change image</div>`
+          : `<div class="ai-upload-icon">📸</div><div class="ai-upload-text">Tap to upload calendar screenshot</div><div class="ai-upload-hint">Screenshot your calendar app and upload it here</div>`
+        }
+      </div>
+      ${aiImageBase64 ? `<img id="aiPreview" src="${aiImageBase64}" style="width:100%;max-height:160px;object-fit:contain;border-radius:8px;margin-bottom:12px;" />` : ''}
+      <button class="ai-build-btn" onclick="buildScheduleWithAI()" ${aiBuilding||!aiImageBase64?'disabled':''}>
+        ${aiBuilding ? '⏳ Building your schedule...' : '⚡ Build My Schedule'}
+      </button>
+      <div class="ai-status ${aiStatus.type}" id="aiStatus">${aiStatus.msg}</div>
+    </div>`;
+  }
 
   // Outcomes
   html += `<div class="outcomes-card">

@@ -11,7 +11,6 @@
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{--bg:#F4F4F0;--w:#fff;--b:#E0E0DA;--t:#111;--t2:#444;--mu:#888;--go:#C8960C;--re:#C0392B;--gr:#27AE60;--bl:#2980B9;--pu:#8E44AD;}
 html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;color:var(--t);overflow-x:hidden;}
-/* PIN */
 .pin-overlay{position:fixed;inset:0;background:#111;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;}
 .pin-label{font-size:9px;letter-spacing:3px;color:#C8960C;font-weight:800;margin-bottom:16px;font-family:monospace;}
 .pin-title{font-size:26px;font-weight:900;color:#fff;margin-bottom:8px;}
@@ -25,7 +24,6 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
 .pin-btn.zero{grid-column:2;}
 .pin-btn.del{background:transparent;border-color:#333;color:#555;font-size:16px;}
 .pin-error{font-size:13px;color:#C0392B;margin-top:16px;font-weight:700;min-height:20px;}
-/* HEADER */
 .hd{background:#111;padding:env(safe-area-inset-top,14px) 14px 10px;position:sticky;top:0;z-index:200;}
 .hd-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
 .hd-lbl{font-size:9px;letter-spacing:3px;color:#C8960C;font-weight:800;font-family:monospace;margin-bottom:3px;}
@@ -34,18 +32,15 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
 .hbtn-go{background:#C8960C;color:#111;}
 .search{width:100%;background:#1a1a1a;border:1px solid #2a2a2a;border-radius:8px;padding:8px 13px;color:#fff;font-size:14px;font-family:inherit;}
 .search::placeholder{color:#444;}
-/* TABS */
 .tabs{display:flex;background:var(--w);border-bottom:1px solid var(--b);overflow-x:auto;position:sticky;top:0;z-index:99;}
 .tab{padding:11px 13px;font-size:11px;font-weight:700;color:var(--mu);border:none;background:transparent;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;flex-shrink:0;}
 .tab.on{color:var(--t);border-bottom-color:#111;}
 .pg{display:none;padding:12px 14px 100px;max-width:760px;margin:0 auto;}
 .pg.on{display:block;}
-/* STATS */
 .sgrid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:12px;}
 .sbox{background:var(--w);border:1px solid var(--b);border-radius:8px;padding:10px;text-align:center;}
 .snum{font-size:20px;font-weight:800;}
 .slbl{font-size:8px;color:var(--mu);font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-top:2px;}
-/* PIPELINE COLUMNS */
 .pipe-col{margin-bottom:16px;}
 .pipe-col-hd{display:flex;align-items:center;gap:8px;padding:9px 13px;background:var(--w);border:1px solid var(--b);border-radius:8px 8px 0 0;border-bottom:3px solid #ccc;}
 .pipe-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
@@ -67,25 +62,21 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
 .fu-t{background:#FFF8E1;color:#E65100;border:1px solid #FFECB3;}
 .fu-k{background:#F0FBF6;color:var(--gr);border:1px solid #A9DFBF;}
 .add-c{width:100%;padding:11px;border-radius:8px;border:1px dashed #C8960C;background:rgba(200,150,12,0.05);color:#C8960C;font-size:13px;font-weight:700;cursor:pointer;margin-bottom:12px;}
-/* NOTEBOOK */
 .nb-section{background:var(--w);border:1px solid var(--b);border-radius:10px;margin-bottom:12px;overflow:hidden;}
 .nb-sec-hd{padding:14px 16px;display:flex;justify-content:space-between;align-items:center;cursor:pointer;}
 .nb-sec-name{font-size:15px;font-weight:900;display:flex;align-items:center;gap:8px;}
-.nb-sec-count{font-size:12px;color:var(--mu);}
 .nb-note-row{border-top:1px solid var(--b);padding:12px 16px;cursor:pointer;}
 .nb-note-row:hover{background:#F9F9F7;}
 .nb-note-title{font-size:13px;font-weight:700;margin-bottom:2px;}
 .nb-note-prev{font-size:11.5px;color:var(--mu);}
 .nb-note-date{font-size:10px;color:var(--mu);margin-top:2px;}
 .nb-add-row{border-top:1px dashed var(--b);padding:12px 16px;cursor:pointer;}
-/* DAY ENTRIES */
 .nb-year-hd{padding:12px 16px;background:#F9F9F7;cursor:pointer;display:flex;justify-content:space-between;border-top:1px solid var(--b);}
 .nb-year-label{font-size:14px;font-weight:800;}
 .nb-month-hd{padding:10px 16px;background:#F4F4F0;cursor:pointer;display:flex;justify-content:space-between;border-top:1px solid var(--b);}
 .nb-week-hd{padding:9px 20px;cursor:pointer;display:flex;justify-content:space-between;border-top:1px solid var(--b);}
 .nb-day-row{padding:10px 24px;border-top:1px solid #EEEEEE;cursor:pointer;display:flex;justify-content:space-between;align-items:flex-start;}
 .nb-day-row:hover{background:#F9F9F7;}
-/* NOTE EDITOR */
 .editor{position:fixed;inset:0;background:var(--bg);z-index:600;display:none;flex-direction:column;}
 .editor.open{display:flex;}
 .ed-hd{background:#111;padding:env(safe-area-inset-top,14px) 14px 12px;display:flex;align-items:center;gap:12px;}
@@ -99,7 +90,6 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
 .ed-input{width:100%;background:#F8F8F4;border:1px solid var(--b);border-radius:7px;padding:9px 12px;color:var(--t);font-size:14px;font-family:inherit;margin-bottom:8px;}
 .ed-frog{width:100%;background:#FFF5F0;border:1px solid rgba(192,57,43,0.3);border-radius:7px;padding:9px 12px;color:#C0392B;font-size:14px;font-family:inherit;}
 .ed-hr{height:1px;background:var(--b);margin:16px 0;}
-/* MODAL */
 .ov{position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:500;display:none;align-items:flex-end;}
 .ov.on{display:flex;}
 .md{background:var(--w);border-radius:20px 20px 0 0;width:100%;max-height:93vh;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,20px);}
@@ -124,10 +114,8 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
 .nt.on{background:#111;color:#fff;border-color:#111;}
 .sbtn{width:100%;padding:13px;border-radius:10px;border:none;background:#111;color:#fff;font-size:14px;font-weight:800;cursor:pointer;margin-top:4px;}
 .xbtn{width:100%;padding:10px;border-radius:8px;border:1px solid var(--b);background:transparent;color:var(--mu);font-size:12px;font-weight:700;cursor:pointer;margin-top:6px;}
-/* IMPORT */
 .imp-area{border:2px dashed var(--b);border-radius:10px;padding:20px;text-align:center;cursor:pointer;margin-bottom:12px;}
 .imp-area:hover{border-color:#C8960C;}
-/* CANVAS */
 .ctbar{display:flex;gap:6px;padding:10px 12px;background:var(--w);border-bottom:1px solid var(--b);flex-wrap:wrap;align-items:center;overflow-x:auto;}
 .tbtn{padding:6px 10px;border-radius:6px;border:1px solid var(--b);background:var(--w);font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0;}
 .tbtn.on{background:#111;color:#fff;border-color:#111;}
@@ -138,7 +126,6 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
 </head>
 <body>
 
-<!-- PIN -->
 <div class="pin-overlay" id="pinOverlay">
   <div class="pin-label">RECRUITING NOTEBOOK</div>
   <div class="pin-title">Enter PIN</div>
@@ -165,20 +152,17 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
   <div class="pin-error" id="pinError"></div>
 </div>
 
-<!-- NOTE EDITOR -->
 <div class="editor" id="noteEditor">
   <div class="ed-hd">
     <button class="ed-back" onclick="closeEditor()">&#8592; Back</button>
     <input class="ed-title" id="edTitle" placeholder="Title..." />
-    <span class="autosave" id="edSaved">saved</span>
+    <span class="autosave ed-saved" id="edSaved">saved</span>
   </div>
   <div class="ed-body" id="edBody"></div>
 </div>
 
-<!-- CRM FILE INPUT -->
 <input type="file" id="crmFile" accept=".json" style="display:none" onchange="importCRM(event)" />
 
-<!-- HEADER -->
 <div class="hd">
   <div class="hd-row">
     <div>
@@ -195,7 +179,6 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
   </div>
 </div>
 
-<!-- TABS -->
 <div class="tabs">
   <button class="tab on" onclick="sw('lo',this)">&#128222; LO Pipeline</button>
   <button class="tab" onclick="sw('re',this)">&#127968; RE Pipeline</button>
@@ -204,7 +187,6 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
   <button class="tab" onclick="sw('canvas',this)">&#9998; Sketch</button>
 </div>
 
-<!-- LO PIPELINE -->
 <div class="pg on" id="pg-lo">
   <div class="sgrid" id="lo-stats"></div>
   <input class="search" style="margin-bottom:10px;background:#fff;color:#111;border-color:var(--b);" placeholder="Filter LO pipeline..." oninput="loSearch=this.value;renderLO()" />
@@ -212,21 +194,16 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
   <div id="lo-pipe"></div>
 </div>
 
-<!-- RE PIPELINE -->
 <div class="pg" id="pg-re">
   <div class="sgrid" id="re-stats"></div>
   <button class="add-c" onclick="openAdd('re')">+ Add RE Contact</button>
   <div id="re-pipe"></div>
 </div>
 
-<!-- NOTEBOOK -->
-<div class="pg" id="pg-notes">
-  <div id="notesEl"></div>
-</div>
+<div class="pg" id="pg-notes"><div id="notesEl"></div></div>
 
-<!-- IMPORT -->
 <div class="pg" id="pg-import">
-  <p style="font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:14px;">Export your CRM backup at end of every day and upload it here. Your call notes and income goals are never overwritten — only stages and contact info update.</p>
+  <p style="font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:14px;">Export your CRM backup at end of every day and upload it here. Your call notes and income goals are never overwritten.</p>
   <div class="imp-area" onclick="document.getElementById('crmFile').click()">
     <div style="font-size:28px;margin-bottom:8px;">&#128194;</div>
     <div style="font-size:13px;font-weight:600;color:var(--t2);">Tap to upload CRM backup JSON</div>
@@ -242,7 +219,6 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
   </div>
 </div>
 
-<!-- SKETCH -->
 <div class="pg" id="pg-canvas" style="padding:0;">
   <div class="ctbar">
     <button class="tbtn on" id="tp" onclick="setTool('pen',this)">&#9998; Pen</button>
@@ -260,7 +236,6 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
   <canvas id="cvs" style="background:#fff;display:block;touch-action:none;"></canvas>
 </div>
 
-<!-- CONTACT MODAL -->
 <div class="ov" id="modal">
   <div class="md">
     <div class="mh"></div>
@@ -273,10 +248,7 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
 </div>
 
 <script>
-var CORRECT_PIN = '1107';
-var PIN_SESSION_KEY = 'pin_unlocked';
-var pinEntry = '';
-var STAGES = [{"id": "prospect", "name": "Prospect", "color": "#5D6D7E", "bp": "Move forward the moment a live conversation happens."}, {"id": "cold-call-attempted", "name": "Cold Call Attempted", "color": "#85929E", "bp": "Active follow-up only. Every contact needs a next touch date."}, {"id": "initial-presentation-scheduled", "name": "Initial Presentation", "color": "#2980B9", "bp": "Booked and confirmed. Pro forma ready. Income goals must be confirmed."}, {"id": "pro-forma-scheduled", "name": "Pro Forma Scheduled", "color": "#8E44AD", "bp": "Income goals confirmed from Call 1. Production numbers verified."}, {"id": "mike-dave-scheduled", "name": "Mike + Dave Scheduled", "color": "#27AE60", "bp": "Mike and Dave briefed: market, volume, income goal, objections."}, {"id": "decision-call-scheduled", "name": "Decision Call Scheduled", "color": "#E67E22", "bp": "You know the blocker. Walk in knowing exactly what this call is for."}, {"id": "decision-pending", "name": "Decision Pending", "color": "#C0392B", "bp": "Must have a specific date and real reason."}, {"id": "onboarding", "name": "Onboarding", "color": "#1ABC9C", "bp": "Candidate said yes. Licensing and logistics in progress."}, {"id": "nurture-long-term", "name": "Long-Term Nurture", "color": "#F39C12", "bp": "Qualified but cannot move now. Must have a specific re-engagement date."}, {"id": "closed-not-qualified", "name": "Not a Fit", "color": "#BFC9CA", "bp": ""}, {"id": "closed-not-interested", "name": "Active LO (DNC)", "color": "#BFC9CA", "bp": ""}, {"id": "stage-1778860440487", "name": "Not Interested", "color": "#BFC9CA", "bp": ""}];
+var STAGES = [{"id": "prospect", "name": "Prospect", "color": "#5D6D7E", "bp": "Move forward the moment a live conversation happens."}, {"id": "cold-call-attempted", "name": "Cold Call Attempted", "color": "#85929E", "bp": "Active follow-up only. Every contact needs a next touch date."}, {"id": "initial-presentation-scheduled", "name": "Initial Presentation", "color": "#2980B9", "bp": "Booked and confirmed. Income goals must be confirmed."}, {"id": "pro-forma-scheduled", "name": "Pro Forma Scheduled", "color": "#8E44AD", "bp": "Income goals confirmed from Call 1. Production numbers verified."}, {"id": "mike-dave-scheduled", "name": "Mike + Dave Scheduled", "color": "#27AE60", "bp": "Mike and Dave briefed on market, volume, income goal, objections."}, {"id": "decision-call-scheduled", "name": "Decision Call Scheduled", "color": "#E67E22", "bp": "You know the blocker. Walk in knowing exactly what this call is for."}, {"id": "decision-pending", "name": "Decision Pending", "color": "#C0392B", "bp": "Must have a specific date and real reason attached."}, {"id": "onboarding", "name": "Onboarding", "color": "#1ABC9C", "bp": "Candidate said yes. Licensing and logistics in progress."}, {"id": "nurture-long-term", "name": "Long-Term Nurture", "color": "#F39C12", "bp": "Qualified but cannot move now. Must have a specific re-engagement date."}, {"id": "closed-not-qualified", "name": "Not a Fit", "color": "#BFC9CA", "bp": ""}, {"id": "closed-not-interested", "name": "Active LO (DNC)", "color": "#BFC9CA", "bp": ""}, {"id": "stage-1778860440487", "name": "Not Interested", "color": "#BFC9CA", "bp": ""}];
 var SM = {};
 STAGES.forEach(function(s){ SM[s.id]=s; });
 var AK = '$2a$10$NyyXvn9j8.HX5rM0oKCjnuo9GxmQVT/hRnTLslt.ks00E/ViRfF0G';
@@ -294,25 +266,23 @@ var saveTimer = null;
 function schedSave() {
   clearTimeout(saveTimer);
   var g = document.getElementById('gSave');
-  if(g){ g.textContent='●'; g.style.color='#F39C12'; }
+  if(g){ g.textContent='saving...'; g.style.color='#F39C12'; }
   saveTimer = setTimeout(doSave, 1500);
 }
 function doSave() {
   var p = {contacts:contacts, notes:notes};
   localStorage.setItem('nb_data', JSON.stringify(p));
   var g = document.getElementById('gSave');
-  if(g){ g.textContent='●'; g.style.color='#27AE60'; }
-  var es = document.getElementById('edSaved');
-  if(es){ es.textContent='saved'; es.style.color='#27AE60'; }
+  if(g){ g.textContent='saved'; g.style.color='#27AE60'; }
   if(BIN) fetch('https://api.jsonbin.io/v3/b/'+BIN, {method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':AK},body:JSON.stringify(p)}).catch(function(){});
 }
 
-// CLOUD
+// CLOUD LOAD
 function loadCloud() {
   var local = localStorage.getItem('nb_data');
   if(local){ try{ var d=JSON.parse(local); if(d.contacts) contacts=d.contacts; if(d.notes) notes=d.notes; }catch(e){} }
   if(!BIN) {
-    fetch('https://api.jsonbin.io/v3/b',{method:'POST',headers:{'Content-Type':'application/json','X-Master-Key':AK,'X-Bin-Name':'nb-v5'},body:JSON.stringify({contacts:contacts,notes:notes})})
+    fetch('https://api.jsonbin.io/v3/b',{method:'POST',headers:{'Content-Type':'application/json','X-Master-Key':AK,'X-Bin-Name':'nb-v6'},body:JSON.stringify({contacts:contacts,notes:notes})})
     .then(function(r){return r.json();}).then(function(d){ if(d.metadata&&d.metadata.id){BIN=d.metadata.id;localStorage.setItem('nb_bin',BIN);} renderAll(); }).catch(function(){ renderAll(); });
   } else {
     fetch('https://api.jsonbin.io/v3/b/'+BIN+'/latest',{headers:{'X-Master-Key':AK}})
@@ -331,7 +301,7 @@ var DAYS=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'
 function weekLabel(date){ var d=new Date(date); d.setDate(d.getDate()-d.getDay()); return 'Week of '+d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
 function dayLabel(date){ var d=new Date(date); return DAYS[d.getDay()]+' '+d.toLocaleDateString('en-US',{month:'short',day:'numeric'}); }
 
-// PIPELINE STATS
+// PIPELINE
 function renderStats(el, pl) {
   var l=contacts.filter(function(c){return c.pipeline===pl;});
   var hot=['initial-presentation-scheduled','pro-forma-scheduled','mike-dave-scheduled','decision-call-scheduled','decision-pending'];
@@ -347,7 +317,6 @@ function renderStats(el, pl) {
     '<div class="sbox"><div class="snum" style="color:'+(ov?'#C0392B':'#27AE60')+'">'+ov+'</div><div class="slbl">Overdue</div></div>';
 }
 
-// PIPELINE RENDER
 function renderPipe(el, pl) {
   var q=(pl==='lo'?loSearch:'').toLowerCase();
   var l=contacts.filter(function(c){return c.pipeline===pl;});
@@ -367,35 +336,33 @@ function renderPipe(el, pl) {
     cards.forEach(function(c){
       var calls=(c.callNotes||[]).length;
       var fc=fuC(c.followUp);
-      html+='<div class="pcard" onclick="openC(''+c.id+'')">'+
-        '<div class="pc-top"><div class="pc-name">'+esc(c.name)+'</div>'+(c.volume?'<div class="pc-vol">'+fv(c.volume)+'</div>':'')+  '</div>'+
-        (c.company?'<div class="pc-sub">'+esc(c.company)+(c.state?' &middot; '+esc(c.state):'')+' '+(c.phone?'&middot; '+esc(c.phone):'')+  '</div>':'')+
-        '<div class="pc-row">'+
-        (c.incomeGoal?'<div class="pc-chip">Goal: <b>$'+Number(c.incomeGoal).toLocaleString()+'</b></div>':'<div class="pc-warn">&#9888; No income goal</div>')+
-        (calls?'<div class="pc-chip"><b>'+calls+'</b> note'+(calls!==1?'s':'')+'</div>':'')+
-        (c.followUp?'<span class="fu '+fc+'">'+fd(c.followUp)+'</span>':'')+
-        '</div></div>';
+      html+='<div class="pcard" onclick="openC(''+c.id+'')">';
+      html+='<div class="pc-top"><div class="pc-name">'+esc(c.name)+'</div>'+(c.volume?'<div class="pc-vol">'+fv(c.volume)+'</div>':'')+'</div>';
+      if(c.company) html+='<div class="pc-sub">'+esc(c.company)+(c.state?' &middot; '+esc(c.state):'')+' '+(c.phone?'&middot; '+esc(c.phone):'')+'</div>';
+      html+='<div class="pc-row">';
+      html+=(c.incomeGoal?'<div class="pc-chip">Goal: <b>$'+Number(c.incomeGoal).toLocaleString()+'</b></div>':'<div class="pc-warn">&#9888; No income goal</div>');
+      if(calls) html+='<div class="pc-chip"><b>'+calls+'</b> note'+(calls!==1?'s':'')+'</div>';
+      if(c.followUp) html+='<span class="fu '+fc+'">'+fd(c.followUp)+'</span>';
+      html+='</div></div>';
     });
     html+='</div></div>';
   });
-  if(!html)html='<div style="text-align:center;padding:40px;color:var(--mu);">No contacts found</div>';
+  if(!html) html='<div style="text-align:center;padding:40px;color:var(--mu);">No contacts found</div>';
   document.getElementById(el).innerHTML=html;
 }
 
 function renderLO(){ renderStats('lo-stats','lo'); renderPipe('lo-pipe','lo'); }
 function renderRE(){ renderStats('re-stats','re'); renderPipe('re-pipe','re'); }
 
-// NOTEBOOK RENDER
+// NOTEBOOK
 function renderNotes() {
   if(!notes['Daily Notes']||Array.isArray(notes['Daily Notes'])) notes['Daily Notes']={};
   var dn=notes['Daily Notes'];
   var years=Object.keys(dn).sort().reverse();
   var html='';
-
-  // Daily Notes
-  html+='<div class="nb-section"><div class="nb-sec-hd" onclick="toggleEl('nbd')">'+
-    '<div class="nb-sec-name">&#128197; Daily Notes</div>'+
-    '<button onclick="event.stopPropagation();addToday()" style="font-size:11px;font-weight:800;padding:5px 12px;border-radius:6px;border:none;background:#C8960C;color:#111;cursor:pointer;">+ Today</button></div>';
+  html+='<div class="nb-section"><div class="nb-sec-hd" onclick="toggleEl('nbd')">';
+  html+='<div class="nb-sec-name">&#128197; Daily Notes</div>';
+  html+='<button onclick="event.stopPropagation();addToday()" style="font-size:11px;font-weight:800;padding:5px 12px;border-radius:6px;border:none;background:#C8960C;color:#111;cursor:pointer;">+ Today</button></div>';
   html+='<div id="nbd" style="display:none;">';
   if(years.length){
     years.forEach(function(yr){
@@ -404,21 +371,23 @@ function renderNotes() {
       html+='<div id="nby'+yr+'" style="display:none;">';
       months.forEach(function(mo){
         var weeks=Object.keys(dn[yr][mo]||{}).sort().reverse();
-        html+='<div class="nb-month-hd" onclick="toggleEl('nbm'+yr+mo.replace(/ /g,'_')+'')"><span style="font-size:13px;font-weight:800;">&#128197; '+mo+'</span><span style="font-size:10px;color:var(--mu)">'+weeks.length+' wks</span></div>';
-        html+='<div id="nbm'+yr+mo.replace(/ /g,'_')+'" style="display:none;">';
+        var mid='nbm'+yr+mo.replace(/ /g,'_');
+        html+='<div class="nb-month-hd" onclick="toggleEl(''+mid+'')"><span style="font-size:13px;font-weight:800;">&#128197; '+mo+'</span><span style="font-size:10px;color:var(--mu)">'+weeks.length+' wks</span></div>';
+        html+='<div id="'+mid+'" style="display:none;">';
         weeks.forEach(function(wk){
           var days=Object.keys(dn[yr][mo][wk]||{}).sort().reverse();
-          html+='<div class="nb-week-hd" onclick="toggleEl('nbw'+(yr+mo+wk).replace(/ /g,'_')+'')"><span style="font-size:12px;color:var(--t2);font-weight:700;">&#128467; '+wk+'</span><span style="font-size:10px;color:var(--mu)">'+days.length+' days</span></div>';
-          html+='<div id="nbw'+(yr+mo+wk).replace(/ /g,'_')+'" style="display:none;">';
+          var wid='nbw'+(yr+mo+wk).replace(/ /g,'_');
+          html+='<div class="nb-week-hd" onclick="toggleEl(''+wid+'')"><span style="font-size:12px;color:var(--t2);font-weight:700;">&#128467; '+wk+'</span><span style="font-size:10px;color:var(--mu)">'+days.length+' days</span></div>';
+          html+='<div id="'+wid+'" style="display:none;">';
           days.forEach(function(day){
             var e=dn[yr][mo][wk][day]||{};
             var encoded=btoa(yr+'|'+mo+'|'+wk+'|'+day);
             var wins=(e.wins||[]).filter(function(w){return w;}).length;
-            html+='<div class="nb-day-row" onclick="openDayNote(''+encoded+'')">'+
-              '<div><div style="font-size:13px;font-weight:700;">'+esc(day)+'</div>'+
-              (e.text?'<div style="font-size:11px;color:var(--mu)">'+esc(e.text.slice(0,60))+'</div>':'')+
-              (wins?'<div style="font-size:10px;color:#27AE60;font-weight:700;">&#128293; '+wins+' win'+(wins!==1?'s':'')+'</div>':'')+
-              '</div><span style="color:var(--mu);font-size:18px;">&#8250;</span></div>';
+            html+='<div class="nb-day-row" onclick="openDayNote(''+encoded+'')"><div>';
+            html+='<div style="font-size:13px;font-weight:700;">'+esc(day)+'</div>';
+            if(e.text) html+='<div style="font-size:11px;color:var(--mu)">'+esc(e.text.slice(0,60))+'</div>';
+            if(wins) html+='<div style="font-size:10px;color:#27AE60;font-weight:700;">&#128293; '+wins+' win'+(wins!==1?'s':'')+'</div>';
+            html+='</div><span style="color:var(--mu);font-size:18px;">&#8250;</span></div>';
           });
           html+='</div>';
         });
@@ -430,31 +399,28 @@ function renderNotes() {
     html+='<div style="padding:20px;font-size:13px;color:var(--mu);text-align:center;">No daily notes yet. Tap + Today to start.</div>';
   }
   html+='</div></div>';
-
-  // Flat folders
-  [{name:'Goals',icon:'&#127919;'},{name:'Call Scripts',icon:'&#128222;'},{name:'Market Notes',icon:'&#128205;'},{name:'Personal',icon:'&#128100;'}].forEach(function(f){
+  var flatFolders=[{name:'Goals',icon:'&#127919;'},{name:'Call Scripts',icon:'&#128222;'},{name:'Market Notes',icon:'&#128205;'},{name:'Personal',icon:'&#128100;'}];
+  flatFolders.forEach(function(f){
     var items=(notes[f.name]&&Array.isArray(notes[f.name]))?notes[f.name]:[];
     var fid='nbf'+f.name.replace(/ /g,'_');
-    html+='<div class="nb-section"><div class="nb-sec-hd" onclick="toggleEl(''+fid+'')">'+
-      '<div class="nb-sec-name">'+f.icon+' '+f.name+'</div>'+
-      '<span style="font-size:12px;color:var(--mu)">'+items.length+'</span></div>';
+    html+='<div class="nb-section"><div class="nb-sec-hd" onclick="toggleEl(''+fid+'')">';
+    html+='<div class="nb-sec-name">'+f.icon+' '+f.name+'</div>';
+    html+='<span style="font-size:12px;color:var(--mu)">'+items.length+'</span></div>';
     html+='<div id="'+fid+'" style="display:none;">';
     items.forEach(function(n,i){
-      html+='<div class="nb-note-row" onclick="openFlatNote(''+f.name+'','+i+')">'+
-        '<div class="nb-note-title">'+esc(n.title||'Untitled')+'</div>'+
-        '<div class="nb-note-prev">'+esc((n.text||'').slice(0,80))+'</div>'+
-        '<div class="nb-note-date">'+esc(n.date||'')+'</div></div>';
+      html+='<div class="nb-note-row" onclick="openFlatNote(''+f.name+'','+i+')">';
+      html+='<div class="nb-note-title">'+esc(n.title||'Untitled')+'</div>';
+      html+='<div class="nb-note-prev">'+esc((n.text||'').slice(0,80))+'</div>';
+      html+='<div class="nb-note-date">'+esc(n.date||'')+'</div></div>';
     });
     html+='<div class="nb-add-row" onclick="addFlatNote(''+f.name+'')"><div style="font-size:13px;color:#C8960C;font-weight:700;">+ New note</div></div>';
     html+='</div></div>';
   });
-
   document.getElementById('notesEl').innerHTML=html;
 }
 
 function toggleEl(id){ var e=document.getElementById(id); if(e)e.style.display=e.style.display==='none'?'block':'none'; }
 
-// TODAY NOTE
 function addToday(){
   var now=new Date();
   var yr=String(now.getFullYear()),mo=MONTHS[now.getMonth()],wk=weekLabel(now),dy=dayLabel(now);
@@ -475,14 +441,16 @@ function openDayNote(enc){
   var e=dn[yr][mo][wk][dy];
   edCtx={type:'daily',yr:yr,mo:mo,wk:wk,dy:dy};
   document.getElementById('edTitle').value=dy;
-  document.getElementById('edBody').innerHTML=
-    '<div class="ed-label">&#128293; 3 WINS TODAY</div>'+
-    [0,1,2].map(function(i){return '<input class="ed-input" id="win'+i+'" placeholder="Win '+(i+1)+'..." value="'+esc((e.wins||[])[i]||'')+'" />';}).join('')+
-    '<div class="ed-label" style="margin-top:20px;">&#128056; THE FROG</div>'+
-    '<input id="frogInp" class="ed-frog" placeholder="Most important thing today..." value="'+esc(e.frog||'')+'" />'+
-    '<div class="ed-hr"></div>'+
-    '<div class="ed-label">&#128203; NOTES</div>'+
-    '<textarea id="mainNote" class="ed-ta" placeholder="What happened? What did you learn? What would you do differently?">'+esc(e.text||'')+'</textarea>';
+  var b='<div class="ed-label">&#128293; 3 WINS TODAY</div>';
+  b+='<input class="ed-input" id="win0" placeholder="Win 1..." value="'+esc((e.wins||[])[0]||'')+'" />';
+  b+='<input class="ed-input" id="win1" placeholder="Win 2..." value="'+esc((e.wins||[])[1]||'')+'" />';
+  b+='<input class="ed-input" id="win2" placeholder="Win 3..." value="'+esc((e.wins||[])[2]||'')+'" />';
+  b+='<div class="ed-label" style="margin-top:20px;">&#128056; THE FROG</div>';
+  b+='<input id="frogInp" class="ed-frog" placeholder="Most important thing today..." value="'+esc(e.frog||'')+'" />';
+  b+='<div class="ed-hr"></div>';
+  b+='<div class="ed-label">&#128203; NOTES</div>';
+  b+='<textarea id="mainNote" class="ed-ta" placeholder="What happened? What did you learn?">'+esc(e.text||'')+'</textarea>';
+  document.getElementById('edBody').innerHTML=b;
   document.getElementById('noteEditor').classList.add('open');
   wireEditorSave();
 }
@@ -507,11 +475,7 @@ function addFlatNote(folder){
 
 function wireEditorSave(){
   document.getElementById('edBody').querySelectorAll('input,textarea').forEach(function(el){
-    el.addEventListener('input',function(){
-      saveEditorState();
-      var es=document.getElementById('edSaved'); if(es){es.textContent='saving...';es.style.color='#F39C12';}
-      schedSave();
-    });
+    el.addEventListener('input',function(){ saveEditorState(); schedSave(); });
   });
 }
 
@@ -519,23 +483,19 @@ function saveEditorState(){
   if(!edCtx)return;
   if(edCtx.type==='daily'){
     var dn=notes['Daily Notes'];
-    if(!dn[edCtx.yr]||!dn[edCtx.yr][edCtx.mo]||!dn[edCtx.yr][edCtx.mo][edCtx.wk]||!dn[edCtx.yr][edCtx.mo][edCtx.wk][edCtx.dy])return;
+    if(!dn||!dn[edCtx.yr]||!dn[edCtx.yr][edCtx.mo]||!dn[edCtx.yr][edCtx.mo][edCtx.wk]||!dn[edCtx.yr][edCtx.mo][edCtx.wk][edCtx.dy])return;
     var e=dn[edCtx.yr][edCtx.mo][edCtx.wk][edCtx.dy];
-    e.wins=[document.getElementById('win0').value,document.getElementById('win1').value,document.getElementById('win2').value];
+    var w0=document.getElementById('win0'),w1=document.getElementById('win1'),w2=document.getElementById('win2');
+    if(w0)e.wins=[w0.value,w1?w1.value:'',w2?w2.value:''];
     var fi=document.getElementById('frogInp'); if(fi)e.frog=fi.value;
     var mn=document.getElementById('mainNote'); if(mn)e.text=mn.value;
   } else {
-    var n=notes[edCtx.folder][edCtx.idx]; if(!n)return;
-    var mn=document.getElementById('mainNote'); if(mn)n.text=mn.value;
+    if(!notes[edCtx.folder]||!notes[edCtx.folder][edCtx.idx])return;
+    var mn=document.getElementById('mainNote'); if(mn)notes[edCtx.folder][edCtx.idx].text=mn.value;
   }
 }
 
-function closeEditor(){
-  saveEditorState();
-  doSave();
-  document.getElementById('noteEditor').classList.remove('open');
-  renderNotes();
-}
+function closeEditor(){ saveEditorState(); doSave(); document.getElementById('noteEditor').classList.remove('open'); renderNotes(); }
 
 // CONTACT MODAL
 function openC(id){
@@ -544,40 +504,43 @@ function openC(id){
   document.getElementById('m-n').textContent=c.name;
   document.getElementById('m-c').textContent=[c.company,c.state].filter(Boolean).join(' · ');
   var cns=c.callNotes||[];
-  document.getElementById('m-b').innerHTML=
-    '<div class="ms"><div class="mst">Stage</div>'+
-    '<select class="fi" id="stSel">'+STAGES.map(function(s){return'<option value="'+s.id+'"'+(c.stage===s.id?' selected':'')+'>'+s.name+'</option>';}).join('')+'</select>'+
-    (st.bp?'<div style="font-size:12px;color:#666;background:#F9F9F7;border:1px solid var(--b);border-radius:6px;padding:10px;line-height:1.6;">'+esc(st.bp)+'</div>':'')+
-    '</div>'+
-    '<div class="ms"><div class="mst">Income Goals — Gate Before Model</div>'+
-    '<div class="g2"><div><div class="fl">CURRENT INCOME</div><input class="fi" id="fIG" type="number" placeholder="e.g. 150000" value="'+(c.incomeGoal||'')+'"></div>'+
-    '<div><div class="fl">TARGET INCOME</div><input class="fi" id="fIT" type="number" placeholder="e.g. 250000" value="'+(c.incomeTarget||'')+'"></div></div>'+
-    (!c.incomeGoal?'<div style="font-size:11px;color:#C0392B;font-weight:700;">&#9888; Income goal not yet surfaced — required before advancing</div>':'')+
-    '</div>'+
-    '<div class="ms"><div class="mst">Contact Info</div>'+
-    '<div class="g2"><div><div class="fl">PHONE</div><input class="fi" id="fPh" placeholder="Phone" value="'+esc(c.phone||'')+'"></div>'+
-    '<div><div class="fl">EMAIL</div><input class="fi" id="fEm" placeholder="Email" value="'+esc(c.email||'')+'"></div></div>'+
-    '<div class="g2"><div><div class="fl">FOLLOW-UP DATE</div><input class="fi" id="fFU" type="date" value="'+(c.followUp||'')+'"></div>'+
-    '<div><div class="fl">VOLUME</div><input class="fi" id="fVol" type="number" placeholder="e.g. 20000000" value="'+(c.volume||'')+'"></div></div></div>'+
-    '<div class="ms"><div class="mst">Notes</div><textarea class="fta" id="fNt">'+esc(c.notes||'')+'</textarea></div>'+
-    '<div class="ms"><div class="mst">Call Notes ('+cns.length+')</div>'+
-    (cns.length?cns.slice().reverse().map(function(n){
+  var b='<div class="ms"><div class="mst">Stage</div>';
+  b+='<select class="fi" id="stSel">'+STAGES.map(function(s){return '<option value="'+s.id+'"'+(c.stage===s.id?' selected':'')+'>'+s.name+'</option>';}).join('')+'</select>';
+  if(st.bp) b+='<div style="font-size:12px;color:#666;background:#F9F9F7;border:1px solid var(--b);border-radius:6px;padding:10px;line-height:1.6;">'+esc(st.bp)+'</div>';
+  b+='</div>';
+  b+='<div class="ms"><div class="mst">Income Goals</div>';
+  b+='<div class="g2"><div><div class="fl">CURRENT INCOME</div><input class="fi" id="fIG" type="number" placeholder="e.g. 150000" value="'+(c.incomeGoal||'')+'"></div>';
+  b+='<div><div class="fl">TARGET INCOME</div><input class="fi" id="fIT" type="number" placeholder="e.g. 250000" value="'+(c.incomeTarget||'')+'"></div></div>';
+  if(!c.incomeGoal) b+='<div style="font-size:11px;color:#C0392B;font-weight:700;">&#9888; Income goal not yet surfaced</div>';
+  b+='</div>';
+  b+='<div class="ms"><div class="mst">Contact Info</div>';
+  b+='<div class="g2"><div><div class="fl">PHONE</div><input class="fi" id="fPh" placeholder="Phone" value="'+esc(c.phone||'')+'"></div>';
+  b+='<div><div class="fl">EMAIL</div><input class="fi" id="fEm" placeholder="Email" value="'+esc(c.email||'')+'"></div></div>';
+  b+='<div class="g2"><div><div class="fl">FOLLOW-UP DATE</div><input class="fi" id="fFU" type="date" value="'+(c.followUp||'')+'"></div>';
+  b+='<div><div class="fl">VOLUME</div><input class="fi" id="fVol" type="number" value="'+(c.volume||'')+'"></div></div></div>';
+  b+='<div class="ms"><div class="mst">Notes</div><textarea class="fta" id="fNt">'+esc(c.notes||'')+'</textarea></div>';
+  b+='<div class="ms"><div class="mst">Call Notes ('+cns.length+')</div>';
+  if(cns.length){
+    cns.slice().reverse().forEach(function(n){
       var tc=n.type==='Decision Call'?'#C0392B':n.type.indexOf('Pro Forma')!==-1?'#8E44AD':n.type.indexOf('Mike')!==-1?'#27AE60':n.type==='Call 1'?'#C8960C':'#555';
-      return'<div class="cnbox"><div class="cnhd"><span class="cntag" style="background:'+tc+'">'+esc(n.type)+'</span><span class="cndt">'+esc(n.date)+'</span></div><div class="cntxt">'+esc(n.text)+'</div></div>';
-    }).join(''):'<div style="font-size:12px;color:var(--mu);padding:6px 0;">No call notes yet.</div>')+
-    '<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--b);">'+
-    '<div class="mst">ADD CALL NOTE</div>'+
-    '<div class="nt-row" id="ntRow">'+['Call 1','Pro Forma','Mike + Dave','Decision Call','Follow-Up','Other'].map(function(t){return'<button class="nt'+(selNT===t?' on':'')+'" onclick="selNT=''+t+'';document.querySelectorAll('.nt').forEach(function(b){b.classList.remove('on')});this.classList.add('on')">'+t+'</button>';}).join('')+'</div>'+
-    '<textarea class="fta" id="nnt" placeholder="What happened? Income goal surfaced? Objections? Next step?" rows="3"></textarea>'+
-    '<button class="sbtn" style="margin-top:8px" onclick="addCN(''+id+'')">+ Save Call Note</button></div></div>'+
-    '<button class="sbtn" onclick="saveC(''+id+'');closeModal()">Save &amp; Close</button>'+
-    '<button class="xbtn" onclick="closeModal()">Close</button>';
+      b+='<div class="cnbox"><div class="cnhd"><span class="cntag" style="background:'+tc+'">'+esc(n.type)+'</span><span class="cndt">'+esc(n.date)+'</span></div><div class="cntxt">'+esc(n.text)+'</div></div>';
+    });
+  } else {
+    b+='<div style="font-size:12px;color:var(--mu);padding:6px 0;">No call notes yet.</div>';
+  }
+  b+='<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--b);"><div class="mst">ADD CALL NOTE</div>';
+  b+='<div class="nt-row">'+['Call 1','Pro Forma','Mike + Dave','Decision Call','Follow-Up','Other'].map(function(t){return '<button class="nt'+(selNT===t?' on':'')+'" onclick="selNT=''+t+'';document.querySelectorAll('.nt').forEach(function(b){b.classList.remove('on')});this.classList.add('on')">'+t+'</button>';}).join('')+'</div>';
+  b+='<textarea class="fta" id="nnt" placeholder="What happened? Income goal surfaced? Objections? Next step?" rows="3"></textarea>';
+  b+='<button class="sbtn" style="margin-top:8px" onclick="addCN(''+id+'')">+ Save Call Note</button></div></div>';
+  b+='<button class="sbtn" onclick="saveC(''+id+'');closeModal()">Save &amp; Close</button>';
+  b+='<button class="xbtn" onclick="closeModal()">Close</button>';
+  document.getElementById('m-b').innerHTML=b;
   document.getElementById('modal').classList.add('on');
 }
 
 function saveC(id){
   var c=contacts.find(function(x){return x.id===id;}); if(!c)return;
-  var g=function(i){var e=document.getElementById(i);return e?e.value:'';};
+  function g(i){var e=document.getElementById(i);return e?e.value:'';}
   var st=g('stSel'); if(st){c.stage=st;c.stageName=(SM[st]||{}).name||st;}
   c.incomeGoal=parseFloat(g('fIG'))||null;
   c.incomeTarget=parseFloat(g('fIT'))||null;
@@ -605,7 +568,7 @@ function openAdd(pl){
 function addContact(){ openAdd(curTab==='re'?'re':'lo'); }
 document.getElementById('modal').addEventListener('click',function(e){if(e.target===this)closeModal();});
 
-// IMPORT CRM
+// IMPORT
 function importCRM(ev){
   var file=ev.target.files[0]; if(!file)return;
   var reader=new FileReader();
@@ -660,7 +623,7 @@ function setColor(c,e){pc=c;document.querySelectorAll('.cdot').forEach(function(
 function clrCanvas(){if(!confirm('Clear canvas?'))return;var c=document.getElementById('cvs');c.getContext('2d').clearRect(0,0,c.width,c.height);}
 function savePng(){var c=document.getElementById('cvs'),a=document.createElement('a');a.download='sketch-'+new Date().toISOString().slice(0,10)+'.png';a.href=c.toDataURL();a.click();}
 
-// TAB SWITCH
+// TABS
 function sw(id,el){
   curTab=id;
   document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
@@ -678,14 +641,17 @@ function renderAll(){
   try{renderNotes();}catch(e){console.log('Notes:',e);}
 }
 
-// INIT
 loadCloud();
+
+function renderActive(){ if(curTab==='lo')renderLO(); else if(curTab==='re')renderRE(); }
 </script>
 
 <script>
+
 var CORRECT_PIN = '1107';
 var PIN_SESSION_KEY = 'pin_unlocked';
 var pinEntry = '';
+
 function checkPinSession() {
   if(sessionStorage.getItem(PIN_SESSION_KEY) === '1') {
     document.getElementById('pinOverlay').style.display = 'none';
@@ -697,7 +663,7 @@ function pinPress(d) {
   if(pinEntry.length >= 4) return;
   pinEntry += d;
   updatePinDots();
-  if(pinEntry.length === 4) setTimeout(checkPin, 150);
+  if(pinEntry.length === 4) { setTimeout(checkPin, 150); }
 }
 function pinDel() {
   pinEntry = pinEntry.slice(0,-1);
@@ -705,7 +671,9 @@ function pinDel() {
   document.getElementById('pinError').textContent = '';
 }
 function updatePinDots() {
-  for(var i=0;i<4;i++) document.getElementById('pd'+i).classList.toggle('filled', i < pinEntry.length);
+  for(let i=0;i<4;i++) {
+    document.getElementById('pd'+i).classList.toggle('filled', i < pinEntry.length);
+  }
 }
 function checkPin() {
   if(pinEntry === CORRECT_PIN) {
@@ -713,20 +681,28 @@ function checkPin() {
     var ov = document.getElementById('pinOverlay');
     ov.style.transition = 'opacity 0.3s';
     ov.style.opacity = '0';
-    setTimeout(function(){ ov.style.display='none'; }, 300);
+    setTimeout(() => ov.style.display = 'none', 300);
   } else {
-    document.getElementById('pinError').textContent = 'Incorrect PIN.';
+    document.getElementById('pinError').textContent = 'Incorrect PIN. Try again.';
     pinEntry = '';
     updatePinDots();
     var dots = document.getElementById('pinDots');
-    dots.style.transform='translateX(8px)';
-    setTimeout(function(){dots.style.transform='translateX(-8px)';},100);
-    setTimeout(function(){dots.style.transform='translateX(0)';},200);
+    dots.style.transition = 'transform 0.1s';
+    dots.style.transform = 'translateX(8px)';
+    setTimeout(()=>dots.style.transform='translateX(-8px)',100);
+    setTimeout(()=>dots.style.transform='translateX(0)',200);
   }
 }
 if(!checkPinSession()) {
   document.getElementById('pinOverlay').style.display = 'flex';
 }
+document.addEventListener('DOMContentLoaded', function() {
+  if(!checkPinSession()) {
+    document.getElementById('pinOverlay').style.display = 'flex';
+  }
+});
+
 </script>
+
 </body>
 </html>

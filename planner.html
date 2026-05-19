@@ -1113,7 +1113,8 @@ window.onload = () => {
 };
 </script>
 
-<script>
+<script
+
 var CORRECT_PIN = '1107';
 var PIN_SESSION_KEY = 'pin_unlocked';
 var pinEntry = '';
@@ -1125,40 +1126,57 @@ function checkPinSession() {
   }
   return false;
 }
+
 function pinPress(d) {
   if(pinEntry.length >= 4) return;
   pinEntry += d;
   updatePinDots();
-  if(pinEntry.length === 4) setTimeout(checkPin, 150);
+  if(pinEntry.length === 4) {
+    setTimeout(checkPin, 150);
+  }
 }
+
 function pinDel() {
   pinEntry = pinEntry.slice(0,-1);
   updatePinDots();
   document.getElementById('pinError').textContent = '';
 }
+
 function updatePinDots() {
-  for(var i=0;i<4;i++) document.getElementById('pd'+i).classList.toggle('filled', i < pinEntry.length);
+  for(let i=0;i<4;i++) {
+    document.getElementById('pd'+i).classList.toggle('filled', i < pinEntry.length);
+  }
 }
+
 function checkPin() {
   if(pinEntry === CORRECT_PIN) {
     sessionStorage.setItem(PIN_SESSION_KEY, '1');
     var ov = document.getElementById('pinOverlay');
     ov.style.transition = 'opacity 0.3s';
     ov.style.opacity = '0';
-    setTimeout(function(){ ov.style.display='none'; }, 300);
+    setTimeout(() => ov.style.display = 'none', 300);
   } else {
-    document.getElementById('pinError').textContent = 'Incorrect PIN.';
+    document.getElementById('pinError').textContent = 'Incorrect PIN. Try again.';
     pinEntry = '';
     updatePinDots();
     var dots = document.getElementById('pinDots');
-    dots.style.transform='translateX(8px)';
-    setTimeout(function(){dots.style.transform='translateX(-8px)';},100);
-    setTimeout(function(){dots.style.transform='translateX(0)';},200);
+    dots.style.transition = 'transform 0.1s';
+    dots.style.transform = 'translateX(8px)';
+    setTimeout(()=>dots.style.transform='translateX(-8px)',100);
+    setTimeout(()=>dots.style.transform='translateX(0)',200);
   }
 }
+
 if(!checkPinSession()) {
   document.getElementById('pinOverlay').style.display = 'flex';
 }
+
+document.addEventListener('DOMContentLoaded', function() {
+  if(!checkPinSession()) {
+    document.getElementById('pinOverlay').style.display = 'flex';
+  }
+});
+
 </script>
 </body>
 </html>

@@ -63,9 +63,51 @@ html,body{background:var(--bg);font-family:-apple-system,'SF Pro Display',sans-s
 .phase-card{border-radius:10px;padding:16px;margin-bottom:12px;}
 .phase-title-bar{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
 .nav-link{display:block;text-align:center;padding:12px;background:#111;color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;margin-top:16px;}
+
+.pin-overlay{position:fixed;inset:0;background:#111;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;}
+.pin-label{font-size:9px;letter-spacing:3px;color:#C8960C;font-weight:800;margin-bottom:16px;font-family:monospace;}
+.pin-title{font-size:26px;font-weight:900;color:#fff;margin-bottom:8px;}
+.pin-sub{font-size:13px;color:#555;margin-bottom:32px;text-align:center;}
+.pin-dots{display:flex;gap:16px;margin-bottom:32px;}
+.pin-dot{width:16px;height:16px;border-radius:50%;border:2px solid #333;background:transparent;transition:all 0.15s;}
+.pin-dot.filled{background:#C8960C;border-color:#C8960C;}
+.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:240px;}
+.pin-btn{height:64px;border-radius:12px;border:1px solid #222;background:#1a1a1a;color:#fff;font-size:22px;font-weight:700;cursor:pointer;transition:all 0.1s;}
+.pin-btn:active{background:#2a2a2a;transform:scale(0.95);}
+.pin-btn.zero{grid-column:2;}
+.pin-btn.del{background:transparent;border-color:#333;color:#555;font-size:16px;}
+.pin-error{font-size:13px;color:#C0392B;margin-top:16px;font-weight:700;min-height:20px;}
+
 </style>
 </head>
 <body>
+
+<div class="pin-overlay" id="pinOverlay">
+  <div class="pin-label">PERSONAL OPERATING SYSTEM</div>
+  <div class="pin-title">Enter PIN</div>
+  <div class="pin-sub">Your apps are private.</div>
+  <div class="pin-dots" id="pinDots">
+    <div class="pin-dot" id="pd0"></div>
+    <div class="pin-dot" id="pd1"></div>
+    <div class="pin-dot" id="pd2"></div>
+    <div class="pin-dot" id="pd3"></div>
+  </div>
+  <div class="pin-pad">
+    <button class="pin-btn" onclick="pinPress('1')">1</button>
+    <button class="pin-btn" onclick="pinPress('2')">2</button>
+    <button class="pin-btn" onclick="pinPress('3')">3</button>
+    <button class="pin-btn" onclick="pinPress('4')">4</button>
+    <button class="pin-btn" onclick="pinPress('5')">5</button>
+    <button class="pin-btn" onclick="pinPress('6')">6</button>
+    <button class="pin-btn" onclick="pinPress('7')">7</button>
+    <button class="pin-btn" onclick="pinPress('8')">8</button>
+    <button class="pin-btn" onclick="pinPress('9')">9</button>
+    <button class="pin-btn zero" onclick="pinPress('0')">0</button>
+    <button class="pin-btn del" onclick="pinDel()">⌫</button>
+  </div>
+  <div class="pin-error" id="pinError"></div>
+</div>
+
 
 <div class="header">
   <div class="header-label">PERSONAL BLUEPRINT — MAY 2026</div>
@@ -480,5 +522,76 @@ function showTab(id, el) {
   window.scrollTo(0, 0);
 }
 </script>
+
+<script>
+
+// ── PIN LOCK ─────────────────────────────────────────────
+const CORRECT_PIN = '1107';
+const PIN_SESSION_KEY = 'pin_unlocked';
+let pinEntry = '';
+
+function checkPinSession() {
+  // Stays unlocked for the session (until browser is closed)
+  if(sessionStorage.getItem(PIN_SESSION_KEY) === '1') {
+    document.getElementById('pinOverlay').style.display = 'none';
+    return true;
+  }
+  return false;
+}
+
+function pinPress(d) {
+  if(pinEntry.length >= 4) return;
+  pinEntry += d;
+  updatePinDots();
+  if(pinEntry.length === 4) {
+    setTimeout(checkPin, 150);
+  }
+}
+
+function pinDel() {
+  pinEntry = pinEntry.slice(0,-1);
+  updatePinDots();
+  document.getElementById('pinError').textContent = '';
+}
+
+function updatePinDots() {
+  for(let i=0;i<4;i++) {
+    document.getElementById('pd'+i).classList.toggle('filled', i < pinEntry.length);
+  }
+}
+
+function checkPin() {
+  if(pinEntry === CORRECT_PIN) {
+    sessionStorage.setItem(PIN_SESSION_KEY, '1');
+    const ov = document.getElementById('pinOverlay');
+    ov.style.transition = 'opacity 0.3s';
+    ov.style.opacity = '0';
+    setTimeout(() => ov.style.display = 'none', 300);
+  } else {
+    document.getElementById('pinError').textContent = 'Incorrect PIN. Try again.';
+    pinEntry = '';
+    updatePinDots();
+    // Shake animation
+    const dots = document.getElementById('pinDots');
+    dots.style.transition = 'transform 0.1s';
+    dots.style.transform = 'translateX(8px)';
+    setTimeout(()=>dots.style.transform='translateX(-8px)',100);
+    setTimeout(()=>dots.style.transform='translateX(0)',200);
+  }
+}
+
+// Check on load
+if(!checkPinSession()) {
+  document.getElementById('pinOverlay').style.display = 'flex';
+}
+
+// Run pin check on load
+document.addEventListener('DOMContentLoaded', function() {
+  if(!checkPinSession()) {
+    document.getElementById('pinOverlay').style.display = 'flex';
+  }
+});
+</script>
+
 </body>
 </html>

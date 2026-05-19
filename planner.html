@@ -1112,81 +1112,53 @@ window.onload = () => {
   loadFromCloud().then(render);
 };
 </script>
-</body>
-</html>
-<script>
 
-// ── PIN LOCK ─────────────────────────────────────────────
+<script>
 var CORRECT_PIN = '1107';
 var PIN_SESSION_KEY = 'pin_unlocked';
 var pinEntry = '';
 
 function checkPinSession() {
-  // Stays unlocked for the session (until browser is closed)
   if(sessionStorage.getItem(PIN_SESSION_KEY) === '1') {
     document.getElementById('pinOverlay').style.display = 'none';
     return true;
   }
   return false;
 }
-
 function pinPress(d) {
   if(pinEntry.length >= 4) return;
   pinEntry += d;
   updatePinDots();
-  if(pinEntry.length === 4) {
-    setTimeout(checkPin, 150);
-  }
+  if(pinEntry.length === 4) setTimeout(checkPin, 150);
 }
-
 function pinDel() {
   pinEntry = pinEntry.slice(0,-1);
   updatePinDots();
   document.getElementById('pinError').textContent = '';
 }
-
 function updatePinDots() {
-  for(let i=0;i<4;i++) {
-    document.getElementById('pd'+i).classList.toggle('filled', i < pinEntry.length);
-  }
+  for(var i=0;i<4;i++) document.getElementById('pd'+i).classList.toggle('filled', i < pinEntry.length);
 }
-
 function checkPin() {
   if(pinEntry === CORRECT_PIN) {
     sessionStorage.setItem(PIN_SESSION_KEY, '1');
     var ov = document.getElementById('pinOverlay');
     ov.style.transition = 'opacity 0.3s';
     ov.style.opacity = '0';
-    setTimeout(() => ov.style.display = 'none', 300);
+    setTimeout(function(){ ov.style.display='none'; }, 300);
   } else {
-    document.getElementById('pinError').textContent = 'Incorrect PIN. Try again.';
+    document.getElementById('pinError').textContent = 'Incorrect PIN.';
     pinEntry = '';
     updatePinDots();
-    // Shake animation
     var dots = document.getElementById('pinDots');
-    dots.style.transition = 'transform 0.1s';
-    dots.style.transform = 'translateX(8px)';
-    setTimeout(()=>dots.style.transform='translateX(-8px)',100);
-    setTimeout(()=>dots.style.transform='translateX(0)',200);
+    dots.style.transform='translateX(8px)';
+    setTimeout(function(){dots.style.transform='translateX(-8px)';},100);
+    setTimeout(function(){dots.style.transform='translateX(0)';},200);
   }
 }
-
-// Check on load
 if(!checkPinSession()) {
   document.getElementById('pinOverlay').style.display = 'flex';
 }
-
-// Run pin check on load
-document.addEventListener('DOMContentLoaded', function() {
-  if(!checkPinSession()) {
-    document.getElementById('pinOverlay').style.display = 'flex';
-  }
-});
-</script>
-
-window.onload = () => {
-  loadFromCloud().then(render);
-};
 </script>
 </body>
 </html>

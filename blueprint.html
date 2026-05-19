@@ -526,9 +526,9 @@ function showTab(id, el) {
 <script>
 
 // ── PIN LOCK ─────────────────────────────────────────────
-const CORRECT_PIN = '1107';
-const PIN_SESSION_KEY = 'pin_unlocked';
-let pinEntry = '';
+var CORRECT_PIN = '1107';
+var PIN_SESSION_KEY = 'pin_unlocked';
+var pinEntry = '';
 
 function checkPinSession() {
   // Stays unlocked for the session (until browser is closed)
@@ -563,7 +563,7 @@ function updatePinDots() {
 function checkPin() {
   if(pinEntry === CORRECT_PIN) {
     sessionStorage.setItem(PIN_SESSION_KEY, '1');
-    const ov = document.getElementById('pinOverlay');
+    var ov = document.getElementById('pinOverlay');
     ov.style.transition = 'opacity 0.3s';
     ov.style.opacity = '0';
     setTimeout(() => ov.style.display = 'none', 300);
@@ -572,7 +572,7 @@ function checkPin() {
     pinEntry = '';
     updatePinDots();
     // Shake animation
-    const dots = document.getElementById('pinDots');
+    var dots = document.getElementById('pinDots');
     dots.style.transition = 'transform 0.1s';
     dots.style.transform = 'translateX(8px)';
     setTimeout(()=>dots.style.transform='translateX(-8px)',100);
@@ -594,4 +594,5 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 </body>
+</html>
 </html>

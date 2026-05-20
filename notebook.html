@@ -122,6 +122,63 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
 .cdot{width:22px;height:22px;border-radius:50%;cursor:pointer;border:2px solid transparent;flex-shrink:0;}
 .cdot.on{border-color:#111;}
 .autosave{font-size:10px;color:#555;font-family:monospace;}
+
+
+/* Action buttons */
+.nb-act-btn{height:38px;padding:0 12px;border-radius:9px;border:1.5px solid rgba(255,255,255,0.12);
+  background:rgba(255,255,255,0.07);color:rgba(255,255,255,0.75);cursor:pointer;
+  font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;
+  letter-spacing:0.5px;transition:all 0.15s;flex-shrink:0;min-width:38px;}
+.nb-act-btn:active{background:rgba(255,255,255,0.18);}
+.nb-clr-btn{color:rgba(255,80,80,0.9);border-color:rgba(255,80,80,0.2);}
+
+/* ═══ FULL SCREEN NOTEBOOK ═══ */
+.nb-editor-wrap{position:fixed;inset:0;z-index:700;display:none;flex-direction:column;overflow:hidden;}
+.nb-editor-wrap.open{display:flex;}
+/* Full screen canvas area - paper IS the screen */
+.nb-canvas-area{flex:1;position:relative;overflow:hidden;}
+canvas.nb-bg-cv{position:absolute;inset:0;display:block;touch-action:none;}
+canvas.nb-ink-cv{position:absolute;inset:0;display:block;touch-action:none;cursor:crosshair;}
+/* Floating top toolbar */
+.nb-top{position:absolute;top:0;left:0;right:0;z-index:10;height:50px;
+  background:rgba(18,18,20,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-bottom:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;padding:0 14px;gap:10px;}
+.nb-back-btn{width:34px;height:34px;border-radius:8px;border:none;
+  background:rgba(200,150,12,0.15);color:#C8960C;cursor:pointer;
+  font-size:18px;font-weight:700;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.nb-top-title{flex:1;color:#fff;font-size:14px;font-weight:600;
+  font-family:Georgia,serif;font-style:italic;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.nb-save-pill{font-size:10px;font-family:monospace;padding:3px 9px;border-radius:10px;
+  background:rgba(48,209,88,0.15);color:#30D158;flex-shrink:0;transition:all 0.3s;}
+.nb-save-pill.busy{background:rgba(255,159,10,0.15);color:#FF9F0A;}
+.nb-style-row{display:flex;gap:5px;align-items:center;}
+.nb-sty{width:22px;height:22px;border-radius:5px;cursor:pointer;
+  border:2px solid transparent;transition:all 0.15s;flex-shrink:0;}
+.nb-sty.on{border-color:#C8960C;box-shadow:0 0 0 1px #C8960C;}
+/* Floating bottom toolbar */
+.nb-bottom{position:absolute;bottom:0;left:0;right:0;z-index:10;height:54px;
+  background:rgba(18,18,20,0.88);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  border-top:1px solid rgba(255,255,255,0.07);display:flex;align-items:center;padding:0 12px;gap:5px;}
+.nb-tbtn{width:38px;height:38px;border-radius:9px;border:1.5px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.05);color:rgba(255,255,255,0.65);cursor:pointer;
+  font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;flex-shrink:0;}
+.nb-tbtn.on{background:rgba(200,150,12,0.2);border-color:#C8960C;color:#C8960C;}
+.nb-tbtn:active{transform:scale(0.88);}
+.nb-pdiv{width:1px;height:26px;background:rgba(255,255,255,0.08);margin:0 3px;flex-shrink:0;}
+.nb-swatch{width:26px;height:26px;border-radius:50%;cursor:pointer;
+  border:2.5px solid transparent;transition:all 0.15s;flex-shrink:0;}
+.nb-swatch.on{border-color:#fff;transform:scale(1.2);}
+.nb-sz-wrap{display:flex;align-items:center;gap:6px;flex:1;padding:0 4px;}
+.nb-sz-sm{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,0.3);flex-shrink:0;}
+.nb-sz-lg{width:13px;height:13px;border-radius:50%;background:rgba(255,255,255,0.5);flex-shrink:0;}
+input.nb-sz-r{flex:1;max-width:80px;accent-color:#C8960C;cursor:pointer;}
+.nb-pnav{display:flex;align-items:center;gap:8px;margin-left:auto;}
+.nb-pbtn{width:34px;height:34px;border-radius:8px;border:1.5px solid rgba(255,255,255,0.1);
+  background:rgba(255,255,255,0.06);color:rgba(255,255,255,0.7);cursor:pointer;
+  font-size:16px;display:flex;align-items:center;justify-content:center;transition:all 0.15s;}
+.nb-pbtn:disabled{opacity:0.2;cursor:default;}
+.nb-plabel{font-size:11px;color:rgba(255,255,255,0.4);font-family:monospace;
+  min-width:64px;text-align:center;letter-spacing:0.3px;}
 </style>
 </head>
 <body>
@@ -155,10 +212,10 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,sans-serif;
 <div class="editor" id="noteEditor">
   <div class="ed-hd">
     <button class="ed-back" onclick="closeEditor()">&#8592; Back</button>
-    <input class="ed-title" id="edTitle" placeholder="Title..." />
+    <input class="ed-title" id="edTitle" placeholder="Title..." style="font-family:Georgia,serif;font-style:italic;" />
     <span class="autosave ed-saved" id="edSaved">saved</span>
   </div>
-  <div class="ed-body" id="edBody"></div>
+  <div class="ed-body" id="edBody" style="padding:0;display:flex;flex-direction:column;"></div>
 </div>
 
 <input type="file" id="crmFile" accept=".json" style="display:none" onchange="importCRM(event)" />
@@ -355,94 +412,94 @@ function renderLO(){ renderStats('lo-stats','lo'); renderPipe('lo-pipe','lo'); }
 function renderRE(){ renderStats('re-stats','re'); renderPipe('re-pipe','re'); }
 
 // NOTEBOOK
-function tel(id){ return 'onclick="toggleEl(\'' + id + '\')"'; }
 function renderNotes() {
   if(!notes['Daily Notes']||Array.isArray(notes['Daily Notes'])) notes['Daily Notes']={};
   var dn=notes['Daily Notes'];
-  var years=Object.keys(dn).sort().reverse();
   var html='';
+
+  // Collect all daily entries flat
+  var allEntries=[];
+  Object.keys(dn).forEach(function(yr){
+    Object.keys(dn[yr]||{}).forEach(function(mo){
+      Object.keys(dn[yr][mo]||{}).forEach(function(wk){
+        Object.keys(dn[yr][mo][wk]||{}).forEach(function(day){
+          var e=dn[yr][mo][wk][day]||{};
+          var encoded=btoa(yr+'|'+mo+'|'+wk+'|'+day);
+          allEntries.push({day:day,e:e,encoded:encoded});
+        });
+      });
+    });
+  });
 
   // Daily Notes section
   html+='<div class="nb-section">';
-  html+='<div class="nb-sec-hd" '+tel('nbd')+'>';
+  html+='<div class="nb-sec-hd" data-toggle="nbDailyBody">';
   html+='<div class="nb-sec-name">&#128197; Daily Notes</div>';
-  html+='<button onclick="event.stopPropagation();addToday()" style="font-size:11px;font-weight:800;padding:5px 12px;border-radius:6px;border:none;background:#C8960C;color:#111;cursor:pointer;">+ Today</button>';
-  html+='</div>';
-  html+='<div id="nbd" style="display:none;">';
-  if(years.length){
-    years.forEach(function(yr){
-      var months=Object.keys(dn[yr]||{}).sort(function(a,b){return MONTHS.indexOf(b)-MONTHS.indexOf(a);});
-      var yid='nby'+yr;
-      html+='<div class="nb-year-hd" '+tel(yid)+'>';
-      html+='<span class="nb-year-label">&#128198; '+yr+'</span>';
-      html+='<span style="font-size:11px;color:var(--mu)"> '+months.length+' months</span>';
-      html+='</div>';
-      html+='<div id="'+yid+'" style="display:none;">';
-      months.forEach(function(mo){
-        var weeks=Object.keys(dn[yr][mo]||{}).sort().reverse();
-        var mid='nbm'+yr+mo.replace(/ /g,'_');
-        html+='<div class="nb-month-hd" '+tel(mid)+'>';
-        html+='<span style="font-size:13px;font-weight:800;">&#128197; '+mo+'</span>';
-        html+='<span style="font-size:10px;color:var(--mu)"> '+weeks.length+' wks</span>';
-        html+='</div>';
-        html+='<div id="'+mid+'" style="display:none;">';
-        weeks.forEach(function(wk){
-          var days=Object.keys(dn[yr][mo][wk]||{}).sort().reverse();
-          var wid='nbw'+(yr+mo+wk).replace(/ /g,'_');
-          html+='<div class="nb-week-hd" '+tel(wid)+'>';
-          html+='<span style="font-size:12px;color:var(--t2);font-weight:700;">&#128467; '+wk+'</span>';
-          html+='<span style="font-size:10px;color:var(--mu)"> '+days.length+' days</span>';
-          html+='</div>';
-          html+='<div id="'+wid+'" style="display:none;">';
-          days.forEach(function(day){
-            var e=dn[yr][mo][wk][day]||{};
-            var encoded=btoa(yr+'|'+mo+'|'+wk+'|'+day);
-            var wins=(e.wins||[]).filter(function(w){return w;}).length;
-            html+='<div class="nb-day-row" onclick="openDayNote(\''+encoded+'\')">';
-            html+='<div>';
-            html+='<div style="font-size:13px;font-weight:700;">'+esc(day)+'</div>';
-            if(e.text) html+='<div style="font-size:11px;color:var(--mu)">'+esc(e.text.slice(0,60))+'</div>';
-            if(wins) html+='<div style="font-size:10px;color:#27AE60;font-weight:700;">&#128293; '+wins+' win'+(wins!==1?'s':'')+'</div>';
-            html+='</div>';
-            html+='<span style="color:var(--mu);font-size:18px;">&#8250;</span>';
-            html+='</div>';
-          });
-          html+='</div>';
-        });
-        html+='</div>';
-      });
+  html+='<div style="display:flex;align-items:center;gap:8px;">';
+  html+='<button onclick="event.stopPropagation();addToday()" style="font-size:11px;font-weight:800;padding:5px 11px;border-radius:6px;border:none;background:#C8960C;color:#111;cursor:pointer;">+ Today</button>';
+  html+='<span style="font-size:12px;color:var(--mu)">'+allEntries.length+'</span>';
+  html+='</div></div>';
+  html+='<div id="nbDailyBody" style="display:none;">';
+  if(allEntries.length){
+    allEntries.forEach(function(entry){
+      var e=entry.e;
+      var wins=(e.wins||[]).filter(function(w){return w;}).length;
+      var hasCanvas=e.pages&&e.pages.some(function(p){return p;});
+      html+='<div class="nb-note-row" data-enc="'+entry.encoded+'" onclick="openDayNote(this.dataset.enc)">';
+      html+='<div style="flex:1;">';
+      html+='<div class="nb-note-title">'+esc(entry.day)+'</div>';
+      html+='<div style="display:flex;gap:10px;margin-top:3px;">';
+      if(wins) html+='<span style="color:#27AE60;font-size:11px;">&#128293; '+wins+' win'+(wins!==1?'s':'')+'</span>';
+      if(hasCanvas) html+='<span style="color:#C8960C;font-size:11px;">&#9998; notes</span>';
+      if(!wins&&!hasCanvas) html+='<span style="color:var(--mu);font-size:11px;">Empty</span>';
+      html+='</div></div>';
+      html+='<span style="color:var(--mu);font-size:18px;line-height:1;">&#8250;</span>';
       html+='</div>';
     });
   } else {
-    html+='<div style="padding:20px;font-size:13px;color:var(--mu);text-align:center;">No daily notes yet. Tap + Today to start.</div>';
+    html+='<div style="padding:20px 16px;font-size:13px;color:var(--mu);text-align:center;">No daily notes yet. Tap + Today to start.</div>';
   }
   html+='</div></div>';
 
   // Flat folders
-  var flatFolders=[{name:'Goals',icon:'&#127919;'},{name:'Call Scripts',icon:'&#128222;'},{name:'Market Notes',icon:'&#128205;'},{name:'Personal',icon:'&#128100;'}];
-  flatFolders.forEach(function(f){
+  var FOLDERS=[
+    {name:'Goals',        icon:'&#127919;', id:'f0'},
+    {name:'Call Scripts', icon:'&#128222;', id:'f1'},
+    {name:'Market Notes', icon:'&#128205;', id:'f2'},
+    {name:'Personal',     icon:'&#128100;', id:'f3'},
+  ];
+  FOLDERS.forEach(function(f){
     var items=(notes[f.name]&&Array.isArray(notes[f.name]))?notes[f.name]:[];
-    var fid='nbf'+f.name.replace(/ /g,'_');
     html+='<div class="nb-section">';
-    html+='<div class="nb-sec-hd" '+tel(fid)+'>';
+    html+='<div class="nb-sec-hd" data-toggle="'+f.id+'">';
     html+='<div class="nb-sec-name">'+f.icon+' '+f.name+'</div>';
     html+='<span style="font-size:12px;color:var(--mu)">'+items.length+'</span>';
     html+='</div>';
-    html+='<div id="'+fid+'" style="display:none;">';
+    html+='<div id="'+f.id+'" style="display:none;">';
     items.forEach(function(n,i){
-      html+='<div class="nb-note-row" onclick="openFlatNote(\''+f.name+'\','+i+')">';
+      html+='<div class="nb-note-row" data-folder="'+f.name+'" data-idx="'+i+'" onclick="openFlatNote(this.dataset.folder,+this.dataset.idx)">';
       html+='<div class="nb-note-title">'+esc(n.title||'Untitled')+'</div>';
       html+='<div class="nb-note-prev">'+esc((n.text||'').slice(0,80))+'</div>';
       html+='<div class="nb-note-date">'+esc(n.date||'')+'</div>';
       html+='</div>';
     });
-    html+='<div class="nb-add-row" onclick="addFlatNote(\''+f.name+'\')">';
+    html+='<div class="nb-add-row" data-addf="'+f.name+'" onclick="addFlatNote(this.dataset.addf)">';
     html+='<div style="font-size:13px;color:#C8960C;font-weight:700;">+ New note</div>';
     html+='</div>';
     html+='</div></div>';
   });
 
   document.getElementById('notesEl').innerHTML=html;
+
+  // Wire toggles via data attributes - no inline quote issues
+  document.querySelectorAll('[data-toggle]').forEach(function(hd){
+    hd.style.cursor='pointer';
+    hd.onclick=function(e){
+      if(e.target.tagName==='BUTTON')return;
+      var t=document.getElementById(this.dataset.toggle);
+      if(t)t.style.display=t.style.display==='none'?'block':'none';
+    };
+  });
 }
 
 
@@ -460,45 +517,386 @@ function addToday(){
   openDayNote(btoa(yr+'|'+mo+'|'+wk+'|'+dy));
 }
 
+
+
+// ═══ FULL SCREEN NOTEBOOK ═══════════════════════════════════
+var NB = {
+  bgCv:null, bgCtx:null, // background (lines/paper color)
+  inkCv:null, inkCtx:null, // strokes only (transparent bg)
+  drawing:false, lx:0, ly:0,
+  tool:'pen', color:'#1a1a1a', size:2.5,
+  pages:[], page:0, undo:[],
+  style:'cream', ref:null, timer:null,
+  dpr:1, pw:0, ph:0, pressure:1
+};
+
+var PAPER = {
+  cream:  {bg:'#FAF7EA', line:'#BFD0E8', margin:'#D97070'},
+  white:  {bg:'#FFFFFF', line:'#B8C9E0', margin:'#D97070'},
+  yellow: {bg:'#FFFDE7', line:'#C8B400', margin:'#C86060'},
+  dark:   {bg:'#1A1D26', line:'#2E3D5A', margin:'#6B2828'},
+  graph:  {bg:'#FAF7EA', line:'#BFD0E8', margin:'#D97070'}
+};
+
 function openDayNote(enc){
   var parts=atob(enc).split('|');
   var yr=parts[0],mo=parts[1],wk=parts[2],dy=parts[3];
   var dn=notes['Daily Notes'];
   if(!dn||!dn[yr]||!dn[yr][mo]||!dn[yr][mo][wk]||!dn[yr][mo][wk][dy])return;
   var e=dn[yr][mo][wk][dy];
-  edCtx={type:'daily',yr:yr,mo:mo,wk:wk,dy:dy};
-  document.getElementById('edTitle').value=dy;
-  var b='<div class="ed-label">&#128293; 3 WINS TODAY</div>';
-  b+='<input class="ed-input" id="win0" placeholder="Win 1..." value="'+esc((e.wins||[])[0]||'')+'" />';
-  b+='<input class="ed-input" id="win1" placeholder="Win 2..." value="'+esc((e.wins||[])[1]||'')+'" />';
-  b+='<input class="ed-input" id="win2" placeholder="Win 3..." value="'+esc((e.wins||[])[2]||'')+'" />';
-  b+='<div class="ed-label" style="margin-top:20px;">&#128056; THE FROG</div>';
-  b+='<input id="frogInp" class="ed-frog" placeholder="Most important thing today..." value="'+esc(e.frog||'')+'" />';
-  b+='<div class="ed-hr"></div>';
-  b+='<div class="ed-label">&#128203; NOTES</div>';
-  b+='<textarea id="mainNote" class="ed-ta" placeholder="What happened? What did you learn?">'+esc(e.text||'')+'</textarea>';
-  document.getElementById('edBody').innerHTML=b;
-  document.getElementById('noteEditor').classList.add('open');
-  wireEditorSave();
+  NB.ref={yr:yr,mo:mo,wk:wk,dy:dy};
+  NB.pages=(e.pages&&e.pages.length)?e.pages.slice():[null];
+  NB.page=0; NB.undo=[];
+  NB.style=e.paperStyle||'cream';
+
+  var old=document.getElementById('nbWrap');
+  if(old&&old.parentNode)old.parentNode.removeChild(old);
+
+  var wrap=document.createElement('div');
+  wrap.id='nbWrap'; wrap.className='nb-editor-wrap';
+  wrap.innerHTML=nbHTML(dy);
+  document.body.appendChild(wrap);
+  setTimeout(function(){wrap.classList.add('open');},10);
+  setTimeout(function(){nbInit();},40);
 }
 
-function openFlatNote(folder,idx){
-  if(!notes[folder]||!Array.isArray(notes[folder]))notes[folder]=[];
-  var n=notes[folder][idx]; if(!n)return;
-  edCtx={type:'flat',folder:folder,idx:idx};
-  document.getElementById('edTitle').value=n.title||'Untitled';
-  document.getElementById('edBody').innerHTML='<div class="ed-label">NOTE</div><textarea id="mainNote" class="ed-ta" style="min-height:400px;">'+esc(n.text||'')+'</textarea>';
-  document.getElementById('noteEditor').classList.add('open');
-  wireEditorSave();
+function nbHTML(title){
+  return (
+    '<div class="nb-canvas-area" id="nbArea">'+
+      '<canvas class="nb-bg-cv" id="nbBgCv"></canvas>'+
+      '<canvas class="nb-ink-cv" id="nbInkCv"></canvas>'+
+
+      // TOP BAR - title + paper styles + save indicator
+      '<div class="nb-top">'+
+        '<button class="nb-back-btn" onclick="nbClose()">&#8592;</button>'+
+        '<div class="nb-top-title">'+esc(title)+'</div>'+
+        '<div class="nb-style-row">'+nbStyBtns()+'</div>'+
+        '<span class="nb-save-pill" id="nbSavePill">&#10003; saved</span>'+
+      '</div>'+
+
+      // BOTTOM BAR - tools + colors + page nav
+      '<div class="nb-bottom">'+
+
+        // Tool buttons with SVG icons
+        '<button class="nb-tbtn on" id="nbtP" onclick="nbTool(\'pen\',this)" title="Pen">'+
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4Z"/></svg>'+
+        '</button>'+
+        '<button class="nb-tbtn" id="nbtPc" onclick="nbTool(\'pencil\',this)" title="Pencil">'+
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M17 3a2.828 2.828 0 114 4L7.5 20.5 2 22l1.5-5.5Z"/></svg>'+
+        '</button>'+
+        '<button class="nb-tbtn" id="nbtH" onclick="nbTool(\'hi\',this)" title="Highlighter">'+
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><rect x="3" y="13" width="18" height="5" rx="2.5" fill="currentColor" opacity="0.35"/><path d="M8 13V8a4 4 0 018 0v5"/></svg>'+
+        '</button>'+
+        '<button class="nb-tbtn" id="nbtE" onclick="nbTool(\'er\',this)" title="Eraser">'+
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 20H7L3 16l9-9 8 8-3 3"/><path d="m7 20 5-5"/></svg>'+
+        '</button>'+
+
+        '<div class="nb-pdiv"></div>'+
+
+        // Colors
+        '<div class="nb-swatch on" style="background:#1a1a1a" onclick="nbClr(\'#1a1a1a\',this)"></div>'+
+        '<div class="nb-swatch" style="background:#1a3a6b" onclick="nbClr(\'#1a3a6b\',this)"></div>'+
+        '<div class="nb-swatch" style="background:#8B1A1A" onclick="nbClr(\'#8B1A1A\',this)"></div>'+
+        '<div class="nb-swatch" style="background:#C8960C" onclick="nbClr(\'#C8960C\',this)"></div>'+
+        '<div class="nb-swatch" style="background:#166534" onclick="nbClr(\'#166534\',this)"></div>'+
+
+        '<div class="nb-pdiv"></div>'+
+
+        // Size slider
+        '<div class="nb-sz-wrap">'+
+          '<div class="nb-sz-sm"></div>'+
+          '<input type="range" class="nb-sz-r" id="nbSzR" min="1" max="18" value="2" oninput="NB.size=+this.value">'+
+          '<div class="nb-sz-lg"></div>'+
+        '</div>'+
+
+        '<div class="nb-pdiv"></div>'+
+
+        // Action buttons - CLEARLY visible
+        '<button class="nb-act-btn" onclick="nbUndo()" title="Undo" id="nbUndoBtn">'+
+          '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><path d="M3 7v6h6"/><path d="M21 17a9 9 0 00-9-9 9 9 0 00-6 2.3L3 13"/></svg>'+
+        '</button>'+
+        '<button class="nb-act-btn nb-clr-btn" onclick="nbClear()" title="Clear page">CLR</button>'+
+
+        '<div class="nb-pdiv"></div>'+
+
+        // Page navigation
+        '<button class="nb-pbtn" id="nbPrev" onclick="nbPrev()" disabled>&#8592;</button>'+
+        '<span class="nb-plabel" id="nbPlabel">1 / 1</span>'+
+        '<button class="nb-pbtn" onclick="nbNext()">&#8594;</button>'+
+
+      '</div>'+
+    '</div>'
+  );
 }
 
-function addFlatNote(folder){
-  var title=prompt('Note title:'); if(!title)return;
-  if(!notes[folder]||!Array.isArray(notes[folder]))notes[folder]=[];
-  notes[folder].push({title:title,text:'',date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})});
-  schedSave(); renderNotes();
-  openFlatNote(folder,notes[folder].length-1);
+function nbStyBtns(){
+  var styles=[
+    {id:'cream', bg:'#FAF7EA', label:'Cream'},
+    {id:'white', bg:'#FFFFFF', label:'White'},
+    {id:'yellow',bg:'#FFFDE7', label:'Yellow'},
+    {id:'dark',  bg:'#1A1D26', label:'Dark'},
+  ];
+  var graph='<div class="nb-sty'+(NB.style==='graph'?' on':'')+'" data-s="graph" onclick="nbPaper(\'graph\',this)" style="background:repeating-linear-gradient(#BFD0E8 0px,#BFD0E8 1px,#FAF7EA 1px,#FAF7EA 14px),repeating-linear-gradient(90deg,#BFD0E8 0px,#BFD0E8 1px,#FAF7EA 1px,#FAF7EA 14px);" title="Graph"></div>';
+  return styles.map(function(s){
+    return '<div class="nb-sty'+(NB.style===s.id?' on':'')+'" data-s="'+s.id+'" onclick="nbPaper(\''+s.id+'\',this)" style="background:'+s.bg+';box-shadow:inset 0 0 0 0.5px rgba(0,0,0,0.15);" title="'+s.label+'"></div>';
+  }).join('')+graph;
 }
+
+function nbInit(){
+  var area=document.getElementById('nbArea');
+  var bgCv=document.getElementById('nbBgCv');
+  var inkCv=document.getElementById('nbInkCv');
+  if(!area||!bgCv||!inkCv)return;
+
+  var dpr=window.devicePixelRatio||2;
+  NB.dpr=dpr;
+
+  // FULL SCREEN - canvas = entire available area
+  var w=area.offsetWidth||window.innerWidth;
+  var h=area.offsetHeight||window.innerHeight;
+  NB.pw=w; NB.ph=h;
+
+  [bgCv,inkCv].forEach(function(cv){
+    cv.width=w*dpr; cv.height=h*dpr;
+    cv.style.width=w+'px'; cv.style.height=h+'px';
+  });
+
+  NB.bgCv=bgCv; NB.bgCtx=bgCv.getContext('2d');
+  NB.inkCv=inkCv; NB.inkCtx=inkCv.getContext('2d');
+  NB.bgCtx.scale(dpr,dpr);
+  NB.inkCtx.scale(dpr,dpr);
+
+  nbDrawBg(NB.style);
+  nbLoadStrokes();
+  nbPlabel();
+  nbEvents(inkCv);
+}
+
+function nbDrawBg(style){
+  var ctx=NB.bgCtx, w=NB.pw, h=NB.ph;
+  var p=PAPER[style]||PAPER.cream;
+
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle=p.bg;
+  ctx.fillRect(0,0,w,h);
+
+  // Top toolbar area - slightly darker shade
+  ctx.fillStyle='rgba(0,0,0,0.025)';
+  ctx.fillRect(0,0,w,50);
+
+  if(style==='graph'){
+    var gs=28;
+    ctx.strokeStyle=p.line;
+    // Minor
+    ctx.lineWidth=0.5;
+    ctx.globalAlpha=0.7;
+    for(var gx=0;gx<w;gx+=gs){ctx.beginPath();ctx.moveTo(gx,0);ctx.lineTo(gx,h);ctx.stroke();}
+    for(var gy=0;gy<h;gy+=gs){ctx.beginPath();ctx.moveTo(0,gy);ctx.lineTo(w,gy);ctx.stroke();}
+    // Major every 5
+    ctx.lineWidth=1;
+    ctx.globalAlpha=1;
+    for(var gxm=0;gxm<w;gxm+=gs*5){ctx.beginPath();ctx.moveTo(gxm,0);ctx.lineTo(gxm,h);ctx.stroke();}
+    for(var gym=0;gym<h;gym+=gs*5){ctx.beginPath();ctx.moveTo(0,gym);ctx.lineTo(w,gym);ctx.stroke();}
+    ctx.globalAlpha=1;
+  } else {
+    // Line spacing based on screen height
+    var ls=Math.round(h/28); // ~28 lines per page
+    if(ls<28)ls=28; if(ls>48)ls=48;
+    var topOffset=54; // below toolbar
+    var leftM=60;
+
+    ctx.globalAlpha=1;
+
+    // Horizontal lines - solid color
+    ctx.strokeStyle=p.line;
+    ctx.lineWidth=style==='dark'?1.2:0.9;
+    for(var yl=topOffset+ls;yl<h-40;yl+=ls){
+      ctx.beginPath();ctx.moveTo(0,yl);ctx.lineTo(w,yl);ctx.stroke();
+    }
+    // Header separator line
+    ctx.lineWidth=1.5;
+    ctx.beginPath();ctx.moveTo(0,topOffset+4);ctx.lineTo(w,topOffset+4);ctx.stroke();
+
+    // Red margin line
+    ctx.strokeStyle=p.margin;
+    ctx.lineWidth=2;
+    ctx.beginPath();ctx.moveTo(leftM,topOffset);ctx.lineTo(leftM,h-40);ctx.stroke();
+  }
+
+  // Page number bottom center
+  var isDark=style==='dark';
+  ctx.fillStyle=isDark?'rgba(255,255,255,0.15)':'rgba(0,0,0,0.15)';
+  ctx.font='italic 13px Georgia,serif';
+  ctx.textAlign='center';
+  ctx.fillText('— '+(NB.page+1)+' —',w/2,h-14);
+  ctx.textAlign='left';
+}
+
+function nbLoadStrokes(){
+  var ctx=NB.inkCtx, w=NB.pw, h=NB.ph;
+  ctx.clearRect(0,0,w,h);
+  if(NB.pages[NB.page]){
+    var img=new Image();
+    img.onload=function(){ctx.drawImage(img,0,0,w,h);};
+    img.src=NB.pages[NB.page];
+  }
+}
+
+function nbEvents(cv){
+  function pos(e){
+    var r=cv.getBoundingClientRect();
+    var s=e.touches?e.touches[0]:e;
+    if(s.pressure!==undefined&&s.pressure>0)NB.pressure=0.5+s.pressure*1.5;
+    else NB.pressure=1;
+    return[s.clientX-r.left,s.clientY-r.top];
+  }
+  function inBar(e){
+    var r=cv.getBoundingClientRect();
+    var s=e.touches?e.touches[0]:e;
+    var y=s.clientY-r.top;
+    return y<54||y>NB.ph-58;
+  }
+  var lmx=0,lmy=0; // last midpoint
+
+  function down(e){
+    if(inBar(e))return;
+    e.preventDefault();
+    NB.drawing=true;
+    var p=pos(e);
+    NB.lx=p[0];NB.ly=p[1];lmx=p[0];lmy=p[1];
+    NB.undo.push(NB.inkCtx.getImageData(0,0,cv.width,cv.height));
+    if(NB.undo.length>20)NB.undo.shift();
+    // Draw a dot on tap
+    var ctx=NB.inkCtx;
+    if(NB.tool!=='er'){
+      setCtxStyle(ctx);
+      ctx.beginPath();
+      ctx.arc(p[0],p[1],NB.size*NB.pressure*0.5,0,Math.PI*2);
+      ctx.fill();
+    }
+  }
+
+  function setCtxStyle(ctx){
+    ctx.globalCompositeOperation='source-over';
+    if(NB.tool==='hi'){
+      ctx.globalAlpha=0.2;
+      ctx.strokeStyle=NB.color;
+      ctx.fillStyle=NB.color;
+      ctx.lineWidth=NB.size*6;
+    }else if(NB.tool==='pencil'){
+      ctx.globalAlpha=0.75;
+      ctx.strokeStyle=NB.color;
+      ctx.fillStyle=NB.color;
+      ctx.lineWidth=Math.max(0.8,NB.size*0.8*NB.pressure);
+    }else{
+      ctx.globalAlpha=1;
+      ctx.strokeStyle=NB.color;
+      ctx.fillStyle=NB.color;
+      ctx.lineWidth=Math.max(1,NB.size*NB.pressure);
+    }
+    ctx.lineCap='round';
+    ctx.lineJoin='round';
+  }
+
+  function move(e){
+    if(!NB.drawing)return;
+    e.preventDefault();
+    var p=pos(e),x=p[0],y=p[1];
+    var ctx=NB.inkCtx;
+
+    if(NB.tool==='er'){
+      var r=Math.max(8,(NB.size+1)*4);
+      ctx.save();
+      ctx.globalCompositeOperation='destination-out';
+      ctx.globalAlpha=1;
+      // Interpolate for smooth eraser
+      var dist=Math.sqrt((x-NB.lx)*(x-NB.lx)+(y-NB.ly)*(y-NB.ly));
+      var steps=Math.max(1,Math.floor(dist/(r*0.5)));
+      for(var s=0;s<=steps;s++){
+        var tx=NB.lx+(x-NB.lx)*s/steps;
+        var ty=NB.ly+(y-NB.ly)*s/steps;
+        ctx.beginPath();ctx.arc(tx,ty,r,0,Math.PI*2);ctx.fill();
+      }
+      ctx.restore();
+      NB.lx=x;NB.ly=y;
+      return;
+    }
+
+    setCtxStyle(ctx);
+    // Smooth midpoint bezier
+    var mx=(NB.lx+x)/2, my=(NB.ly+y)/2;
+    ctx.beginPath();
+    ctx.moveTo(lmx,lmy);
+    ctx.quadraticCurveTo(NB.lx,NB.ly,mx,my);
+    ctx.stroke();
+    lmx=mx;lmy=my;
+    NB.lx=x;NB.ly=y;
+    ctx.globalAlpha=1;
+  }
+
+  function up(e){
+    if(!NB.drawing)return;
+    NB.drawing=false;
+    NB.inkCtx.globalAlpha=1;
+    NB.inkCtx.globalCompositeOperation='source-over';
+    nbSave();
+  }
+
+  cv.addEventListener('pointerdown',down,{passive:false});
+  cv.addEventListener('pointermove',move,{passive:false});
+  cv.addEventListener('pointerup',up,{passive:false});
+  cv.addEventListener('pointercancel',up,{passive:false});
+  cv.addEventListener('touchstart',down,{passive:false});
+  cv.addEventListener('touchmove',move,{passive:false});
+  cv.addEventListener('touchend',up,{passive:false});
+}
+
+function nbSave(){
+  if(!NB.inkCv||!NB.ref)return;
+  var pill=document.getElementById('nbSavePill');
+  if(pill){pill.textContent='saving...';pill.className='nb-save-pill busy';}
+  // Save ONLY the ink canvas (strokes) - not the background
+  NB.pages[NB.page]=NB.inkCv.toDataURL('image/png',0.9);
+  var r=NB.ref,dn=notes['Daily Notes'];
+  if(dn&&dn[r.yr]&&dn[r.yr][r.mo]&&dn[r.yr][r.mo][r.wk]&&dn[r.yr][r.mo][r.wk][r.dy]){
+    dn[r.yr][r.mo][r.wk][r.dy].pages=NB.pages.slice();
+    dn[r.yr][r.mo][r.wk][r.dy].paperStyle=NB.style;
+  }
+  clearTimeout(NB.timer);
+  NB.timer=setTimeout(function(){
+    doSave();
+    if(pill){pill.innerHTML='&#10003; saved';pill.className='nb-save-pill';}
+  },1000);
+}
+
+function nbTool(t,el){NB.tool=t;document.querySelectorAll('.nb-tbtn').forEach(function(b){b.classList.remove('on');});el.classList.add('on');}
+function nbClr(c,el){NB.color=c;document.querySelectorAll('.nb-swatch').forEach(function(d){d.classList.remove('on');});el.classList.add('on');if(NB.tool==='er'){NB.tool='pen';document.getElementById('nbtP').classList.add('on');document.getElementById('nbtE').classList.remove('on');}}
+function nbPaper(s,el){
+  NB.style=s;
+  document.querySelectorAll('.nb-sty').forEach(function(b){b.classList.remove('on');});
+  el.classList.add('on');
+  // Redraw ONLY background - strokes stay on ink canvas
+  nbDrawBg(s);
+  // Save style
+  var r=NB.ref,dn=notes['Daily Notes'];
+  if(r&&dn&&dn[r.yr]&&dn[r.yr][r.mo]&&dn[r.yr][r.mo][r.wk]&&dn[r.yr][r.mo][r.wk][r.dy]){
+    dn[r.yr][r.mo][r.wk][r.dy].paperStyle=s;
+    schedSave();
+  }
+}
+function nbUndo(){if(!NB.undo.length)return;NB.inkCtx.putImageData(NB.undo.pop(),0,0);nbSave();}
+function nbClear(){if(!NB.inkCv||!confirm('Clear this page?'))return;NB.undo=[];NB.inkCtx.clearRect(0,0,NB.inkCv.width,NB.inkCv.height);NB.pages[NB.page]=null;doSave();}
+function nbNext(){nbSave();NB.page++;if(NB.page>=NB.pages.length)NB.pages.push(null);NB.undo=[];nbDrawBg(NB.style);nbLoadStrokes();nbPlabel();}
+function nbPrev(){if(NB.page===0)return;nbSave();NB.page--;NB.undo=[];nbDrawBg(NB.style);nbLoadStrokes();nbPlabel();}
+function nbPlabel(){var el=document.getElementById('nbPlabel');if(el)el.textContent=(NB.page+1)+' / '+NB.pages.length;var p=document.getElementById('nbPrev');if(p)p.disabled=NB.page===0;}
+function nbClose(){
+  nbSave();
+  var w=document.getElementById('nbWrap');
+  if(w){w.classList.remove('open');setTimeout(function(){if(w.parentNode)w.parentNode.removeChild(w);},200);}
+  NB.bgCv=null;NB.inkCv=null;NB.ref=null;
+  renderNotes();
+}
+
 
 function wireEditorSave(){
   document.getElementById('edBody').querySelectorAll('input,textarea').forEach(function(el){
@@ -691,7 +1089,7 @@ function renderActive(){ if(curTab==='lo')renderLO(); else if(curTab==='re')rend
 <script>
 
 var CORRECT_PIN = '1107';
-var PIN_SESSION_KEY = 'pin_unlocked';
+var PIN_SESSION_KEY = 'pin_notebook_unlocked';
 var pinEntry = '';
 
 function checkPinSession() {

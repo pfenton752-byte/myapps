@@ -521,13 +521,14 @@ function addToday(){
 
 // ═══ FULL SCREEN NOTEBOOK ═══════════════════════════════════
 var NB = {
-  bgCv:null, bgCtx:null, // background (lines/paper color)
-  inkCv:null, inkCtx:null, // strokes only (transparent bg)
+  bgCv:null, bgCtx:null,
+  inkCv:null, inkCtx:null,
   drawing:false, lx:0, ly:0,
   tool:'pen', color:'#1a1a1a', size:2.5,
   pages:[], page:0, undo:[],
   style:'cream', ref:null, timer:null,
-  dpr:1, pw:0, ph:0, pressure:1
+  dpr:1, pw:0, ph:0, pressure:1,
+  zoom:1, minZoom:0.5, maxZoom:3
 };
 
 var PAPER = {
@@ -563,15 +564,18 @@ function openDayNote(enc){
 function nbHTML(title){
   return (
     '<div class="nb-canvas-area" id="nbArea">'+
-      '<canvas class="nb-bg-cv" id="nbBgCv"></canvas>'+
-      '<canvas class="nb-ink-cv" id="nbInkCv"></canvas>'+
+      '<div id="nbCvWrap" style="transform-origin:top left;position:absolute;top:0;left:0;">'+
+        '<canvas class="nb-bg-cv" id="nbBgCv"></canvas>'+
+        '<canvas class="nb-ink-cv" id="nbInkCv"></canvas>'+
+      '</div>'+
 
       // TOP BAR - title + paper styles + save indicator
       '<div class="nb-top">'+
         '<button class="nb-back-btn" onclick="nbClose()">&#8592;</button>'+
         '<div class="nb-top-title">'+esc(title)+'</div>'+
         '<div class="nb-style-row">'+nbStyBtns()+'</div>'+
-        '<span class="nb-save-pill" id="nbSavePill">&#10003; saved</span>'+
+        '<button onclick="nbResetAll()" style="font-size:9px;font-weight:800;padding:3px 8px;border-radius:6px;border:1px solid rgba(255,80,80,0.3);background:rgba(255,80,80,0.1);color:rgba(255,100,90,0.9);cursor:pointer;flex-shrink:0;" title="Clear all saved data">RESET</button>'+
+      '<span class="nb-save-pill" id="nbSavePill">&#10003; saved</span>'+
       '</div>'+
 
       // BOTTOM BAR - tools + colors + page nav
@@ -619,6 +623,15 @@ function nbHTML(title){
 
         '<div class="nb-pdiv"></div>'+
 
+        // Zoom controls
+        '<div class="nb-zoom-wrap">'+
+          '<button class="nb-zoom-btn" onclick="nbZoom(-0.25)" title="Zoom out">&#8722;</button>'+
+          '<span class="nb-zoom-label" id="nbZoomLabel">100%</span>'+
+          '<button class="nb-zoom-btn" onclick="nbZoom(0.25)" title="Zoom in">+</button>'+
+        '</div>'+
+
+        '<div class="nb-pdiv"></div>'+
+
         // Page navigation
         '<button class="nb-pbtn" id="nbPrev" onclick="nbPrev()" disabled>&#8592;</button>'+
         '<span class="nb-plabel" id="nbPlabel">1 / 1</span>'+
@@ -651,15 +664,29 @@ function nbInit(){
   var dpr=window.devicePixelRatio||2;
   NB.dpr=dpr;
 
-  // FULL SCREEN - canvas = entire available area
+  // Endless scroll: canvas is 4x screen height
   var w=area.offsetWidth||window.innerWidth;
-  var h=area.offsetHeight||window.innerHeight;
+  var screenH=area.offsetHeight||window.innerHeight;
+  var h=screenH*4;
+  NB.pw=w; NB.ph=h;
+  area.style.overflowY='auto';
+  area.style.overflowX='hidden';
+  area.style.webkitOverflowScrolling='touch';
   NB.pw=w; NB.ph=h;
 
-  [bgCv,inkCv].forEach(function(cv){
-    cv.width=w*dpr; cv.height=h*dpr;
-    cv.style.width=w+'px'; cv.style.height=h+'px';
+  [bgCv,inkCv].forEach(function(c){
+    c.width=w*dpr; c.height=h*dpr;
+    c.style.width=w+'px'; c.style.height=h+'px';
+    c.style.position='absolute';
+    c.style.top='0'; c.style.left='0';
   });
+  // Set canvas area height to contain the tall canvases
+  area.style.height=(h)+'px';
+  // Toolbars stay fixed over the scrollable area
+  var topBar=document.querySelector('.nb-top');
+  var btmBar=document.querySelector('.nb-bottom');
+  if(topBar){topBar.style.position='fixed';topBar.style.top='0';}
+  if(btmBar){btmBar.style.position='fixed';btmBar.style.bottom='0';}
 
   NB.bgCv=bgCv; NB.bgCtx=bgCv.getContext('2d');
   NB.inkCv=inkCv; NB.inkCtx=inkCv.getContext('2d');
@@ -669,7 +696,19 @@ function nbInit(){
   nbDrawBg(NB.style);
   nbLoadStrokes();
   nbPlabel();
+  NB.zoom=1;
+  nbDrawBg(NB.style);
+  if(NB.pages[NB.page]){
+    var img=new Image();
+    var pw=NB.pw,ph=NB.ph,ictx=NB.inkCtx;
+    img.onload=function(){ictx.drawImage(img,0,0,pw,ph);};
+    img.src=NB.pages[NB.page];
+  }
   nbEvents(inkCv);
+  nbSetupPinch(area);
+  var zl=document.getElementById('nbZoomLabel');
+  if(zl)zl.textContent='100%';
+  nbApplyZoom();
 }
 
 function nbDrawBg(style){
@@ -699,9 +738,7 @@ function nbDrawBg(style){
     for(var gym=0;gym<h;gym+=gs*5){ctx.beginPath();ctx.moveTo(0,gym);ctx.lineTo(w,gym);ctx.stroke();}
     ctx.globalAlpha=1;
   } else {
-    // Line spacing based on screen height
-    var ls=Math.round(h/28); // ~28 lines per page
-    if(ls<28)ls=28; if(ls>48)ls=48;
+    var ls=44; // Comfortable line spacing - fits ~20 lines on screen
     var topOffset=54; // below toolbar
     var leftM=60;
 
@@ -744,22 +781,30 @@ function nbLoadStrokes(){
 
 function nbEvents(cv){
   function pos(e){
-    var r=cv.getBoundingClientRect();
+    var wrap = document.getElementById('nbCvWrap');
+    var r = wrap ? wrap.getBoundingClientRect() : cv.getBoundingClientRect();
     var s=e.touches?e.touches[0]:e;
     if(s.pressure!==undefined&&s.pressure>0)NB.pressure=0.5+s.pressure*1.5;
     else NB.pressure=1;
-    return[s.clientX-r.left,s.clientY-r.top];
+    // Divide by zoom to get canvas logical coords
+    var z=NB.zoom||1;
+    return[(s.clientX-r.left)/z,(s.clientY-r.top)/z];
   }
   function inBar(e){
     var r=cv.getBoundingClientRect();
     var s=e.touches?e.touches[0]:e;
-    var y=s.clientY-r.top;
-    return y<54||y>NB.ph-58;
+    var y=s.clientY;
+    var areaRect=document.getElementById('nbArea').getBoundingClientRect();
+    var relY=y-areaRect.top;
+    // Block drawing in top toolbar (54px) and bottom toolbar (58px) of VIEWPORT
+    return relY<54||(window.innerHeight-y)<58;
   }
   var lmx=0,lmy=0; // last midpoint
 
   function down(e){
     if(inBar(e))return;
+    // Apple Pencil only - block finger touches
+    if(e.pointerType==='touch')return;
     e.preventDefault();
     NB.drawing=true;
     var p=pos(e);
@@ -849,6 +894,37 @@ function nbEvents(cv){
   cv.addEventListener('touchstart',down,{passive:false});
   cv.addEventListener('touchmove',move,{passive:false});
   cv.addEventListener('touchend',up,{passive:false});
+
+  // Reinitialize on orientation change
+  function onResize(){
+    if(!NB.ref)return;
+    var area=document.getElementById('nbArea');
+    if(!area)return;
+    var bgCv=document.getElementById('nbBgCv');
+    var inkCv=document.getElementById('nbInkCv');
+    if(!bgCv||!inkCv)return;
+    // Save current ink
+    var savedInk=NB.pages[NB.page];
+    var dpr=window.devicePixelRatio||2;
+    var w=area.offsetWidth||window.innerWidth;
+    var h=area.offsetHeight||window.innerHeight;
+    NB.pw=w;NB.ph=h;
+    [bgCv,inkCv].forEach(function(c){
+      c.width=w*dpr;c.height=h*dpr;
+      c.style.width=w+'px';c.style.height=h+'px';
+    });
+    NB.bgCtx=bgCv.getContext('2d');
+    NB.inkCtx=inkCv.getContext('2d');
+    NB.bgCtx.scale(dpr,dpr);
+    NB.inkCtx.scale(dpr,dpr);
+    nbDrawBg(NB.style);
+    if(savedInk){
+      var img=new Image();
+      img.onload=function(){NB.inkCtx.drawImage(img,0,0,w,h);};
+      img.src=savedInk;
+    }
+  }
+  window.addEventListener('resize',function(){setTimeout(onResize,100);});
 }
 
 function nbSave(){
@@ -889,6 +965,66 @@ function nbClear(){if(!NB.inkCv||!confirm('Clear this page?'))return;NB.undo=[];
 function nbNext(){nbSave();NB.page++;if(NB.page>=NB.pages.length)NB.pages.push(null);NB.undo=[];nbDrawBg(NB.style);nbLoadStrokes();nbPlabel();}
 function nbPrev(){if(NB.page===0)return;nbSave();NB.page--;NB.undo=[];nbDrawBg(NB.style);nbLoadStrokes();nbPlabel();}
 function nbPlabel(){var el=document.getElementById('nbPlabel');if(el)el.textContent=(NB.page+1)+' / '+NB.pages.length;var p=document.getElementById('nbPrev');if(p)p.disabled=NB.page===0;}
+function nbZoom(delta){
+  NB.zoom = Math.min(NB.maxZoom, Math.max(NB.minZoom, +(NB.zoom + delta).toFixed(2)));
+  nbApplyZoom();
+}
+
+function nbApplyZoom(){
+  var z = NB.zoom;
+  var wrap = document.getElementById('nbCvWrap');
+  if(!wrap) return;
+  // Scale the canvas wrapper visually - no redraw needed
+  wrap.style.transform = 'scale(' + z + ')';
+  // Adjust scroll container height to match scaled content
+  var area = document.getElementById('nbArea');
+  if(area) area.style.height = (NB.ph * z) + 'px';
+  // Update label
+  var el = document.getElementById('nbZoomLabel');
+  if(el) el.textContent = Math.round(z*100) + '%';
+}
+
+function nbSetupPinch(el){
+  var startDist=0, startZoom=1;
+  el.addEventListener('touchstart',function(e){
+    if(e.touches.length===2){
+      startDist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+      startZoom=NB.zoom;
+    }
+  },{passive:true});
+  el.addEventListener('touchmove',function(e){
+    if(e.touches.length===2){
+      var dist=Math.hypot(e.touches[0].clientX-e.touches[1].clientX,e.touches[0].clientY-e.touches[1].clientY);
+      var newZ=Math.min(NB.maxZoom,Math.max(NB.minZoom,+(startZoom*(dist/startDist)).toFixed(2)));
+      if(Math.abs(newZ-NB.zoom)>0.02){
+        NB.zoom=newZ;
+        var el2=document.getElementById('nbZoomLabel');
+        if(el2)el2.textContent=Math.round(newZ*100)+'%';
+        nbApplyZoom();
+      }
+    }
+  },{passive:true});
+}
+
+function nbResetAll(){
+  if(!confirm('Clear ALL saved notebook data? This cannot be undone.')) return;
+  NB.pages = [null];
+  NB.page = 0;
+  NB.undo = [];
+  // Clear from cloud and local
+  var r = NB.ref, dn = notes['Daily Notes'];
+  if(r && dn && dn[r.yr] && dn[r.yr][r.mo] && dn[r.yr][r.mo][r.wk] && dn[r.yr][r.mo][r.wk][r.dy]){
+    dn[r.yr][r.mo][r.wk][r.dy].pages = [null];
+  }
+  // Redraw clean
+  if(NB.inkCtx) NB.inkCtx.clearRect(0, 0, NB.inkCv.width, NB.inkCv.height);
+  if(NB.bgCtx) nbDrawBg(NB.style);
+  nbPlabel();
+  doSave();
+  var pill = document.getElementById('nbSavePill');
+  if(pill){ pill.textContent = 'cleared'; pill.className = 'nb-save-pill'; }
+}
+
 function nbClose(){
   nbSave();
   var w=document.getElementById('nbWrap');

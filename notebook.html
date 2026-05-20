@@ -336,7 +336,7 @@ function renderPipe(el, pl) {
     cards.forEach(function(c){
       var calls=(c.callNotes||[]).length;
       var fc=fuC(c.followUp);
-      html+='<div class="pcard" onclick="openC(''+c.id+'')">';
+      html+='<div class="pcard" data-cid="'+c.id+'" onclick="openC(this.dataset.cid)">';
       html+='<div class="pc-top"><div class="pc-name">'+esc(c.name)+'</div>'+(c.volume?'<div class="pc-vol">'+fv(c.volume)+'</div>':'')+'</div>';
       if(c.company) html+='<div class="pc-sub">'+esc(c.company)+(c.state?' &middot; '+esc(c.state):'')+' '+(c.phone?'&middot; '+esc(c.phone):'')+'</div>';
       html+='<div class="pc-row">';
@@ -355,39 +355,57 @@ function renderLO(){ renderStats('lo-stats','lo'); renderPipe('lo-pipe','lo'); }
 function renderRE(){ renderStats('re-stats','re'); renderPipe('re-pipe','re'); }
 
 // NOTEBOOK
+function tel(id){ return 'onclick="toggleEl(\'' + id + '\')"'; }
 function renderNotes() {
   if(!notes['Daily Notes']||Array.isArray(notes['Daily Notes'])) notes['Daily Notes']={};
   var dn=notes['Daily Notes'];
   var years=Object.keys(dn).sort().reverse();
   var html='';
-  html+='<div class="nb-section"><div class="nb-sec-hd" onclick="toggleEl('nbd')">';
+
+  // Daily Notes section
+  html+='<div class="nb-section">';
+  html+='<div class="nb-sec-hd" '+tel('nbd')+'>';
   html+='<div class="nb-sec-name">&#128197; Daily Notes</div>';
-  html+='<button onclick="event.stopPropagation();addToday()" style="font-size:11px;font-weight:800;padding:5px 12px;border-radius:6px;border:none;background:#C8960C;color:#111;cursor:pointer;">+ Today</button></div>';
+  html+='<button onclick="event.stopPropagation();addToday()" style="font-size:11px;font-weight:800;padding:5px 12px;border-radius:6px;border:none;background:#C8960C;color:#111;cursor:pointer;">+ Today</button>';
+  html+='</div>';
   html+='<div id="nbd" style="display:none;">';
   if(years.length){
     years.forEach(function(yr){
       var months=Object.keys(dn[yr]||{}).sort(function(a,b){return MONTHS.indexOf(b)-MONTHS.indexOf(a);});
-      html+='<div class="nb-year-hd" onclick="toggleEl('nby'+yr+'')"><span class="nb-year-label">&#128198; '+yr+'</span><span style="font-size:11px;color:var(--mu)">'+months.length+' months</span></div>';
-      html+='<div id="nby'+yr+'" style="display:none;">';
+      var yid='nby'+yr;
+      html+='<div class="nb-year-hd" '+tel(yid)+'>';
+      html+='<span class="nb-year-label">&#128198; '+yr+'</span>';
+      html+='<span style="font-size:11px;color:var(--mu)"> '+months.length+' months</span>';
+      html+='</div>';
+      html+='<div id="'+yid+'" style="display:none;">';
       months.forEach(function(mo){
         var weeks=Object.keys(dn[yr][mo]||{}).sort().reverse();
         var mid='nbm'+yr+mo.replace(/ /g,'_');
-        html+='<div class="nb-month-hd" onclick="toggleEl(''+mid+'')"><span style="font-size:13px;font-weight:800;">&#128197; '+mo+'</span><span style="font-size:10px;color:var(--mu)">'+weeks.length+' wks</span></div>';
+        html+='<div class="nb-month-hd" '+tel(mid)+'>';
+        html+='<span style="font-size:13px;font-weight:800;">&#128197; '+mo+'</span>';
+        html+='<span style="font-size:10px;color:var(--mu)"> '+weeks.length+' wks</span>';
+        html+='</div>';
         html+='<div id="'+mid+'" style="display:none;">';
         weeks.forEach(function(wk){
           var days=Object.keys(dn[yr][mo][wk]||{}).sort().reverse();
           var wid='nbw'+(yr+mo+wk).replace(/ /g,'_');
-          html+='<div class="nb-week-hd" onclick="toggleEl(''+wid+'')"><span style="font-size:12px;color:var(--t2);font-weight:700;">&#128467; '+wk+'</span><span style="font-size:10px;color:var(--mu)">'+days.length+' days</span></div>';
+          html+='<div class="nb-week-hd" '+tel(wid)+'>';
+          html+='<span style="font-size:12px;color:var(--t2);font-weight:700;">&#128467; '+wk+'</span>';
+          html+='<span style="font-size:10px;color:var(--mu)"> '+days.length+' days</span>';
+          html+='</div>';
           html+='<div id="'+wid+'" style="display:none;">';
           days.forEach(function(day){
             var e=dn[yr][mo][wk][day]||{};
             var encoded=btoa(yr+'|'+mo+'|'+wk+'|'+day);
             var wins=(e.wins||[]).filter(function(w){return w;}).length;
-            html+='<div class="nb-day-row" onclick="openDayNote(''+encoded+'')"><div>';
+            html+='<div class="nb-day-row" onclick="openDayNote(\''+encoded+'\')">';
+            html+='<div>';
             html+='<div style="font-size:13px;font-weight:700;">'+esc(day)+'</div>';
             if(e.text) html+='<div style="font-size:11px;color:var(--mu)">'+esc(e.text.slice(0,60))+'</div>';
             if(wins) html+='<div style="font-size:10px;color:#27AE60;font-weight:700;">&#128293; '+wins+' win'+(wins!==1?'s':'')+'</div>';
-            html+='</div><span style="color:var(--mu);font-size:18px;">&#8250;</span></div>';
+            html+='</div>';
+            html+='<span style="color:var(--mu);font-size:18px;">&#8250;</span>';
+            html+='</div>';
           });
           html+='</div>';
         });
@@ -399,25 +417,34 @@ function renderNotes() {
     html+='<div style="padding:20px;font-size:13px;color:var(--mu);text-align:center;">No daily notes yet. Tap + Today to start.</div>';
   }
   html+='</div></div>';
+
+  // Flat folders
   var flatFolders=[{name:'Goals',icon:'&#127919;'},{name:'Call Scripts',icon:'&#128222;'},{name:'Market Notes',icon:'&#128205;'},{name:'Personal',icon:'&#128100;'}];
   flatFolders.forEach(function(f){
     var items=(notes[f.name]&&Array.isArray(notes[f.name]))?notes[f.name]:[];
     var fid='nbf'+f.name.replace(/ /g,'_');
-    html+='<div class="nb-section"><div class="nb-sec-hd" onclick="toggleEl(''+fid+'')">';
+    html+='<div class="nb-section">';
+    html+='<div class="nb-sec-hd" '+tel(fid)+'>';
     html+='<div class="nb-sec-name">'+f.icon+' '+f.name+'</div>';
-    html+='<span style="font-size:12px;color:var(--mu)">'+items.length+'</span></div>';
+    html+='<span style="font-size:12px;color:var(--mu)">'+items.length+'</span>';
+    html+='</div>';
     html+='<div id="'+fid+'" style="display:none;">';
     items.forEach(function(n,i){
-      html+='<div class="nb-note-row" onclick="openFlatNote(''+f.name+'','+i+')">';
+      html+='<div class="nb-note-row" onclick="openFlatNote(\''+f.name+'\','+i+')">';
       html+='<div class="nb-note-title">'+esc(n.title||'Untitled')+'</div>';
       html+='<div class="nb-note-prev">'+esc((n.text||'').slice(0,80))+'</div>';
-      html+='<div class="nb-note-date">'+esc(n.date||'')+'</div></div>';
+      html+='<div class="nb-note-date">'+esc(n.date||'')+'</div>';
+      html+='</div>';
     });
-    html+='<div class="nb-add-row" onclick="addFlatNote(''+f.name+'')"><div style="font-size:13px;color:#C8960C;font-weight:700;">+ New note</div></div>';
+    html+='<div class="nb-add-row" onclick="addFlatNote(\''+f.name+'\')">';
+    html+='<div style="font-size:13px;color:#C8960C;font-weight:700;">+ New note</div>';
+    html+='</div>';
     html+='</div></div>';
   });
+
   document.getElementById('notesEl').innerHTML=html;
 }
+
 
 function toggleEl(id){ var e=document.getElementById(id); if(e)e.style.display=e.style.display==='none'?'block':'none'; }
 
@@ -498,19 +525,25 @@ function saveEditorState(){
 function closeEditor(){ saveEditorState(); doSave(); document.getElementById('noteEditor').classList.remove('open'); renderNotes(); }
 
 // CONTACT MODAL
+var currentOpenId = null;
 function openC(id){
+  currentOpenId = id;
   var c=contacts.find(function(x){return x.id===id;}); if(!c)return;
   var st=SM[c.stage]||{name:c.stageName||c.stage,color:'#888',bp:''};
   document.getElementById('m-n').textContent=c.name;
   document.getElementById('m-c').textContent=[c.company,c.state].filter(Boolean).join(' · ');
   var cns=c.callNotes||[];
-  var b='<div class="ms"><div class="mst">Stage</div>';
-  b+='<select class="fi" id="stSel">'+STAGES.map(function(s){return '<option value="'+s.id+'"'+(c.stage===s.id?' selected':'')+'>'+s.name+'</option>';}).join('')+'</select>';
+  var b='';
+  b+='<div class="ms"><div class="mst">Stage</div>';
+  b+='<select class="fi" id="stSel">';
+  STAGES.forEach(function(s){ b+='<option value="'+s.id+'"'+(c.stage===s.id?' selected':'')+'>'+s.name+'</option>'; });
+  b+='</select>';
   if(st.bp) b+='<div style="font-size:12px;color:#666;background:#F9F9F7;border:1px solid var(--b);border-radius:6px;padding:10px;line-height:1.6;">'+esc(st.bp)+'</div>';
   b+='</div>';
   b+='<div class="ms"><div class="mst">Income Goals</div>';
-  b+='<div class="g2"><div><div class="fl">CURRENT INCOME</div><input class="fi" id="fIG" type="number" placeholder="e.g. 150000" value="'+(c.incomeGoal||'')+'"></div>';
-  b+='<div><div class="fl">TARGET INCOME</div><input class="fi" id="fIT" type="number" placeholder="e.g. 250000" value="'+(c.incomeTarget||'')+'"></div></div>';
+  b+='<div class="g2"><div><div class="fl">CURRENT INCOME</div><input class="fi" id="fIG" type="number" placeholder="e.g. 150000" value="'+(c.incomeGoal||'')+'">';
+  b+='</div><div><div class="fl">TARGET INCOME</div><input class="fi" id="fIT" type="number" placeholder="e.g. 250000" value="'+(c.incomeTarget||'')+'">';
+  b+='</div></div>';
   if(!c.incomeGoal) b+='<div style="font-size:11px;color:#C0392B;font-weight:700;">&#9888; Income goal not yet surfaced</div>';
   b+='</div>';
   b+='<div class="ms"><div class="mst">Contact Info</div>';
@@ -522,23 +555,31 @@ function openC(id){
   b+='<div class="ms"><div class="mst">Call Notes ('+cns.length+')</div>';
   if(cns.length){
     cns.slice().reverse().forEach(function(n){
-      var tc=n.type==='Decision Call'?'#C0392B':n.type.indexOf('Pro Forma')!==-1?'#8E44AD':n.type.indexOf('Mike')!==-1?'#27AE60':n.type==='Call 1'?'#C8960C':'#555';
+      var tc=n.type==='Decision Call'?'#C0392B':n.type.indexOf('Pro')!==-1?'#8E44AD':n.type.indexOf('Mike')!==-1?'#27AE60':n.type==='Call 1'?'#C8960C':'#555';
       b+='<div class="cnbox"><div class="cnhd"><span class="cntag" style="background:'+tc+'">'+esc(n.type)+'</span><span class="cndt">'+esc(n.date)+'</span></div><div class="cntxt">'+esc(n.text)+'</div></div>';
     });
-  } else {
-    b+='<div style="font-size:12px;color:var(--mu);padding:6px 0;">No call notes yet.</div>';
-  }
+  } else { b+='<div style="font-size:12px;color:var(--mu);padding:6px 0;">No call notes yet.</div>'; }
   b+='<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--b);"><div class="mst">ADD CALL NOTE</div>';
-  b+='<div class="nt-row">'+['Call 1','Pro Forma','Mike + Dave','Decision Call','Follow-Up','Other'].map(function(t){return '<button class="nt'+(selNT===t?' on':'')+'" onclick="selNT=''+t+'';document.querySelectorAll('.nt').forEach(function(b){b.classList.remove('on')});this.classList.add('on')">'+t+'</button>';}).join('')+'</div>';
+  b+='<div class="nt-row">';
+  ['Call 1','Pro Forma','Mike + Dave','Decision Call','Follow-Up','Other'].forEach(function(t){
+    b+='<button class="nt'+(selNT===t?' on':'')+'" onclick="setNoteType(this,\''+t+'\')">' + t + '</button>';
+  });
+  b+='</div>';
   b+='<textarea class="fta" id="nnt" placeholder="What happened? Income goal surfaced? Objections? Next step?" rows="3"></textarea>';
-  b+='<button class="sbtn" style="margin-top:8px" onclick="addCN(''+id+'')">+ Save Call Note</button></div></div>';
-  b+='<button class="sbtn" onclick="saveC(''+id+'');closeModal()">Save &amp; Close</button>';
+  b+='<button class="sbtn" style="margin-top:8px" onclick="addCN()">+ Save Call Note</button></div></div>';
+  b+='<button class="sbtn" onclick="saveC();closeModal()">Save &amp; Close</button>';
   b+='<button class="xbtn" onclick="closeModal()">Close</button>';
   document.getElementById('m-b').innerHTML=b;
   document.getElementById('modal').classList.add('on');
 }
+function setNoteType(el,t){
+  selNT=t;
+  document.querySelectorAll('.nt').forEach(function(b){b.classList.remove('on');});
+  el.classList.add('on');
+}
 
-function saveC(id){
+function saveC(){
+  var id=currentOpenId;
   var c=contacts.find(function(x){return x.id===id;}); if(!c)return;
   function g(i){var e=document.getElementById(i);return e?e.value:'';}
   var st=g('stSel'); if(st){c.stage=st;c.stageName=(SM[st]||{}).name||st;}
@@ -552,7 +593,8 @@ function saveC(id){
 
 function closeModal(){ document.getElementById('modal').classList.remove('on'); renderAll(); }
 
-function addCN(id){
+function addCN(){
+  var id=currentOpenId;
   var c=contacts.find(function(x){return x.id===id;});
   var txt=(document.getElementById('nnt')||{}).value||''; txt=txt.trim();
   if(!c||!txt)return;

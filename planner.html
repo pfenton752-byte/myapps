@@ -230,6 +230,7 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Dis
       <div class="hd-date" id="hdDate">Loading...</div>
     </div>
     <div class="hd-right">
+      <button onclick="toggleSettings()" style="width:32px;height:32px;border-radius:8px;border:none;background:rgba(255,255,255,0.08);color:#888;font-size:16px;cursor:pointer;flex-shrink:0;" title="Settings">&#9881;</button>
       <button class="save-btn" id="saveBtn" onclick="saveData()">SAVE</button>
     </div>
   </div>
@@ -781,7 +782,7 @@ function handleImg(ev){
 
 function buildSchedule(forceTab){
   if(!aiImg||aiBuilding)return;
-  var storedKey = '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';
+  var storedKey = localStorage.getItem('ak') || '';
   if(!storedKey){
     aiStatus={type:'error',msg:'Enter your Anthropic API key above first.'};
     render();return;
@@ -881,6 +882,27 @@ function sw(id,el){
 }
 
 if(!STATE.weekData)STATE.weekData={};
+
+function toggleSettings(){
+  var m = document.getElementById('settingsModal');
+  if(!m) return;
+  var showing = m.style.display === 'flex';
+  m.style.display = showing ? 'none' : 'flex';
+  if(!showing){
+    var inp = document.getElementById('settingsKeyInput');
+    if(inp) inp.value = localStorage.getItem('ak') || '';
+  }
+}
+function saveApiKey(){
+  var inp = document.getElementById('settingsKeyInput');
+  if(!inp) return;
+  var key = inp.value.trim();
+  if(!key){ document.getElementById('settingsMsg').textContent = 'Enter your API key first.'; return; }
+  localStorage.setItem('ak', key);
+  document.getElementById('settingsMsg').innerHTML = '<span style="color:#27AE60;font-weight:700;">&#10003; Key saved — AI builder ready</span>';
+  setTimeout(toggleSettings, 1200);
+}
+
 loadCloud();
 loadContacts();
 
@@ -1068,5 +1090,20 @@ function addCallNote(){
 loadContacts();
 </script>
 
+
+<div id="settingsModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#1a1a1a;border:1px solid #333;border-radius:16px;padding:24px;width:100%;max-width:400px;">
+    <div style="font-size:9px;font-weight:800;letter-spacing:3px;color:#C8960C;margin-bottom:8px;font-family:monospace;">SETTINGS</div>
+    <div style="font-size:18px;font-weight:900;color:#fff;margin-bottom:16px;">AI Builder Setup</div>
+    <div style="font-size:11px;color:#666;margin-bottom:6px;font-weight:700;">ANTHROPIC API KEY</div>
+    <input id="settingsKeyInput" type="password" placeholder="Paste your API key here..."
+      style="width:100%;background:rgba(255,255,255,0.07);border:1px solid #333;border-radius:8px;padding:10px 12px;color:#fff;font-size:13px;font-family:monospace;margin-bottom:6px;"
+      oninput="this.style.borderColor=this.value.length>20?'#27AE60':'#333'" />
+    <div style="font-size:10px;color:#444;margin-bottom:14px;">Get your key at console.anthropic.com → API Keys. Stored only on this device.</div>
+    <button onclick="saveApiKey()" style="width:100%;padding:12px;border-radius:9px;border:none;background:#C8960C;color:#111;font-size:14px;font-weight:800;cursor:pointer;margin-bottom:8px;">Save Key</button>
+    <button onclick="toggleSettings()" style="width:100%;padding:10px;border-radius:9px;border:1px solid #333;background:transparent;color:#666;font-size:13px;cursor:pointer;">Cancel</button>
+    <div id="settingsMsg" style="font-size:12px;text-align:center;margin-top:8px;min-height:18px;"></div>
+  </div>
+</div>
 </body>
 </html>

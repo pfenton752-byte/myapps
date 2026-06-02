@@ -473,9 +473,9 @@ function updateHeader(){
   document.getElementById('mmaFill').style.background=col;
   var wasted=s.nonMmaDone*22;
   var weeks=(wasted/60/8*5/50).toFixed(2);
+  var ig=STATE.today.incomeGate||0;
   var wastedEl = document.getElementById('wastedVal');
   if(wastedEl) wastedEl.innerHTML = '<span style="color:#555;font-size:9px;">'+wasted+'min non-MMA &nbsp;&nbsp; <span style="color:'+(ig>=3?'#27AE60':ig>=1?'#C8960C':'#C0392B')+'">IG: '+ig+'</span></span>';
-  var ig=STATE.today.incomeGate||0;
   var igEl=document.getElementById('igCount');
   if(igEl){igEl.textContent=ig;igEl.style.color=ig>=5?'#27AE60':ig>=2?'#C8960C':'#C0392B';}
 }
@@ -781,6 +781,13 @@ function handleImg(ev){
 
 function buildSchedule(forceTab){
   if(!aiImg||aiBuilding)return;
+  // Check for Anthropic API key
+  var storedKey = localStorage.getItem('anthropic_key');
+  if(!storedKey){
+    var key = prompt('Enter your Anthropic API key to use the AI Schedule Builder:\n(Get one at console.anthropic.com — stored locally on your device only)');
+    if(!key||!key.trim()){aiStatus={type:'error',msg:'API key required. Get one at console.anthropic.com'};render();return;}
+    localStorage.setItem('anthropic_key', key.trim());
+  }
   aiBuilding=true;
 
   var now = new Date();
@@ -814,9 +821,9 @@ function buildSchedule(forceTab){
 
   fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
-    headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
+    headers:{'Content-Type':'application/json','x-api-key':(localStorage.getItem('anthropic_key')||''),'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
     body:JSON.stringify({
-      model:'claude-sonnet-4-6',
+      model:'claude-sonnet-4-5',
       max_tokens:3000,
       system:sys,
       messages:[{role:'user',content:[

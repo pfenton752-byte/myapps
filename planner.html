@@ -2,18 +2,12 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-
-  <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="OFL OS">
-  <meta name="theme-color" content="#111111">
-  <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23111'/><text y='.9em' font-size='80' x='10'>🏆</text></svg>">
-
-<title>OFL Operating System</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#111111">
+<title>Daily Planner — OFL</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
 :root{--bg:#F4F4F0;--w:#fff;--b:#E0E0DA;--t:#111;--t2:#444;--mu:#888;--gold:#C8960C;--red:#C0392B;--green:#27AE60;}
 html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Display',sans-serif;color:var(--t);overflow-x:hidden;}
 .pin-ov{position:fixed;inset:0;background:#111;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;}
@@ -28,26 +22,28 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Dis
 .pin-btn:active{background:#2a2a2a;transform:scale(0.95);}
 .pin-z{grid-column:2;}.pin-del{background:transparent;border-color:#333;color:#555;font-size:16px;}
 .pin-err{font-size:13px;color:#C0392B;margin-top:16px;font-weight:700;min-height:20px;}
-.hd{background:#111;padding:env(safe-area-inset-top,16px) 14px 12px;position:sticky;top:0;z-index:100;flex-shrink:0;}
-.hd-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;}
-.hd-lbl{font-size:9px;letter-spacing:3px;color:#C8960C;font-weight:800;margin-bottom:3px;font-family:monospace;}
-.hd-date{font-size:20px;font-weight:900;color:#fff;letter-spacing:-0.3px;}
-.save-btn{padding:7px 14px;border-radius:8px;border:none;background:#C8960C;color:#111;font-size:11px;font-weight:800;cursor:pointer;}
+.hd{background:#111;padding:env(safe-area-inset-top,8px) 14px 6px;position:sticky;top:0;z-index:100;}
+.hd-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.hd-lbl{font-size:8px;letter-spacing:2px;color:#C8960C;font-weight:800;margin-bottom:3px;font-family:monospace;}
+.hd-right{display:flex;align-items:center;gap:8px;}
+.hd-date{font-size:16px;font-weight:900;color:#fff;letter-spacing:-0.3px;}
+.save-btn{padding:6px 12px;border-radius:7px;border:none;background:#C8960C;color:#111;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;}
 .save-btn.saved{background:#27AE60;color:#fff;}
-.mma-bar-wrap{background:rgba(255,255,255,0.06);border-radius:6px;padding:6px 10px;margin-top:6px;}
-.mma-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:5px;}
+.mma-bar-wrap{background:rgba(255,255,255,0.06);border-radius:6px;padding:5px 10px;}
+.mma-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;}
 .mma-label{font-size:9px;color:#C8960C;font-weight:800;letter-spacing:2px;font-family:monospace;}
 .mma-val{font-size:11px;font-weight:800;}
-.mma-track{height:4px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;}
+.mma-track{height:3px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;}
 .mma-fill{height:100%;border-radius:2px;background:#C8960C;transition:width 0.4s;}
 .wasted-row{margin-top:5px;font-size:9px;color:#555;font-family:monospace;}
 .ig-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(200,150,12,0.1);border:1px solid rgba(200,150,12,0.2);border-radius:5px;padding:3px 9px;margin-top:5px;}
 .ig-label-sm{font-size:9px;color:#555;}
 .ig-count{font-size:13px;font-weight:900;color:#C8960C;}
-.tabs{display:flex;background:var(--w);border-bottom:1px solid var(--b);overflow-x:auto;flex-shrink:0;position:sticky;top:0;z-index:99;}
+.tabs{display:flex;background:var(--w);border-bottom:1px solid var(--b);overflow-x:auto;position:sticky;top:0;z-index:99;}
 .tab{padding:11px 14px;font-size:11px;font-weight:700;color:var(--mu);border:none;background:transparent;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;flex-shrink:0;}
 .tab.on{color:var(--t);border-bottom-color:#111;}
-.pg{display:none;padding:12px 14px 80px;max-width:680px;margin:0 auto;width:100%;}.pg.on{display:block;overflow-y:auto;flex:1;-webkit-overflow-scrolling:touch;}
+.pg{display:none;padding:12px 14px 100px;max-width:680px;margin:0 auto;}
+#pg-pipeline{padding:12px 14px 0;max-width:none;overflow:hidden;}.pg.on{display:block;}
 .outcomes-card{background:#FFFBF0;border:1px solid #DDB830;border-radius:12px;padding:14px;margin-bottom:12px;}
 .oc-label{font-size:9px;font-weight:800;letter-spacing:2px;color:#C8960C;margin-bottom:10px;}
 .oc-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
@@ -133,213 +129,78 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Dis
 .gtxt{font-size:13px;color:var(--t);line-height:1.5;}
 .win-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
 .add-section{margin-top:8px;}
-.btm{background:#111;padding:9px 14px 10px;display:flex;justify-content:space-between;align-items:center;z-index:200;flex-shrink:0;border-top:1px solid #222;}
+.btm{position:fixed;bottom:0;left:0;right:0;background:#111;padding:9px 14px env(safe-area-inset-bottom,10px);display:flex;justify-content:space-between;align-items:center;z-index:200;}
 .btm-hint{font-size:9px;color:#333;letter-spacing:0.3px;}
 .btm-save{padding:8px 18px;border-radius:7px;border:none;background:#C8960C;color:#111;font-size:11px;font-weight:800;cursor:pointer;}
 .btm-save.saved{background:#27AE60;color:#fff;}
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-:root{
-  --bg:#0F1117;--card:#1A1D26;--card2:#1E2130;--border:#2A2D3A;--border2:#363A4A;
-  --text:#F0F0F0;--text2:#9BA3BF;--text3:#5A6080;
-  --gold:#C8960C;--green:#27AE60;--red:#C0392B;--blue:#2980B9;--purple:#8E44AD;
-  --orange:#E67E22;--teal:#1ABC9C;
-  --radius:8px;--radius-lg:12px;
-}
-html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Display',sans-serif;color:var(--text);overflow:hidden;}
-
-/* PIN */
-.pin-ov{position:fixed;inset:0;background:#0a0a0c;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;}
-.pin-lbl{font-size:9px;letter-spacing:3px;color:var(--gold);font-weight:800;margin-bottom:16px;font-family:monospace;}
-.pin-ttl{font-size:26px;font-weight:900;color:var(--text);margin-bottom:8px;}
-.pin-sub{font-size:13px;color:#444;margin-bottom:32px;}
-.pin-dots{display:flex;gap:16px;margin-bottom:32px;}
-.pin-dot{width:16px;height:16px;border-radius:50%;border:2px solid #2a2a2a;background:transparent;transition:all 0.15s;}
-.pin-dot.filled{background:var(--gold);border-color:var(--gold);}
-.pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:240px;}
-.pin-btn{height:64px;border-radius:12px;border:1px solid #1e1e1e;background:#111;color:var(--text);font-size:22px;font-weight:700;cursor:pointer;transition:all 0.1s;}
-.pin-btn:active{background:#1a1a1a;transform:scale(0.95);}
-.pin-z{grid-column:2;}.pin-del{background:transparent;border-color:#1a1a1a;color:#444;font-size:16px;}
-.pin-err{font-size:13px;color:var(--red);margin-top:16px;font-weight:700;min-height:20px;}
-
-/* LAYOUT */
-.app{display:flex;flex-direction:column;height:100vh;overflow:hidden;}
-
-/* HEADER */
-.hd{background:var(--card);border-bottom:1px solid var(--border);padding:0 16px;height:54px;display:flex;align-items:center;gap:12px;flex-shrink:0;}
-.hd-brand{font-size:9px;letter-spacing:3px;color:var(--gold);font-weight:800;font-family:monospace;}
-.hd-title{font-size:15px;font-weight:800;color:var(--text);flex:1;}
-.hd-stats{display:flex;gap:10px;align-items:center;}
-.stat-pill{background:var(--card2);border:1px solid var(--border2);border-radius:6px;padding:4px 10px;font-size:10px;font-weight:700;color:var(--text2);}
-.stat-pill b{color:var(--gold);}
-.hd-btn{padding:6px 13px;border-radius:7px;border:none;font-size:11px;font-weight:700;cursor:pointer;flex-shrink:0;}
-.hd-btn-gold{background:var(--gold);color:#111;}
-.hd-btn-outline{background:transparent;border:1px solid var(--border2);color:var(--text2);}
-
-/* TOOLBAR */
-.toolbar{background:var(--card);border-bottom:1px solid var(--border);padding:8px 16px;display:flex;align-items:center;gap:10px;flex-shrink:0;overflow-x:auto;}
-.search-wrap{flex:1;max-width:280px;position:relative;}
-.search-input{width:100%;background:var(--card2);border:1px solid var(--border2);border-radius:7px;padding:7px 10px 7px 32px;color:var(--text);font-size:13px;font-family:inherit;}
-.search-input::placeholder{color:var(--text3);}
-.search-icon{position:absolute;left:10px;top:50%;transform:translateY(-50%);color:var(--text3);font-size:13px;}
-.filter-btn{padding:7px 12px;border-radius:7px;border:1px solid var(--border2);background:var(--card2);color:var(--text2);font-size:11px;font-weight:700;cursor:pointer;white-space:nowrap;flex-shrink:0;}
-.filter-btn.on{background:var(--gold);color:#111;border-color:var(--gold);}
-.divider{width:1px;height:20px;background:var(--border2);flex-shrink:0;}
-.sort-select{background:var(--card2);border:1px solid var(--border2);border-radius:7px;padding:7px 10px;color:var(--text2);font-size:11px;font-family:inherit;flex-shrink:0;}
-
 /* KANBAN BOARD */
-.board-wrap{flex:1;overflow-x:auto;overflow-y:hidden;padding:12px 16px;-webkit-overflow-scrolling:touch;}
-.board{display:flex;gap:10px;height:100%;align-items:flex-start;}
-
-/* COLUMNS */
-.col{min-width:230px;max-width:230px;background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);display:flex;flex-direction:column;max-height:100%;flex-shrink:0;}
-.col-hd{padding:11px 12px;border-bottom:1px solid var(--border);display:flex;align-items:center;gap:8px;flex-shrink:0;border-radius:var(--radius-lg) var(--radius-lg) 0 0;}
-.col-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
-.col-name{font-size:11px;font-weight:800;color:var(--text);flex:1;letter-spacing:0.2px;}
-.col-count{background:var(--card2);border:1px solid var(--border2);border-radius:10px;padding:1px 7px;font-size:10px;font-weight:700;color:var(--text2);}
-.col-vol{font-size:9px;color:var(--text3);font-family:monospace;}
-.col-body{flex:1;overflow-y:auto;padding:8px;-webkit-overflow-scrolling:touch;}
-.col-body::-webkit-scrollbar{width:3px;}
-.col-body::-webkit-scrollbar-track{background:transparent;}
-.col-body::-webkit-scrollbar-thumb{background:var(--border2);border-radius:2px;}
-
-/* CARDS */
-.card{background:var(--card2);border:1px solid var(--border);border-radius:var(--radius);padding:10px;margin-bottom:7px;cursor:pointer;transition:all 0.15s;position:relative;}
-.card:hover{border-color:var(--border2);transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,0.3);}
-.card.overdue{border-left:3px solid var(--red);}
-.card.due-today{border-left:3px solid var(--orange);}
-.card.no-followup{border-left:3px solid var(--text3);}
-.card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:4px;}
-.card-name{font-size:13px;font-weight:700;color:var(--text);line-height:1.2;}
-.card-vol{font-size:9px;color:var(--text3);background:var(--border);padding:1px 5px;border-radius:3px;font-family:monospace;flex-shrink:0;}
-.card-co{font-size:11px;color:var(--text2);margin-bottom:5px;}
-.card-chips{display:flex;gap:5px;flex-wrap:wrap;align-items:center;}
-.chip{font-size:9px;font-weight:700;padding:2px 6px;border-radius:3px;letter-spacing:0.3px;}
-.chip-lo{background:rgba(41,128,185,0.2);color:#5DADE2;}
-.chip-re{background:rgba(142,68,173,0.2);color:#C39BD3;}
-.chip-goal{background:rgba(200,150,12,0.15);color:var(--gold);}
-.chip-warn{background:rgba(192,57,43,0.15);color:#E74C3C;font-weight:800;}
-.fu-chip{font-size:9px;font-weight:800;padding:2px 6px;border-radius:3px;}
-.fu-over{background:rgba(192,57,43,0.2);color:#E74C3C;}
-.fu-today{background:rgba(230,126,34,0.2);color:var(--orange);}
-.fu-ok{background:rgba(39,174,96,0.2);color:var(--green);}
-.card-acts{font-size:10px;color:var(--text3);margin-top:5px;border-top:1px solid var(--border);padding-top:5px;}
-.no-goal-warn{font-size:9px;color:#E74C3C;font-weight:800;display:flex;align-items:center;gap:3px;}
-
-/* MODAL */
-.modal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.7);z-index:500;display:none;align-items:flex-end;}
-.modal-ov.on{display:flex;}
-.modal{background:var(--card);border-radius:20px 20px 0 0;width:100%;max-height:93vh;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,20px);}
-.modal-handle{width:40px;height:4px;background:var(--border2);border-radius:2px;margin:12px auto 0;}
-.modal-hd{padding:14px 16px;border-bottom:1px solid var(--border);display:flex;justify-content:space-between;align-items:flex-start;}
-.modal-name{font-size:20px;font-weight:900;}
-.modal-co{font-size:13px;color:var(--text2);margin-top:2px;}
-.modal-close{background:var(--card2);border:1px solid var(--border2);border-radius:8px;color:var(--text2);padding:6px 12px;cursor:pointer;font-size:12px;font-weight:700;}
-.modal-body{padding:14px 16px;}
-.modal-section{margin-bottom:18px;}
-.msec-lbl{font-size:9px;font-weight:800;letter-spacing:2px;color:var(--gold);margin-bottom:10px;font-family:monospace;}
-.field-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
-.field{display:flex;flex-direction:column;gap:4px;}
-.field-label{font-size:9px;color:var(--text3);font-weight:700;letter-spacing:0.5px;text-transform:uppercase;}
-.field-input{background:var(--card2);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;font-family:inherit;}
-.field-input:focus{outline:none;border-color:var(--gold);}
-.field-select{background:var(--card2);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;font-family:inherit;width:100%;}
-.field-textarea{background:var(--card2);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:var(--text);font-size:13px;font-family:inherit;resize:vertical;min-height:70px;width:100%;}
-.best-practice{background:rgba(200,150,12,0.08);border:1px solid rgba(200,150,12,0.2);border-radius:8px;padding:10px 12px;font-size:12px;color:rgba(240,240,240,0.65);line-height:1.65;}
-.stage-select-wrap{display:flex;flex-direction:column;gap:8px;}
-.stage-option{display:flex;align-items:center;gap:10px;padding:10px 12px;background:var(--card2);border:1px solid var(--border2);border-radius:8px;cursor:pointer;transition:all 0.15s;}
-.stage-option:hover{border-color:var(--border2);}
-.stage-option.selected{border-color:var(--gold);background:rgba(200,150,12,0.05);}
-.stage-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0;}
-.stage-name{font-size:13px;font-weight:700;flex:1;}
-.stage-bp{font-size:11px;color:var(--text3);line-height:1.5;margin-top:2px;}
-.activity-item{padding:10px 0;border-bottom:1px solid var(--border);display:flex;gap:10px;}
-.act-dot{width:8px;height:8px;border-radius:50%;background:var(--gold);flex-shrink:0;margin-top:4px;}
-.act-type{font-size:12px;font-weight:700;}
-.act-date{font-size:10px;color:var(--text3);font-family:monospace;}
-.act-notes{font-size:12px;color:var(--text2);}
-.add-act-row{display:flex;gap:8px;margin-top:8px;}
-.act-type-sel{flex:1;background:var(--card2);border:1px solid var(--border2);border-radius:6px;padding:8px 10px;color:var(--text);font-size:12px;font-family:inherit;}
-.save-btn{width:100%;padding:13px;border-radius:10px;border:none;background:var(--gold);color:#111;font-size:14px;font-weight:800;cursor:pointer;margin-top:8px;}
-.del-btn{width:100%;padding:10px;border-radius:8px;border:1px solid rgba(192,57,43,0.3);background:rgba(192,57,43,0.05);color:var(--red);font-size:12px;font-weight:700;cursor:pointer;margin-top:6px;}
-
-/* ADD CONTACT */
-.add-modal{position:fixed;inset:0;background:rgba(0,0,0,0.8);z-index:600;display:none;align-items:center;justify-content:center;padding:16px;}
-.add-modal.on{display:flex;}
-.add-box{background:var(--card);border-radius:16px;width:100%;max-width:480px;max-height:90vh;overflow-y:auto;padding:20px;}
-
-/* IMPORT */
-.imp-zone{border:2px dashed var(--border2);border-radius:10px;padding:24px;text-align:center;cursor:pointer;margin-bottom:12px;}
-.imp-zone:hover{border-color:var(--gold);}
-
-/* EMPTY STATE */
-.empty-col{padding:16px 8px;text-align:center;color:var(--text3);font-size:11px;}
-
-
-
-/* DRAG AND DROP */
-.card.dragging{opacity:0.4;transform:scale(0.97);cursor:grabbing !important;}
-.card{cursor:grab;}
-.col-body.drag-over{background:rgba(200,150,12,0.08);border-radius:8px;}
-.drop-indicator{height:3px;background:#C8960C;border-radius:2px;margin:3px 0;display:none;}
-.drop-indicator.visible{display:block;}
-.card-drag-handle{position:absolute;top:8px;right:8px;color:rgba(255,255,255,0.15);font-size:12px;cursor:grab;}
-
-/* BOTTOM NAV */
-:root{--nav-h:56px;}
-.bottom-nav{
-  position:fixed;bottom:0;left:0;right:0;z-index:999;
-  background:#111;border-top:1px solid #222;
-  display:flex;height:calc(var(--nav-h) + env(safe-area-inset-bottom,0px));
-  padding-bottom:env(safe-area-inset-bottom,0px);
-}
-.nav-btn{
-  flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;
-  gap:3px;border:none;background:transparent;color:#444;cursor:pointer;
-  font-size:9px;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;
-  padding:6px 0;transition:color 0.2s;
-}
-.nav-btn svg{flex-shrink:0;}
-.nav-active{color:#C8960C !important;}
-
-/* App containers - each fills screen minus nav */
-.app-container{
-  position:fixed;
-  top:0;left:0;right:0;
-  bottom:calc(var(--nav-h) + env(safe-area-inset-bottom,0px));
-  display:flex;flex-direction:column;
-  overflow:hidden;
-}
-#app-planner{display:flex;}
-#app-pipeline{display:none;}
-
-/* Planner scroll fix - the pg content area scrolls */
-#app-planner .pg{
-  padding-bottom:70px;
-}
-/* Planner bottom bar sits above nav */
-#app-planner .btm{
-  position:sticky !important;
-  bottom:0 !important;
-}
-/* Pipeline board full height */
-#app-pipeline .board-wrap{
-  flex:1;
-  overflow-x:auto;
-  overflow-y:hidden;
-}
-#app-pipeline .col{
-  max-height:100%;
-}
-
+.kanban-wrap{display:flex;flex-direction:column;height:calc(100vh - 130px);}
+.kanban-topbar{display:flex;align-items:center;gap:8px;padding:0 0 10px;flex-shrink:0;}
+.pl-search{flex:1;background:#fff;border:1px solid var(--b);border-radius:8px;padding:8px 12px;color:var(--t);font-size:14px;font-family:inherit;}
+.pl-stats{display:flex;gap:6px;flex-shrink:0;}
+.pl-stat{background:var(--w);border:1px solid var(--b);border-radius:8px;padding:6px 10px;text-align:center;min-width:52px;}
+.pl-stat-num{font-size:16px;font-weight:900;line-height:1;}
+.pl-stat-lbl{font-size:7px;color:var(--mu);font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-top:2px;}
+.kanban-board{display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;flex:1;padding-bottom:12px;-webkit-overflow-scrolling:touch;}
+.kanban-board::-webkit-scrollbar{height:4px;}
+.kanban-board::-webkit-scrollbar-track{background:#F0F0EC;border-radius:2px;}
+.kanban-board::-webkit-scrollbar-thumb{background:#ccc;border-radius:2px;}
+.pipe-col{display:flex;flex-direction:column;min-width:220px;max-width:220px;height:100%;flex-shrink:0;}
+.pipe-col-hd{display:flex;align-items:center;gap:7px;padding:9px 10px;background:var(--w);border:1px solid var(--b);border-radius:10px 10px 0 0;border-bottom:3px solid #ccc;flex-shrink:0;}
+.pipe-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.pipe-col-name{font-size:11px;font-weight:800;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pipe-col-count{font-size:10px;color:var(--mu);background:#F0F0EC;padding:2px 6px;border-radius:8px;font-weight:700;flex-shrink:0;}
+.pipe-col-cards{border:1px solid var(--b);border-top:none;border-radius:0 0 10px 10px;overflow-y:auto;flex:1;min-height:60px;transition:background 0.15s,border-color 0.15s;background:var(--w);}
+.pipe-col-cards.drag-over{background:rgba(200,150,12,0.08) !important;border-color:#C8960C !important;}
+.pcard{padding:10px 11px;border-bottom:1px solid var(--b);cursor:grab;user-select:none;-webkit-user-select:none;transition:opacity 0.15s;background:var(--w);}
+.pcard:last-child{border-bottom:none;}
+.pcard.dragging{opacity:0.3;cursor:grabbing;}
+.pcard:active:not(.dragging){background:#FAFAF8;}
+.pc-name{font-size:13px;font-weight:800;margin-bottom:2px;line-height:1.3;}
+.pc-vol{font-size:9px;color:var(--mu);background:#F0F0EC;padding:1px 5px;border-radius:3px;display:inline-block;margin-bottom:3px;}
+.pc-sub{font-size:10px;color:var(--mu);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pc-row{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-top:3px;}
+.pc-chip{font-size:10px;color:var(--t2);}
+.pc-warn{font-size:9px;font-weight:700;color:var(--red);}
+.fu-badge{font-size:8px;font-weight:800;padding:2px 5px;border-radius:3px;}
+.fu-o{background:#FFF0F0;color:#C0392B;border:1px solid #FFCCCC;}
+.fu-t{background:#FFF8E1;color:#E65100;border:1px solid #FFECB3;}
+.fu-k{background:#F0FBF6;color:#27AE60;border:1px solid #A9DFBF;}
+.pl-hint{font-size:9px;color:var(--mu);padding:0 0 6px;letter-spacing:0.3px;}
+.cmodal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:500;display:none;align-items:flex-end;}
+.cmodal-ov.on{display:flex;}
+.cmodal{background:var(--w);border-radius:20px 20px 0 0;width:100%;max-height:92vh;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,20px);}
+.cm-hdr{padding:12px 14px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:flex-start;}
+.cm-name{font-size:19px;font-weight:900;}
+.cm-co{font-size:12px;color:var(--mu);margin-top:1px;}
+.cm-close{background:transparent;border:none;font-size:22px;color:var(--mu);cursor:pointer;padding:2px 6px;}
+.cm-body{padding:14px;}
+.cm-sec{margin-bottom:16px;}
+.cm-sec-lbl{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#C8960C;margin-bottom:8px;}
+.cm-fi{width:100%;background:#F8F8F4;border:1px solid var(--b);border-radius:7px;padding:8px 10px;color:var(--t);font-size:13px;font-family:inherit;margin-bottom:7px;}
+.cm-g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.cm-fl{font-size:10px;color:var(--mu);font-weight:700;margin-bottom:4px;}
+.cm-ta{width:100%;background:#F8F8F4;border:1px solid var(--b);border-radius:7px;padding:8px 10px;color:var(--t);font-size:13px;font-family:inherit;resize:vertical;min-height:70px;}
+.cm-stage-sel{width:100%;background:#F8F8F4;border:1px solid var(--b);border-radius:7px;padding:8px 10px;color:var(--t);font-size:13px;font-family:inherit;}
+.cm-save-btn{width:100%;padding:13px;border-radius:10px;border:none;background:#111;color:#fff;font-size:14px;font-weight:800;cursor:pointer;margin-top:4px;}
+.cm-x-btn{width:100%;padding:10px;border-radius:8px;border:1px solid var(--b);background:transparent;color:var(--mu);font-size:12px;font-weight:700;cursor:pointer;margin-top:6px;}
+.cn-box{background:#F9F9F7;border:1px solid var(--b);border-radius:7px;padding:10px;margin-bottom:7px;}
+.cn-hd{display:flex;justify-content:space-between;margin-bottom:4px;}
+.cn-tag{font-size:8px;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:3px;color:#fff;}
+.cn-dt{font-size:10px;color:var(--mu);}
+.cn-txt{font-size:12.5px;color:var(--t2);line-height:1.6;}
+.nt-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
+.nt{font-size:10px;font-weight:700;padding:4px 9px;border-radius:4px;border:1px solid var(--b);background:var(--w);cursor:pointer;}
+.nt.on{background:#111;color:#fff;border-color:#111;}
+.ig-warn{font-size:11px;color:#C0392B;font-weight:700;margin-top:4px;}
 </style>
 </head>
 <body>
 
-<!-- SHARED PIN -->
 <div class="pin-ov" id="pinOv">
-  <div class="pin-lbl">OFL OPERATING SYSTEM</div>
+  <div class="pin-lbl">DAILY OPERATING SYSTEM</div>
   <div class="pin-ttl">Enter PIN</div>
-  <div class="pin-sub">Your data is private.</div>
+  <div class="pin-sub">Your planner is private.</div>
   <div class="pin-dots" id="pinDots">
     <div class="pin-dot" id="pd0"></div><div class="pin-dot" id="pd1"></div>
     <div class="pin-dot" id="pd2"></div><div class="pin-dot" id="pd3"></div>
@@ -360,19 +221,17 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Dis
   <div class="pin-err" id="pinErr"></div>
 </div>
 
-<!-- SHARED FILE INPUTS -->
 <input type="file" id="calUpload" accept="image/*" style="display:none" onchange="handleImg(event)" />
-<input type="file" id="importFile" accept=".json" style="display:none" onchange="handleImport(event)" />
 
-<!-- PLANNER APP -->
-<div class="app-container app-planner" id="app-planner">
 <div class="hd">
   <div class="hd-top">
     <div>
       <div class="hd-lbl">DAILY OPERATING SYSTEM</div>
       <div class="hd-date" id="hdDate">Loading...</div>
     </div>
-    <button class="save-btn" id="saveBtn" onclick="saveData()">SAVE</button>
+    <div class="hd-right">
+      <button class="save-btn" id="saveBtn" onclick="saveData()">SAVE</button>
+    </div>
   </div>
   <div class="mma-bar-wrap">
     <div class="mma-row">
@@ -392,104 +251,30 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Dis
   <button class="tab on" onclick="sw('today',this)">&#128203; Today</button>
   <button class="tab" onclick="sw('tomorrow',this)">&#9197; Tomorrow</button>
   <button class="tab" onclick="sw('audit',this)">&#128200; Audit</button>
+  <button class="tab" onclick="sw('pipeline',this)">&#128222; Pipeline</button>
   <button class="tab" onclick="sw('notes',this)">&#128221; Notes</button>
 </div>
 
 <div class="pg on" id="pg-today"></div>
 <div class="pg" id="pg-tomorrow"></div>
 <div class="pg" id="pg-audit"></div>
+<div class="pg" id="pg-pipeline"></div>
 <div class="pg" id="pg-notes"></div>
 
 <div class="btm">
-  <span class="btm-hint">Your calendar reveals your strategy — make it intentional</span>
+  <span class="btm-hint">Upload calendar anytime — Claude builds from right now</span>
   <button class="btm-save" id="btmSave" onclick="saveData()">SAVE</button>
 </div>
-</div>
-
-<!-- PIPELINE APP -->
-<div class="app-container app-pipeline" id="app-pipeline">
-<div class="app">
-  <div class="hd">
-    <div>
-      <div class="hd-brand">OFL RECRUITING PIPELINE</div>
-      <div class="hd-title">Matt Weaver Team</div>
-    </div>
-    <div class="hd-stats">
-      <div class="stat-pill" id="hd-active">Active <b>0</b></div>
-      <div class="stat-pill" id="hd-hot">Hot <b>0</b></div>
-      <div class="stat-pill" id="hd-overdue">Overdue <b>0</b></div>
-      <div class="stat-pill" id="hd-nogoal">No Goal <b>0</b></div>
-    </div>
-    <button class="hd-btn hd-btn-outline" onclick="document.getElementById('importFile').click()">Import</button>
-    <button class="hd-btn hd-btn-gold" onclick="openAdd('prospect')">+ Add</button>
-  </div>
-
-  <div class="toolbar">
-    <div class="search-wrap">
-      <span class="search-icon">&#128269;</span>
-      <input class="search-input" placeholder="Search name, company, state..." oninput="setSearch(this.value)" />
-    </div>
-    <div class="divider"></div>
-    <button class="filter-btn on" id="btn-lo" onclick="setPipeline('lo')">LO Track</button>
-    <button class="filter-btn" id="btn-re" onclick="setPipeline('re')">RE Track</button>
-    <div class="divider"></div>
-    <select class="sort-select" onchange="setSort(this.value)">
-      <option value="followUp">Sort: Follow-Up Date</option>
-      <option value="volume">Sort: Volume</option>
-      <option value="name">Sort: Name</option>
-    </select>
-  </div>
-
-  <div class="board-wrap">
-    <div class="board" id="board"></div>
-  </div>
-</div>
-
-<div class="modal-ov" id="modalOv" onclick="if(event.target===this)closeModal()">
-  <div class="modal">
-    <div class="modal-handle"></div>
-    <div class="modal-hd">
-      <div>
-        <div class="modal-name" id="m-name"></div>
-        <div class="modal-co" id="m-co"></div>
-      </div>
-      <button class="modal-close" onclick="closeModal()">&#10005;</button>
-    </div>
-    <div class="modal-body" id="m-body"></div>
-  </div>
-</div>
-
-<div class="add-modal" id="addModal" onclick="if(event.target===this)closeAdd()">
-  <div class="add-box" id="add-body"></div>
-</div>
-</div>
-
-<!-- BOTTOM NAV -->
-<nav class="bottom-nav">
-  <button class="nav-btn nav-active" id="nav-planner" onclick="switchApp('planner')">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-      <rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/>
-    </svg>
-    Planner
-  </button>
-  <button class="nav-btn" id="nav-pipeline" onclick="switchApp('pipeline')">
-    <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
-      <path d="M3 6h4v12H3zM10 6h4v12h-4zM17 6h4v12h-4z"/>
-    </svg>
-    Pipeline
-  </button>
-</nav>
 
 <script>
 
-// ── SHARED PIN ────────────────────────────────────────────
 var CORRECT_PIN = '1107';
-var PIN_KEY = 'pin_app_unlocked';
+var PIN_KEY = 'pin_planner_unlocked';
 var pinEntry = '';
 
 function pinPress(d){
   if(pinEntry.length>=4)return;
-  pinEntry+=d;updatePinDots();
+  pinEntry+=d; updatePinDots();
   if(pinEntry.length===4)setTimeout(checkPin,150);
 }
 function pinDel(){
@@ -505,7 +290,7 @@ function checkPin(){
     var o=document.getElementById('pinOv');
     o.style.transition='opacity 0.3s';o.style.opacity='0';
     setTimeout(function(){o.style.display='none';},300);
-  }else{
+  } else {
     document.getElementById('pinErr').textContent='Incorrect PIN.';
     pinEntry='';updatePinDots();
     var d=document.getElementById('pinDots');
@@ -517,21 +302,6 @@ function checkPin(){
 if(sessionStorage.getItem(PIN_KEY)==='1'){
   document.getElementById('pinOv').style.display='none';
 }
-
-// ── APP NAV ───────────────────────────────────────────────
-var activeApp = 'planner';
-function switchApp(app){
-  activeApp = app;
-  document.getElementById('app-planner').style.display = app==='planner' ? 'flex' : 'none';
-  document.getElementById('app-pipeline').style.display = app==='pipeline' ? 'flex' : 'none';
-  document.getElementById('nav-planner').classList.toggle('nav-active', app==='planner');
-  document.getElementById('nav-pipeline').classList.toggle('nav-active', app==='pipeline');
-  if(app==='planner') PLrender();
-  if(app==='pipeline') PPrender();
-}
-
-
-// ── PLANNER ─────────────────────────────────────────────
 
 var TYPES = {
   LO_PROSPECT: {label:'LO PROSPECTING',color:'#111',bg:'#F5C518',mma:true},
@@ -614,7 +384,7 @@ function cloneTemplate(){
   return TEMPLATE.map(function(b){return Object.assign({},b,{done:false,id:'t'+Math.random().toString(36).slice(2,8)});});
 }
 
-function PLloadCloud(){
+function loadCloud(){
   var local = localStorage.getItem('planner_state');
   if(local){try{var s=JSON.parse(local);if(s.today)STATE=s;}catch(e){}}
   if(!STATE.weekData)STATE.weekData={};
@@ -624,15 +394,15 @@ function PLloadCloud(){
       body:JSON.stringify(STATE)
     }).then(function(r){return r.json();}).then(function(d){
       if(d.metadata&&d.metadata.id){BIN=d.metadata.id;localStorage.setItem('planner_bin',BIN);}
-      PLrender();
-    }).catch(function(){PLrender();});
+      render();
+    }).catch(function(){render();});
   } else {
     fetch('https://api.jsonbin.io/v3/b/'+BIN+'/latest',{headers:{'X-Master-Key':AK}})
     .then(function(r){return r.json();}).then(function(d){
       if(d.record&&d.record.today){STATE=d.record;}
       if(!STATE.weekData)STATE.weekData={};
-      PLrender();
-    }).catch(function(){PLrender();});
+      render();
+    }).catch(function(){render();});
   }
 }
 
@@ -681,15 +451,15 @@ function mmaStats(blocks){
   return {done:done.length,total:blocks.length,mmaDone:mmaDone.length,mmaTotal:mmaTotal,pct:pct,nonMmaDone:nonMmaDone};
 }
 
-function PLrender(){
-  PLupdateHeader();
-  if(curTab==='today')renderDay('pg-today','today');
+function render(){
+  updateHeader();
+  if(curTab==='today'){renderTodayAI();renderDay('pg-today','today');}
   else if(curTab==='tomorrow')renderTomorrow();
   else if(curTab==='audit')renderAudit();
   else renderNotes();
 }
 
-function PLupdateHeader(){
+function updateHeader(){
   var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var d=new Date();
@@ -703,10 +473,43 @@ function PLupdateHeader(){
   document.getElementById('mmaFill').style.background=col;
   var wasted=s.nonMmaDone*22;
   var weeks=(wasted/60/8*5/50).toFixed(2);
-  document.getElementById('wastedVal').textContent=wasted+'min non-MMA used ('+weeks+' work weeks/yr at this pace)';
+  var wastedEl = document.getElementById('wastedVal');
+  if(wastedEl) wastedEl.innerHTML = '<span style="color:#555;font-size:9px;">'+wasted+'min non-MMA &nbsp;&nbsp; <span style="color:'+(ig>=3?'#27AE60':ig>=1?'#C8960C':'#C0392B')+'">IG: '+ig+'</span></span>';
   var ig=STATE.today.incomeGate||0;
   var igEl=document.getElementById('igCount');
   if(igEl){igEl.textContent=ig;igEl.style.color=ig>=5?'#27AE60':ig>=2?'#C8960C':'#C0392B';}
+}
+
+function renderTodayAI(){
+  var el=document.getElementById('pg-today');
+  if(!el)return;
+  var now=new Date();
+  var h=now.getHours();
+  var timeStr=now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
+  var ttl=h<12?'Build Today From '+timeStr:h<16?'Fill Remaining Today From '+timeStr:'Build Today — Late Blocks';
+  var sub=h<12
+    ?'Upload your calendar screenshot. Claude builds your full day starting right now at '+timeStr+' — MMAs protected, no gaps.'
+    :h<16?'Upload your calendar. Claude fills the rest of today from '+timeStr+' to your 4:30 PM hard stop.'
+    :'Upload your calendar. Claude builds whatever time is left in your day from '+timeStr+'.';
+
+  var html='<div class="ai-card">';
+  html+='<div class="ai-lbl">&#9889; AI SCHEDULE BUILDER</div>';
+  html+='<div class="ai-ttl">'+ttl+'</div>';
+  html+='<div class="ai-sub">'+sub+'</div>';
+  html+='<div class="ai-upload'+(aiImg?' has-img':'')+'" onclick="document.getElementById(\'calUpload\').click()">';
+  if(aiImg){
+    html+='<div style="font-size:14px;color:#C8960C;font-weight:700;">&#128197; Calendar loaded</div>';
+    html+='<div style="font-size:11px;color:#27AE60;margin-top:3px;font-weight:700;">Ready to build from '+timeStr+'</div>';
+  } else {
+    html+='<div style="font-size:28px;margin-bottom:6px;">&#128248;</div>';
+    html+='<div style="font-size:13px;color:#555;font-weight:600;">Tap to upload calendar screenshot</div>';
+    html+='<div style="font-size:10px;color:#444;margin-top:3px;">Takes your calendar + current time → builds your day</div>';
+  }
+  html+='</div>';
+  html+='<button class="ai-build-btn" onclick="buildSchedule()" '+(aiBuilding||!aiImg?'disabled':'')+'>'+( aiBuilding?'&#9203; Building...':'&#9889; Build From '+timeStr)+'</button>';
+  html+='<div class="ai-status '+aiStatus.type+'">'+aiStatus.msg+'</div>';
+  html+='</div>';
+  el.innerHTML=html;
 }
 
 function renderDay(elId,tabKey){
@@ -718,10 +521,10 @@ function renderDay(elId,tabKey){
   html+='<div class="oc-label">'+(tabKey==='today'?"TODAY'S":"TOMORROW'S")+' 3 OUTCOMES</div>';
   for(var i=0;i<3;i++){
     html+='<div class="oc-row"><span class="oc-num">0'+(i+1)+'</span>';
-    html+='<input class="oc-input" data-tab="'+tabKey+'" data-idx="'+i+'" value="'+PLesc((data.outcomes&&data.outcomes[i])||'')+'" oninput="STATE[this.dataset.tab].outcomes[+this.dataset.idx]=this.value" placeholder="Specific pipeline action '+(i+1)+'..." /></div>';
+    html+='<input class="oc-input" data-tab="'+tabKey+'" data-idx="'+i+'" value="'+esc((data.outcomes&&data.outcomes[i])||'')+'" oninput="STATE[this.dataset.tab].outcomes[+this.dataset.idx]=this.value" placeholder="Specific pipeline action '+(i+1)+'..." /></div>';
   }
   html+='<div class="frog-lbl">THE FROG — HIGHEST LEVERAGE ACTION</div>';
-  html+='<input class="frog-input" data-tab="'+tabKey+'" value="'+PLesc(data.frog||'')+'" oninput="STATE[this.dataset.tab].frog=this.value" placeholder="The one thing..." /></div>';
+  html+='<input class="frog-input" data-tab="'+tabKey+'" value="'+esc(data.frog||'')+'" oninput="STATE[this.dataset.tab].frog=this.value" placeholder="The one thing..." /></div>';
 
   if(tabKey==='today'){
     var s=mmaStats(blocks);
@@ -739,7 +542,7 @@ function renderDay(elId,tabKey){
     html+='<div><div class="wb-num">'+annualWeeks+'</div><div class="wb-sub">work wks/yr</div></div>';
     html+='</div>';
     html+='<div class="income-gate-row"><span class="ig-label">Income goals surfaced on Call 1s today:</span>';
-    html+='<input class="ig-input" type="number" min="0" value="'+(data.incomeGate||0)+'" oninput="STATE.today.incomeGate=+this.value;PLupdateHeader()" /></div>';
+    html+='<input class="ig-input" type="number" min="0" value="'+(data.incomeGate||0)+'" oninput="STATE.today.incomeGate=+this.value;updateHeader()" /></div>';
     html+='</div>';
   }
 
@@ -753,12 +556,12 @@ function renderDay(elId,tabKey){
       html+='<div class="check'+(b.done?' checked':'')+'" data-tab="'+tabKey+'" data-id="'+b.id+'" onclick="toggle(this.dataset.tab,this.dataset.id)">';
       html+='<span class="chk-mark">✓</span></div>';
       html+='<div class="bb">';
-      html+='<div class="bm"><span class="bt">'+PLesc(b.time)+'</span>';
+      html+='<div class="bm"><span class="bt">'+esc(b.time)+'</span>';
       html+='<span class="btag" style="color:'+ty.color+';background:'+ty.bg+'">'+ty.label+'</span>';
       if(isMma)html+='<span class="mma-badge">★ MMA</span>';
       html+='</div>';
-      html+='<div class="btitle">'+PLesc(b.title)+'</div>';
-      if(b.note)html+='<div class="bnote">'+PLesc(b.note)+'</div>';
+      html+='<div class="btitle">'+esc(b.title)+'</div>';
+      if(b.note)html+='<div class="bnote">'+esc(b.note)+'</div>';
       html+='</div>';
       html+='<div class="bacts"><div class="act" data-id="'+b.id+'" onclick="startEdit(this.dataset.id)">✎</div>';
       html+='<div class="act del" data-tab="'+tabKey+'" data-id="'+b.id+'" onclick="delBlock(this.dataset.tab,this.dataset.id)">×</div></div></div></div>';
@@ -769,18 +572,44 @@ function renderDay(elId,tabKey){
   html+='<div class="add-section">';
   if(showAdd&&curTab===tabKey){
     html+='<div class="add-form"><div class="add-lbl">NEW BLOCK</div>';
-    html+='<div class="er"><input class="etm" value="'+PLesc(newBlock.time)+'" oninput="newBlock.time=this.value" placeholder="9:00 AM" />';
+    html+='<div class="er"><input class="etm" value="'+esc(newBlock.time)+'" oninput="newBlock.time=this.value" placeholder="9:00 AM" />';
     html+='<select class="esel" onchange="newBlock.type=this.value;newBlock.mma=TYPES[this.value].mma">';
     Object.keys(TYPES).forEach(function(k){html+='<option value="'+k+'"'+(newBlock.type===k?' selected':'')+'>'+TYPES[k].label+'</option>';});
     html+='</select></div>';
-    html+='<input class="ei" value="'+PLesc(newBlock.title)+'" oninput="newBlock.title=this.value" placeholder="Block title..." style="margin-top:6px;" />';
-    html+='<textarea class="eta" rows="2" oninput="newBlock.note=this.value" placeholder="Notes..." style="margin-top:6px;">'+PLesc(newBlock.note)+'</textarea>';
+    html+='<input class="ei" value="'+esc(newBlock.title)+'" oninput="newBlock.title=this.value" placeholder="Block title..." style="margin-top:6px;" />';
+    html+='<textarea class="eta" rows="2" oninput="newBlock.note=this.value" placeholder="Notes..." style="margin-top:6px;">'+esc(newBlock.note)+'</textarea>';
     html+='<label class="mma-toggle" style="margin-top:6px;"><input type="checkbox"'+(newBlock.mma?' checked':'')+' onchange="newBlock.mma=this.checked" /><span class="mma-toggle-lbl">★ Money-Making Activity</span><span class="mma-toggle-sub">Counts toward MMA score</span></label>';
-    html+='<div class="add-acts"><button class="add-ok" data-tab="'+tabKey+'" onclick="addBlock(this.dataset.tab)">+ Add</button><button class="add-x" onclick="showAdd=false;PLrender()">Cancel</button></div></div>';
+    html+='<div class="add-acts"><button class="add-ok" data-tab="'+tabKey+'" onclick="addBlock(this.dataset.tab)">+ Add</button><button class="add-x" onclick="showAdd=false;render()">Cancel</button></div></div>';
   } else {
-    html+='<button class="add-btn" onclick="showAdd=true;PLrender()">+ Add Block</button>';
+    html+='<button class="add-btn" onclick="showAdd=true;render()">+ Add Block</button>';
   }
   html+='<button class="reset-btn" data-tab="'+tabKey+'" onclick="resetDay(this.dataset.tab)">&#8634; Reset to Default Schedule</button></div>';
+  // AI builder on Today tab
+  if(tabKey==='today'){
+    var now=new Date(),h=now.getHours();
+    var tStr=now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
+    var ttl=h<12?'Build Today From '+tStr:h<16?'Fill Remaining Today From '+tStr:'Build Remaining From '+tStr;
+    var sub=h<12?'Upload your calendar. Claude builds your day from '+tStr+'.'
+      :h<16?'Upload your calendar. Claude fills today from '+tStr+' to 4:30 PM.'
+      :'Upload your calendar. Claude builds remaining time from '+tStr+'.';
+    var ac='<div class="ai-card">';
+    ac+='<div class="ai-lbl">&#9889; AI SCHEDULE BUILDER</div>';
+    ac+='<div class="ai-ttl">'+ttl+'</div>';
+    ac+='<div class="ai-sub">'+sub+'</div>';
+    ac+='<div class="ai-upload'+(aiImg?' has-img':'')+'" onclick="triggerCalUpload()">';
+    if(aiImg){
+      ac+='<div style="font-size:14px;color:#C8960C;font-weight:700;">&#128197; Calendar loaded</div>';
+      ac+='<div style="font-size:11px;color:#27AE60;margin-top:3px;font-weight:700;">Will build from '+tStr+'</div>';
+    }else{
+      ac+='<div style="font-size:26px;margin-bottom:6px;">&#128248;</div>';
+      ac+='<div style="font-size:13px;color:#555;font-weight:600;">Tap to upload calendar screenshot</div>';
+    }
+    ac+='</div>';
+    ac+='<button class="ai-build-btn" onclick="buildSchedule(\'today\')" '+(aiBuilding||!aiImg?'disabled':'')+'>'+( aiBuilding?'&#9203; Building...':'&#9889; Build From '+tStr)+'</button>';
+    ac+='<div class="ai-status '+aiStatus.type+'">'+aiStatus.msg+'</div>';
+    ac+='</div>';
+    html=ac+html;
+  }
   document.getElementById(elId).innerHTML=html;
 }
 
@@ -789,14 +618,14 @@ function editBlock(b,tabKey){
   var html='<div class="block" style="border-left-color:#C8960C"><div class="ef">';
   var html='<div class="block" style="border-left-color:#C8960C"><div class="ef">';
   html+='<div class="er">';
-  html+='<input class="etm" data-tab="'+tabKey+'" data-id="'+b.id+'" value="'+PLesc(b.time)+'" oninput="upd(this.dataset.tab,this.dataset.id,\'time\',this.value)" />';
+  html+='<input class="etm" data-tab="'+tabKey+'" data-id="'+b.id+'" value="'+esc(b.time)+'" oninput="upd(this.dataset.tab,this.dataset.id,\'time\',this.value)" />';
   html+='<select class="esel" data-tab="'+tabKey+'" data-id="'+b.id+'" onchange="upd(this.dataset.tab,this.dataset.id,\'type\',this.value)">';
   Object.keys(TYPES).forEach(function(k){html+='<option value="'+k+'"'+(b.type===k?' selected':'')+'>'+TYPES[k].label+'</option>';});
   html+='</select></div>';
-  html+='<input class="ei" data-tab="'+tabKey+'" data-id="'+b.id+'" value="'+PLesc(b.title)+'" oninput="upd(this.dataset.tab,this.dataset.id,\'title\',this.value)" />';
-  html+='<textarea class="eta" rows="2" data-tab="'+tabKey+'" data-id="'+b.id+'" oninput="upd(this.dataset.tab,this.dataset.id,\'note\',this.value)">'+PLesc(b.note||'')+'</textarea>';
+  html+='<input class="ei" data-tab="'+tabKey+'" data-id="'+b.id+'" value="'+esc(b.title)+'" oninput="upd(this.dataset.tab,this.dataset.id,\'title\',this.value)" />';
+  html+='<textarea class="eta" rows="2" data-tab="'+tabKey+'" data-id="'+b.id+'" oninput="upd(this.dataset.tab,this.dataset.id,\'note\',this.value)">'+esc(b.note||'')+'</textarea>';
   html+='<label class="mma-toggle"><input type="checkbox"'+(isMma?' checked':'')+' data-tab="'+tabKey+'" data-id="'+b.id+'" onchange="upd(this.dataset.tab,this.dataset.id,\'mma\',this.checked)" /><span class="mma-toggle-lbl">★ MMA</span><span class="mma-toggle-sub">Money-Making Activity</span></label>';
-  html+='<button class="ed-done" onclick="editingId=null;PLrender()">Done</button></div></div>';
+  html+='<button class="ed-done" onclick="editingId=null;render()">Done</button></div></div>';
   return html;
 }
 
@@ -805,10 +634,16 @@ function renderTomorrow(){
   var el=document.getElementById('pg-tomorrow');
   var aiHtml='<div class="ai-card">';
   aiHtml+='<div class="ai-lbl">⚡ AI SCHEDULE BUILDER</div>';
-  aiHtml+='<div class="ai-ttl">Build Tomorrow From Your Calendar</div>';
-  aiHtml+='<div class="ai-sub">Screenshot your calendar at 4:15 PM. Claude fills your inventory around your appointments — MMAs protected, every minute intentional, not by default.</div>';
+  aiHtml+='<div class="ai-ttl">Build Tomorrow\'s Schedule</div>';
+  aiHtml+='<div class="ai-sub">Upload your calendar the evening before. Claude builds the full next day around your appointments — MMAs first, every gap filled.</div>';
+  
   aiHtml+='<div class="ai-upload'+(aiImg?' has-img':'')+'" onclick="document.getElementById(\'calUpload\').click()">';
-  if(aiImg){aiHtml+='<div style="font-size:14px;color:#C8960C;font-weight:700;">📅 Calendar loaded — ready to build</div>';}
+  if(aiImg){
+    var h=new Date().getHours();
+    var ctx=h<12?'Will build TODAY from now':h<16?'Will fill remaining TODAY':h<17?'Will build TOMORROW':'Will build TOMORROW';
+    aiHtml+='<div style="font-size:14px;color:#C8960C;font-weight:700;">&#128197; Calendar loaded</div>';
+    aiHtml+='<div style="font-size:11px;color:#27AE60;margin-top:4px;font-weight:700;">'+ctx+'</div>';
+  }
   else{aiHtml+='<div style="font-size:28px;margin-bottom:8px;">📸</div><div style="font-size:13px;color:#555;font-weight:600;">Tap to upload calendar screenshot</div>';}
   aiHtml+='</div>';
   aiHtml+='<button class="ai-build-btn" onclick="buildSchedule()" '+(aiBuilding||!aiImg?'disabled':'')+'>'+( aiBuilding?'⏳ Building...':'⚡ Build My Schedule')+'</button>';
@@ -869,7 +704,7 @@ function renderAudit(){
   html+='<div style="background:#0d1117;border:1px solid #1a2a1a;border-radius:12px;padding:14px;">';
   html+='<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#27AE60;margin-bottom:10px;font-family:monospace;">STRATEGY REFLECTION</div>';
   html+='<div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:8px;line-height:1.7;">Which activities this week had the highest conversion? What should you do more of next week? What should you delegate?</div>';
-  html+='<textarea class="ns-ta" rows="4" style="background:#111;color:#fff;border-color:#222;" oninput="STATE.today.notes=this.value" placeholder="My highest conversion activities this week were...">'+PLesc(STATE.today.notes||'')+'</textarea>';
+  html+='<textarea class="ns-ta" rows="4" style="background:#111;color:#fff;border-color:#222;" oninput="STATE.today.notes=this.value" placeholder="My highest conversion activities this week were...">'+esc(STATE.today.notes||'')+'</textarea>';
   html+='</div>';
 
   el.innerHTML=html;
@@ -889,7 +724,7 @@ function renderNotes(){
   html+='<div style="font-size:10px;color:#888;margin-bottom:10px;">Brian Tracy: rewriting goals daily burns them into your subconscious. Takes 4 minutes.</div>';
   html+='<ul style="list-style:none">';
   GOALS.forEach(function(g,i){
-    html+='<li class="goal-item"><span class="gnum">0'+(i+1)+'</span><span class="gtxt">'+PLesc(g)+'</span></li>';
+    html+='<li class="goal-item"><span class="gnum">0'+(i+1)+'</span><span class="gtxt">'+esc(g)+'</span></li>';
   });
   html+='</ul></div>';
 
@@ -897,7 +732,7 @@ function renderNotes(){
   html+='<div class="ns-lbl" style="color:#1E8449;">3 WINS TODAY</div>';
   for(var i=0;i<3;i++){
     html+='<div class="win-row"><span style="font-size:14px">🔥</span>';
-    html+='<input class="oc-input" style="background:rgba(255,255,255,0.8)" value="'+PLesc((d.wins&&d.wins[i])||'')+'" oninput="STATE.today.wins['+i+']=this.value" placeholder="Win '+(i+1)+'..." /></div>';
+    html+='<input class="oc-input" style="background:rgba(255,255,255,0.8)" value="'+esc((d.wins&&d.wins[i])||'')+'" oninput="STATE.today.wins['+i+']=this.value" placeholder="Win '+(i+1)+'..." /></div>';
   }
   html+='</div>';
   el.innerHTML=html;
@@ -905,16 +740,16 @@ function renderNotes(){
 
 function toggle(tab,id){
   var b=(STATE[tab].blocks||[]).find(function(x){return x.id===id;});
-  if(b){b.done=!b.done;}PLrender();
+  if(b){b.done=!b.done;}render();
 }
-function startEdit(id){editingId=id;showAdd=false;PLrender();}
+function startEdit(id){editingId=id;showAdd=false;render();}
 function upd(tab,id,field,val){
   var b=(STATE[tab].blocks||[]).find(function(x){return x.id===id;});
   if(b)b[field]=val;
 }
 function delBlock(tab,id){
   if(!confirm('Delete this block?'))return;
-  STATE[tab].blocks=(STATE[tab].blocks||[]).filter(function(x){return x.id!==id;});PLrender();
+  STATE[tab].blocks=(STATE[tab].blocks||[]).filter(function(x){return x.id!==id;});render();
 }
 function addBlock(tab){
   if(!newBlock.time||!newBlock.title){alert('Add time and title');return;}
@@ -922,11 +757,11 @@ function addBlock(tab){
   (STATE[tab].blocks=STATE[tab].blocks||[]).push(b);
   STATE[tab].blocks.sort(function(a,b){return toMin(a.time)-toMin(b.time);});
   newBlock={time:'',type:'LO_PROSPECT',title:'',note:'',mma:true};
-  showAdd=false;PLrender();
+  showAdd=false;render();
 }
 function resetDay(tab){
   if(!confirm('Reset to default schedule?'))return;
-  STATE[tab].blocks=cloneTemplate();PLrender();
+  STATE[tab].blocks=cloneTemplate();render();
 }
 function toMin(t){
   if(!t)return 9999;
@@ -934,49 +769,100 @@ function toMin(t){
   if(mer==='PM'&&h!==12)h+=12;if(mer==='AM'&&h===12)h=0;
   return h*60+(hm[1]||0);
 }
-function PLesc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
 
+function triggerCalUpload(){document.getElementById('calUpload').click();}
 function handleImg(ev){
   var file=ev.target.files[0];if(!file)return;
   var reader=new FileReader();
-  reader.onload=function(e){aiImg=e.target.result;aiStatus={type:'',msg:'Calendar loaded — tap Build My Schedule.'};PLrender();};
+  reader.onload=function(e){aiImg=e.target.result;aiStatus={type:'',msg:'Calendar loaded — tap Build My Schedule.'};render();};
   reader.readAsDataURL(file);
 }
 
-function buildSchedule(){
+function buildSchedule(forceTab){
   if(!aiImg||aiBuilding)return;
-  aiBuilding=true;aiStatus={type:'loading',msg:'Claude is reading your calendar and building your day...'};PLrender();
-  var tomorrow=new Date();tomorrow.setDate(tomorrow.getDate()+1);
-  var dnames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  aiBuilding=true;
+
+  var now = new Date();
+  var hour = now.getHours();
+  var mins = now.getMinutes();
+  var timeStr = now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
+  var dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var todayName = dayNames[now.getDay()];
+  var tomorrowName = dayNames[(now.getDay()+1)%7];
+
+  // Which day to build and which tab to put it in
+  var targetTab = forceTab || (hour >= 16 ? 'tomorrow' : 'today');
+  var targetDay = targetTab === 'tomorrow' ? tomorrowName : todayName;
+
+  aiStatus={type:'loading',msg:'Building '+targetDay+' from '+timeStr+'...'};
+  render();
+
   var gymMap={Monday:'Chest + Triceps',Tuesday:'Back + Biceps',Wednesday:'Shoulders + Core',Thursday:'Lower Body',Friday:'Full Body',Saturday:'Active Recovery',Sunday:'Rest'};
-  var dayName=dnames[tomorrow.getDay()];
-  var b64=aiImg.split(',')[1],mt=aiImg.split(';')[0].split(':')[1];
-  var sys='You are a scheduling assistant for Joey, a recruiting operator at CrossCountry Mortgage on the Matt Weaver Team (Originate for Life platform). His role: own Call 1, qualify loan originators, surface income goals before any comp model is shown. NEVER mix LO and RE tracks. MMAs are: LO_PROSPECT, FOLLOWUP, DECISION, SCHEDULED, RE_PROSPECT. Protect these in any schedule. Gym: '+dayName+' = '+gymMap[dayName]+'. Wake 6AM. Office 9AM. Hard stop 4:30PM. Every gap is inventory to fill with MMA blocks. Return ONLY a JSON array. Each object: {id,time,type,title,note,done:false,mma:bool}. Valid types: LO_PROSPECT,RE_PROSPECT,FOLLOWUP,DECISION,SCHEDULED,PIPELINE,RESEARCH,ADMIN,READING,NUTRITION,GYM,ROUTINE,BREAK,REVIEW.';
+  var b64=aiImg.split(',')[1], mt=aiImg.split(';')[0].split(':')[1];
+
+  // Very explicit time instruction to Claude
+  var timeInstruction = targetTab === 'today'
+    ? 'The current time RIGHT NOW is '+timeStr+' on '+todayName+'. Build the schedule for the REST of today only. Start the first block at '+timeStr+' or the next logical time slot after '+timeStr+'. Do NOT include any blocks before '+timeStr+'. End at 4:30 PM hard stop.'
+    : 'The current time is '+timeStr+' on '+todayName+'. Build the FULL schedule for tomorrow ('+tomorrowName+') from 6:00 AM to 10:00 PM.';
+
+  var sys = 'You are a scheduling assistant for Joey, a recruiting operator at CrossCountry Mortgage on the Matt Weaver Team (Originate for Life). '
+    + timeInstruction
+    + ' His MMAs (mark mma:true): LO_PROSPECT, FOLLOWUP, DECISION, SCHEDULED, RE_PROSPECT. Protect these — fill every gap with them. Gym for '+targetDay+': '+gymMap[targetDay]+'.'
+    + ' Office: 9AM start, 4:30PM hard stop. Return ONLY a valid JSON array, nothing else. Each block: {id,time,type,title,note,done:false,mma:bool}.'
+    + ' Valid types: LO_PROSPECT,RE_PROSPECT,FOLLOWUP,DECISION,SCHEDULED,PIPELINE,RESEARCH,ADMIN,READING,NUTRITION,GYM,ROUTINE,BREAK,REVIEW.';
+
   fetch('https://api.anthropic.com/v1/messages',{
     method:'POST',
     headers:{'Content-Type':'application/json','anthropic-dangerous-direct-browser-access':'true'},
-    body:JSON.stringify({model:'claude-sonnet-4-6',max_tokens:3000,system:sys,messages:[{role:'user',content:[
-      {type:'image',source:{type:'base64',media_type:mt,data:b64}},
-      {type:'text',text:'Build complete schedule for '+dayName+'. Fill every inventory gap with MMA blocks around any appointments shown. Return JSON array only.'}
-    ]}]})
+    body:JSON.stringify({
+      model:'claude-sonnet-4-6',
+      max_tokens:3000,
+      system:sys,
+      messages:[{role:'user',content:[
+        {type:'image',source:{type:'base64',media_type:mt,data:b64}},
+        {type:'text',text:'Current time: '+timeStr+'. '+timeInstruction+' Look at the calendar screenshot for any existing appointments and build around them. Return JSON array only — no explanation, no markdown.'}
+      ]}]
+    })
   }).then(function(r){return r.json();}).then(function(d){
     if(d.error)throw new Error(d.error.message);
-    var text=d.content[0].text;
+    var text=d.content[0].text.trim();
+    // Strip any markdown fences
+    text=text.replace(/```json/gi,'').replace(/```/g,'').trim();
     var match=text.match(/\[[\s\S]*\]/);
-    if(!match)throw new Error('No schedule returned');
+    if(!match)throw new Error('No JSON found in response');
     var blocks=JSON.parse(match[0]);
     var valid=Object.keys(TYPES);
     blocks=blocks.map(function(b,i){
       var t=valid.includes(b.type)?b.type:'SCHEDULED';
-      return{id:b.id||'ai'+i,time:b.time||'9:00 AM',type:t,title:b.title||'Block',
-        note:b.note||'',done:false,mma:b.mma!==undefined?b.mma:(TYPES[t]||{}).mma||false};
+      return{
+        id:b.id||'ai'+i,
+        time:b.time||'9:00 AM',
+        type:t,
+        title:b.title||'Block',
+        note:b.note||'',
+        done:false,
+        mma:b.mma!==undefined?b.mma:(TYPES[t]||{}).mma||false
+      };
     });
     blocks.sort(function(a,b){return toMin(a.time)-toMin(b.time);});
-    STATE.tomorrow.blocks=blocks;
-    aiBuilding=false;aiStatus={type:'success',msg:'✓ '+blocks.length+' blocks built for '+dayName+'. Review and Save.'};
-    aiImg='';PLrender();
+    STATE[targetTab].blocks=blocks;
+    aiBuilding=false;
+    aiImg='';
+    aiStatus={type:'success',msg:'&#10003; '+blocks.length+' blocks built for '+targetDay+' starting '+timeStr+'. Review and Save.'};
+    // Switch to the built tab
+    curTab=targetTab;
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+    document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
+    var btn=document.querySelector('[onclick*="\''+targetTab+'\'"]');
+    if(btn)btn.classList.add('on');
+    var pg=document.getElementById('pg-'+targetTab);
+    if(pg)pg.classList.add('on');
+    render();
   }).catch(function(e){
-    aiBuilding=false;aiStatus={type:'error',msg:'Error: '+(e.message||'Try again.')};PLrender();
+    aiBuilding=false;
+    aiStatus={type:'error',msg:'Error: '+(e.message||'Try again.')};
+    render();
   });
 }
 
@@ -986,505 +872,196 @@ function sw(id,el){
   document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
   el.classList.add('on');
   document.getElementById('pg-'+id).classList.add('on');
-  PLrender();
+  if(id==='pipeline')renderPipeline(); else render();
 }
 
 if(!STATE.weekData)STATE.weekData={};
-
-// ── PIPELINE ────────────────────────────────────────────
-
-// DATA
-var PP_AK = '$2a$10$NyyXvn9j8.HX5rM0oKCjnuo9GxmQVT/hRnTLslt.ks00E/ViRfF0G';
-var PP_BIN = localStorage.getItem('pipeline_bin')||'';
-
-var STAGE_COLORS = {
-  'prospect':'#5D6D7E','cold-call-attempted':'#85929E',
-  'initial-presentation-scheduled':'#2980B9','initial-presentation-complete':'#1A5276',
-  'pro-forma-scheduled':'#8E44AD','pro-forma-complete':'#6C3483',
-  'mike-dave-scheduled':'#27AE60','mike-dave-complete':'#1E8449',
-  'decision-call-scheduled':'#E67E22','decision-pending':'#CA6F1E',
-  'onboarding':'#1ABC9C','nurture-long-term':'#F39C12',
-  'closed-not-qualified':'#636E72','closed-not-interested':'#636E72',
-  'stage-1778860440487':'#636E72','stage-1773765557374':'#636E72'
-};
-
-var STAGES = [{"id": "prospect", "name": "Prospect", "isActive": true, "isMeeting": false, "defaultFollowUpDays": 1, "stageAgingDays": 7, "bestPractice": "Pro forma is built. No live conversation yet. Move forward the moment a live conversation happens.", "isDNC": false, "suppressFollowUpWarnings": false}, {"id": "cold-call-attempted", "name": "Cold Call Attempted", "isActive": true, "isMeeting": false, "defaultFollowUpDays": 2, "stageAgingDays": 30, "bestPractice": "Active follow-up stage \u2014 not a holding stage. Every contact here needs a specific next touch date. If 30 days pass with no response, move to Long-Term Nurture or close.", "isDNC": false, "suppressFollowUpWarnings": false}, {"id": "initial-presentation-scheduled", "name": "Initial Presentation Scheduled", "isActive": true, "isMeeting": true, "defaultFollowUpDays": 2, "stageAgingDays": 7, "bestPractice": "Booked and confirmed. The candidate knows this is a 20-minute call about their production numbers. Pro forma is ready. Do not let this fall through a crack.", "isDNC": false, "suppressFollowUpWarnings": false}, {"id": "pro-forma-scheduled", "name": "Pro Forma Call Scheduled", "isActive": true, "isMeeting": true, "defaultFollowUpDays": 2, "stageAgingDays": 7, "bestPractice": "Pro Forma Call is booked. Production numbers verified against RETR data before this call. Volume discrepancies noted and reflected in the pro forma.", "isDNC": false, "suppressFollowUpWarnings": false}, {"id": "mike-dave-scheduled", "name": "Mike - Dave Call Scheduled", "isActive": true, "isMeeting": true, "defaultFollowUpDays": 2, "stageAgingDays": 7, "bestPractice": "Mike and Dave are briefed: market, volume, income goal, scenario from Pro Forma Call, any objections. Joey's responsibility before the call.", "isDNC": false, "suppressFollowUpWarnings": false}, {"id": "decision-call-scheduled", "name": "Decision Call Scheduled", "isActive": true, "isMeeting": true, "defaultFollowUpDays": 2, "stageAgingDays": 7, "bestPractice": "Joey knows the blocker. If it requires Matt, Matt is briefed. This call has one job \u2014 walk in knowing exactly what it is.", "isDNC": false, "suppressFollowUpWarnings": false}, {"id": "decision-pending", "name": "Decision Pending \u2014 Defined Timeline", "isActive": true, "isMeeting": false, "defaultFollowUpDays": 7, "stageAgingDays": 14, "bestPractice": "Not open nurture. There is a specific date and a real reason. If no specific date exists, it is a stall \u2014 treat it as such.", "isDNC": false, "suppressFollowUpWarnings": false}, {"id": "onboarding", "name": "Onboarding", "isActive": true, "isMeeting": false, "defaultFollowUpDays": 7, "stageAgingDays": null, "suppressFollowUpWarnings": true, "bestPractice": "Candidate said yes. Licensing, state coverage, and logistics in progress.", "isDNC": false}, {"id": "nurture-long-term", "name": "Long-Term Nurture", "isActive": true, "isMeeting": false, "defaultFollowUpDays": 30, "stageAgingDays": 60, "suppressFollowUpWarnings": true, "bestPractice": "Qualified, engaged, but has a legitimate reason they cannot move right now (>60 days). Must have a specific re-engagement date \u2014 not open-ended.", "isDNC": false}, {"id": "closed-not-qualified", "name": "Not a Fit", "isActive": true, "isMeeting": false, "isDNC": false, "defaultFollowUpDays": 0, "stageAgingDays": null, "suppressFollowUpWarnings": true, "bestPractice": null}, {"id": "closed-not-interested", "name": "Active LO", "isActive": true, "isMeeting": false, "isDNC": true, "defaultFollowUpDays": 0, "stageAgingDays": null, "suppressFollowUpWarnings": true, "bestPractice": null}, {"id": "stage-1778860440487", "name": "Not Interested", "isActive": true, "isMeeting": false, "isDNC": false, "defaultFollowUpDays": 3, "stageAgingDays": 7, "suppressFollowUpWarnings": false}];
-var contacts = [{"id": "7817f5a2", "name": "Kerry Victor", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "closed-not-interested", "volume": 3000000, "followUp": "2026-05-16", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Active LO", "date": "2026-05-15", "notes": "From Prospect"}]}, {"id": "a9ca3131", "name": "Kathleen Ward", "company": "KK Homes Team", "phone": "", "email": "", "state": "VA", "pipeline": "re", "stage": "prospect", "volume": 22000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Follow up next week, brought up L&F internal mortgage, squashed it.", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a02f9e5a", "name": "Mitchell Payne", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "mike-dave-scheduled", "volume": 20000000, "followUp": "2026-05-18", "lastContact": "2026-05-15", "notes": "Following Up", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Left Voicemail", "date": "2026-05-15", "notes": ""}, {"type": "Stage moved to Mike - Dave Call Scheduled", "date": "2026-05-15", "notes": "From Prospect"}]}, {"id": "2e94e290", "name": "Bryan Doorman", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "2026-05-15", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Cold Call Attempted", "date": "2026-05-15", "notes": "From Prospect"}]}, {"id": "46874e58", "name": "Chris Money Man Greek", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 6000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Going to an andy elliott conference follow up in a week", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "5be75290", "name": "Kenneth Natasi", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "stage-1778860440487", "volume": 6000000, "followUp": "2026-06-25", "lastContact": "", "notes": "Near orlando, probably making 60-100k on his 6M book there, he would easily take a raise by coming here", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Not Interested", "date": "2026-05-15", "notes": "From Prospect"}]}, {"id": "d7ac4bd9", "name": "Jorge Gonzalez", "company": "Broker", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 8000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Got priced out by Matt on too many deals so he switched to the broker world. Said he did 30 last year and could have done 30 more if he didnt lose to Matt", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "77c893c7", "name": "Giovanni Matia", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 16000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Big family guy, super happy at NAF has a good thing going, but said he will always make the best decision for his family. He will be in delray this week, wifes an insurance agent and is doing an event", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "c7462a72", "name": "Allyson Cain", "company": "Atlantic Bay", "phone": "", "email": "", "state": "NC", "pipeline": "lo", "stage": "prospect", "volume": 136000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Josh Tacketts preferred lender", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a7a9dc33", "name": "Nate Connor", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 8000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Has a few closings over next week, but knows Matt, and is open to a new opportunity once hes out of the weeds", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e0ebcb3a", "name": "Brent Foster", "company": "", "phone": "", "email": "", "state": "SC", "pipeline": "lo", "stage": "decision-call-scheduled", "volume": 0, "followUp": "2026-05-15", "lastContact": "", "notes": "Warm - meeting w mike & Dave 5/14 -", "incomeGoal": null, "temperature": "Warm", "activities": [{"type": "Stage moved to Decision Call Scheduled", "date": "2026-05-15", "notes": "From Cold Call Attempted"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-15", "notes": "Meeting scheduled for May 17, 2026"}]}, {"id": "6c7a85de", "name": "Justin Johnson", "company": "", "phone": "", "email": "", "state": "SC", "pipeline": "lo", "stage": "initial-presentation-scheduled", "volume": 0, "followUp": "2026-05-15", "lastContact": "", "notes": "Call 1 scheduled", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "04073fa1", "name": "Ray Evans", "company": "RE/MAX Broker", "phone": "", "email": "", "state": "NC", "pipeline": "re", "stage": "prospect", "volume": 125000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Great rapport, was planning on entering mortgage Q1 of next yr. Will call back in a few weeks and bring up Bernie this time to get a sooner appointment", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "32d653bd", "name": "Kiki Saldico", "company": "K2 Omni", "phone": "", "email": "", "state": "NM", "pipeline": "re", "stage": "prospect", "volume": 92000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Has a JV with NAF, does business in TX, FL, MA,, and asked if we could do this in all of those states. in follow up", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e1f6fd17", "name": "Chloe Bringerud", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "pro-forma-scheduled", "volume": 0, "followUp": "2026-05-15", "lastContact": "", "notes": "Call 2 (Pro Forma set) - wants to get back to making 250-300k -just getting bacvk into flow of prospecting and buiilding busiess back up", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a34a063c", "name": "Michael Palopoli", "company": "Supreme", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 3000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Family ties at supreme", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "cce7c53b", "name": "Patrick Kuhlman", "company": "NextHome", "phone": "", "email": "", "state": "AR", "pipeline": "re", "stage": "prospect", "volume": 36000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Current P&L with Revolution. Not going as well as he thought and hes almost a year in. only 14 deals have gone to his Rev branch", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e8628638", "name": "Joshua Tackett", "company": "Local R.E. Inc", "phone": "", "email": "", "state": "NC", "pipeline": "re", "stage": "pro-forma-scheduled", "volume": 42000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Really Likes his current lender Allyson Crain, would want to make a play at her. She has a great relationship with team", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Call 2 Scheduled", "date": "2026-05-14", "notes": "From New Lead"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-14", "notes": "Meeting scheduled for May 17, 2026 at 22:00"}]}, {"id": "0571cfb5", "name": "Blake Elder", "company": "KW", "phone": "", "email": "", "state": "AK", "pipeline": "re", "stage": "prospect", "volume": 150000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Him and Annie Bjerkstrand run it together, need to get both of them on a call together.", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "94591bf4", "name": "Chase Delperdang", "company": "KW", "phone": "", "email": "", "state": "AZ", "pipeline": "re", "stage": "prospect", "volume": 35000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Circling back end of this week, ]the brokerage he is at does business with another CCM, but his team does 0 business with one of our own", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "f8fae194", "name": "Michael Samuels", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "decision-call-scheduled", "volume": 15000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Asking ?s about health insurance and stuff, but went radio silent", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Decision Call Scheduled", "date": "2026-05-15", "notes": "From Prospect"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-15", "notes": "Meeting scheduled for May 17, 2026"}]}, {"id": "79187ca6", "name": "Stephen Casterline", "company": "", "phone": "", "email": "", "state": "KS", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 9000000, "followUp": "2026-06-05", "lastContact": "", "notes": "Wants to join but not a culture fit", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Lost", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}]}, {"id": "a85a1c70", "name": "Rusty Davis", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "nurture-long-term", "volume": 12000000, "followUp": "2026-05-18", "lastContact": "", "notes": "Not really ready to make a move, but if something drastic happens at current company that can change", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "619e1f33", "name": "Jeanine Henrion", "company": "", "phone": "", "email": "", "state": "KS", "pipeline": "lo", "stage": "prospect", "volume": 20000000, "followUp": "", "lastContact": "", "notes": "Neice is a big motivating factor, she loves her company but if her neice could make more she may move. Dont think Katie wants a necessarily new person taking her files.", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a44ee6a6", "name": "Ryan Boody", "company": "Grate", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 15000000, "followUp": "2026-05-22", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "5db56ce2", "name": "Keith Stocker", "company": "", "phone": "", "email": "", "state": "SC", "pipeline": "lo", "stage": "prospect", "volume": 10000000, "followUp": "", "lastContact": "", "notes": "2 years left, make as much money as he can and get out", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "6db48bdd", "name": "Mike Callahan", "company": "Movement Mtg", "phone": "", "email": "", "state": "SC", "pipeline": "lo", "stage": "prospect", "volume": 7000000, "followUp": "", "lastContact": "", "notes": "Older guy wont end up being a good fit", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "3e23a53d", "name": "Kurt Heide", "company": "Heide Intl", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 10000000, "followUp": "", "lastContact": "", "notes": "Broker doesnt want to sell", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a8063303", "name": "Jamie Bardeen", "company": "Grate", "phone": "931-980-7689", "email": "", "state": "TN", "pipeline": "lo", "stage": "decision-pending", "volume": 20000000, "followUp": "2026-04-23", "lastContact": "", "notes": "Didnt say the right things", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Offer Sent", "date": "2026-04-22", "notes": "From Bernie Wendy Meeting"}]}, {"id": "36c8abc6", "name": "David Drake", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "decision-call-scheduled", "volume": 6000000, "followUp": "2026-05-17", "lastContact": "2026-05-15", "notes": "Builder Specialty", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Follow-Up Meeting Scheduled", "date": "2026-05-06", "notes": "Meeting scheduled for May 9, 2026"}, {"type": "Spoke \u2013 Meaningful", "date": "2026-05-06", "notes": ""}, {"type": "Stage moved to Decision Call Scheduled", "date": "2026-05-15", "notes": "From Initial Presentation Scheduled"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-15", "notes": "Meeting scheduled for May 17, 2026"}, {"type": "Meeting Held", "date": "2026-05-15", "notes": ""}]}, {"id": "1c253c41", "name": "Chad Williams", "company": "Ridgeview", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "nurture-long-term", "volume": 35000000, "followUp": "2026-05-07", "lastContact": "", "notes": "Total Acquisition", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Lost", "date": "2026-05-06", "notes": "From New Lead"}]}, {"id": "ab277d2b", "name": "Giselle Falla", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 13900000, "followUp": "", "lastContact": "", "notes": "107k buyout but does a lot of FHA", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "cce29bae", "name": "Jon Ray", "company": "Trailblazer", "phone": "", "email": "", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 80000000, "followUp": "", "lastContact": "", "notes": "Consumer Direct", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e655610e", "name": "Chasten Gerhart", "company": "NAF", "phone": "", "email": "", "state": "KS", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 12170000, "followUp": "2026-05-22", "lastContact": "", "notes": "Wants to join but Not a culture fit", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Lost", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}]}, {"id": "be94ca2c", "name": "Erick Cantele", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "nurture-long-term", "volume": 13790000, "followUp": "2026-05-18", "lastContact": "", "notes": "Offer out", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "88945d54", "name": "Rob Shell", "company": "MOH", "phone": "", "email": "", "state": "TN", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 10300000, "followUp": "2026-05-15", "lastContact": "", "notes": "Wants to join but Not a culture fit", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "51c12506", "name": "Cliff Rains", "company": "CMG", "phone": "(931) 335-1418", "email": "", "state": "TN", "pipeline": "lo", "stage": "nurture-long-term", "volume": 10000000, "followUp": "2026-05-09", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to FOLLOW UP", "date": "2026-03-11", "notes": "From Call 2 Complete"}, {"type": "Stage moved to Reschedule", "date": "2026-05-06", "notes": "From Pro Forma"}, {"type": "Stage manually resolved to Not Interested \u2014 Stay in Touch", "date": "2026-05-14", "notes": "Manual review"}]}, {"id": "2988419f", "name": "Andrew Hickman", "company": "", "phone": "(404) 454-9995", "email": "", "state": "", "pipeline": "lo", "stage": "nurture-long-term", "volume": 0, "followUp": "2026-05-22", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to FL Visit Invited", "date": "2026-03-05", "notes": "From New Lead"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-03-05", "notes": "Meeting scheduled for Mar 17, 2026"}, {"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From FL Visit Invited"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "db8f3611", "name": "John Weaver", "company": "Edge Home Finance", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "stage-1778860440487", "volume": 0, "followUp": "2026-06-18", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Warm Nurturing", "date": "2026-03-09", "notes": "From New Lead"}, {"type": "Stage moved to Not Interested", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "a125bda7", "name": "Ben Zoeller", "company": "Cornerstone", "phone": "(502) 649-0295", "email": "bzoeller1119@gmail.com", "state": "TN", "pipeline": "lo", "stage": "closed-not-interested", "volume": 13400000, "followUp": "2026-05-06", "lastContact": "2026-03-04", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Spoke \u2013 Meaningful", "date": "2026-03-04", "notes": ""}, {"type": "Stage moved to Closed \u2014 Won", "date": "2026-05-06", "notes": "From Offer Sent"}, {"type": "Stage moved to Active LO", "date": "2026-05-15", "notes": "From Onboarding"}]}, {"id": "c01e0471", "name": "Austin Wyrick", "company": "FLAT BRANCH", "phone": "(828) 449-7053", "email": "austin_g_w@yahoo.com", "state": "TN", "pipeline": "lo", "stage": "nurture-long-term", "volume": 22880000, "followUp": "2026-05-18", "lastContact": "2026-05-06", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Follow-Up Meeting Scheduled", "date": "2026-03-09", "notes": "Meeting scheduled for Mar 10, 2026 at 16:00"}, {"type": "Stage moved to Reschedule", "date": "2026-03-17", "notes": "From Call 2 Scheduled"}, {"type": "Spoke \u2013 Short", "date": "2026-05-06", "notes": ""}, {"type": "Stage manually resolved to Warm Nurturing", "date": "2026-05-14", "notes": "Manual review"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "2408ea22", "name": "Gregory Tucker", "company": "Fusion", "phone": "321-229-7485", "email": "gregoryftucker88@gmail.com", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "97a0efa8", "name": "JC Sommer", "company": "Movement Mortgage", "phone": "", "email": "jc.sommer@movement.com", "state": "FL", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 29080000, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Call 1 Complete", "date": "2026-03-09", "notes": "From Call 1 Scheduled"}, {"type": "Stage moved to Call 1 Scheduled", "date": "2026-05-06", "notes": "From Call 1 Complete"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-06", "notes": "Meeting scheduled for May 8, 2026"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Initial Presentation Scheduled"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}]}, {"id": "fab1da8b", "name": "Amber Smith", "company": "Grate", "phone": "407-435-3665", "email": "amber.fla@icloud.net", "state": "FL", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 12820000, "followUp": "2026-05-22", "lastContact": "", "notes": "Wants to join but Not a culture fit", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Call 2 Scheduled", "date": "2026-03-05", "notes": "From Call 1 Scheduled"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-03-05", "notes": "Meeting scheduled for Mar 5, 2026 at 13:00"}, {"type": "Stage moved to FOLLOW UP", "date": "2026-03-11", "notes": "From Call 2 Scheduled"}, {"type": "Stage moved to Not Interested \u2014 Stay in Touch", "date": "2026-05-06", "notes": "From Pro Forma"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}]}, {"id": "70b7da35", "name": "John Ray", "company": "", "phone": "407-595-6057", "email": "jraygator15@gmail.com", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "6844e3a7", "name": "Denise Pantaleon", "company": "", "phone": "321-278-4656", "email": "denise@dmpmortgage.com", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "07f7b0d3", "name": "Justin Lopatin", "company": "", "phone": "", "email": "justin.lopatin@originpoint.com", "state": "", "pipeline": "lo", "stage": "nurture-long-term", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "4c4a4c8c", "name": "Jeannine Henrion", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "5152f531", "name": "Antony Gemmell", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e342c974", "name": "Evelyn Dean", "company": "", "phone": "(501) 730-1958", "email": "", "state": "", "pipeline": "re", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "75c5faa4", "name": "Brian Curtis", "company": "", "phone": "479-531-2317", "email": "", "state": "", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "00df06ae", "name": "Alan Cheiman", "company": "", "phone": "561-441-7777", "email": "", "state": "", "pipeline": "lo", "stage": "nurture-long-term", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "6196f6c0", "name": "Mike Brustad", "company": "Grate", "phone": "850-830-3557", "email": "mike.brustad@gmail.com", "state": "FL", "pipeline": "lo", "stage": "stage-1778860440487", "volume": 15460000, "followUp": "2026-05-22", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Call 2 Complete", "date": "2026-03-05", "notes": "From Call 2 Scheduled"}, {"type": "Stage moved to Not Interested \u2014 Stay in Touch", "date": "2026-03-05", "notes": "From Call 2 Complete"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}, {"type": "Stage moved to Not Interested", "date": "2026-05-15", "notes": "From Not a Fit"}]}, {"id": "1512dddc", "name": "Andrew Acosta", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "4d676506", "name": "Juan Florez", "company": "Summit Funding", "phone": "423-503-5777", "email": "juan.florez@summitfunding.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 21065432, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "7c321612", "name": "Christopher Kloc", "company": "Summit Funding", "phone": "423-755-3038", "email": "chris.kloc@summitfunding.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 50095445, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "53127055", "name": "Lucas Johnson", "company": "Movement Mortgage", "phone": "423-794-8541", "email": "lucas.johnson@movement.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 72329502, "followUp": "", "lastContact": "2026-01-29", "notes": "Johnson City; high response rate", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "b760e82f", "name": "Todd Wiggins", "company": "Studio Bank", "phone": "615-554-1983", "email": "twiggins@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a02ce8ab", "name": "Shannon Coates", "company": "Studio Bank", "phone": "615-906-4741", "email": "scoates@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "9dbb900f", "name": "Jeff Devereaux", "company": "Studio Bank", "phone": "615-218-8217", "email": "jdevereaux@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "caba96e4", "name": "Will Cordell", "company": "Studio Bank", "phone": "", "email": "wcordell@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Just moved; bringing business", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "ea1aa6e5", "name": "Diana Ely", "company": "Lending Hand", "phone": "615-997-5512", "email": "diana@lendinghand.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Active; Bilingual (Spanish)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "dff6c8b9", "name": "Kyle Chubboy", "company": "Acrisure Mtg", "phone": "352-978-1811", "email": "kchubboy@acrisure.com", "state": "TN", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "2026-05-13", "lastContact": "2026-01-29", "notes": "Active; Team Jagoe partner", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}]}, {"id": "c95cf689", "name": "Richard Aldana", "company": "Loan Factory", "phone": "305-684-7281", "email": "raldana@loanfactory.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 1500000, "followUp": "", "lastContact": "2026-01-29", "notes": "Heavy Purchase focus", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "40a07103", "name": "Heather Frost", "company": "Studio Bank", "phone": "615-500-1175", "email": "hfrost@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 9701768, "followUp": "", "lastContact": "2026-01-29", "notes": "New builds focus", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a2544653", "name": "Jeff Tucker", "company": "Studio Bank", "phone": "615-400-0255", "email": "jtucker@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12215432, "followUp": "", "lastContact": "2026-01-29", "notes": "Consistent mid-range", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "65208e4e", "name": "Alden Mason", "company": "Studio Bank", "phone": "615-715-9477", "email": "amason@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12735207, "followUp": "", "lastContact": "2026-01-29", "notes": "Joined Studio Bank Dec 2025", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "8988a3eb", "name": "Andrew Chelton", "company": "Guaranteed Rate", "phone": "615-400-2086", "email": "andrew.chelton@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12877198, "followUp": "", "lastContact": "2026-01-16", "notes": "Active Jan 2026", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a9406d0b", "name": "Yanisleidy Lopez", "company": "Guaranteed Rate", "phone": "615-479-8156", "email": "yanisleidy.lopez@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12944275, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/21; No response", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "94fc980e", "name": "Parker Seabolt", "company": "Studio Bank", "phone": "615-414-7294", "email": "pseabolt@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 13012032, "followUp": "", "lastContact": "2026-01-29", "notes": "35 transactions", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "55e135f4", "name": "Allie Conway", "company": "Guild Mortgage", "phone": "865-705-8763", "email": "aconway@guildmortgage.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 13235841, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No pickup)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "7dee7a4a", "name": "Clinton Haynes", "company": "Preferred Rate", "phone": "615-288-4452", "email": "clint@preferredrate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 14967918, "followUp": "", "lastContact": "2026-01-29", "notes": "Mt Juliet", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "077f1dfd", "name": "James Cheney", "company": "Mutual of Omaha", "phone": "786-897-3515", "email": "jcheney@mutualofomaha.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 15927000, "followUp": "", "lastContact": "2026-01-16", "notes": "Spoke 1/16; Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "73d10d30", "name": "Brad Daniel", "company": "Mutual of Omaha", "phone": "615-975-7400", "email": "bdaniel@mutualofomaha.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 16746461, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "5127bbaf", "name": "Matthew Glover", "company": "American Pacific", "phone": "615-429-9532", "email": "matthew.glover@preferredrate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 17257120, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "1d1ab57f", "name": "Damon Kindred", "company": "Silverton Mtg", "phone": "615-878-6998", "email": "dkindred@silvertonmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 17992081, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "c94530c4", "name": "John Conyer", "company": "MTH Mortgage", "phone": "615-815-6179", "email": "jconyer@mthmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 18918637, "followUp": "", "lastContact": "2026-01-16", "notes": "Booked for 1/16; Franklin", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "82b7e6bc", "name": "Michael Dilucchio", "company": "Guild Mortgage", "phone": "615-969-6889", "email": "mdilucchio@guildmortgage.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 19603753, "followUp": "", "lastContact": "2026-05-14", "notes": "Active Jan 2026", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Touchpoint", "date": "2026-05-14", "notes": ""}]}, {"id": "ed323b1c", "name": "Joseph Buffler", "company": "Guaranteed Rate", "phone": "615-415-0418", "email": "joseph.buffler@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 19897223, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "88099da7", "name": "John Elmer McCabe", "company": "Cornerstone First", "phone": "256-759-1411", "email": "jmccabe@cornerstone.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 22000000, "followUp": "", "lastContact": "2026-01-29", "notes": "Active; Moved Aug 2025", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "1d3bd7d6", "name": "Brandon Keane", "company": "Studio Bank", "phone": "615-585-8887", "email": "bkeane@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "nurture-long-term", "volume": 24107326, "followUp": "2026-05-18", "lastContact": "2026-05-15", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}, {"type": "Left Voicemail", "date": "2026-05-15", "notes": ""}]}, {"id": "4f3fc457", "name": "Philip May", "company": "Studio Bank", "phone": "901-848-6874", "email": "pmay@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 25485784, "followUp": "", "lastContact": "2026-01-29", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "cd293a5a", "name": "Jeffrey Osburn", "company": "Guaranteed Rate", "phone": "615-804-4804", "email": "jeffrey.osburn@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 27000664, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "54219904", "name": "Anthony Fragale", "company": "Mutual of Omaha", "phone": "615-579-2835", "email": "afragale@mutualofomaha.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 27615205, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "44db562d", "name": "Ronald Cox", "company": "Studio Bank", "phone": "615-338-9232", "email": "rcox@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 28065000, "followUp": "", "lastContact": "2026-01-29", "notes": "Active; Nashville BM", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "31aeea3a", "name": "Brendan Donelson", "company": "Guild Mortgage", "phone": "615-207-8254", "email": "bdonelson@guildmortgage.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29093710, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/16 1/21 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "37199216", "name": "Mackenzie Curtis", "company": "Mutual of Omaha", "phone": "352-258-9162", "email": "mcurtis@mutualofomaha.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29336736, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "5ca3a79b", "name": "Tracy Woodside", "company": "FirstTrust", "phone": "615-319-7480", "email": "twoodside@firsttrust.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29621020, "followUp": "", "lastContact": "2026-01-16", "notes": "Hendersonville", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "acf125a1", "name": "Donald Lee Eden II", "company": "SFMC LP", "phone": "615-330-3547", "email": "deden@sfmc.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29934781, "followUp": "", "lastContact": "2026-01-21", "notes": "Spoke 1/21; Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "065c3800", "name": "Joseph Lamanna", "company": "Silverton Mtg", "phone": "352-989-2282", "email": "jlamanna@silvertonmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29957298, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "48d0ec60", "name": "Jackie Hurtis", "company": "Guild Mortgage", "phone": "608-347-0756", "email": "jhurtis@guildmortgage.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 32635585, "followUp": "", "lastContact": "2026-01-15", "notes": "Spoke 1/15; Sweetheart", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "55a66d5e", "name": "Brian Maggart", "company": "FirstTrust", "phone": "615-714-5652", "email": "bmaggart@firsttrust.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 39050182, "followUp": "", "lastContact": "2026-01-29", "notes": "Hendersonville; goes by Jarred", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "0c5d33b6", "name": "James Kofahl Jr", "company": "American Pacific", "phone": "615-504-8304", "email": "james.kofahl@preferredrate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 40929678, "followUp": "", "lastContact": "2026-01-29", "notes": "Active BM; Spring Hill", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "6b481590", "name": "Gregory Goodman", "company": "SWBC Mortgage", "phone": "615-400-5626", "email": "ggoodman@swbc.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 42948247, "followUp": "", "lastContact": "2026-01-16", "notes": "Branch Manager", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a487bc97", "name": "Justin Lee", "company": "Guaranteed Rate", "phone": "865-406-8486", "email": "justin.lee@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 45618805, "followUp": "", "lastContact": "2026-01-26", "notes": "Called 1/16 1/26 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "2e994868", "name": "Kurt Johansson", "company": "Shelter Lending", "phone": "615-482-7252", "email": "kjohansson@shelterlending.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 46278049, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/15 1/21 (No pickup)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "49f88589", "name": "Jack McGrath", "company": "Rocket Mortgage", "phone": "800-226-6308", "email": "jackmcgrath@rocketmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 48460948, "followUp": "", "lastContact": "2026-01-29", "notes": "President's Club; active Jan 2026", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "cfbe3885", "name": "Heath Albritton", "company": "Guaranteed Rate", "phone": "615-347-0578", "email": "heath.albritton@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 52810903, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/16 1/21 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "9a495d62", "name": "Michael Smalling", "company": "Legacy Home Loans", "phone": "615-300-6599", "email": "msmalling@legacylending.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 55322300, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/15 1/21 (Texted back)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "fcdc67f5", "name": "Christopher Haynes", "company": "American Pacific", "phone": "615-945-3994", "email": "chrishaynesteam@preferredrate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 58401957, "followUp": "", "lastContact": "2026-01-20", "notes": "Called 1/16 1/20 (No pickup)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "ac125a32", "name": "Michele Ballard", "company": "Guaranteed Rate", "phone": "615-330-3885", "email": "michele.ballard@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 60195390, "followUp": "", "lastContact": "2026-01-16", "notes": "Spoke 1/16; Nice; sending refs", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "b5a458b9", "name": "Rory Lithgow", "company": "InterLinc Mortgage", "phone": "615-300-3853", "email": "rory.lithgow@interlincmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 78000489, "followUp": "", "lastContact": "2026-01-16", "notes": "BM - Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "111c1ad9", "name": "Garrett Locklear", "company": "Guaranteed Rate", "phone": "615-933-2080", "email": "garrett.locklear@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 101566845, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No pickup)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "4cbf3d03", "name": "Dalton Ponchillia", "company": "CMG Mortgage", "phone": "615-504-7320", "email": "ponchilliamortgageteam@cmgfi.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 98611068, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "7a4f1029", "name": "Christi Wedig", "company": "CMG Mortgage", "phone": "435-773-7031", "email": "cwedig@cmgfi.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 34604929, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "931d664a", "name": "Lucero Rose", "company": "CMG Mortgage", "phone": "865-599-6693", "email": "lrose@cmgfi.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 36956898, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "f3a0e853", "name": "Michael Castronovo", "company": "CMG Mortgage", "phone": "847-612-5626", "email": "mcastronovo@cmghomeloans.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 21331657, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "362416d3", "name": "Eddie Cooke", "company": "CMG Mortgage", "phone": "615-300-6262", "email": "ecooke@cmgfi.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 9728974, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "349cf6d4", "name": "Timothy Awad", "company": "PennyMac", "phone": "818-926-1248", "email": "timothy.awad@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 74428806, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "046e41b9", "name": "Christopher Bledsoe", "company": "PennyMac", "phone": "615-475-7370", "email": "christopher.bledsoe@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 74280967, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "9b72c260", "name": "Peter Munguia", "company": "PennyMac", "phone": "931-219-2263", "email": "peter.munguia@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 54494611, "followUp": "", "lastContact": "2026-01-29", "notes": "User busy during attempt", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a21c55a3", "name": "Nathan Raphan", "company": "PennyMac", "phone": "616-558-1929", "email": "nathan.raphan@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 50707540, "followUp": "", "lastContact": "2026-01-29", "notes": "Spoke; Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a9c12f35", "name": "Tyler Johnston", "company": "PennyMac", "phone": "423-326-4266", "email": "tyler.johnston@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 46369481, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "90bd6f5d", "name": "Parker Borofsky", "company": "Movement Mortgage", "phone": "865-292-4436", "email": "parker.borofsky@movement.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 190972111, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "98c7bfa5", "name": "Robert Breckenridge", "company": "Movement Mortgage", "phone": "865-804-3288", "email": "rob.breckenridge@movement.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 65851431, "followUp": "", "lastContact": "2026-01-29", "notes": "Spoke; Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "3114bb38", "name": "Casey Shaffer", "company": "Movement Mortgage", "phone": "606-515-8362", "email": "casey.shaffer@movement.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12118936, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}];
-
-var SM = {};
-STAGES.forEach(function(s){SM[s.id]=s;});
-
-var state = {
-  search: '',
-  pipeline: 'lo',
-  sortBy: 'followUp',
-  openId: null,
-  newAct: {type:'Call',notes:''},
-};
-
-// CLOUD
-function PPloadCloud(){
-  var local = localStorage.getItem('pipeline_data');
-  if(local){try{var d=JSON.parse(local);if(d.contacts)contacts=d.contacts;}catch(e){}}
-  if(!PP_BIN){
-    fetch('https://api.jsonbin.io/v3/b',{
-      method:'POST',headers:{'Content-Type':'application/json','X-Master-Key':AK,'X-Bin-Name':'ofl-pipeline-v2'},
-      body:JSON.stringify({contacts:contacts})
-    }).then(function(r){return r.json();}).then(function(d){
-      if(d.metadata&&d.metadata.id){PP_BIN=d.metadata.id;localStorage.setItem('pipeline_bin',PP_BIN);}
-      PPrender();
-    }).catch(function(){PPrender();});
-  } else {
-    fetch('https://api.jsonbin.io/v3/b/'+PP_BIN+'/latest',{headers:{'X-Master-Key':PP_AK}})
-    .then(function(r){return r.json();}).then(function(d){
-      if(d.record&&d.record.contacts)contacts=d.record.contacts;
-      PPrender();
-    }).catch(function(){PPrender();});
-  }
-}
-
-function save(cb){
-  localStorage.setItem('pipeline_data',JSON.stringify({contacts:contacts}));
-  if(!PP_BIN){if(cb)cb();return;}
-  fetch('https://api.jsonbin.io/v3/b/'+PP_BIN,{
-    method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':PP_AK},
-    body:JSON.stringify({contacts:contacts})
-  }).then(function(){if(cb)cb();}).catch(function(){if(cb)cb();});
-}
-
-// UTILS
-function fd(s){if(!s)return'';var d=new Date(s);if(isNaN(d))return s;return d.toLocaleDateString('en-US',{month:'short',day:'numeric'});}
-function fv(v){if(!v)return'';if(v>=1000000)return'$'+(v/1000000).toFixed(1)+'M';return'$'+(v/1000).toFixed(0)+'K';}
-function uid(){return Math.random().toString(36).slice(2,10);}
-function PPesc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-
-function fuClass(s){
-  if(!s)return 'no-followup';
-  var d=new Date(s),t=new Date();t.setHours(0,0,0,0);d.setHours(0,0,0,0);
-  return d<t?'overdue':d.getTime()===t.getTime()?'due-today':'';
-}
-function fuChipClass(s){
-  if(!s)return '';
-  var d=new Date(s),t=new Date();t.setHours(0,0,0,0);d.setHours(0,0,0,0);
-  return d<t?'fu-chip fu-over':d.getTime()===t.getTime()?'fu-chip fu-today':'fu-chip fu-ok';
-}
-
-function filtered(){
-  var q=state.search.toLowerCase();
-  var pl=state.pipeline;
-  return contacts.filter(function(c){
-    if(c.pipeline!==pl)return false;
-    if(q&&!(c.name.toLowerCase().includes(q)||(c.company||'').toLowerCase().includes(q)||(c.state||'').toLowerCase().includes(q)))return false;
-    return true;
-  });
-}
-
-function sorted(arr){
-  var by=state.sortBy;
-  return arr.slice().sort(function(a,b){
-    if(by==='followUp'){
-      var da=a.followUp?new Date(a.followUp):new Date('2099');
-      var db=b.followUp?new Date(b.followUp):new Date('2099');
-      return da-db;
-    }
-    if(by==='volume')return (b.volume||0)-(a.volume||0);
-    if(by==='name')return (a.name||'').localeCompare(b.name||'');
-    return 0;
-  });
-}
-
-// RENDER BOARD
-function PPrender(){
-  PPupdateHeader();
-  renderBoard();
-}
-
-function PPupdateHeader(){
-  var pl=state.pipeline;
-  var all=contacts.filter(function(c){return c.pipeline===pl;});
-  var active=all.filter(function(c){return !['closed-not-qualified','closed-not-interested','stage-1778860440487'].includes(c.stage);});
-  var hot=['initial-presentation-scheduled','pro-forma-scheduled','mike-dave-scheduled','decision-call-scheduled','decision-pending'];
-  var hotCount=active.filter(function(c){return hot.includes(c.stage);}).length;
-  var today=new Date();today.setHours(0,0,0,0);
-  var overdue=active.filter(function(c){
-    if(!c.followUp)return false;
-    var d=new Date(c.followUp);d.setHours(0,0,0,0);return d<today;
-  }).length;
-  var noGoal=active.filter(function(c){return hot.includes(c.stage)&&!c.incomeGoal;}).length;
-  document.getElementById('hd-active').innerHTML='Active <b>'+active.length+'</b>';
-  document.getElementById('hd-hot').innerHTML='Hot <b>'+hotCount+'</b>';
-  document.getElementById('hd-overdue').innerHTML='Overdue <b style="color:'+(overdue?'#E74C3C':'#27AE60')+'">'+overdue+'</b>';
-  document.getElementById('hd-nogoal').innerHTML='No Goal <b style="color:'+(noGoal?'#E74C3C':'#27AE60')+'">'+noGoal+'</b>';
-}
-
-function renderBoard(){
-  var all=filtered();
-  var board=document.getElementById('board');
-  var ACTIVE_STAGES=['prospect','cold-call-attempted','initial-presentation-scheduled','pro-forma-scheduled','mike-dave-scheduled','decision-call-scheduled','decision-pending','onboarding','nurture-long-term'];
-  var CLOSED=['closed-not-qualified','closed-not-interested','stage-1778860440487','stage-1773765557374'];
-
-  var html='';
-
-  ACTIVE_STAGES.forEach(function(sid){
-    var st=SM[sid];
-    if(!st)return;
-    var cards=sorted(all.filter(function(c){return c.stage===sid;}));
-    var col_color=STAGE_COLORS[sid]||'#5D6D7E';
-    var vol=cards.reduce(function(a,c){return a+(c.volume||0);},0);
-
-    html+='<div class="col" id="col-'+sid+'">';
-    html+='<div class="col-hd" style="border-top:3px solid '+col_color+'">';
-    html+='<div class="col-dot" style="background:'+col_color+'"></div>';
-    html+='<div class="col-name">'+PPesc(st.name)+'</div>';
-    html+='<span class="col-count">'+cards.length+'</span>';
-    html+='</div>';
-    if(vol)html+='<div style="padding:4px 12px;font-size:9px;color:var(--text3);font-family:monospace;border-bottom:1px solid var(--border);">'+fv(vol)+' pipeline vol</div>';
-    html+='<div class="col-body" data-stage="'+sid+'" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropCard(event)">';
-
-    if(!cards.length){html+='<div class="empty-col">No contacts</div>';}
-    cards.forEach(function(c){
-      var fc=fuClass(c.followUp);
-      var lastAct=c.activities&&c.activities.length?c.activities[c.activities.length-1]:null;
-      var hasGoal=!!c.incomeGoal;
-      var hotStage=['initial-presentation-scheduled','pro-forma-scheduled','mike-dave-scheduled','decision-call-scheduled','decision-pending'].includes(c.stage);
-
-      html+='<div class="card '+fc+'" data-id="'+c.id+'" draggable="true" onclick="openContact(this.dataset.id)">';
-      html+='<div class="card-top"><div class="card-name">'+PPesc(c.name)+'</div>';
-      if(c.volume)html+='<div class="card-vol">'+fv(c.volume)+'</div>';
-      html+='</div>';
-      if(c.company)html+='<div class="card-co">'+PPesc(c.company)+(c.state?' · '+PPesc(c.state):'')+'</div>';
-      html+='<div class="card-chips">';
-      html+='<span class="chip chip-'+(c.pipeline==='lo'?'lo':'re')+'">'+c.pipeline.toUpperCase()+'</span>';
-      if(hasGoal)html+='<span class="chip chip-goal">Goal: $'+Number(c.incomeGoal).toLocaleString()+'</span>';
-      if(!hasGoal&&hotStage)html+='<span class="chip chip-warn">⚠ No goal</span>';
-      if(c.followUp)html+='<span class="'+fuChipClass(c.followUp)+'">'+fd(c.followUp)+'</span>';
-      html+='</div>';
-      if(lastAct)html+='<div class="card-acts">'+PPesc(lastAct.type)+' · '+fd(lastAct.date)+'</div>';
-      html+='</div>';
-    });
-
-    html+='<div style="padding:6px;"><button data-sid="'+sid+'" onclick="openAdd(this.dataset.sid)" style="width:100%;padding:7px;border-radius:6px;border:1px dashed var(--border2);background:transparent;color:var(--text3);font-size:11px;cursor:pointer;">+ Add Contact</button></div>';
-    html+='</div></div>';
-  });
-
-  // Closed column
-  var closedCards=sorted(all.filter(function(c){return CLOSED.includes(c.stage);}));
-  html+='<div class="col">';
-  html+='<div class="col-hd" style="border-top:3px solid #636E72">';
-  html+='<div class="col-dot" style="background:#636E72"></div>';
-  html+='<div class="col-name">Closed / DNC</div>';
-  html+='<span class="col-count">'+closedCards.length+'</span>';
-  html+='</div>';
-  html+='<div class="col-body" data-stage="closed-not-interested" ondragover="dragOver(event)" ondragleave="dragLeave(event)" ondrop="dropCard(event)">';
-  if(!closedCards.length){html+='<div class="empty-col">None</div>';}
-  closedCards.forEach(function(c){
-    html+='<div class="card" data-id="'+c.id+'" onclick="openContact(this.dataset.id)">';
-    html+='<div class="card-top"><div class="card-name">'+PPesc(c.name)+'</div>';
-    if(c.volume)html+='<div class="card-vol">'+fv(c.volume)+'</div>';
-    html+='</div>';
-    if(c.company)html+='<div class="card-co">'+PPesc(c.company)+'</div>';
-    var closedSt=SM[c.stage];
-    html+='<div style="font-size:10px;color:var(--text3);margin-top:4px;">'+(closedSt?closedSt.name:c.stage)+'</div>';
-    html+='</div>';
-  });
-  html+='</div></div>';
-
-  board.innerHTML=html;
-  initDragEvents();
-}
-
-// CONTACT MODAL
-function openContact(id){
-  var c=contacts.find(function(x){return x.id===id;});
-  if(!c)return;
-  state.openId=id;
-  var st=SM[c.stage]||{};
-  var col=STAGE_COLORS[c.stage]||'#5D6D7E';
-
-  var html='';
-
-  // Stage selector
-  html+='<div class="modal-section">';
-  html+='<div class="msec-lbl">STAGE</div>';
-  html+='<div class="stage-select-wrap" id="stageSel">';
-  var activeStages=['prospect','cold-call-attempted','initial-presentation-scheduled','pro-forma-scheduled','mike-dave-scheduled','decision-call-scheduled','decision-pending','onboarding','nurture-long-term','closed-not-qualified','closed-not-interested','stage-1778860440487'];
-  activeStages.forEach(function(sid){
-    var s=SM[sid];if(!s)return;
-    var sc=STAGE_COLORS[sid]||'#636E72';
-    html+='<div class="stage-option'+(c.stage===sid?' selected':'')+'" data-sid="'+sid+'" data-cid="'+id+'" onclick="setStage(this.dataset.cid,this.dataset.sid)">';
-    html+='<div class="stage-dot" style="background:'+sc+'"></div>';
-    html+='<div><div class="stage-name">'+PPesc(s.name)+'</div>';
-    if(s.bestPractice)html+='<div class="stage-bp">'+PPesc(s.bestPractice)+'</div>';
-    html+='</div></div>';
-  });
-  html+='</div></div>';
-
-  // Contact info
-  html+='<div class="modal-section">';
-  html+='<div class="msec-lbl">CONTACT INFO</div>';
-  html+='<div class="field-grid">';
-  html+='<div class="field"><div class="field-label">PHONE</div><input class="field-input" id="f-phone" value="'+PPesc(c.phone||'')+'" placeholder="Phone" /></div>';
-  html+='<div class="field"><div class="field-label">EMAIL</div><input class="field-input" id="f-email" value="'+PPesc(c.email||'')+'" placeholder="Email" /></div>';
-  html+='<div class="field"><div class="field-label">COMPANY</div><input class="field-input" id="f-co" value="'+PPesc(c.company||'')+'" placeholder="Company" /></div>';
-  html+='<div class="field"><div class="field-label">STATE</div><input class="field-input" id="f-state" value="'+PPesc(c.state||'')+'" placeholder="FL" /></div>';
-  html+='<div class="field"><div class="field-label">VOLUME</div><input class="field-input" id="f-vol" type="number" value="'+(c.volume||'')+'" placeholder="e.g. 20000000" /></div>';
-  html+='<div class="field"><div class="field-label">FOLLOW-UP DATE</div><input class="field-input" id="f-fu" type="date" value="'+(c.followUp||'')+'" /></div>';
-  html+='</div></div>';
-
-  // Income goal (only for LO)
-  if(c.pipeline==='lo'){
-    html+='<div class="modal-section">';
-    html+='<div class="msec-lbl">INCOME GOAL (SURFACED ON CALL 1)</div>';
-    html+='<div class="field-grid">';
-    html+='<div class="field"><div class="field-label">CURRENT INCOME GOAL</div><input class="field-input" id="f-goal" type="number" value="'+(c.incomeGoal||'')+'" placeholder="e.g. 250000" /></div>';
-    html+='<div class="field"><div class="field-label">PIPELINE</div><select class="field-select" id="f-pipeline"><option value="lo"'+(c.pipeline==='lo'?' selected':'')+'>LO Track</option><option value="re"'+(c.pipeline==='re'?' selected':'')+'>RE Track</option></select></div>';
-    html+='</div>';
-    if(!c.incomeGoal)html+='<div style="font-size:11px;color:#E74C3C;font-weight:700;margin-top:6px;">⚠ No income goal recorded. Must be surfaced on Call 1 before any comp model.</div>';
-    html+='</div>';
-  }
-
-  // Notes
-  html+='<div class="modal-section">';
-  html+='<div class="msec-lbl">NOTES</div>';
-  html+='<textarea class="field-textarea" id="f-notes" placeholder="Key context, objections, next steps...">'+PPesc(c.notes||'')+'</textarea>';
-  html+='</div>';
-
-  // Activity log
-  html+='<div class="modal-section">';
-  html+='<div class="msec-lbl">ACTIVITY LOG ('+((c.activities||[]).length)+')</div>';
-  if(c.activities&&c.activities.length){
-    var acts=c.activities.slice().reverse();
-    acts.forEach(function(a){
-      html+='<div class="activity-item">';
-      html+='<div class="act-dot"></div>';
-      html+='<div><div class="act-type">'+PPesc(a.type)+'</div>';
-      html+='<div class="act-date">'+fd(a.date)+'</div>';
-      if(a.notes)html+='<div class="act-notes">'+PPesc(a.notes)+'</div>';
-      html+='</div></div>';
-    });
-  } else {
-    html+='<div style="font-size:12px;color:var(--text3);">No activity recorded yet.</div>';
-  }
-
-  html+='<div style="margin-top:10px;padding-top:10px;border-top:1px solid var(--border);">';
-  html+='<div class="msec-lbl" style="margin-bottom:8px;">LOG NEW ACTIVITY</div>';
-  html+='<div class="add-act-row">';
-  html+='<select class="act-type-sel" id="act-type"><option>Call</option><option>Left Voicemail</option><option>Text Sent</option><option>Email Sent</option><option>Meeting</option><option>Call 1 Complete</option><option>Pro Forma Sent</option><option>Objection</option><option>Follow-Up</option><option>Note</option></select>';
-  html+='<input class="field-input" id="act-notes" placeholder="Notes..." style="flex:2;" />';
-  html+='</div>';
-  html+='<button data-cid="'+id+'" onclick="logActivity(this.dataset.cid)" style="width:100%;padding:9px;border-radius:7px;border:none;background:rgba(200,150,12,0.15);color:var(--gold);font-size:12px;font-weight:800;cursor:pointer;margin-top:6px;">+ Log Activity</button>';
-  html+='</div></div>';
-
-  // Save / Delete
-  html+='<button class="save-btn" data-cid="'+id+'" onclick="saveContact(this.dataset.cid)">Save Changes</button>';
-  html+='<button class="del-btn" data-cid="'+id+'" onclick="deleteContact(this.dataset.cid)">Remove from Pipeline</button>';
-
-  document.getElementById('m-name').textContent=c.name;
-  document.getElementById('m-co').textContent=(c.company?c.company+' · ':'')+c.state+(c.pipeline==='lo'?' · LO Track':' · RE Track');
-  document.getElementById('m-body').innerHTML=html;
-  document.getElementById('modalOv').classList.add('on');
-}
-
-function setStage(id,sid){
-  var c=contacts.find(function(x){return x.id===id;});
-  if(!c)return;
-  var oldStage=c.stage;
-  c.stage=sid;
-  if(!c.activities)c.activities=[];
-  c.activities.push({type:'Stage → '+(SM[sid]||{name:sid}).name,date:new Date().toISOString().slice(0,10),notes:'From '+(SM[oldStage]||{name:oldStage}).name});
-  // Re-render stage options
-  document.querySelectorAll('.stage-option').forEach(function(el){el.classList.toggle('selected',el.dataset.sid===sid);});
-  save(function(){});
-}
-
-function saveContact(id){
-  var c=contacts.find(function(x){return x.id===id;});
-  if(!c)return;
-  function g(i){var e=document.getElementById(i);return e?e.value:'';}
-  c.phone=g('f-phone');c.email=g('f-email');c.company=g('f-co');c.state=g('f-state');
-  c.volume=parseFloat(g('f-vol'))||0;c.followUp=g('f-fu');c.notes=g('f-notes');
-  var goal=g('f-goal');if(goal)c.incomeGoal=parseFloat(goal)||null;
-  var pl=g('f-pipeline');if(pl)c.pipeline=pl;
-  save(function(){
-    closeModal();PPrender();
-  });
-}
-
-function logActivity(id){
-  var c=contacts.find(function(x){return x.id===id;});
-  if(!c)return;
-  var type=document.getElementById('act-type').value;
-  var notes=document.getElementById('act-notes').value;
-  if(!c.activities)c.activities=[];
-  c.activities.push({type:type,date:new Date().toISOString().slice(0,10),notes:notes});
-  save(function(){openContact(id);});
-}
-
-function deleteContact(id){
-  if(!confirm('Remove this contact from your pipeline?'))return;
-  contacts=contacts.filter(function(x){return x.id!==id;});
-  closeModal();save(function(){PPrender();});
-}
-
-function closeModal(){document.getElementById('modalOv').classList.remove('on');}
-
-// ADD CONTACT
-function openAdd(stageId){
-  var html='<div style="font-size:15px;font-weight:900;margin-bottom:16px;">Add Contact</div>';
-  html+='<div class="field" style="margin-bottom:8px;"><div class="field-label">NAME</div><input class="field-input" id="new-name" placeholder="First Last" /></div>';
-  html+='<div class="field-grid" style="margin-bottom:8px;">';
-  html+='<div class="field"><div class="field-label">PHONE</div><input class="field-input" id="new-phone" placeholder="Phone" /></div>';
-  html+='<div class="field"><div class="field-label">COMPANY</div><input class="field-input" id="new-co" placeholder="Company" /></div>';
-  html+='<div class="field"><div class="field-label">STATE</div><input class="field-input" id="new-state" placeholder="FL" /></div>';
-  html+='<div class="field"><div class="field-label">VOLUME</div><input class="field-input" id="new-vol" type="number" placeholder="e.g. 20000000" /></div>';
-  html+='<div class="field"><div class="field-label">FOLLOW-UP</div><input class="field-input" id="new-fu" type="date" /></div>';
-  html+='<div class="field"><div class="field-label">PIPELINE</div>';
-  html+='<select class="field-select" id="new-pl"><option value="lo">LO Track</option><option value="re">RE Track</option></select></div>';
-  html+='</div>';
-  html+='<div class="field" style="margin-bottom:12px;"><div class="field-label">STARTING STAGE</div>';
-  html+='<select class="field-select" id="new-stage">';
-  ['prospect','cold-call-attempted','initial-presentation-scheduled'].forEach(function(sid){
-    var s=SM[sid];if(!s)return;
-    html+='<option value="'+sid+'"'+(sid===stageId?' selected':'')+'>'+s.name+'</option>';
-  });
-  html+='</select></div>';
-  html+='<button onclick="confirmAdd()" style="width:100%;padding:12px;border-radius:9px;border:none;background:var(--gold);color:#111;font-size:14px;font-weight:800;cursor:pointer;">Add to Pipeline</button>';
-  html+='<button onclick="closeAdd()" style="width:100%;padding:10px;border-radius:8px;border:1px solid var(--border2);background:transparent;color:var(--text2);font-size:13px;cursor:pointer;margin-top:6px;">Cancel</button>';
-  document.getElementById('add-body').innerHTML=html;
-  document.getElementById('addModal').classList.add('on');
-}
-
-function confirmAdd(){
-  var name=document.getElementById('new-name').value.trim();
-  if(!name){alert('Enter a name');return;}
-  var c={
-    id:uid(),name:name,
-    phone:document.getElementById('new-phone').value,
-    company:document.getElementById('new-co').value,
-    state:document.getElementById('new-state').value,
-    volume:parseFloat(document.getElementById('new-vol').value)||0,
-    followUp:document.getElementById('new-fu').value,
-    pipeline:document.getElementById('new-pl').value,
-    stage:document.getElementById('new-stage').value,
-    notes:'',incomeGoal:null,activities:[],email:'',temperature:'Cold'
-  };
-  contacts.push(c);
-  closeAdd();save(function(){PPrender();});
-}
-function closeAdd(){document.getElementById('addModal').classList.remove('on');}
-
-// IMPORT
-function handleImport(ev){
-  var file=ev.target.files[0];if(!file)return;
-  var reader=new FileReader();
-  reader.onload=function(e){
-    try{
-      var data=JSON.parse(e.target.result);
-      var imported=data.contacts||[];
-      var added=0,updated=0;
-      imported.forEach(function(raw){
-        if(raw.deleted)return;
-        var sid=raw.id.slice(0,8);
-        var pl=raw.pipeline==='realtor'?'re':'lo';
-        var ex=contacts.find(function(x){return x.id===sid;});
-        var name=((raw.firstName||'')+' '+(raw.lastName||'')).trim();
-        if(ex){
-          ex.company=raw.company||ex.company;ex.phone=raw.phone||ex.phone;
-          ex.stage=raw.stage||ex.stage;ex.volume=raw.volume||ex.volume;
-          ex.followUp=(raw.nextFollowUp||'').slice(0,10)||ex.followUp;
-          ex.state=raw.state||ex.state;
-          updated++;
-        } else {
-          contacts.push({
-            id:sid,name:name,company:raw.company||'',phone:raw.phone||'',
-            email:raw.email||'',state:raw.state||'',pipeline:pl,
-            stage:raw.stage||'prospect',volume:raw.volume||0,
-            followUp:(raw.nextFollowUp||'').slice(0,10),notes:raw.notes||'',
-            incomeGoal:raw.year1IncomeTarget||null,activities:[],
-            email:'',temperature:raw.temperature||'Cold'
-          });
-          added++;
-        }
-      });
-      alert('Import complete: '+added+' added, '+updated+' updated.');
-      save(function(){PPrender();});
-    }catch(e){alert('Import failed: '+e.message);}
-  };
-  reader.readAsText(file);ev.target.value='';
-}
-
-// FILTERS / SEARCH
-function setSearch(v){state.search=v;PPrender();}
-function setPipeline(pl){
-  state.pipeline=pl;
-  document.getElementById('btn-lo').classList.toggle('on',pl==='lo');
-  document.getElementById('btn-re').classList.toggle('on',pl==='re');
-  PPrender();
-}
-function setSort(v){state.sortBy=v;PPrender();}
-
-
-// ── DRAG AND DROP ─────────────────────────────────────────
-var draggedId = null;
-
-function initDragEvents(){
-  var board = document.getElementById('board');
-  if(!board) return;
-  board.addEventListener('dragstart', function(e){
-    var card = e.target.closest('.card');
-    if(!card) return;
-    draggedId = card.dataset.id;
-    card.classList.add('dragging');
-    e.dataTransfer.effectAllowed = 'move';
-    e.dataTransfer.setData('text/plain', draggedId);
-  });
-  board.addEventListener('dragend', function(e){
-    var card = e.target.closest('.card');
-    if(card) card.classList.remove('dragging');
-    document.querySelectorAll('.col-body').forEach(function(col){col.classList.remove('drag-over');});
-    draggedId = null;
-  });
-}
-
-function dragOver(e){
-  e.preventDefault();
-  e.dataTransfer.dropEffect = 'move';
-  e.currentTarget.classList.add('drag-over');
-}
-
-function dragLeave(e){
-  e.currentTarget.classList.remove('drag-over');
-}
-
-function dropCard(e){
-  e.preventDefault();
-  e.currentTarget.classList.remove('drag-over');
-  var id = e.dataTransfer.getData('text/plain') || draggedId;
-  if(!id) return;
-  var newStage = e.currentTarget.dataset.stage;
-  if(!newStage) return;
-  var c = contacts.find(function(x){return x.id===id;});
-  if(!c || c.stage===newStage) return;
-  var oldStage = c.stage;
-  c.stage = newStage;
-  if(!c.activities) c.activities=[];
-  c.activities.push({
-    type:'Stage → '+(SM[newStage]||{name:newStage}).name,
-    date:new Date().toISOString().slice(0,10),
-    notes:'From '+(SM[oldStage]||{name:oldStage}).name+' (dragged)'
-  });
-  save(function(){});
-  PPrender();
-  setTimeout(function(){
-    var el=document.querySelector('[data-id="'+id+'"]');
-    if(el){el.style.transition='background 0.4s';el.style.background='rgba(200,150,12,0.18)';setTimeout(function(){el.style.background='';},900);}
-  },80);
-}
-
-// ── INIT ────────────────────────────────────────────────
-PLloadCloud();
-PPloadCloud();
+loadCloud();
+loadContacts();
 
 </script>
+
+<div class="cmodal-ov" id="cmodal-ov" onclick="if(event.target===this)closeContactCard()">
+  <div class="cmodal">
+    <div style="width:40px;height:4px;background:#ddd;border-radius:2px;margin:12px auto 0;"></div>
+    <div class="cm-hdr">
+      <div><div class="cm-name" id="cm-name"></div><div class="cm-co" id="cm-co"></div></div>
+      <button class="cm-close" onclick="closeContactCard()">&#10005;</button>
+    </div>
+    <div class="cm-body" id="cm-body"></div>
+  </div>
+</div>
+<script>
+var STAGES=[{"id": "prospect", "name": "Prospect", "color": "#5D6D7E"}, {"id": "cold-call-attempted", "name": "Cold Call Attempted", "color": "#85929E"}, {"id": "initial-presentation-scheduled", "name": "Initial Presentation", "color": "#2980B9"}, {"id": "pro-forma-scheduled", "name": "Pro Forma Scheduled", "color": "#8E44AD"}, {"id": "mike-dave-scheduled", "name": "Mike + Dave Scheduled", "color": "#27AE60"}, {"id": "decision-call-scheduled", "name": "Decision Call Scheduled", "color": "#E67E22"}, {"id": "decision-pending", "name": "Decision Pending", "color": "#C0392B"}, {"id": "onboarding", "name": "Onboarding", "color": "#1ABC9C"}, {"id": "nurture-long-term", "name": "Long-Term Nurture", "color": "#F39C12"}, {"id": "closed-not-qualified", "name": "Not a Fit", "color": "#BFC9CA"}, {"id": "closed-not-interested", "name": "Active LO (DNC)", "color": "#BFC9CA"}, {"id": "stage-1778860440487", "name": "Not Interested", "color": "#BFC9CA"}];
+var SM={};
+STAGES.forEach(function(s){SM[s.id]=s;});
+var contacts=[{"id": "7817f5a2", "name": "Kerry Victor", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "closed-not-interested", "volume": 3000000, "followUp": "2026-05-16", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Active LO", "date": "2026-05-15", "notes": "From Prospect"}]}, {"id": "a9ca3131", "name": "Kathleen Ward", "company": "KK Homes Team", "phone": "", "email": "", "state": "VA", "pipeline": "re", "stage": "prospect", "volume": 22000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Follow up next week, brought up L&F internal mortgage, squashed it.", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a02f9e5a", "name": "Mitchell Payne", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "mike-dave-scheduled", "volume": 20000000, "followUp": "2026-05-18", "lastContact": "2026-05-15", "notes": "Following Up", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Left Voicemail", "date": "2026-05-15", "notes": ""}, {"type": "Stage moved to Mike - Dave Call Scheduled", "date": "2026-05-15", "notes": "From Prospect"}]}, {"id": "2e94e290", "name": "Bryan Doorman", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "2026-05-15", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Cold Call Attempted", "date": "2026-05-15", "notes": "From Prospect"}]}, {"id": "46874e58", "name": "Chris Money Man Greek", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 6000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Going to an andy elliott conference follow up in a week", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "5be75290", "name": "Kenneth Natasi", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "stage-1778860440487", "volume": 6000000, "followUp": "2026-06-25", "lastContact": "", "notes": "Near orlando, probably making 60-100k on his 6M book there, he would easily take a raise by coming here", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Not Interested", "date": "2026-05-15", "notes": "From Prospect"}]}, {"id": "d7ac4bd9", "name": "Jorge Gonzalez", "company": "Broker", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 8000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Got priced out by Matt on too many deals so he switched to the broker world. Said he did 30 last year and could have done 30 more if he didnt lose to Matt", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "77c893c7", "name": "Giovanni Matia", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 16000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Big family guy, super happy at NAF has a good thing going, but said he will always make the best decision for his family. He will be in delray this week, wifes an insurance agent and is doing an event", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "c7462a72", "name": "Allyson Cain", "company": "Atlantic Bay", "phone": "", "email": "", "state": "NC", "pipeline": "lo", "stage": "prospect", "volume": 136000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Josh Tacketts preferred lender", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a7a9dc33", "name": "Nate Connor", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 8000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Has a few closings over next week, but knows Matt, and is open to a new opportunity once hes out of the weeds", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e0ebcb3a", "name": "Brent Foster", "company": "", "phone": "", "email": "", "state": "SC", "pipeline": "lo", "stage": "decision-call-scheduled", "volume": 0, "followUp": "2026-05-15", "lastContact": "", "notes": "Warm - meeting w mike & Dave 5/14 -", "incomeGoal": null, "temperature": "Warm", "activities": [{"type": "Stage moved to Decision Call Scheduled", "date": "2026-05-15", "notes": "From Cold Call Attempted"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-15", "notes": "Meeting scheduled for May 17, 2026"}]}, {"id": "6c7a85de", "name": "Justin Johnson", "company": "", "phone": "", "email": "", "state": "SC", "pipeline": "lo", "stage": "initial-presentation-scheduled", "volume": 0, "followUp": "2026-05-15", "lastContact": "", "notes": "Call 1 scheduled", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "04073fa1", "name": "Ray Evans", "company": "RE/MAX Broker", "phone": "", "email": "", "state": "NC", "pipeline": "re", "stage": "prospect", "volume": 125000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Great rapport, was planning on entering mortgage Q1 of next yr. Will call back in a few weeks and bring up Bernie this time to get a sooner appointment", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "32d653bd", "name": "Kiki Saldico", "company": "K2 Omni", "phone": "", "email": "", "state": "NM", "pipeline": "re", "stage": "prospect", "volume": 92000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Has a JV with NAF, does business in TX, FL, MA,, and asked if we could do this in all of those states. in follow up", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e1f6fd17", "name": "Chloe Bringerud", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "pro-forma-scheduled", "volume": 0, "followUp": "2026-05-15", "lastContact": "", "notes": "Call 2 (Pro Forma set) - wants to get back to making 250-300k -just getting bacvk into flow of prospecting and buiilding busiess back up", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a34a063c", "name": "Michael Palopoli", "company": "Supreme", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 3000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Family ties at supreme", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "cce7c53b", "name": "Patrick Kuhlman", "company": "NextHome", "phone": "", "email": "", "state": "AR", "pipeline": "re", "stage": "prospect", "volume": 36000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Current P&L with Revolution. Not going as well as he thought and hes almost a year in. only 14 deals have gone to his Rev branch", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e8628638", "name": "Joshua Tackett", "company": "Local R.E. Inc", "phone": "", "email": "", "state": "NC", "pipeline": "re", "stage": "pro-forma-scheduled", "volume": 42000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Really Likes his current lender Allyson Crain, would want to make a play at her. She has a great relationship with team", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Call 2 Scheduled", "date": "2026-05-14", "notes": "From New Lead"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-14", "notes": "Meeting scheduled for May 17, 2026 at 22:00"}]}, {"id": "0571cfb5", "name": "Blake Elder", "company": "KW", "phone": "", "email": "", "state": "AK", "pipeline": "re", "stage": "prospect", "volume": 150000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Him and Annie Bjerkstrand run it together, need to get both of them on a call together.", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "94591bf4", "name": "Chase Delperdang", "company": "KW", "phone": "", "email": "", "state": "AZ", "pipeline": "re", "stage": "prospect", "volume": 35000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Circling back end of this week, ]the brokerage he is at does business with another CCM, but his team does 0 business with one of our own", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "f8fae194", "name": "Michael Samuels", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "decision-call-scheduled", "volume": 15000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Asking ?s about health insurance and stuff, but went radio silent", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Decision Call Scheduled", "date": "2026-05-15", "notes": "From Prospect"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-15", "notes": "Meeting scheduled for May 17, 2026"}]}, {"id": "79187ca6", "name": "Stephen Casterline", "company": "", "phone": "", "email": "", "state": "KS", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 9000000, "followUp": "2026-06-05", "lastContact": "", "notes": "Wants to join but not a culture fit", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Lost", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}]}, {"id": "a85a1c70", "name": "Rusty Davis", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "nurture-long-term", "volume": 12000000, "followUp": "2026-05-18", "lastContact": "", "notes": "Not really ready to make a move, but if something drastic happens at current company that can change", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "619e1f33", "name": "Jeanine Henrion", "company": "", "phone": "", "email": "", "state": "KS", "pipeline": "lo", "stage": "prospect", "volume": 20000000, "followUp": "", "lastContact": "", "notes": "Neice is a big motivating factor, she loves her company but if her neice could make more she may move. Dont think Katie wants a necessarily new person taking her files.", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a44ee6a6", "name": "Ryan Boody", "company": "Grate", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 15000000, "followUp": "2026-05-22", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "5db56ce2", "name": "Keith Stocker", "company": "", "phone": "", "email": "", "state": "SC", "pipeline": "lo", "stage": "prospect", "volume": 10000000, "followUp": "", "lastContact": "", "notes": "2 years left, make as much money as he can and get out", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "6db48bdd", "name": "Mike Callahan", "company": "Movement Mtg", "phone": "", "email": "", "state": "SC", "pipeline": "lo", "stage": "prospect", "volume": 7000000, "followUp": "", "lastContact": "", "notes": "Older guy wont end up being a good fit", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "3e23a53d", "name": "Kurt Heide", "company": "Heide Intl", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 10000000, "followUp": "", "lastContact": "", "notes": "Broker doesnt want to sell", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a8063303", "name": "Jamie Bardeen", "company": "Grate", "phone": "931-980-7689", "email": "", "state": "TN", "pipeline": "lo", "stage": "decision-pending", "volume": 20000000, "followUp": "2026-04-23", "lastContact": "", "notes": "Didnt say the right things", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Offer Sent", "date": "2026-04-22", "notes": "From Bernie Wendy Meeting"}]}, {"id": "36c8abc6", "name": "David Drake", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "decision-call-scheduled", "volume": 6000000, "followUp": "2026-05-17", "lastContact": "2026-05-15", "notes": "Builder Specialty", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Follow-Up Meeting Scheduled", "date": "2026-05-06", "notes": "Meeting scheduled for May 9, 2026"}, {"type": "Spoke \u2013 Meaningful", "date": "2026-05-06", "notes": ""}, {"type": "Stage moved to Decision Call Scheduled", "date": "2026-05-15", "notes": "From Initial Presentation Scheduled"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-15", "notes": "Meeting scheduled for May 17, 2026"}, {"type": "Meeting Held", "date": "2026-05-15", "notes": ""}]}, {"id": "1c253c41", "name": "Chad Williams", "company": "Ridgeview", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "nurture-long-term", "volume": 35000000, "followUp": "2026-05-07", "lastContact": "", "notes": "Total Acquisition", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Lost", "date": "2026-05-06", "notes": "From New Lead"}]}, {"id": "ab277d2b", "name": "Giselle Falla", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 13900000, "followUp": "", "lastContact": "", "notes": "107k buyout but does a lot of FHA", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "cce29bae", "name": "Jon Ray", "company": "Trailblazer", "phone": "", "email": "", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 80000000, "followUp": "", "lastContact": "", "notes": "Consumer Direct", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e655610e", "name": "Chasten Gerhart", "company": "NAF", "phone": "", "email": "", "state": "KS", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 12170000, "followUp": "2026-05-22", "lastContact": "", "notes": "Wants to join but Not a culture fit", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Lost", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}]}, {"id": "be94ca2c", "name": "Erick Cantele", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "nurture-long-term", "volume": 13790000, "followUp": "2026-05-18", "lastContact": "", "notes": "Offer out", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "88945d54", "name": "Rob Shell", "company": "MOH", "phone": "", "email": "", "state": "TN", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 10300000, "followUp": "2026-05-15", "lastContact": "", "notes": "Wants to join but Not a culture fit", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "51c12506", "name": "Cliff Rains", "company": "CMG", "phone": "(931) 335-1418", "email": "", "state": "TN", "pipeline": "lo", "stage": "nurture-long-term", "volume": 10000000, "followUp": "2026-05-09", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to FOLLOW UP", "date": "2026-03-11", "notes": "From Call 2 Complete"}, {"type": "Stage moved to Reschedule", "date": "2026-05-06", "notes": "From Pro Forma"}, {"type": "Stage manually resolved to Not Interested \u2014 Stay in Touch", "date": "2026-05-14", "notes": "Manual review"}]}, {"id": "2988419f", "name": "Andrew Hickman", "company": "", "phone": "(404) 454-9995", "email": "", "state": "", "pipeline": "lo", "stage": "nurture-long-term", "volume": 0, "followUp": "2026-05-22", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to FL Visit Invited", "date": "2026-03-05", "notes": "From New Lead"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-03-05", "notes": "Meeting scheduled for Mar 17, 2026"}, {"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From FL Visit Invited"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "db8f3611", "name": "John Weaver", "company": "Edge Home Finance", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "stage-1778860440487", "volume": 0, "followUp": "2026-06-18", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Warm Nurturing", "date": "2026-03-09", "notes": "From New Lead"}, {"type": "Stage moved to Not Interested", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "a125bda7", "name": "Ben Zoeller", "company": "Cornerstone", "phone": "(502) 649-0295", "email": "bzoeller1119@gmail.com", "state": "TN", "pipeline": "lo", "stage": "closed-not-interested", "volume": 13400000, "followUp": "2026-05-06", "lastContact": "2026-03-04", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Spoke \u2013 Meaningful", "date": "2026-03-04", "notes": ""}, {"type": "Stage moved to Closed \u2014 Won", "date": "2026-05-06", "notes": "From Offer Sent"}, {"type": "Stage moved to Active LO", "date": "2026-05-15", "notes": "From Onboarding"}]}, {"id": "c01e0471", "name": "Austin Wyrick", "company": "FLAT BRANCH", "phone": "(828) 449-7053", "email": "austin_g_w@yahoo.com", "state": "TN", "pipeline": "lo", "stage": "nurture-long-term", "volume": 22880000, "followUp": "2026-05-18", "lastContact": "2026-05-06", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Follow-Up Meeting Scheduled", "date": "2026-03-09", "notes": "Meeting scheduled for Mar 10, 2026 at 16:00"}, {"type": "Stage moved to Reschedule", "date": "2026-03-17", "notes": "From Call 2 Scheduled"}, {"type": "Spoke \u2013 Short", "date": "2026-05-06", "notes": ""}, {"type": "Stage manually resolved to Warm Nurturing", "date": "2026-05-14", "notes": "Manual review"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "2408ea22", "name": "Gregory Tucker", "company": "Fusion", "phone": "321-229-7485", "email": "gregoryftucker88@gmail.com", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "97a0efa8", "name": "JC Sommer", "company": "Movement Mortgage", "phone": "", "email": "jc.sommer@movement.com", "state": "FL", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 29080000, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Call 1 Complete", "date": "2026-03-09", "notes": "From Call 1 Scheduled"}, {"type": "Stage moved to Call 1 Scheduled", "date": "2026-05-06", "notes": "From Call 1 Complete"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-06", "notes": "Meeting scheduled for May 8, 2026"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Initial Presentation Scheduled"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}]}, {"id": "fab1da8b", "name": "Amber Smith", "company": "Grate", "phone": "407-435-3665", "email": "amber.fla@icloud.net", "state": "FL", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 12820000, "followUp": "2026-05-22", "lastContact": "", "notes": "Wants to join but Not a culture fit", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Call 2 Scheduled", "date": "2026-03-05", "notes": "From Call 1 Scheduled"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-03-05", "notes": "Meeting scheduled for Mar 5, 2026 at 13:00"}, {"type": "Stage moved to FOLLOW UP", "date": "2026-03-11", "notes": "From Call 2 Scheduled"}, {"type": "Stage moved to Not Interested \u2014 Stay in Touch", "date": "2026-05-06", "notes": "From Pro Forma"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}]}, {"id": "70b7da35", "name": "John Ray", "company": "", "phone": "407-595-6057", "email": "jraygator15@gmail.com", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "6844e3a7", "name": "Denise Pantaleon", "company": "", "phone": "321-278-4656", "email": "denise@dmpmortgage.com", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "07f7b0d3", "name": "Justin Lopatin", "company": "", "phone": "", "email": "justin.lopatin@originpoint.com", "state": "", "pipeline": "lo", "stage": "nurture-long-term", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "4c4a4c8c", "name": "Jeannine Henrion", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "5152f531", "name": "Antony Gemmell", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e342c974", "name": "Evelyn Dean", "company": "", "phone": "(501) 730-1958", "email": "", "state": "", "pipeline": "re", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "75c5faa4", "name": "Brian Curtis", "company": "", "phone": "479-531-2317", "email": "", "state": "", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "00df06ae", "name": "Alan Cheiman", "company": "", "phone": "561-441-7777", "email": "", "state": "", "pipeline": "lo", "stage": "nurture-long-term", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "6196f6c0", "name": "Mike Brustad", "company": "Grate", "phone": "850-830-3557", "email": "mike.brustad@gmail.com", "state": "FL", "pipeline": "lo", "stage": "stage-1778860440487", "volume": 15460000, "followUp": "2026-05-22", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Call 2 Complete", "date": "2026-03-05", "notes": "From Call 2 Scheduled"}, {"type": "Stage moved to Not Interested \u2014 Stay in Touch", "date": "2026-03-05", "notes": "From Call 2 Complete"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}, {"type": "Stage moved to Not Interested", "date": "2026-05-15", "notes": "From Not a Fit"}]}, {"id": "1512dddc", "name": "Andrew Acosta", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "4d676506", "name": "Juan Florez", "company": "Summit Funding", "phone": "423-503-5777", "email": "juan.florez@summitfunding.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 21065432, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "7c321612", "name": "Christopher Kloc", "company": "Summit Funding", "phone": "423-755-3038", "email": "chris.kloc@summitfunding.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 50095445, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "53127055", "name": "Lucas Johnson", "company": "Movement Mortgage", "phone": "423-794-8541", "email": "lucas.johnson@movement.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 72329502, "followUp": "", "lastContact": "2026-01-29", "notes": "Johnson City; high response rate", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "b760e82f", "name": "Todd Wiggins", "company": "Studio Bank", "phone": "615-554-1983", "email": "twiggins@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a02ce8ab", "name": "Shannon Coates", "company": "Studio Bank", "phone": "615-906-4741", "email": "scoates@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "9dbb900f", "name": "Jeff Devereaux", "company": "Studio Bank", "phone": "615-218-8217", "email": "jdevereaux@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "caba96e4", "name": "Will Cordell", "company": "Studio Bank", "phone": "", "email": "wcordell@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Just moved; bringing business", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "ea1aa6e5", "name": "Diana Ely", "company": "Lending Hand", "phone": "615-997-5512", "email": "diana@lendinghand.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Active; Bilingual (Spanish)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "dff6c8b9", "name": "Kyle Chubboy", "company": "Acrisure Mtg", "phone": "352-978-1811", "email": "kchubboy@acrisure.com", "state": "TN", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "2026-05-13", "lastContact": "2026-01-29", "notes": "Active; Team Jagoe partner", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}]}, {"id": "c95cf689", "name": "Richard Aldana", "company": "Loan Factory", "phone": "305-684-7281", "email": "raldana@loanfactory.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 1500000, "followUp": "", "lastContact": "2026-01-29", "notes": "Heavy Purchase focus", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "40a07103", "name": "Heather Frost", "company": "Studio Bank", "phone": "615-500-1175", "email": "hfrost@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 9701768, "followUp": "", "lastContact": "2026-01-29", "notes": "New builds focus", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a2544653", "name": "Jeff Tucker", "company": "Studio Bank", "phone": "615-400-0255", "email": "jtucker@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12215432, "followUp": "", "lastContact": "2026-01-29", "notes": "Consistent mid-range", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "65208e4e", "name": "Alden Mason", "company": "Studio Bank", "phone": "615-715-9477", "email": "amason@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12735207, "followUp": "", "lastContact": "2026-01-29", "notes": "Joined Studio Bank Dec 2025", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "8988a3eb", "name": "Andrew Chelton", "company": "Guaranteed Rate", "phone": "615-400-2086", "email": "andrew.chelton@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12877198, "followUp": "", "lastContact": "2026-01-16", "notes": "Active Jan 2026", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a9406d0b", "name": "Yanisleidy Lopez", "company": "Guaranteed Rate", "phone": "615-479-8156", "email": "yanisleidy.lopez@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12944275, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/21; No response", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "94fc980e", "name": "Parker Seabolt", "company": "Studio Bank", "phone": "615-414-7294", "email": "pseabolt@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 13012032, "followUp": "", "lastContact": "2026-01-29", "notes": "35 transactions", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "55e135f4", "name": "Allie Conway", "company": "Guild Mortgage", "phone": "865-705-8763", "email": "aconway@guildmortgage.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 13235841, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No pickup)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "7dee7a4a", "name": "Clinton Haynes", "company": "Preferred Rate", "phone": "615-288-4452", "email": "clint@preferredrate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 14967918, "followUp": "", "lastContact": "2026-01-29", "notes": "Mt Juliet", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "077f1dfd", "name": "James Cheney", "company": "Mutual of Omaha", "phone": "786-897-3515", "email": "jcheney@mutualofomaha.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 15927000, "followUp": "", "lastContact": "2026-01-16", "notes": "Spoke 1/16; Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "73d10d30", "name": "Brad Daniel", "company": "Mutual of Omaha", "phone": "615-975-7400", "email": "bdaniel@mutualofomaha.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 16746461, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "5127bbaf", "name": "Matthew Glover", "company": "American Pacific", "phone": "615-429-9532", "email": "matthew.glover@preferredrate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 17257120, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "1d1ab57f", "name": "Damon Kindred", "company": "Silverton Mtg", "phone": "615-878-6998", "email": "dkindred@silvertonmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 17992081, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "c94530c4", "name": "John Conyer", "company": "MTH Mortgage", "phone": "615-815-6179", "email": "jconyer@mthmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 18918637, "followUp": "", "lastContact": "2026-01-16", "notes": "Booked for 1/16; Franklin", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "82b7e6bc", "name": "Michael Dilucchio", "company": "Guild Mortgage", "phone": "615-969-6889", "email": "mdilucchio@guildmortgage.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 19603753, "followUp": "", "lastContact": "2026-05-14", "notes": "Active Jan 2026", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Touchpoint", "date": "2026-05-14", "notes": ""}]}, {"id": "ed323b1c", "name": "Joseph Buffler", "company": "Guaranteed Rate", "phone": "615-415-0418", "email": "joseph.buffler@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 19897223, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "88099da7", "name": "John Elmer McCabe", "company": "Cornerstone First", "phone": "256-759-1411", "email": "jmccabe@cornerstone.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 22000000, "followUp": "", "lastContact": "2026-01-29", "notes": "Active; Moved Aug 2025", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "1d3bd7d6", "name": "Brandon Keane", "company": "Studio Bank", "phone": "615-585-8887", "email": "bkeane@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "nurture-long-term", "volume": 24107326, "followUp": "2026-05-18", "lastContact": "2026-05-15", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}, {"type": "Left Voicemail", "date": "2026-05-15", "notes": ""}]}, {"id": "4f3fc457", "name": "Philip May", "company": "Studio Bank", "phone": "901-848-6874", "email": "pmay@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 25485784, "followUp": "", "lastContact": "2026-01-29", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "cd293a5a", "name": "Jeffrey Osburn", "company": "Guaranteed Rate", "phone": "615-804-4804", "email": "jeffrey.osburn@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 27000664, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "54219904", "name": "Anthony Fragale", "company": "Mutual of Omaha", "phone": "615-579-2835", "email": "afragale@mutualofomaha.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 27615205, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "44db562d", "name": "Ronald Cox", "company": "Studio Bank", "phone": "615-338-9232", "email": "rcox@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 28065000, "followUp": "", "lastContact": "2026-01-29", "notes": "Active; Nashville BM", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "31aeea3a", "name": "Brendan Donelson", "company": "Guild Mortgage", "phone": "615-207-8254", "email": "bdonelson@guildmortgage.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29093710, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/16 1/21 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "37199216", "name": "Mackenzie Curtis", "company": "Mutual of Omaha", "phone": "352-258-9162", "email": "mcurtis@mutualofomaha.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29336736, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "5ca3a79b", "name": "Tracy Woodside", "company": "FirstTrust", "phone": "615-319-7480", "email": "twoodside@firsttrust.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29621020, "followUp": "", "lastContact": "2026-01-16", "notes": "Hendersonville", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "acf125a1", "name": "Donald Lee Eden II", "company": "SFMC LP", "phone": "615-330-3547", "email": "deden@sfmc.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29934781, "followUp": "", "lastContact": "2026-01-21", "notes": "Spoke 1/21; Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "065c3800", "name": "Joseph Lamanna", "company": "Silverton Mtg", "phone": "352-989-2282", "email": "jlamanna@silvertonmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29957298, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "48d0ec60", "name": "Jackie Hurtis", "company": "Guild Mortgage", "phone": "608-347-0756", "email": "jhurtis@guildmortgage.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 32635585, "followUp": "", "lastContact": "2026-01-15", "notes": "Spoke 1/15; Sweetheart", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "55a66d5e", "name": "Brian Maggart", "company": "FirstTrust", "phone": "615-714-5652", "email": "bmaggart@firsttrust.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 39050182, "followUp": "", "lastContact": "2026-01-29", "notes": "Hendersonville; goes by Jarred", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "0c5d33b6", "name": "James Kofahl Jr", "company": "American Pacific", "phone": "615-504-8304", "email": "james.kofahl@preferredrate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 40929678, "followUp": "", "lastContact": "2026-01-29", "notes": "Active BM; Spring Hill", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "6b481590", "name": "Gregory Goodman", "company": "SWBC Mortgage", "phone": "615-400-5626", "email": "ggoodman@swbc.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 42948247, "followUp": "", "lastContact": "2026-01-16", "notes": "Branch Manager", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a487bc97", "name": "Justin Lee", "company": "Guaranteed Rate", "phone": "865-406-8486", "email": "justin.lee@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 45618805, "followUp": "", "lastContact": "2026-01-26", "notes": "Called 1/16 1/26 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "2e994868", "name": "Kurt Johansson", "company": "Shelter Lending", "phone": "615-482-7252", "email": "kjohansson@shelterlending.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 46278049, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/15 1/21 (No pickup)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "49f88589", "name": "Jack McGrath", "company": "Rocket Mortgage", "phone": "800-226-6308", "email": "jackmcgrath@rocketmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 48460948, "followUp": "", "lastContact": "2026-01-29", "notes": "President's Club; active Jan 2026", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "cfbe3885", "name": "Heath Albritton", "company": "Guaranteed Rate", "phone": "615-347-0578", "email": "heath.albritton@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 52810903, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/16 1/21 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "9a495d62", "name": "Michael Smalling", "company": "Legacy Home Loans", "phone": "615-300-6599", "email": "msmalling@legacylending.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 55322300, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/15 1/21 (Texted back)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "fcdc67f5", "name": "Christopher Haynes", "company": "American Pacific", "phone": "615-945-3994", "email": "chrishaynesteam@preferredrate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 58401957, "followUp": "", "lastContact": "2026-01-20", "notes": "Called 1/16 1/20 (No pickup)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "ac125a32", "name": "Michele Ballard", "company": "Guaranteed Rate", "phone": "615-330-3885", "email": "michele.ballard@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 60195390, "followUp": "", "lastContact": "2026-01-16", "notes": "Spoke 1/16; Nice; sending refs", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "b5a458b9", "name": "Rory Lithgow", "company": "InterLinc Mortgage", "phone": "615-300-3853", "email": "rory.lithgow@interlincmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 78000489, "followUp": "", "lastContact": "2026-01-16", "notes": "BM - Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "111c1ad9", "name": "Garrett Locklear", "company": "Guaranteed Rate", "phone": "615-933-2080", "email": "garrett.locklear@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 101566845, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No pickup)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "4cbf3d03", "name": "Dalton Ponchillia", "company": "CMG Mortgage", "phone": "615-504-7320", "email": "ponchilliamortgageteam@cmgfi.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 98611068, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "7a4f1029", "name": "Christi Wedig", "company": "CMG Mortgage", "phone": "435-773-7031", "email": "cwedig@cmgfi.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 34604929, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "931d664a", "name": "Lucero Rose", "company": "CMG Mortgage", "phone": "865-599-6693", "email": "lrose@cmgfi.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 36956898, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "f3a0e853", "name": "Michael Castronovo", "company": "CMG Mortgage", "phone": "847-612-5626", "email": "mcastronovo@cmghomeloans.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 21331657, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "362416d3", "name": "Eddie Cooke", "company": "CMG Mortgage", "phone": "615-300-6262", "email": "ecooke@cmgfi.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 9728974, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "349cf6d4", "name": "Timothy Awad", "company": "PennyMac", "phone": "818-926-1248", "email": "timothy.awad@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 74428806, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "046e41b9", "name": "Christopher Bledsoe", "company": "PennyMac", "phone": "615-475-7370", "email": "christopher.bledsoe@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 74280967, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "9b72c260", "name": "Peter Munguia", "company": "PennyMac", "phone": "931-219-2263", "email": "peter.munguia@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 54494611, "followUp": "", "lastContact": "2026-01-29", "notes": "User busy during attempt", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a21c55a3", "name": "Nathan Raphan", "company": "PennyMac", "phone": "616-558-1929", "email": "nathan.raphan@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 50707540, "followUp": "", "lastContact": "2026-01-29", "notes": "Spoke; Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a9c12f35", "name": "Tyler Johnston", "company": "PennyMac", "phone": "423-326-4266", "email": "tyler.johnston@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 46369481, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "90bd6f5d", "name": "Parker Borofsky", "company": "Movement Mortgage", "phone": "865-292-4436", "email": "parker.borofsky@movement.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 190972111, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "98c7bfa5", "name": "Robert Breckenridge", "company": "Movement Mortgage", "phone": "865-804-3288", "email": "rob.breckenridge@movement.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 65851431, "followUp": "", "lastContact": "2026-01-29", "notes": "Spoke; Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "3114bb38", "name": "Casey Shaffer", "company": "Movement Mortgage", "phone": "606-515-8362", "email": "casey.shaffer@movement.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12118936, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}];
+var PLANNER_AK='$2a$10$NyyXvn9j8.HX5rM0oKCjnuo9GxmQVT/hRnTLslt.ks00E/ViRfF0G';
+var PLANNER_NB_BIN=localStorage.getItem('planner_nb_bin')||'';
+var plSearch='';
+var curOpenCid=null;
+var selNoteType='Call 1';
+var _dragCid=null;
+
+function loadContacts(){
+  var local=localStorage.getItem('planner_contacts');
+  if(local){try{var d=JSON.parse(local);if(d&&d.length)contacts=d;}catch(e){}}
+  if(!PLANNER_NB_BIN){
+    fetch('https://api.jsonbin.io/v3/b',{method:'POST',
+      headers:{'Content-Type':'application/json','X-Master-Key':PLANNER_AK,'X-Bin-Name':'ofl-contacts-v1'},
+      body:JSON.stringify({contacts:contacts})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.metadata&&d.metadata.id){PLANNER_NB_BIN=d.metadata.id;localStorage.setItem('planner_nb_bin',PLANNER_NB_BIN);}
+    }).catch(function(){});
+  } else {
+    fetch('https://api.jsonbin.io/v3/b/'+PLANNER_NB_BIN+'/latest',{headers:{'X-Master-Key':PLANNER_AK}})
+    .then(function(r){return r.json();}).then(function(d){
+      if(d.record&&d.record.contacts)contacts=d.record.contacts;
+    }).catch(function(){});
+  }
+}
+
+function saveContacts(){
+  localStorage.setItem('planner_contacts',JSON.stringify(contacts));
+  if(PLANNER_NB_BIN){
+    fetch('https://api.jsonbin.io/v3/b/'+PLANNER_NB_BIN,{method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':PLANNER_AK},
+      body:JSON.stringify({contacts:contacts})
+    }).catch(function(){});
+  }
+}
+
+function fv(v){return v?'$'+(v/1e6).toFixed(1)+'M':'';}
+function fd(s){if(!s)return'';var d=new Date(s);return isNaN(d)?s:d.toLocaleDateString('en-US',{month:'short',day:'numeric'});}
+function fuC(s){if(!s)return'';var d=new Date(s),t=new Date();t.setHours(0,0,0,0);d.setHours(0,0,0,0);return d<t?'fu-o':d.getTime()===t.getTime()?'fu-t':'fu-k';}
+function plEsc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function renderPipeline(){
+  var el=document.getElementById('pg-pipeline');if(!el)return;
+  var q=plSearch.toLowerCase();
+  var lo=contacts.filter(function(c){return c.pipeline!=='re';});
+  if(q)lo=lo.filter(function(c){return(c.name||'').toLowerCase().indexOf(q)!==-1||(c.company||'').toLowerCase().indexOf(q)!==-1;});
+  var closed=['closed-not-qualified','closed-not-interested','stage-1778860440487'];
+  var active=lo.filter(function(c){return closed.indexOf(c.stage)===-1;});
+  var hotS=['mike-dave-scheduled','decision-call-scheduled','decision-pending','pro-forma-scheduled','initial-presentation-scheduled'];
+  var hot=lo.filter(function(c){return hotS.indexOf(c.stage)!==-1;});
+  var noGoal=hot.filter(function(c){return!c.incomeGoal;});
+  var td=new Date();td.setHours(0,0,0,0);
+  var overdue=lo.filter(function(c){return c.followUp&&new Date(c.followUp)<td;});
+
+  var html='<div class="kanban-wrap">';
+  // Top bar: search + stats
+  html+='<div class="kanban-topbar">';
+  html+='<input class="pl-search" placeholder="&#128269; Search..." value="'+plEsc(plSearch)+'" oninput="plSearch=this.value;renderPipeline()" />';
+  html+='<div class="pl-stats">';
+  html+='<div class="pl-stat"><div class="pl-stat-num">'+active.length+'</div><div class="pl-stat-lbl">Active</div></div>';
+  html+='<div class="pl-stat"><div class="pl-stat-num" style="color:#C8960C">'+hot.length+'</div><div class="pl-stat-lbl">Hot</div></div>';
+  html+='<div class="pl-stat"><div class="pl-stat-num" style="color:#C0392B">'+noGoal.length+'</div><div class="pl-stat-lbl">No Goal</div></div>';
+  html+='<div class="pl-stat"><div class="pl-stat-num" style="color:'+(overdue.length?'#C0392B':'#27AE60')+'">'+overdue.length+'</div><div class="pl-stat-lbl">Overdue</div></div>';
+  html+='</div></div>';
+  html+='<div class="pl-hint">Double-tap to open &nbsp;&#8729;&nbsp; Drag left/right to move stage</div>';
+
+  // Kanban board - horizontal scroll
+  html+='<div class="kanban-board" id="kanbanBoard">';
+  var ORDER=['decision-call-scheduled','decision-pending','mike-dave-scheduled','pro-forma-scheduled','initial-presentation-scheduled','nurture-long-term','cold-call-attempted','prospect','onboarding','closed-not-interested','closed-not-qualified'];
+  ORDER.forEach(function(sid){
+    var st=SM[sid]||{name:sid,color:'#888'};
+    var cards=lo.filter(function(c){return c.stage===sid;});
+    cards.sort(function(a,b){var da=a.followUp?new Date(a.followUp):new Date('2099'),db=b.followUp?new Date(b.followUp):new Date('2099');return da-db;});
+    html+='<div class="pipe-col">';
+    html+='<div class="pipe-col-hd" style="border-bottom-color:'+st.color+'">';
+    html+='<div class="pipe-dot" style="background:'+st.color+'"></div>';
+    html+='<div class="pipe-col-name">'+plEsc(st.name)+'</div>';
+    html+='<span class="pipe-col-count">'+cards.length+'</span></div>';
+    html+='<div class="pipe-col-cards" data-stage="'+sid+'" ondragover="plDragOver(event)" ondragleave="plDragLeave(event)" ondrop="plDrop(event,this.dataset.stage)">';
+    if(!cards.length){
+      html+='<div style="padding:16px;text-align:center;font-size:11px;color:#ccc;">Empty</div>';
+    }
+    cards.forEach(function(c){
+      var fc=fuC(c.followUp);
+      var calls=(c.callNotes||[]).length;
+      html+='<div class="pcard" draggable="true" data-cid="'+c.id+'" ondblclick="openContactCard(this.dataset.cid)" ondragstart="plDragStart(event)" ondragend="plDragEnd(event)">';
+      html+='<div class="pc-name">'+plEsc(c.name)+'</div>';
+      if(c.volume)html+='<span class="pc-vol">'+fv(c.volume)+'</span>';
+      if(c.company)html+='<div class="pc-sub">'+plEsc(c.company)+(c.state?' &middot; '+plEsc(c.state):'')+'</div>';
+      html+='<div class="pc-row">';
+      html+=c.incomeGoal?'<span class="pc-chip">$'+Number(c.incomeGoal).toLocaleString()+'</span>':'<span class="pc-warn">&#9888; No goal</span>';
+      if(calls)html+='<span class="pc-chip">'+calls+' note'+(calls!==1?'s':'')+'</span>';
+      if(c.followUp)html+='<span class="fu-badge '+fc+'">'+fd(c.followUp)+'</span>';
+      html+='</div></div>';
+    });
+    html+='</div></div>';
+  });
+  html+='</div></div>'; // close kanban-board + kanban-wrap
+  el.innerHTML=html;
+}
+
+function plDragStart(e){_dragCid=e.currentTarget.dataset.cid;e.currentTarget.classList.add('dragging');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',_dragCid);}
+function plDragEnd(e){e.currentTarget.classList.remove('dragging');document.querySelectorAll('.pipe-col-cards').forEach(function(el){el.classList.remove('drag-over');});}
+function plDragOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';e.currentTarget.classList.add('drag-over');}
+function plDragLeave(e){e.currentTarget.classList.remove('drag-over');}
+function plDrop(e,newStage){
+  e.preventDefault();e.currentTarget.classList.remove('drag-over');
+  var cid=e.dataTransfer.getData('text/plain')||_dragCid;
+  if(!cid||!newStage)return;
+  var c=contacts.find(function(x){return x.id===cid;});
+  if(!c)return;
+  c.stage=newStage;c.stageName=(SM[newStage]||{}).name||newStage;
+  saveContacts();renderPipeline();
+}
+
+function openContactCard(id){
+  curOpenCid=id;
+  var c=contacts.find(function(x){return x.id===id;});if(!c)return;
+  var cns=c.callNotes||[];
+  document.getElementById('cm-name').textContent=c.name;
+  document.getElementById('cm-co').textContent=[c.company,c.state].filter(Boolean).join(' \u00b7 ');
+  var b='';
+  b+='<div class="cm-sec"><div class="cm-sec-lbl">Stage</div>';
+  b+='<select class="cm-stage-sel" id="cm-stage">'+STAGES.map(function(s){return'<option value="'+s.id+'"'+(c.stage===s.id?' selected':'')+'>'+s.name+'</option>';}).join('')+'</select></div>';
+  b+='<div class="cm-sec"><div class="cm-sec-lbl">Income Goals</div>';
+  b+='<div class="cm-g2"><div><div class="cm-fl">CURRENT INCOME</div><input class="cm-fi" id="cm-ig" type="number" value="'+(c.incomeGoal||'')+'"></div>';
+  b+='<div><div class="cm-fl">TARGET INCOME</div><input class="cm-fi" id="cm-it" type="number" value="'+(c.incomeTarget||'')+'"></div></div>';
+  if(!c.incomeGoal)b+='<div class="ig-warn">&#9888; Surface income goal before any comp model</div>';
+  b+='</div>';
+  b+='<div class="cm-sec"><div class="cm-sec-lbl">Contact Info</div>';
+  b+='<div class="cm-g2"><div><div class="cm-fl">PHONE</div><input class="cm-fi" id="cm-ph" value="'+plEsc(c.phone||'')+'"></div>';
+  b+='<div><div class="cm-fl">EMAIL</div><input class="cm-fi" id="cm-em" value="'+plEsc(c.email||'')+'"></div></div>';
+  b+='<div class="cm-g2"><div><div class="cm-fl">FOLLOW-UP DATE</div><input class="cm-fi" id="cm-fu" type="date" value="'+(c.followUp||'')+'"></div>';
+  b+='<div><div class="cm-fl">VOLUME</div><input class="cm-fi" id="cm-vol" type="number" value="'+(c.volume||'')+'"></div></div></div>';
+  b+='<div class="cm-sec"><div class="cm-sec-lbl">Notes</div><textarea class="cm-ta" id="cm-notes">'+plEsc(c.notes||'')+'</textarea></div>';
+  b+='<div class="cm-sec"><div class="cm-sec-lbl">Call Notes ('+cns.length+')</div>';
+  if(cns.length){cns.slice().reverse().forEach(function(n){var tc=n.type==='Decision Call'?'#C0392B':n.type.indexOf('Pro')!==-1?'#8E44AD':n.type.indexOf('Mike')!==-1?'#27AE60':n.type==='Call 1'?'#C8960C':'#555';b+='<div class="cn-box"><div class="cn-hd"><span class="cn-tag" style="background:'+tc+'">'+plEsc(n.type)+'</span><span class="cn-dt">'+plEsc(n.date)+'</span></div><div class="cn-txt">'+plEsc(n.text)+'</div></div>';});}
+  else b+='<div style="font-size:12px;color:var(--mu);padding:4px 0;">No call notes yet.</div>';
+  b+='<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--b);">';
+  b+='<div class="cm-sec-lbl">ADD CALL NOTE</div>';
+  b+='<div class="nt-row">'+['Call 1','Pro Forma','Mike + Dave','Decision Call','Follow-Up','Other'].map(function(t){return'<button class="nt'+(selNoteType===t?' on':'')+'" onclick="selNoteType=\''+t+'\';document.querySelectorAll(\'.nt\').forEach(function(b){b.classList.remove(\'on\')});this.classList.add(\'on\')">'+t+'</button>';}).join('')+'</div>';
+  b+='<textarea class="cm-ta" id="cm-nnt" placeholder="Income goal surfaced? Objections? Next step?" rows="3"></textarea>';
+  b+='<button style="width:100%;padding:10px;border-radius:8px;border:none;background:#C8960C;color:#111;font-size:13px;font-weight:800;cursor:pointer;margin-top:8px;" onclick="addCallNote()">+ Save Call Note</button></div>';
+  b+='<button class="cm-save-btn" onclick="saveContactCard()">Save &amp; Close</button>';
+  b+='<button class="cm-x-btn" onclick="closeContactCard()">Close</button>';
+  document.getElementById('cm-body').innerHTML=b;
+  document.getElementById('cmodal-ov').classList.add('on');
+}
+function saveContactCard(){
+  var c=contacts.find(function(x){return x.id===curOpenCid;});if(!c)return;
+  function g(id){var e=document.getElementById(id);return e?e.value:'';}
+  var st=g('cm-stage');if(st){c.stage=st;c.stageName=(SM[st]||{}).name||st;}
+  c.incomeGoal=parseFloat(g('cm-ig'))||null;c.incomeTarget=parseFloat(g('cm-it'))||null;
+  c.phone=g('cm-ph');c.email=g('cm-em');c.followUp=g('cm-fu');c.volume=parseFloat(g('cm-vol'))||0;c.notes=g('cm-notes');
+  saveContacts();closeContactCard();renderPipeline();
+}
+function closeContactCard(){document.getElementById('cmodal-ov').classList.remove('on');curOpenCid=null;}
+function addCallNote(){
+  var c=contacts.find(function(x){return x.id===curOpenCid;});
+  var txt=(document.getElementById('cm-nnt')||{}).value||'';txt=txt.trim();
+  if(!c||!txt)return;
+  if(!c.callNotes)c.callNotes=[];
+  c.callNotes.push({id:'n'+Date.now(),type:selNoteType,date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),text:txt});
+  saveContacts();openContactCard(curOpenCid);
+}
+loadContacts();
+</script>
+
 </body>
 </html>

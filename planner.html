@@ -193,6 +193,24 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Dis
 .nt{font-size:10px;font-weight:700;padding:4px 9px;border-radius:4px;border:1px solid var(--b);background:var(--w);cursor:pointer;}
 .nt.on{background:#111;color:#fff;border-color:#111;}
 .ig-warn{font-size:11px;color:#C0392B;font-weight:700;margin-top:4px;}
+
+/* ── TO-DO LIST ── */
+.todo-add-row{display:flex;gap:8px;margin-bottom:14px;}
+.todo-input{flex:1;background:#fff;border:1px solid var(--b);border-radius:8px;padding:10px 13px;color:var(--t);font-size:14px;font-family:inherit;}
+.todo-add-btn{padding:10px 16px;border-radius:8px;border:none;background:#C8960C;color:#111;font-size:13px;font-weight:800;cursor:pointer;flex-shrink:0;}
+.todo-section{margin-bottom:20px;}
+.todo-sec-lbl{font-size:9px;font-weight:800;letter-spacing:2px;color:var(--mu);margin-bottom:8px;font-family:monospace;}
+.todo-item{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;background:#fff;border:1px solid var(--b);border-radius:8px;margin-bottom:6px;}
+.todo-item.done-item{opacity:0.45;}
+.todo-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--b);background:transparent;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all 0.15s;}
+.todo-check.checked{background:#27AE60;border-color:#27AE60;}
+.todo-check-mark{font-size:10px;color:#fff;display:none;font-weight:900;}
+.todo-check.checked .todo-check-mark{display:block;}
+.todo-text{flex:1;font-size:13.5px;color:var(--t);line-height:1.4;padding-top:1px;}
+.todo-item.done-item .todo-text{text-decoration:line-through;color:var(--mu);}
+.todo-del{background:transparent;border:none;color:#ddd;cursor:pointer;font-size:16px;padding:0 2px;flex-shrink:0;line-height:1;}
+.todo-del:hover{color:#C0392B;}
+.todo-clear-btn{width:100%;padding:9px;border-radius:7px;border:1px solid #FFCCCC;background:#FFF5F5;color:#C0392B;font-size:12px;font-weight:700;cursor:pointer;margin-top:4px;}
 </style>
 </head>
 <body>
@@ -253,6 +271,7 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Dis
   <button class="tab" onclick="sw('tomorrow',this)">&#9197; Tomorrow</button>
   <button class="tab" onclick="sw('audit',this)">&#128200; Audit</button>
   <button class="tab" onclick="sw('pipeline',this)">&#128222; Pipeline</button>
+  <button class="tab" onclick="sw('todos',this)">&#9989; To-Do</button>
   <button class="tab" onclick="sw('notes',this)">&#128221; Notes</button>
 </div>
 
@@ -260,6 +279,7 @@ html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Dis
 <div class="pg" id="pg-tomorrow"></div>
 <div class="pg" id="pg-audit"></div>
 <div class="pg" id="pg-pipeline"></div>
+<div class="pg" id="pg-todos"></div>
 <div class="pg" id="pg-notes"></div>
 
 <div class="btm">
@@ -345,7 +365,7 @@ var TEMPLATE = [
   {id:'t21',time:'3:30 PM',type:'LO_PROSPECT',title:'LO Prospecting Block 2',note:'Re-engage warm leads. Goal: confirm or rebook the Initial Presentation. Qualify only — no income goal conversation here.',mma:true},
   {id:'t22',time:'4:00 PM',type:'REVIEW',title:"Tracy's Two Questions",note:'(1) What did I do right today? (2) What would I do differently? Write both.',mma:false},
   {id:'t23',time:'4:15 PM',type:'ROUTINE',title:'Plan Tomorrow — Calendar Audit',note:'Screenshot calendar → AI builder → 3 outcomes + frog. Intentional not default.',mma:false},
-  {id:'t24',time:'4:30 PM',type:'ROUTINE',title:'Hard Stop — Laptop Closed',note:'Non-negotiable. Separation of work and recovery.',mma:false},
+  {id:'t24',time:'6:00 PM',type:'ROUTINE',title:'Hard Stop — Laptop Closed',note:'Non-negotiable. Separation of work and recovery.',mma:false},
   {id:'t25',time:'5:30 PM',type:'NUTRITION',title:'Meal 4 — Dinner',note:'High protein + veg. Cook or prep.',mma:false},
   {id:'t26',time:'9:00 PM',type:'ROUTINE',title:'Evening Journal',note:'3 wins. 1 lesson. Read chief aim out loud. Set intention for tomorrow.',mma:false},
   {id:'t27',time:'9:45 PM',type:'ROUTINE',title:'Sleep Setup',note:'Magnesium 400mg. Phone in drawer. Sunrise lamp set for 6 AM.',mma:false},
@@ -490,7 +510,7 @@ function renderTodayAI(){
   var ttl=h<12?'Build Today From '+timeStr:h<16?'Fill Remaining Today From '+timeStr:'Build Today — Late Blocks';
   var sub=h<12
     ?'Upload your calendar screenshot. Claude builds your full day starting right now at '+timeStr+' — MMAs protected, no gaps.'
-    :h<16?'Upload your calendar. Claude fills the rest of today from '+timeStr+' to your 4:30 PM hard stop.'
+    :h<16?'Upload your calendar. Claude fills the rest of today from '+timeStr+' to 6:00 PM hard stop.'
     :'Upload your calendar. Claude builds whatever time is left in your day from '+timeStr+'.';
 
   var html='<div class="ai-card">';
@@ -591,7 +611,7 @@ function renderDay(elId,tabKey){
     var tStr=now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
     var ttl=h<12?'Build Today From '+tStr:h<16?'Fill Remaining Today From '+tStr:'Build Remaining From '+tStr;
     var sub=h<12?'Upload your calendar. Claude builds your day from '+tStr+'.'
-      :h<16?'Upload your calendar. Claude fills today from '+tStr+' to 4:30 PM.'
+      :h<16?'Upload your calendar. Claude fills today from '+tStr+' to 6:00 PM.'
       :'Upload your calendar. Claude builds remaining time from '+tStr+'.';
     var ac='<div class="ai-card">';
     ac+='<div class="ai-lbl">&#9889; AI SCHEDULE BUILDER</div>';
@@ -809,13 +829,13 @@ function buildSchedule(forceTab){
 
   // Very explicit time instruction to Claude
   var timeInstruction = targetTab === 'today'
-    ? 'The current time RIGHT NOW is '+timeStr+' on '+todayName+'. Build the schedule for the REST of today only. Start the first block at '+timeStr+' or the next logical time slot after '+timeStr+'. Do NOT include any blocks before '+timeStr+'. End at 4:30 PM hard stop.'
+    ? 'The current time RIGHT NOW is '+timeStr+' on '+todayName+'. Build the schedule for the REST of today only. Start the first block at '+timeStr+'. Do NOT include any blocks before '+timeStr+'. Hard stop at 6:00 PM — no work or MMA blocks after 6 PM.'
     : 'The current time is '+timeStr+' on '+todayName+'. Build the FULL schedule for tomorrow ('+tomorrowName+') from 6:00 AM to 10:00 PM.';
 
   var sys = 'You are a scheduling assistant for Joey, a recruiting operator at CrossCountry Mortgage on the Matt Weaver Team (Originate for Life). '
     + timeInstruction
     + ' His MMAs (mark mma:true): LO_PROSPECT, FOLLOWUP, DECISION, SCHEDULED, RE_PROSPECT. Protect these — fill every gap with them. Gym for '+targetDay+': '+gymMap[targetDay]+'.'
-    + ' Office: 9AM start, 4:30PM hard stop. Return ONLY a valid JSON array, nothing else. Each block: {id,time,type,title,note,done:false,mma:bool}.'
+    + ' Office: 9AM start, 6:00 PM hard stop — no MMA or work blocks after 6 PM. Return ONLY a valid JSON array, nothing else. Each block: {id,time,type,title,note,done:false,mma:bool}.'
     + ' Valid types: LO_PROSPECT,RE_PROSPECT,FOLLOWUP,DECISION,SCHEDULED,PIPELINE,RESEARCH,ADMIN,READING,NUTRITION,GYM,ROUTINE,BREAK,REVIEW.';
 
   fetch('https://api.anthropic.com/v1/messages',{
@@ -878,7 +898,7 @@ function sw(id,el){
   document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
   el.classList.add('on');
   document.getElementById('pg-'+id).classList.add('on');
-  if(id==='pipeline')renderPipeline(); else render();
+  if(id==='pipeline')renderPipeline(); else if(id==='todos')renderTodos(); else render();
 }
 
 if(!STATE.weekData)STATE.weekData={};
@@ -901,6 +921,85 @@ function saveApiKey(){
   localStorage.setItem('ak', key);
   document.getElementById('settingsMsg').innerHTML = '<span style="color:#27AE60;font-weight:700;">&#10003; Key saved — AI builder ready</span>';
   setTimeout(toggleSettings, 1200);
+}
+
+
+// ── TO-DO LIST ─────────────────────────────────────────────
+if(!STATE.todos) STATE.todos = [];
+var todoInput = '';
+
+function renderTodos(){
+  var el = document.getElementById('pg-todos');
+  if(!el) return;
+  var todos = STATE.todos || [];
+  var active = todos.filter(function(t){ return !t.done; });
+  var done = todos.filter(function(t){ return t.done; });
+
+  var html = '';
+  // Add input
+  html += '<div class="todo-add-row">';
+  html += '<input class="todo-input" id="todoInp" placeholder="Add a to-do..." onkeydown="if(event.key===\'Enter\')addTodo()" />';
+  html += '<button class="todo-add-btn" onclick="addTodo()">+ Add</button>';
+  html += '</div>';
+
+  // Active
+  if(active.length){
+    html += '<div class="todo-section">';
+    html += '<div class="todo-sec-lbl">TO DO — '+active.length+'</div>';
+    active.forEach(function(t){
+      html += '<div class="todo-item" id="td-'+t.id+'">';
+      html += '<div class="todo-check" onclick="toggleTodo(\''+t.id+'\')"><span class="todo-check-mark">&#10003;</span></div>';
+      html += '<div class="todo-text">'+plEsc(t.text)+'</div>';
+      html += '<button class="todo-del" onclick="deleteTodo(\''+t.id+'\')">&#215;</button>';
+      html += '</div>';
+    });
+    html += '</div>';
+  } else {
+    html += '<div style="text-align:center;padding:30px 0;color:var(--mu);font-size:13px;">All clear. Add something above.</div>';
+  }
+
+  // Done
+  if(done.length){
+    html += '<div class="todo-section">';
+    html += '<div class="todo-sec-lbl">DONE — '+done.length+'</div>';
+    done.forEach(function(t){
+      html += '<div class="todo-item done-item">';
+      html += '<div class="todo-check checked" onclick="toggleTodo(\''+t.id+'\')"><span class="todo-check-mark">&#10003;</span></div>';
+      html += '<div class="todo-text">'+plEsc(t.text)+'</div>';
+      html += '<button class="todo-del" onclick="deleteTodo(\''+t.id+'\')">&#215;</button>';
+      html += '</div>';
+    });
+    html += '<button class="todo-clear-btn" onclick="clearDoneTodos()">Clear completed</button>';
+    html += '</div>';
+  }
+
+  el.innerHTML = html;
+}
+
+function addTodo(){
+  var inp = document.getElementById('todoInp');
+  var txt = inp ? inp.value.trim() : '';
+  if(!txt) return;
+  if(!STATE.todos) STATE.todos = [];
+  STATE.todos.unshift({id:'td'+Date.now(),text:txt,done:false,created:new Date().toISOString()});
+  inp.value = '';
+  saveData();
+  renderTodos();
+}
+
+function toggleTodo(id){
+  var t = (STATE.todos||[]).find(function(x){return x.id===id;});
+  if(t){ t.done = !t.done; saveData(); renderTodos(); }
+}
+
+function deleteTodo(id){
+  STATE.todos = (STATE.todos||[]).filter(function(x){return x.id!==id;});
+  saveData(); renderTodos();
+}
+
+function clearDoneTodos(){
+  STATE.todos = (STATE.todos||[]).filter(function(x){return !x.done;});
+  saveData(); renderTodos();
 }
 
 loadCloud();

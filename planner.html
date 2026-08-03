@@ -759,6 +759,14 @@ function renderNotes(){
   el.innerHTML=html;
 }
 
+
+function handleCheck(e){
+  var el = e.currentTarget || e.target;
+  var id = el.getAttribute('data-bid');
+  var tab = el.getAttribute('data-tab');
+  if(id && tab) toggle(tab, id);
+}
+
 function toggle(tab,id){
   var b=(STATE[tab].blocks||[]).find(function(x){return x.id===id;});
   if(b){b.done=!b.done;}render();

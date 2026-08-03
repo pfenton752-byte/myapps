@@ -9,61 +9,55 @@
 <title>Personal Blueprint</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-:root{--bg:#F4F4F0;--white:#fff;--border:#E0E0DA;--text:#111;--text2:#444;--muted:#888;--gold:#C8960C;--red:#C0392B;--green:#27AE60;--blue:#2980B9;--purple:#8E44AD;}
-html,body{background:var(--bg);font-family:-apple-system,'SF Pro Display',sans-serif;color:var(--text);min-height:100vh;}
-.header{background:#111;padding:env(safe-area-inset-top,20px) 16px 16px;position:sticky;top:0;z-index:100;}
-.header-label{font-size:9px;letter-spacing:3px;color:var(--gold);font-weight:800;margin-bottom:4px;font-family:monospace;}
-.header-title{font-size:20px;font-weight:900;color:#fff;letter-spacing:-0.3px;}
-.header-sub{font-size:12px;color:#555;margin-top:3px;}
-.tabs{display:flex;background:#fff;border-bottom:1px solid var(--border);position:sticky;top:0;z-index:99;overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.tab{padding:11px 14px;font-size:11px;font-weight:700;color:var(--muted);border:none;background:transparent;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;flex-shrink:0;}
-.tab.active{color:var(--text);border-bottom-color:#111;}
-.content{padding:16px 16px 100px;max-width:700px;margin:0 auto;display:none;}
-.content.active{display:block;}
-.section{margin-bottom:20px;}
-.sh{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;margin-top:18px;}
+:root{--bg:#F4F4F0;--w:#fff;--b:#E0E0DA;--t:#111;--t2:#444;--mu:#888;--gold:#C8960C;--red:#C0392B;--green:#27AE60;--blue:#2980B9;}
+html,body{background:var(--bg);font-family:-apple-system,sans-serif;color:var(--t);min-height:100vh;}
+.hd{background:#111;padding:env(safe-area-inset-top,18px) 16px 14px;position:sticky;top:0;z-index:100;}
+.hd-lbl{font-size:9px;letter-spacing:3px;color:var(--gold);font-weight:800;margin-bottom:3px;font-family:monospace;}
+.hd-ttl{font-size:20px;font-weight:900;color:#fff;}
+.hd-sub{font-size:12px;color:#555;margin-top:2px;}
+.tabs{display:flex;background:#fff;border-bottom:1px solid var(--b);position:sticky;top:0;z-index:99;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.tab{padding:11px 14px;font-size:11px;font-weight:700;color:var(--mu);border:none;background:transparent;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;flex-shrink:0;}
+.tab.on{color:var(--t);border-bottom-color:#111;}
+.pg{padding:16px 16px 100px;max-width:700px;margin:0 auto;display:none;}
+.pg.on{display:block;}
+.sh{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;margin-top:20px;}
 .sh-bar{width:4px;min-height:20px;background:var(--gold);border-radius:2px;flex-shrink:0;margin-top:2px;}
-.sh-text{}
 .sh-title{font-size:12px;font-weight:900;color:#111;letter-spacing:1.5px;text-transform:uppercase;}
 .sh-sub{font-size:12.5px;color:#666;line-height:1.6;margin-top:4px;}
-.card{background:var(--white);border:1px solid var(--border);border-radius:10px;padding:16px 18px;margin-bottom:12px;}
-.card-title{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;color:var(--gold);margin-bottom:12px;padding-bottom:10px;border-bottom:2px solid #F2F2EE;}
-.card p{font-size:13px;color:var(--text2);line-height:1.75;margin-bottom:10px;}
+.card{background:var(--w);border:1px solid var(--b);border-radius:10px;padding:16px 18px;margin-bottom:12px;}
+.card p{font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:10px;}
 .card p:last-child{margin-bottom:0;}
 .alert{border-radius:8px;padding:13px 16px;margin-bottom:16px;font-size:13px;line-height:1.7;}
-.alert .alert-label{font-weight:900;margin-right:6px;}
-.bullet-list{list-style:none;}
-.bullet-list li{display:flex;gap:11px;padding:9px 0;border-bottom:1px solid #EEEEEE;font-size:13px;color:#222;line-height:1.65;}
-.bullet-list li:last-child{border-bottom:none;}
-.bullet-arrow{color:var(--gold);font-weight:900;flex-shrink:0;margin-top:1px;}
+.al{font-weight:900;margin-right:6px;}
+.goal-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #EEE;align-items:flex-start;}
+.goal-item:last-child{border-bottom:none;}
+.gn{width:28px;height:28px;border-radius:50%;background:var(--gold);color:#fff;font-size:11px;font-weight:900;font-family:monospace;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+.gt{font-size:13.5px;color:#111;line-height:1.5;font-weight:500;}
+.ca{font-size:13px;color:#8B6914;line-height:1.9;font-style:italic;font-weight:500;}
+.ii{display:flex;gap:14px;padding:13px;background:#F8F8F4;border-radius:8px;border:1px solid #EBEBEB;margin-bottom:8px;}
+.in{font-family:monospace;font-size:18px;color:var(--gold);font-weight:700;flex-shrink:0;min-width:28px;}
+.it{font-size:13px;color:#333;line-height:1.8;font-style:italic;}
 .row{padding:11px 14px;margin-bottom:6px;background:#F9F9F7;border-radius:7px;border:1px solid #E5E5E0;}
-.row-inner{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;}
-.row-label{font-size:13px;color:#444;font-weight:500;flex:1;}
-.row-value{font-size:13px;font-weight:700;text-align:right;flex-shrink:0;}
-.row-sub{font-size:12px;color:#777;margin-top:5px;line-height:1.5;}
-.block-item{display:flex;gap:10px;padding:13px 0;border-bottom:1px solid #EBEBEB;align-items:flex-start;}
-.block-time{min-width:68px;font-family:monospace;font-size:11px;color:#888;font-weight:700;padding-top:3px;flex-shrink:0;}
-.block-body{flex:1;}
-.block-title-row{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
-.block-title{font-size:14px;font-weight:700;color:#111;}
-.block-title.urgent{color:var(--red);}
-.block-tag{font-size:8px;font-weight:800;letter-spacing:1px;padding:2px 8px;border-radius:3px;}
-.block-note{font-size:12.5px;color:#555;line-height:1.6;}
-.goal-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #EEEEEE;align-items:flex-start;}
-.goal-num{width:28px;height:28px;border-radius:50%;background:var(--gold);color:#fff;font-size:11px;font-weight:900;font-family:monospace;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.goal-text{font-size:13.5px;color:#111;line-height:1.5;font-weight:500;}
-.chief-aim{font-size:13px;color:#8B6914;line-height:1.85;font-style:italic;font-weight:500;}
-.identity-item{display:flex;gap:14px;padding:13px;background:#F8F8F4;border-radius:8px;border:1px solid #EBEBEB;margin-bottom:8px;}
-.identity-num{font-family:monospace;font-size:18px;color:var(--gold);font-weight:700;flex-shrink:0;min-width:28px;}
-.identity-text{font-size:13px;color:#333;line-height:1.8;font-style:italic;}
-.workout-item{padding:10px 0;border-bottom:1px solid #EBEBEB;}
-.workout-day{font-family:monospace;font-size:10px;color:var(--gold);font-weight:800;margin-bottom:3px;}
-.workout-name{font-size:14px;font-weight:700;color:#111;margin-bottom:3px;}
-.workout-detail{font-size:12px;color:#666;line-height:1.6;}
-.phase-card{border-radius:10px;padding:16px;margin-bottom:12px;}
-.phase-title-bar{font-size:10px;font-weight:900;letter-spacing:2px;text-transform:uppercase;margin-bottom:12px;}
-.nav-link{display:block;text-align:center;padding:12px;background:#111;color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;margin-top:16px;}
-
+.ri{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;}
+.rl{font-size:13px;color:#444;font-weight:500;flex:1;}
+.rv{font-size:13px;font-weight:700;text-align:right;flex-shrink:0;}
+.rs{font-size:12px;color:#777;margin-top:5px;line-height:1.5;}
+.bi{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid #EBEBEB;align-items:flex-start;}
+.bi:last-child{border-bottom:none;}
+.bt{min-width:68px;font-family:monospace;font-size:11px;color:#888;font-weight:700;padding-top:3px;flex-shrink:0;}
+.bb{flex:1;}
+.br{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
+.btl{font-size:14px;font-weight:700;color:#111;}
+.btl.u{color:var(--red);}
+.btag{font-size:8px;font-weight:800;letter-spacing:1px;padding:2px 8px;border-radius:3px;}
+.bn{font-size:12.5px;color:#555;line-height:1.6;}
+.wb{font-size:8px;font-weight:900;background:rgba(39,174,96,0.12);color:#1a8a4a;border:1px solid rgba(39,174,96,0.3);padding:2px 7px;border-radius:3px;}
+.wo{padding:10px 0;border-bottom:1px solid #EBEBEB;}
+.wo:last-child{border-bottom:none;}
+.wd{font-family:monospace;font-size:10px;color:var(--gold);font-weight:800;margin-bottom:3px;}
+.wn{font-size:14px;font-weight:700;color:#111;margin-bottom:3px;}
+.wt{font-size:12px;color:#666;line-height:1.6;}
+.nl{display:block;text-align:center;padding:12px;background:#111;color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;margin-top:16px;}
 .pin-overlay{position:fixed;inset:0;background:#111;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;}
 .pin-label{font-size:9px;letter-spacing:3px;color:#C8960C;font-weight:800;margin-bottom:16px;font-family:monospace;}
 .pin-title{font-size:26px;font-weight:900;color:#fff;margin-bottom:8px;}
@@ -74,23 +68,20 @@ html,body{background:var(--bg);font-family:-apple-system,'SF Pro Display',sans-s
 .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:240px;}
 .pin-btn{height:64px;border-radius:12px;border:1px solid #222;background:#1a1a1a;color:#fff;font-size:22px;font-weight:700;cursor:pointer;transition:all 0.1s;}
 .pin-btn:active{background:#2a2a2a;transform:scale(0.95);}
-.pin-btn.zero{grid-column:2;}
-.pin-btn.del{background:transparent;border-color:#333;color:#555;font-size:16px;}
+.pin-btn.z{grid-column:2;}
+.pin-btn.d{background:transparent;border-color:#333;color:#555;font-size:16px;}
 .pin-error{font-size:13px;color:#C0392B;margin-top:16px;font-weight:700;min-height:20px;}
-
 </style>
 </head>
 <body>
 
 <div class="pin-overlay" id="pinOverlay">
-  <div class="pin-label">PERSONAL OPERATING SYSTEM</div>
+  <div class="pin-label">PERSONAL BLUEPRINT</div>
   <div class="pin-title">Enter PIN</div>
-  <div class="pin-sub">Your apps are private.</div>
+  <div class="pin-sub">Your blueprint is private.</div>
   <div class="pin-dots" id="pinDots">
-    <div class="pin-dot" id="pd0"></div>
-    <div class="pin-dot" id="pd1"></div>
-    <div class="pin-dot" id="pd2"></div>
-    <div class="pin-dot" id="pd3"></div>
+    <div class="pin-dot" id="pd0"></div><div class="pin-dot" id="pd1"></div>
+    <div class="pin-dot" id="pd2"></div><div class="pin-dot" id="pd3"></div>
   </div>
   <div class="pin-pad">
     <button class="pin-btn" onclick="pinPress('1')">1</button>
@@ -102,497 +93,401 @@ html,body{background:var(--bg);font-family:-apple-system,'SF Pro Display',sans-s
     <button class="pin-btn" onclick="pinPress('7')">7</button>
     <button class="pin-btn" onclick="pinPress('8')">8</button>
     <button class="pin-btn" onclick="pinPress('9')">9</button>
-    <button class="pin-btn zero" onclick="pinPress('0')">0</button>
-    <button class="pin-btn del" onclick="pinDel()">⌫</button>
+    <button class="pin-btn z" onclick="pinPress('0')">0</button>
+    <button class="pin-btn d" onclick="pinDel()">&#x232b;</button>
   </div>
   <div class="pin-error" id="pinError"></div>
 </div>
 
-
-<div class="header">
-  <div class="header-label">PERSONAL BLUEPRINT — MAY 2026</div>
-  <div class="header-title">Your Operating System</div>
-  <div class="header-sub">Matt Weaver Team · Originate for Life · CrossCountry Mortgage</div>
+<div class="hd">
+  <div class="hd-lbl">PERSONAL BLUEPRINT &#8212; JULY 2026</div>
+  <div class="hd-ttl">Your Operating System</div>
+  <div class="hd-sub">Matt Weaver Team &middot; Originate for Life &middot; CrossCountry Mortgage</div>
 </div>
 
-<div class="tabs" id="tabBar">
-  <button class="tab active" onclick="showTab('start',this)">🔥 Start Here</button>
-  <button class="tab" onclick="showTab('daily',this)">⏱ Daily Schedule</button>
-  <button class="tab" onclick="showTab('call1',this)">📞 Call 1 OS</button>
-  <button class="tab" onclick="showTab('workday',this)">💼 Workday OS</button>
-  <button class="tab" onclick="showTab('body',this)">⚡ Body & Knee</button>
-  <button class="tab" onclick="showTab('sleep',this)">🌙 Sleep Fix</button>
-  <button class="tab" onclick="showTab('mindset',this)">🧠 Mindset</button>
-  <button class="tab" onclick="showTab('weekly',this)">📊 Weekly OS</button>
+<div class="tabs">
+  <button class="tab on" onclick="sw('start',this)">&#128293; Start Here</button>
+  <button class="tab" onclick="sw('daily',this)">&#9201; Daily Schedule</button>
+  <button class="tab" onclick="sw('call1',this)">&#128222; Call 1 OS</button>
+  <button class="tab" onclick="sw('workday',this)">&#128188; Workday OS</button>
+  <button class="tab" onclick="sw('body',this)">&#9889; Body & Knee</button>
+  <button class="tab" onclick="sw('sleep',this)">&#127769; Sleep Fix</button>
+  <button class="tab" onclick="sw('mindset',this)">&#129504; Mindset</button>
+  <button class="tab" onclick="sw('weekly',this)">&#128200; Weekly OS</button>
 </div>
 
-<!-- ═══ START HERE ═══ -->
-<div class="content active" id="tab-start">
-
+<!-- START HERE -->
+<div class="pg on" id="tab-start">
   <div class="alert" style="background:#FFF5F0;border:1px solid var(--red);">
-    <span class="alert-label" style="color:var(--red)">START HERE —</span>
+    <span class="al" style="color:var(--red)">START HERE &#8212;</span>
     Read this every morning before anything else. This is your foundation.
   </div>
 
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Your Definite Chief Aim — Napoleon Hill</div><div class="sh-sub">Read this out loud every single morning. Non-negotiable.</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div>
+    <div class="sh-title">Your Definite Chief Aim</div>
+    <div class="sh-sub">Read out loud every single morning. Non-negotiable.</div>
+  </div></div>
   <div class="card">
-    <p class="chief-aim">"By May 12, 2027 I earn $250,000 or more annually, I live in my first home with Grace, I weigh 195 lbs, I am debt-free, and I am healthy, confident, and happy. I achieve this by executing my daily system without negotiation, every single day."</p>
-    <p style="margin-top:12px;font-size:12px;color:#888;">Hill: the subconscious cannot distinguish between a vividly repeated belief and current reality. Read this out loud every morning and you are giving your subconscious its instructions for the day.</p>
+    <p class="ca">"By May 12, 2027 I earn $250,000 or more annually, I own my first home with Grace, I weigh 195 lbs, I am completely debt-free, and I am healthy, confident, and happy. I achieve this by executing my daily system without negotiation, every single day."</p>
+    <p style="margin-top:12px;font-size:12px;color:#888;">The subconscious cannot distinguish between a vividly repeated belief and current reality. Read this out loud every morning.</p>
   </div>
 
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Your 10 Goals — Rewrite By Hand Every Morning</div><div class="sh-sub">Brian Tracy: rewriting your goals daily by hand burns them into your subconscious. Takes 4 minutes.</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div>
+    <div class="sh-title">10 Goals &#8212; Rewrite By Hand Every Morning</div>
+    <div class="sh-sub">4 minutes. Burns into your subconscious. Non-negotiable.</div>
+  </div></div>
   <div class="card">
-    <div class="goal-item"><div class="goal-num">01</div><div class="goal-text">I earn $20,000 per month by December 31, 2026</div></div>
-    <div class="goal-item"><div class="goal-num">02</div><div class="goal-text">I am completely debt-free — all $22,000 cleared — by December 31, 2026</div></div>
-    <div class="goal-item"><div class="goal-num">03</div><div class="goal-text">I weigh 195 lbs by May 12, 2027</div></div>
-    <div class="goal-item"><div class="goal-num">04</div><div class="goal-text">I own my first home by May 12, 2027</div></div>
-    <div class="goal-item"><div class="goal-num">05</div><div class="goal-text">Grace and I are living together by July 2026 — 7 weeks away</div></div>
-    <div class="goal-item"><div class="goal-num">06</div><div class="goal-text">I have $50,000 in savings by May 12, 2027</div></div>
-    <div class="goal-item"><div class="goal-num">07</div><div class="goal-text">I run every prospecting call with a clean income goal conversation — zero premature pitches</div></div>
-    <div class="goal-item"><div class="goal-num">08</div><div class="goal-text">I am physically active 6 days per week with zero knee pain by August 2026</div></div>
-    <div class="goal-item"><div class="goal-num">09</div><div class="goal-text">I am completely free from weed — Day 1 was May 12, 2026</div></div>
-    <div class="goal-item"><div class="goal-num">10</div><div class="goal-text">I am the most reliable and precise operator on the Matt Weaver Team by September 2026</div></div>
+    <div class="goal-item"><div class="gn">01</div><div class="gt">I earn $20,000 per month by December 31, 2026</div></div>
+    <div class="goal-item"><div class="gn">02</div><div class="gt">I am completely debt-free &#8212; all $30,000 cleared &#8212; by May 12, 2027</div></div>
+    <div class="goal-item"><div class="gn">03</div><div class="gt">I weigh 195 lbs by May 12, 2027</div></div>
+    <div class="goal-item"><div class="gn">04</div><div class="gt">I own my first home by May 12, 2027</div></div>
+    <div class="goal-item"><div class="gn">05</div><div class="gt">Grace and I are building our life together in our home</div></div>
+    <div class="goal-item"><div class="gn">06</div><div class="gt">I have $50,000 in savings by May 12, 2027</div></div>
+    <div class="goal-item"><div class="gn">07</div><div class="gt">I run every prospecting call with a clean income goal conversation &#8212; zero premature pitches</div></div>
+    <div class="goal-item"><div class="gn">08</div><div class="gt">I lift 5 days per week and walk every workday &#8212; 195 lbs by May 12, 2027</div></div>
+    <div class="goal-item"><div class="gn">09</div><div class="gt">I am completely free from weed by December 31, 2026</div></div>
+    <div class="goal-item"><div class="gn">10</div><div class="gt">I am the most reliable and precise operator on the Matt Weaver Team by September 2026</div></div>
   </div>
 
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Your 5 Non-Negotiables — Daily Floor</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">5 Non-Negotiables &#8212; Your Daily Floor</div></div></div>
   <div class="card">
-    <div class="identity-item"><div class="identity-num">01</div><div class="identity-text">Wake at 6 AM every day — including weekends. This anchors everything downstream.</div></div>
-    <div class="identity-item"><div class="identity-num">02</div><div class="identity-text">Hit 200g protein daily. Track it. This alone preserves muscle and controls hunger.</div></div>
-    <div class="identity-item"><div class="identity-num">03</div><div class="identity-text">Phone away from social media during work blocks. Not face-down — away.</div></div>
-    <div class="identity-item"><div class="identity-num">04</div><div class="identity-text">Run every prospecting call with income goal surfaced before showing the model. Every time.</div></div>
-    <div class="identity-item"><div class="identity-num">05</div><div class="identity-text">Write 3 wins before bed — even on your worst day. Especially on your worst day.</div></div>
+    <div class="ii"><div class="in">01</div><div class="it">Wake at 6 AM every day. This anchors everything downstream.</div></div>
+    <div class="ii"><div class="in">02</div><div class="it">Hit 200g protein daily. This is the single biggest lever for your weight goal.</div></div>
+    <div class="ii"><div class="in">03</div><div class="it">Lift first, walk after. Every training day, every time.</div></div>
+    <div class="ii"><div class="in">04</div><div class="it">Surface income goal on every LO call before showing the model. Zero exceptions.</div></div>
+    <div class="ii"><div class="in">05</div><div class="it">Write 3 wins before bed. Even on your worst day. Especially on your worst day.</div></div>
   </div>
 
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">The 4 Identity Commitments</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">The 4 Identity Commitments</div></div></div>
   <div class="card">
-    <div class="identity-item"><div class="identity-num">01</div><div class="identity-text">"I do not negotiate with the version of me that wants to stay comfortable. That version has already had its turn."</div></div>
-    <div class="identity-item"><div class="identity-num">02</div><div class="identity-text">"I run every prospecting call clean — income goals before the model, every time. The pipeline depends on it. The money depends on it."</div></div>
-    <div class="identity-item"><div class="identity-num">03</div><div class="identity-text">"I treat my body like the asset it is. Not perfectly — consistently. The gap between 245 and 195 is math and time."</div></div>
-    <div class="identity-item"><div class="identity-num">04</div><div class="identity-text">"I am getting out of debt by executing the system. Action produces the result. Anxiety burns the fuel I need for action."</div></div>
+    <div class="ii"><div class="in">01</div><div class="it">"I do not negotiate with the version of me that wants to stay comfortable. That version has already had its turn."</div></div>
+    <div class="ii"><div class="in">02</div><div class="it">"I run every prospecting call clean. Income goal before the model. Every time. The pipeline depends on it."</div></div>
+    <div class="ii"><div class="in">03</div><div class="it">"The gap between 230 and 195 is 35 lbs. That is math and time. I lift first, I walk after, I hit my protein. The rest is automatic."</div></div>
+    <div class="ii"><div class="in">04</div><div class="it">"$30K is a number, not a sentence. I am executing my way out of it one day at a time."</div></div>
   </div>
-
-  <a class="nav-link" href="planner.html">Open Daily Planner →</a>
+  <a class="nl" href="planner.html">Open Daily Planner &#8594;</a>
 </div>
 
-<!-- ═══ DAILY SCHEDULE ═══ -->
-<div class="content" id="tab-daily">
+<!-- DAILY SCHEDULE -->
+<div class="pg" id="tab-daily">
   <div class="alert" style="background:#FFFBF0;border:1px solid var(--gold);">
-    <span class="alert-label" style="color:var(--gold)">NOTE —</span>
-    Every hour is pre-decided. You don't think — you execute. Built around 6 AM wake, gym at 7 AM, office by 9 AM.
+    <span class="al" style="color:var(--gold)">RULE &#8212;</span>
+    Lift first. Walk after. Always. Lifting depleted tanks output. Walk after lifting burns fat on already-depleted glycogen.
   </div>
 
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Morning — Before The World Touches You</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Morning &#8212; Before The World Touches You</div></div></div>
   <div class="card">
-    <div class="block-item"><div class="block-time">5:30 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Sunrise Lamp Activates</span><span class="block-tag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="block-note">Still asleep. Lamp brightens automatically. Cortisol starts rising naturally before you open your eyes.</div></div></div>
-    <div class="block-item"><div class="block-time">6:00 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title urgent">Wake — Hard Start</span><span class="block-tag" style="background:#C8960C;color:#111">WAKE</span></div><div class="block-note">Feet on floor. No snooze. 16oz water. Phone stays face down for 30 minutes. The lamp is your clock.</div></div></div>
-    <div class="block-item"><div class="block-time">6:10 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Affirmations + Chief Aim</span><span class="block-tag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="block-note">Read chief aim out loud. Identity commitments. Income gate question 3x out loud.</div></div></div>
-    <div class="block-item"><div class="block-time">6:20 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Rewrite 10 Goals By Hand</span><span class="block-tag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="block-note">Notebook, by hand, 4 minutes. Tracy non-negotiable. Fires your reticular activating system.</div></div></div>
-    <div class="block-item"><div class="block-time">6:30 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Read 20 Min + Coffee</span><span class="block-tag" style="background:#76D7C4;color:#111">READING</span></div><div class="block-note">Tracy, Hill, Hardy, Grover, OFL recruiting craft. Physical book. No phone. 30 min/day compounds into a completely different professional in 12 months.</div></div></div>
-    <div class="block-item"><div class="block-time">6:50 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Write 3 Outcomes + Frog</span><span class="block-tag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="block-note">3 specific pipeline actions for today. Paper only. Names and actions — not vague goals.</div></div></div>
-    <div class="block-item"><div class="block-time">7:00 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title">GYM — 50 Minutes</span><span class="block-tag" style="background:#E74C3C;color:#fff">GYM</span></div><div class="block-note">Mon=Chest+Tri, Tue=Back+Bi, Wed=Shoulders+Core, Thu=Lower+Back, Fri=Full Body. 5 min bike warm-up + knee protocol. Log every weight.</div></div></div>
-    <div class="block-item"><div class="block-time">7:55 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Shower + Fully Dressed</span><span class="block-tag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="block-note">Cold 30-second finish. Shirt, pants, shoes. Never drive to office in gym clothes.</div></div></div>
-    <div class="block-item"><div class="block-time">8:15 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Meal 1</span><span class="block-tag" style="background:#F7DC6F;color:#111">NUTRITION</span></div><div class="block-note">5 scrambled eggs + banana. OR Greek yogurt + berries. Same meal every day — zero decision fatigue.</div></div></div>
-    <div class="block-item"><div class="block-time">8:30 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Drive — Car = Classroom</span><span class="block-tag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="block-note">Audio book only. No music. Say income gate question out loud 3x on the way in.</div></div></div>
+    <div class="bi"><div class="bt">5:30 AM</div><div class="bb"><div class="br"><span class="btl">Sunrise Lamp On</span><span class="btag" style="background:#5D6D7E;color:#fff">AUTO</span></div><div class="bn">Cortisol rises naturally before you open your eyes.</div></div></div>
+    <div class="bi"><div class="bt">6:00 AM</div><div class="bb"><div class="br"><span class="btl u">Wake &#8212; Hard Start</span><span class="btag" style="background:#C8960C;color:#111">NON-NEG</span></div><div class="bn">Feet on floor. No snooze. 16oz water immediately. Phone face down 30 min.</div></div></div>
+    <div class="bi"><div class="bt">6:10 AM</div><div class="bb"><div class="br"><span class="btl">Chief Aim + 10 Goals</span><span class="btag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="bn">Read chief aim out loud. Rewrite 10 goals by hand. 4 minutes total.</div></div></div>
+    <div class="bi"><div class="bt">6:30 AM</div><div class="bb"><div class="br"><span class="btl">Read 20 Min + Coffee</span><span class="btag" style="background:#76D7C4;color:#111">READING</span></div><div class="bn">Tracy, Hill, Hardy, OFL craft. Physical book only. No phone.</div></div></div>
+    <div class="bi"><div class="bt">6:50 AM</div><div class="bb"><div class="br"><span class="btl">3 Outcomes + Frog</span><span class="btag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="bn">3 specific pipeline actions. Names and actions &#8212; not vague goals. Paper only.</div></div></div>
+    <div class="bi"><div class="bt">7:00 AM</div><div class="bb"><div class="br"><span class="btl">GYM &#8212; Lift First</span><span class="btag" style="background:#E74C3C;color:#fff">GYM</span></div><div class="bn">50 min lifting. See Body tab for split. No walk before lifting.</div></div></div>
+    <div class="bi"><div class="bt">7:55 AM</div><div class="bb"><div class="br"><span class="btl">Post-Lift Walk &#8212; 20 Min</span><span class="btag" style="background:#27AE60;color:#fff">WALK</span><span class="wb">&#128694; PAD</span></div><div class="bn">Glycogen depleted from lifting = maximum fat burning. This is the most effective walk of your day.</div></div></div>
+    <div class="bi"><div class="bt">8:20 AM</div><div class="bb"><div class="br"><span class="btl">Shower + Dressed</span><span class="btag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="bn">Cold 30s finish. Fully dressed before leaving.</div></div></div>
+    <div class="bi"><div class="bt">8:35 AM</div><div class="bb"><div class="br"><span class="btl">Meal 1</span><span class="btag" style="background:#F7DC6F;color:#111">NUTRITION</span></div><div class="bn">5 scrambled eggs + banana. 50g protein. Consistent. Non-negotiable.</div></div></div>
+    <div class="bi"><div class="bt">8:50 AM</div><div class="bb"><div class="br"><span class="btl">Drive / Commute</span><span class="btag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="bn">Car = classroom. Audio book or OFL content. Say income gate question 3x out loud.</div></div></div>
   </div>
 
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Office — Money Window — 9 AM to 12 PM</div><div class="sh-sub">This is where your financial situation changes. Every block pre-decided.</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Workday &#8212; MMAs Protected, Pad Built In</div></div></div>
   <div class="card">
-    <div class="block-item"><div class="block-time">9:00 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title urgent">LO Prospecting Block 1 — 75 Min</span><span class="block-tag" style="background:#F5C518;color:#111">LO PROSPECT</span></div><div class="block-note">LO track only. Paladin handoffs + first contacts. Income goal conversation on every call. Log every attempt in CRM immediately. Every other app closed.</div></div></div>
-    <div class="block-item"><div class="block-time">10:30 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Walk Outside — 10 Min</span><span class="block-tag" style="background:#D5DBDB;color:#111">BREAK</span></div><div class="block-note">No phone. Outdoor light resets cortisol and sustains afternoon focus.</div></div></div>
-    <div class="block-item"><div class="block-time">10:40 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title">LO Follow-Up Block — 50 Min</span><span class="block-tag" style="background:#E8A0BF;color:#111">FOLLOW-UP</span></div><div class="block-note">Day 1→3→7→14 cadence. Text first, call if no response. Most recruiting wins happen follow-up 3–5.</div></div></div>
-    <div class="block-item"><div class="block-time">11:30 AM</div><div class="block-body"><div class="block-title-row"><span class="block-title">CRM Logging + Coordination</span><span class="block-tag" style="background:#BFC9CA;color:#111">ADMIN</span></div><div class="block-note">Log every call from the morning. 90 seconds per call. Coordinate LO handoffs with Mike and Dave. RE updates with Pat.</div></div></div>
+    <div class="bi"><div class="bt">9:00 AM</div><div class="bb"><div class="br"><span class="btl">LO Prospecting Block 1 &#8212; 90 Min</span><span class="btag" style="background:#F5C518;color:#111">&#9733; MMA</span></div><div class="bn">Income goal on EVERY call. No comp model first. Log immediately after each call.</div></div></div>
+    <div class="bi"><div class="bt">10:30 AM</div><div class="bb"><div class="br"><span class="btl">Walk Break &#8212; 20 Min</span><span class="btag" style="background:#27AE60;color:#fff">WALK</span><span class="wb">&#128694; PAD</span></div><div class="bn">No phone. Cortisol reset. Blood sugar stable. Back sharp for afternoon MMAs.</div></div></div>
+    <div class="bi"><div class="bt">10:50 AM</div><div class="bb"><div class="br"><span class="btl">Follow-Up Block &#8212; 50 Min</span><span class="btag" style="background:#F5C518;color:#111">&#9733; MMA</span></div><div class="bn">Day 1/3/7/14 cadence. Text first, call if no response.</div></div></div>
+    <div class="bi"><div class="bt">11:40 AM</div><div class="bb"><div class="br"><span class="btl">CRM + Admin &#8212; 20 Min</span><span class="btag" style="background:#BFC9CA;color:#111">ADMIN</span></div><div class="bn">90s per call logged. Stage accuracy. Handoffs coordinated.</div></div></div>
+    <div class="bi"><div class="bt">12:00 PM</div><div class="bb"><div class="br"><span class="btl">Meal 2 + Walk &#8212; 30 Min</span><span class="btag" style="background:#F7DC6F;color:#111">NUTRITION</span><span class="wb">&#128694; PAD</span></div><div class="bn">Ground beef + rice. Then 20 min on pad. Post-meal walk keeps blood sugar flat and kills afternoon hunger.</div></div></div>
+    <div class="bi"><div class="bt">12:50 PM</div><div class="bb"><div class="br"><span class="btl">RE Prospecting Block</span><span class="btag" style="background:#8E44AD;color:#fff">&#9733; MMA</span></div><div class="bn">Coordinate with Pat. Never mix LO and RE tracks in same Paladin sequence.</div></div></div>
+    <div class="bi"><div class="bt">1:20 PM</div><div class="bb"><div class="br"><span class="btl">Research + Call Prep</span><span class="btag" style="background:#5DADE2;color:#111">RESEARCH</span></div><div class="bn">LinkedIn, production numbers, previous call notes before afternoon blocks.</div></div></div>
+    <div class="bi"><div class="bt">1:40 PM</div><div class="bb"><div class="br"><span class="btl">Follow-Up Block 2</span><span class="btag" style="background:#F5C518;color:#111">&#9733; MMA</span></div><div class="bn">Re-engage stalled pipeline. Text preferred for afternoon.</div></div></div>
+    <div class="bi"><div class="bt">2:10 PM</div><div class="bb"><div class="br"><span class="btl">Scheduled Calls Window</span><span class="btag" style="background:#E67E22;color:#fff">&#9733; MMA</span></div><div class="bn">Decision calls, pro formas, Call 3s with Mike and Dave.</div></div></div>
+    <div class="bi"><div class="bt">3:00 PM</div><div class="bb"><div class="br"><span class="btl">Meal 3 + Walk &#8212; 15 Min</span><span class="btag" style="background:#F7DC6F;color:#111">NUTRITION</span><span class="wb">&#128694; PAD</span></div><div class="bn">Chicken + cottage cheese. Walk on pad after. Second post-meal walk.</div></div></div>
+    <div class="bi"><div class="bt">3:20 PM</div><div class="bb"><div class="br"><span class="btl">Pipeline Audit &#8212; 30 Min</span><span class="btag" style="background:#2ECC71;color:#111">PIPELINE</span></div><div class="bn">Every active candidate. Stage correct? Income goal logged? Next touch scheduled?</div></div></div>
+    <div class="bi"><div class="bt">3:50 PM</div><div class="bb"><div class="br"><span class="btl">LO Prospecting Block 2</span><span class="btag" style="background:#F5C518;color:#111">&#9733; MMA</span></div><div class="bn">Warm re-engagements and new dials.</div></div></div>
+    <div class="bi"><div class="bt">4:30 PM</div><div class="bb"><div class="br"><span class="btl">Tracy Two Questions + Walk</span><span class="btag" style="background:#F5C518;color:#111">REVIEW</span><span class="wb">&#128694; PAD</span></div><div class="bn">15 min walk. (1) What did I do right? (2) What would I do differently? Wind down while moving.</div></div></div>
+    <div class="bi"><div class="bt">5:00 PM</div><div class="bb"><div class="br"><span class="btl">Screenshot &#8594; AI Builder &#8594; Plan Tomorrow</span><span class="btag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="bn">Screenshot calendar. Upload to planner AI builder. Set 3 outcomes + frog for tomorrow.</div></div></div>
+    <div class="bi"><div class="bt">6:00 PM</div><div class="bb"><div class="br"><span class="btl u">HARD STOP</span><span class="btag" style="background:#C0392B;color:#fff">NON-NEG</span></div><div class="bn">Laptop closed. No work after 6 PM. Evening is personal time with Grace.</div></div></div>
   </div>
 
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Afternoon — Build and Close</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div>
+    <div class="sh-title">Walking Pad Daily Total</div>
+    <div class="sh-sub">~90 min built into dead time. Zero extra time cost. ~4.5 miles/day.</div>
+  </div></div>
   <div class="card">
-    <div class="block-item"><div class="block-time">12:00 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Meal 2 + Walk Outside</span><span class="block-tag" style="background:#F7DC6F;color:#111">NUTRITION</span></div><div class="block-note">Ground beef + rice. Then 10 min outside. Prevents 2 PM crash.</div></div></div>
-    <div class="block-item"><div class="block-time">12:20 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">RE Prospecting Block — 30 Min</span><span class="block-tag" style="background:#8E44AD;color:#fff">RE PROSPECT</span></div><div class="block-note">RE team outreach only. Coordinate with Pat Fenton first. Never mix with LO track.</div></div></div>
-    <div class="block-item"><div class="block-time">12:50 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Research + Call Prep — 20 Min</span><span class="block-tag" style="background:#5DADE2;color:#111">RESEARCH</span></div><div class="block-note">Prep for afternoon scheduled calls. LinkedIn, production numbers, previous call notes. Decision calls require knowing what they said at Call 3.</div></div></div>
-    <div class="block-item"><div class="block-time">1:10 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">LO Follow-Up Block 2 — 30 Min</span><span class="block-tag" style="background:#E8A0BF;color:#111">FOLLOW-UP</span></div><div class="block-note">LO candidates who didn't respond this morning. Re-engage stalled candidates.</div></div></div>
-    <div class="block-item"><div class="block-time">1:40 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Scheduled Calls Window</span><span class="block-tag" style="background:#E67E22;color:#fff">SCHEDULED</span></div><div class="block-note">Decision calls, pro formas, Call 3s with Mike and Dave. See daily planner for today's specific appointments.</div></div></div>
-    <div class="block-item"><div class="block-time">2:30 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Meal 3</span><span class="block-tag" style="background:#F7DC6F;color:#111">NUTRITION</span></div><div class="block-note">Chicken + avocado + salad. Low carb. Blood sugar stable through final block.</div></div></div>
-    <div class="block-item"><div class="block-time">2:45 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Pipeline Audit — 45 Min</span><span class="block-tag" style="background:#2ECC71;color:#111">PIPELINE</span></div><div class="block-note">Every active candidate. Correct stage? Full handoff package? Who is stalled between Call 2 and Call 3?</div></div></div>
-    <div class="block-item"><div class="block-time">3:30 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">LO Prospecting Block 2 — 30 Min</span><span class="block-tag" style="background:#F5C518;color:#111">LO PROSPECT</span></div><div class="block-note">Warm LO re-engagements only. Texts preferred.</div></div></div>
-    <div class="block-item"><div class="block-time">4:00 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Tracy's Two Questions</span><span class="block-tag" style="background:#F5C518;color:#111">REVIEW</span></div><div class="block-note">(1) What did I do right? (2) What would I do differently? Write in notebook.</div></div></div>
-    <div class="block-item"><div class="block-time">4:15 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Plan Tomorrow</span><span class="block-tag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="block-note">Screenshot calendar → upload to Daily Planner AI Builder → schedule built automatically. Write 3 outcomes + frog.</div></div></div>
-    <div class="block-item"><div class="block-time">4:30 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Hard Stop — Work Ends</span><span class="block-tag" style="background:#5D6D7E;color:#fff">DONE</span></div><div class="block-note">Laptop closed. You solve the debt by executing clean focused hours — not by bleeding work into evenings.</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">7:55 AM &#8212; Post-lift (most effective fat burn)</div><div class="rv" style="color:var(--green)">20 min</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">10:30 AM &#8212; Cortisol reset break</div><div class="rv" style="color:var(--green)">20 min</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">12:00 PM &#8212; Post-meal (blood sugar control)</div><div class="rv" style="color:var(--green)">20 min</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">3:00 PM &#8212; Post-meal</div><div class="rv" style="color:var(--green)">15 min</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">4:30 PM &#8212; Wind-down review</div><div class="rv" style="color:var(--green)">15 min</div></div></div>
+    <div class="row" style="background:#F0FBF6;border-color:#A9DFBF;"><div class="ri"><div class="rl" style="font-weight:800;">Daily Total</div><div class="rv" style="color:var(--green);font-size:16px;">~90 min / ~4.5 mi</div></div><div class="rs">At 3 mph = ~300 cal/day extra = 2,100/week = ~0.6 lb fat/week from walking alone</div></div>
   </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Evening — Recovery Infrastructure</div></div></div>
-  <div class="card">
-    <div class="block-item"><div class="block-time">5:30 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Meal 4 — Dinner</span><span class="block-tag" style="background:#F7DC6F;color:#111">NUTRITION</span></div><div class="block-note">High protein + veg. Eat slowly. Most satisfying meal. Defense against the night binge window.</div></div></div>
-    <div class="block-item"><div class="block-time">8:30 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title urgent">The 8:30 PM Decision</span><span class="block-tag" style="background:#C0392B;color:#fff">CRITICAL</span></div><div class="block-note">Phone on DND. No social media. The pen decision is made here — 8:30 is the hard cutoff. The binge window opens after the pen. Closing one closes the other.</div></div></div>
-    <div class="block-item"><div class="block-time">9:00 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Evening Journal</span><span class="block-tag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="block-note">3 wins. 1 lesson. Tomorrow's frog. Read chief aim out loud.</div></div></div>
-    <div class="block-item"><div class="block-time">9:45 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title">Sleep Setup</span><span class="block-tag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="block-note">Pre-fill water. Set sunrise lamp. Magnesium 400mg. Phone in drawer — not on nightstand.</div></div></div>
-    <div class="block-item"><div class="block-time">10:00 PM</div><div class="block-body"><div class="block-title-row"><span class="block-title urgent">Lights Out</span><span class="block-tag" style="background:#111;color:#fff">SLEEP</span></div><div class="block-note">Non-negotiable. 6 AM requires 10 PM.</div></div></div>
-  </div>
+  <a class="nl" href="planner.html">Open Daily Planner &#8594;</a>
 </div>
 
-<!-- ═══ CALL 1 OS ═══ -->
-<div class="content" id="tab-call1">
+<!-- CALL 1 OS -->
+<div class="pg" id="tab-call1">
   <div class="alert" style="background:#FFF5F0;border:1px solid var(--red);">
-    <span class="alert-label" style="color:var(--red)">YOUR ROLE —</span>
-    You run two separate tracks simultaneously. LO Track: qualifying loan originators for the Advisor seat. RE Track: outreach to real estate teams for formal BD partnerships. These two tracks must NEVER be mixed.
+    <span class="al" style="color:var(--red)">RULE #1 &#8212;</span>
+    Income goal surfaces before any comp model. Every call. No exceptions.
   </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">The Platform — Originate For Life</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">5-Stage Call 1 Structure</div></div></div>
   <div class="card">
-    <p>Matt Weaver is the top purchase originator in Florida, operating under CrossCountry Mortgage — which finances approximately one in every 34 homes in the country. His team runs over 1,100 loans per year. The premise: peak performance is structurally impossible when one person handles all phases of origination simultaneously.</p>
-    <div class="workout-item"><div class="workout-day">RAINMAKERS</div><div class="workout-detail">Agent relationships and front-end growth only. No files, no applications, no backend.</div></div>
-    <div class="workout-item"><div class="workout-day">ADVISORS</div><div class="workout-detail">Purely borrower-facing. Applications, consultations, documents — all inbound. Zero prospecting. PRIMARY RECRUITING TARGET. 40 bps on team volume — completely additive on top of organic book at 90 bps.</div></div>
-    <div class="workout-item" style="border:none;"><div class="workout-day">THE LAB</div><div class="workout-detail">Loan structuring, conditions, all backend execution. Zero borrower contact. Once a file goes to contract the Advisor is done.</div></div>
+    <div class="row"><div class="ri"><div class="rl"><b>Stage 1</b> &#8212; Opener + Rapport</div><div class="rv">2 min</div></div><div class="rs">Earn the right to ask questions. Peer-to-peer. No recruiter language.</div></div>
+    <div class="row"><div class="ri"><div class="rl"><b>Stage 2</b> &#8212; Discovery</div><div class="rv">10 min</div></div><div class="rs">Candidate talks 70%. Current setup, production, named constraint. Do not move until constraint is named.</div></div>
+    <div class="row"><div class="ri"><div class="rl"><b>Stage 3</b> &#8212; Model Intro</div><div class="rv">5 min</div></div><div class="rs">Three points only, connected to their discovery. No math yet.</div></div>
+    <div class="row"><div class="ri"><div class="rl"><b>Stage 4</b> &#8212; Income Goals</div><div class="rv" style="color:var(--red)">MANDATORY</div></div><div class="rs">"Before I walk you through what this looks like &#8212; what are you currently earning and where do you need to be in the next 12 months?" Gross first, take-home clarified. Never suggest a number.</div></div>
+    <div class="row"><div class="ri"><div class="rl"><b>Stage 5</b> &#8212; Close for Call 2</div><div class="rv">2 min</div></div><div class="rs">Specific date and time booked before hanging up. Not a decision ask &#8212; a logical next step.</div></div>
   </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">The Team Structure</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Required Handoff Package</div></div></div>
   <div class="card">
-    <div class="row"><div class="row-inner"><div class="row-label">Paladin</div><div class="row-value" style="color:#555;font-size:12px;text-align:right;">LO track warm outreach only. RE track completely separate. Never mix.</div></div></div>
-    <div class="row" style="background:#FFFBF0;border-color:#DDB830;"><div class="row-inner"><div class="row-label" style="color:var(--gold);font-weight:700;">YOU — Call 1</div><div class="row-value" style="color:var(--gold);">Qualification + income goal conversation + correct handoff</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Mike Reed + Dave Leibowitz</div><div class="row-value" style="color:#555;font-size:12px;text-align:right;">Call 3 peer validation — two sitting Advisors speaking candidly from the seat</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Pat Fenton</div><div class="row-value" style="color:#555;font-size:12px;text-align:right;">RE BD track + assists LO recruiting across multiple markets</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Matt Weaver</div><div class="row-value" style="color:#555;font-size:12px;text-align:right;">Closes heavy producers. Not in funnel until peer validation complete.</div></div></div>
+    <div class="ii"><div class="in">01</div><div class="it">Current income (gross + take-home confirmed)</div></div>
+    <div class="ii"><div class="in">02</div><div class="it">Target income (12-month goal stated by candidate)</div></div>
+    <div class="ii"><div class="in">03</div><div class="it">Timeline and stated reason for considering a move</div></div>
+    <div class="ii"><div class="in">04</div><div class="it">Named constraint &#8212; what is actually capping them right now</div></div>
   </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">The Full Call Sequence</div></div></div>
-  <div class="card">
-    <div class="workout-item"><div class="workout-day" style="color:#555;">COLD CALL</div><div class="workout-name">Earn a scheduled conversation only</div><div class="workout-detail">No model, no comp, no structure. Lead with: more business than Advisor capacity, built a pro forma with your numbers, worth 20 minutes. End with specific date and time booked.</div></div>
-    <div class="workout-item"><div class="workout-day" style="color:var(--gold);">CALL 1 — YOU OWN THIS</div><div class="workout-name">Qualify. Surface income goals. Close for Call 2.</div><div class="workout-detail">Five stages: (1) Opener + rapport (2) Discovery — candidate talks 70%, surface setup/production/constraint (3) Model intro — 3 points only, no math yet (4) Income goals — MANDATORY before any numbers (5) Close for Call 2 — logical next step, not a decision ask.</div></div>
-    <div class="workout-item"><div class="workout-day" style="color:var(--blue);">CALL 2</div><div class="workout-name">Walk the pro forma. Remove execution risk.</div><div class="workout-detail">Operations and leadership call. Show the math now that income goals are established. Closing step: schedule Call 3 with Mike and Dave.</div></div>
-    <div class="workout-item"><div class="workout-day" style="color:var(--green);">CALL 3 — MIKE + DAVE</div><div class="workout-name">Peer validation only.</div><div class="workout-detail">Mike and Dave speak candidly from the Advisor seat. End with one question: "What would need to be true for you to feel comfortable moving forward?" Their answer is the Call 4 roadmap.</div></div>
-    <div class="workout-item" style="border:none;"><div class="workout-day" style="color:var(--red);">CALL 4</div><div class="workout-name">Decision conversation — not more pitching.</div><div class="workout-detail">Built entirely around what candidate said at Call 3. Name the decision, surface the blocker. End with yes, hard no, or specific date with real reason. No open-ended nurture after Call 4.</div></div>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">The Income Goal Gate — Non-Negotiable</div><div class="sh-sub">Your #1 failure pattern: pitching before income goals are locked. This gate is the fix.</div></div></div>
-  <div class="card" style="border-color:rgba(192,57,43,0.3);background:#FFFAFA;">
-    <div class="card-title" style="color:var(--red);">HARD RULE: NO NUMBER = NO ADVANCE. EVERY TIME.</div>
-    <ul class="bullet-list">
-      <li><span class="bullet-arrow" style="color:var(--red);">→</span>Gate question: "Before I walk you through what this looks like, I want to make sure it actually makes sense for you — what are you currently earning, and where do you need to be in the next 12 months?"</li>
-      <li><span class="bullet-arrow" style="color:var(--red);">→</span>Always clarify gross vs take-home. A candidate saying $200K gross vs $200K take-home changes the entire math conversation.</li>
-      <li><span class="bullet-arrow" style="color:var(--red);">→</span>Never suggest a number. If they ask what others make: "That depends entirely on where you're starting from — that's why I want to understand your situation first."</li>
-      <li><span class="bullet-arrow" style="color:var(--red);">→</span>Minimum handoff package for Call 2: (1) Current income gross + take-home (2) Target income — their number (3) Timeline (4) Stated constraint or reason for considering a move.</li>
-      <li><span class="bullet-arrow" style="color:var(--red);">→</span>Skeptical candidates are more valuable than excited ones. Skepticism signals real evaluation. Treat it as information, not resistance.</li>
-    </ul>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Comp Structure — Know These Cold</div></div></div>
-  <div class="card">
-    <div class="row"><div class="row-inner"><div class="row-label">Advisor bps on team volume</div><div class="row-value" style="color:var(--gold);">40 bps — completely additive</div></div><div class="row-sub">Advisor keeps organic book at 90 bps. The 40 is on top. Not instead of.</div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Conversion rate (verified)</div><div class="row-value">24% soft-pull-to-funded</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Average loan size (verified)</div><div class="row-value">$373,000</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Conservative (1 app/day)</div><div class="row-value" style="color:var(--green);">~$92,400 Advisor income</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Standard (2 apps/day)</div><div class="row-value" style="color:var(--green);">~$186,400 Advisor income</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Aggressive (3 apps/day)</div><div class="row-value" style="color:var(--green);">~$279,200 Advisor income</div></div></div>
-    <p style="margin-top:10px;font-size:11px;color:#888;">Never show this before the candidate has stated their own income goals. Math does not solve a trust gap — peer validation does. That is why Mike and Dave exist at Call 3.</p>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Key Reframes</div></div></div>
-  <div class="card">
-    <div class="card-title">WATERMELON / GRAPE — For 40 bps Pushback</div>
-    <p>"Would you rather own 100% of a grape, or 40% of a watermelon that keeps getting bigger? The grape is high bps on volume you're personally capped at. The watermelon is lower bps on volume sourced and handed to you — the per-file rate is lower but total income is not, and the watermelon keeps growing." Only use after income goals stated and math shown.</p>
-  </div>
-  <div class="card">
-    <div class="card-title">PIZZERIA ANALOGY — For Three-Lane Structure</div>
-    <p>The typical originator who opens a pizzeria is working the register, kneading the dough, serving the slices, and driving deliveries all at once. What if they just put someone at the register? What if someone's only job was to make the pizza? Could they sell more pizza? The answer is yes, every time.</p>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Weekly Scorecard</div></div></div>
-  <div class="card">
-    <p style="font-size:10px;font-weight:800;color:var(--gold);letter-spacing:1.5px;margin-bottom:8px;">LO TRACK</p>
-    <div class="row"><div class="row-inner"><div class="row-label">Income goal surfaced before model</div><div class="row-value" style="color:var(--gold);">Target: 100%</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Gross vs take-home clarified</div><div class="row-value" style="color:var(--gold);">Target: 100%</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Qualified LO handoffs to Call 2</div><div class="row-value">Track weekly</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">LO candidates to Mike + Dave</div><div class="row-value">Track weekly</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Premature comp discussions</div><div class="row-value" style="color:var(--red);">Target: 0</div></div></div>
-    <p style="font-size:10px;font-weight:800;color:var(--purple);letter-spacing:1.5px;margin:12px 0 8px;">RE TRACK</p>
-    <div class="row"><div class="row-inner"><div class="row-label">RE team outreach actions</div><div class="row-value" style="color:var(--purple);">Track separately</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">RE calls mixed into LO sequences</div><div class="row-value" style="color:var(--red);">Target: 0</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">CRM updated same day — both tracks</div><div class="row-value" style="color:var(--gold);">Target: 100%</div></div></div>
-  </div>
+  <a class="nl" href="planner.html">Open Daily Planner &#8594;</a>
 </div>
 
-<!-- ═══ WORKDAY OS ═══ -->
-<div class="content" id="tab-workday">
-  <div class="alert" style="background:#FFFBF0;border:1px solid var(--gold);">
-    <span class="alert-label" style="color:var(--gold)">BUILT FROM —</span>
-    Brian Tracy's New Psychology of Achievement + Think and Grow Rich + The Compound Effect + Huberman Lab. Every principle applied directly to your role.
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Tracy's 7 Orientations — Applied To You</div></div></div>
+<!-- WORKDAY OS -->
+<div class="pg" id="tab-workday">
+  <div class="sh"><div class="sh-bar"></div><div>
+    <div class="sh-title">The MMA Principle</div>
+    <div class="sh-sub">Your calendar reveals your strategy. Every block is an MMA or support work. MMAs fill the calendar first.</div>
+  </div></div>
   <div class="card">
-    <div class="workout-item"><div class="workout-day">FUTURE ORIENTATION</div><div class="workout-detail">5-year vision: debt-free, 195 lbs, confident, leading your lane at CrossCountry. Write it in full. Leaders have vision — vision creates the internal pull that replaces external pressure.</div></div>
-    <div class="workout-item"><div class="workout-day">GOAL ORIENTATION</div><div class="workout-detail">10 goals for the next 12 months. Rewritten every morning by hand. If a goal isn't specific enough that you'd know exactly when you hit it — rewrite it.</div></div>
-    <div class="workout-item"><div class="workout-day">EXCELLENCE ORIENTATION</div><div class="workout-detail">You own Call 1. Become the best qualifier in the building. Study the craft — not just the script, but the psychology of what makes a candidate moveable.</div></div>
-    <div class="workout-item"><div class="workout-day">RESULT ORIENTATION</div><div class="workout-detail">One question every hour at work: "Is what I'm doing right now moving qualified pipeline forward?" If no — stop and redirect.</div></div>
-    <div class="workout-item"><div class="workout-day">SOLUTION ORIENTATION</div><div class="workout-detail">Candidates ghost. Sequences stall. Your identity: I find the next move. Not "this is hard." What is the specific next action?</div></div>
-    <div class="workout-item"><div class="workout-day">GROWTH ORIENTATION</div><div class="workout-detail">20 min reading in your field every morning. To earn more you must learn more. The gap between you and the top performer in your role is knowledge applied daily.</div></div>
-    <div class="workout-item" style="border:none;"><div class="workout-day">ACTION ORIENTATION</div><div class="workout-detail">Same-day response to every Paladin handoff. Speed signals seriousness. Slow follow-up kills recruiting momentum faster than anything else.</div></div>
+    <div class="row" style="background:#FFFBF0;border-color:#DDB830;"><div class="ri"><div class="rl" style="font-weight:800;color:var(--gold)">&#9733; MMA Blocks</div></div><div class="rs">LO Prospecting, Follow-Up, Decision Calls, Scheduled Calls, RE Prospecting. Fill calendar with these first. Every gap is inventory.</div></div>
+    <div class="row"><div class="ri"><div class="rl">Support Blocks</div></div><div class="rs">CRM, research, admin, pipeline audit. Necessary but secondary. Delegate what you can.</div></div>
+    <div class="row" style="background:#FFF5F0;border-color:#FFCCCC;"><div class="ri"><div class="rl" style="color:var(--red);font-weight:800;">Wasted Inventory</div></div><div class="rs">1 hour/day wasted = 9 work weeks/year. Every gap in your calendar is a strategy &#8212; a bad one.</div></div>
   </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Tracy's Thousand Percent Formula</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Income Gate &#8212; #1 Daily Metric</div></div></div>
   <div class="card">
-    <ul class="bullet-list">
-      <li><span class="bullet-arrow">→</span><strong>Up 2 hours early:</strong> 6 AM = 2 hours before the office. You train, read, and prepare while everyone else is sleeping.</li>
-      <li><span class="bullet-arrow">→</span><strong>20–30 min reading in your field:</strong> Every morning before first call. Tracy, Hill, Hardy, Grover, OFL craft.</li>
-      <li><span class="bullet-arrow">→</span><strong>Rewrite 10 goals every morning:</strong> 6:20 AM, by hand. 4 minutes.</li>
-      <li><span class="bullet-arrow">→</span><strong>Plan every day in advance:</strong> Done at 4:15 PM the day before. You never start a day figuring out what to do.</li>
-      <li><span class="bullet-arrow">→</span><strong>Identify the frog daily:</strong> Most important, most uncomfortable action. Done before 10 AM.</li>
-      <li><span class="bullet-arrow">→</span><strong>Car = classroom:</strong> Audio books only. No music, no entertainment.</li>
-      <li><span class="bullet-arrow">→</span><strong>Tracy's two questions after every significant call:</strong> What did I do right? What would I do differently?</li>
-    </ul>
+    <div class="row"><div class="ri"><div class="rl">The question</div></div><div class="rs">"Before I walk you through what this looks like &#8212; what are you currently earning and where do you need to be in the next 12 months?"</div></div>
+    <div class="row"><div class="ri"><div class="rl">Target</div><div class="rv" style="color:var(--gold)">Every LO call</div></div></div>
+    <div class="row" style="background:#FFF5F0;border-color:#FFCCCC;"><div class="ri"><div class="rl">Failure mode</div><div class="rv" style="color:var(--red)">Zero exceptions</div></div><div class="rs">No comp model, no pro forma, no watermelon until income goals are confirmed.</div></div>
   </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Huberman Protocols In Your Day</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Call Sequence</div></div></div>
   <div class="card">
-    <div class="row"><div class="row-inner"><div class="row-label">No caffeine 90 min after waking</div><div class="row-value" style="color:var(--blue);">6 AM wake = coffee at 7:30 AM min</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Morning outdoor light</div><div class="row-value" style="color:var(--blue);">After gym + 10:30 AM outdoor break</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">No caffeine after 1 PM</div><div class="row-value" style="color:var(--blue);">Half-life 5–6 hrs. Kills sleep target.</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Morning movement raises BDNF</div><div class="row-value" style="color:var(--blue);">Focus + memory 4–6 hrs post-gym</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Phone across room at night</div><div class="row-value" style="color:var(--blue);">45 min earlier natural sleep onset</div></div></div>
+    <div class="row"><div class="ri"><div class="rl"><b>Call 1 (Pat)</b></div><div class="rv">Qualify + income gate</div></div></div>
+    <div class="row"><div class="ri"><div class="rl"><b>Call 2</b></div><div class="rv">Pro forma + operations</div></div></div>
+    <div class="row"><div class="ri"><div class="rl"><b>Call 3 (Mike + Dave)</b></div><div class="rv">Peer validation</div></div></div>
+    <div class="row"><div class="ri"><div class="rl"><b>Call 4</b></div><div class="rv">Decision conversation</div></div><div class="rs">Yes, hard no, or dated timeline. No open-ended nurture.</div></div>
   </div>
+  <a class="nl" href="planner.html">Open Daily Planner &#8594;</a>
 </div>
 
-<!-- ═══ BODY & KNEE ═══ -->
-<div class="content" id="tab-body">
+<!-- BODY & KNEE -->
+<div class="pg" id="tab-body">
   <div class="alert" style="background:#FFF5F0;border:1px solid var(--red);">
-    <span class="alert-label" style="color:var(--red)">KNEE RULES —</span>
-    Patellar tendinitis + fractured kneecap = no running, no deep squats, no lunges, no jumping until cleared by a doctor. See a doctor this week.
+    <span class="al" style="color:var(--red)">STATUS &#8212;</span>
+    230 lbs. Goal: 195. 35 lbs. Patellar tendinitis. No running. Lift first, walk after, every time.
   </div>
 
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Calorie & Macro Targets</div></div></div>
-  <div class="card">
-    <div class="row"><div class="row-inner"><div class="row-label">Daily Calories (Fat Loss)</div><div class="row-value" style="color:var(--gold);">2,450–2,650 cal/day</div></div><div class="row-sub">245 × 10–11. Never below 2,200.</div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Protein — Non-Negotiable</div><div class="row-value" style="color:var(--gold);">200–225g daily</div></div><div class="row-sub">Single most important number. Preserves muscle, kills hunger.</div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Carbohydrates</div><div class="row-value">200–250g training / 150–180g rest</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Target Fat Loss</div><div class="row-value">1–1.5 lbs/week average</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">245 → 195 Timeline</div><div class="row-value">12 months at sustainable pace</div></div></div>
+  <div class="alert" style="background:#F0FBF6;border:1px solid #A9DFBF;">
+    <span class="al" style="color:var(--green)">THIS WEEK (Aug 2-8) &#8212;</span>
+    Chest/Tri done Sunday Aug 2. Shift everything forward one day this week only. Back to normal Mon Aug 10.
   </div>
 
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">5-Day Workout Split — Apartment Gym</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">This Week &#8212; Aug 2-8 (Shifted)</div></div></div>
   <div class="card">
-    <div class="workout-item"><div class="workout-day">MONDAY</div><div class="workout-name">Chest + Triceps</div><div class="workout-detail">DB Bench Press 4×10-12, Incline DB Press 3×10-12, Cable Flyes 3×12-15, Overhead Tricep Extension 3×12, Tricep Pushdowns 3×15, 15 min bike</div></div>
-    <div class="workout-item"><div class="workout-day">TUESDAY</div><div class="workout-name">Back + Biceps</div><div class="workout-detail">Lat Pulldown 4×10-12, Seated Cable Row 4×10-12, DB Single-Arm Row 3×12, Face Pulls 3×15-20, Hammer Curls 3×12, Incline DB Curls 2×12, 15 min bike</div></div>
-    <div class="workout-item"><div class="workout-day">WEDNESDAY</div><div class="workout-name">Shoulders + Core</div><div class="workout-detail">Seated DB Press 4×10-12, Lateral Raises 4×15, Front Raises 3×12, Rear Delt Flyes 3×15, Plank 3×45s, Dead Bug 3×10, Cable Woodchops 3×12, 20 min bike</div></div>
-    <div class="workout-item"><div class="workout-day">THURSDAY</div><div class="workout-name">Lower Body (Knee-Safe) + Back</div><div class="workout-detail">Hip Thrusts 4×12-15, Seated Leg Curl 4×12, Straight Leg Raises 3×15, Wall Sit 3×30-45s, Calf Raises 4×20, Lat Pulldown 3×12, Seated Row 3×12</div></div>
-    <div class="workout-item"><div class="workout-day">FRIDAY</div><div class="workout-name">Full Body Compound</div><div class="workout-detail">DB Romanian Deadlift 4×10-12, DB Bench 3×10, Pull-Ups or Lat Pulldown 3×8-10, Lateral Raises 3×15, Hip Thrusts 3×15, Farmer Carries 3×40 steps, 20 min bike</div></div>
-    <div class="workout-item"><div class="workout-day">SATURDAY</div><div class="workout-name">Active Recovery</div><div class="workout-detail">20-30 min easy bike or walk. Light stretching. Foam roll right IT band, right hip flexor, right glute — 60 sec each.</div></div>
-    <div class="workout-item" style="border:none;"><div class="workout-day">SUNDAY</div><div class="workout-name">Full Rest + Meal Prep</div><div class="workout-detail">No training. Sleep. Meal prep. Plan the week.</div></div>
+    <div class="wo"><div class="wd">SUN AUG 2 &#10003;</div><div class="wn">Chest + Triceps &#8212; DONE</div><div class="wt">DB Bench 4x10 | Incline DB 3x10 | Cable Fly 3x12 | Tricep Pushdown 3x15 | Overhead Extension 3x12</div></div>
+    <div class="wo"><div class="wd">MON AUG 3</div><div class="wn">Back + Biceps</div><div class="wt">Lat Pulldown 4x10 | Seated Row 3x12 | Single-Arm Row 3x10 | Face Pulls 3x15 | DB Curl 3x12</div></div>
+    <div class="wo"><div class="wd">TUE AUG 4</div><div class="wn">Shoulders + Core</div><div class="wt">DB Shoulder Press 4x10 | Lateral Raises 3x15 | Front Raise 3x12 | Plank 3x45s | Dead Bug 3x10</div></div>
+    <div class="wo"><div class="wd">WED AUG 5</div><div class="wn">Lower Body &#8212; Knee-Safe</div><div class="wt">Hip Thrusts 4x12 | Seated Leg Curl 4x12 | Calf Raises 4x20 | Wall Sit 3x30s | Straight Leg Raise 3x15</div></div>
+    <div class="wo"><div class="wd">THU AUG 6</div><div class="wn">Full Body</div><div class="wt">DB Bench 3x10 | Lat Pulldown 3x10 | Hip Thrusts 3x12 | Lateral Raises 3x15 | Farmer Carries 3x40 steps | Plank 3x45s</div></div>
+    <div class="wo"><div class="wd">FRI AUG 7</div><div class="wn">Active Recovery &#8212; Long Walk</div><div class="wt">45-60 min walk. No lifting. Stretch + foam roll.</div></div>
+    <div class="wo"><div class="wd">SAT AUG 8</div><div class="wn">Rest + Meal Prep</div><div class="wt">Full recovery. Grocery run. Prep ground beef + rice + veg for the week.</div></div>
   </div>
 
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Supplements</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Normal Weekly Split &#8212; From Aug 10</div></div></div>
   <div class="card">
-    <div class="row"><div class="row-inner"><div class="row-label">Creatine Monohydrate</div><div class="row-value" style="color:var(--gold);">5g daily with Meal 1</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Magnesium Glycinate</div><div class="row-value" style="color:var(--blue);">400mg nightly — sleep + recovery</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Vitamin D3 + K2</div><div class="row-value">3,000 IU D3 + 100mcg K2 daily</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Omega-3 Fish Oil</div><div class="row-value">2–3g EPA/DHA — joints + inflammation</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Electrolytes</div><div class="row-value">Every morning — South Florida heat</div></div></div>
+    <div class="wo"><div class="wd">MONDAY</div><div class="wn">Chest + Triceps</div><div class="wt">DB Bench 4x10 | Incline DB 3x10 | Cable Fly 3x12 | Tricep Pushdown 3x15 | Overhead Extension 3x12</div></div>
+    <div class="wo"><div class="wd">TUESDAY</div><div class="wn">Back + Biceps</div><div class="wt">Lat Pulldown 4x10 | Seated Row 3x12 | Single-Arm Row 3x10 | Face Pulls 3x15 | DB Curl 3x12</div></div>
+    <div class="wo"><div class="wd">WEDNESDAY</div><div class="wn">Shoulders + Core</div><div class="wt">DB Shoulder Press 4x10 | Lateral Raises 3x15 | Front Raise 3x12 | Plank 3x45s | Dead Bug 3x10</div></div>
+    <div class="wo"><div class="wd">THURSDAY</div><div class="wn">Lower Body &#8212; Knee-Safe</div><div class="wt">Hip Thrusts 4x12 | Seated Leg Curl 4x12 | Calf Raises 4x20 | Wall Sit 3x30s | Straight Leg Raise 3x15</div></div>
+    <div class="wo"><div class="wd">FRIDAY</div><div class="wn">Full Body</div><div class="wt">DB Bench 3x10 | Lat Pulldown 3x10 | Hip Thrusts 3x12 | Lateral Raises 3x15 | Farmer Carries 3x40 steps | Plank 3x45s</div></div>
+    <div class="wo"><div class="wd">SATURDAY</div><div class="wn">Active Recovery &#8212; Long Walk</div><div class="wt">45-60 min walk. No lifting. Stretch + foam roll.</div></div>
+    <div class="wo"><div class="wd">SUNDAY</div><div class="wn">Rest + Meal Prep</div><div class="wt">Full recovery. Weekly review. Grocery + food prep.</div></div>
+  </div>
+
+  <div class="sh"><div class="sh-bar"></div><div>
+    <div class="sh-title">Training Phases &#8212; Aug 2026 to May 2027</div>
+    <div class="sh-sub">Each phase builds on the last. Don&#8217;t skip ahead.</div>
+  </div></div>
+
+  <div style="background:#0d1117;border:2px solid #C8960C;border-radius:12px;padding:16px;margin-bottom:10px;">
+    <div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#C8960C;margin-bottom:4px;font-family:monospace;">PHASE 1 &#8212; AUG 2 &#8594; SEP 12</div>
+    <div style="font-size:16px;font-weight:900;color:#fff;margin-bottom:4px;">Build the Habit</div>
+    <div style="font-size:11px;color:#555;margin-bottom:10px;">6 weeks. Show up. The goal is consistency, not intensity.</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.9;">
+      &#8250; 50 min sessions, 5 days/week<br>
+      &#8250; Moderate weight &#8212; learn movements, perfect form<br>
+      &#8250; 3-4 sets, 10-12 reps per exercise<br>
+      &#8250; Walking pad 90 min/day every workday<br>
+      &#8250; 200g protein daily &#8212; non-negotiable<br>
+      &#8250; <b style="color:#C8960C;">Win condition: 5 sessions/week for 6 straight weeks</b>
+    </div>
+  </div>
+
+  <div style="background:#0d1117;border:2px solid #2980B9;border-radius:12px;padding:16px;margin-bottom:10px;">
+    <div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#2980B9;margin-bottom:4px;font-family:monospace;">PHASE 2 &#8212; SEP 13 &#8594; OCT 24</div>
+    <div style="font-size:16px;font-weight:900;color:#fff;margin-bottom:4px;">Progressive Overload</div>
+    <div style="font-size:11px;color:#555;margin-bottom:10px;">6 weeks. Add weight every 1-2 weeks. Sessions get harder naturally.</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.9;">
+      &#8250; Same movements, heavier weight each week<br>
+      &#8250; Bump to 4-5 sets per exercise<br>
+      &#8250; Sessions reach 60 min &#8212; normal and expected<br>
+      &#8250; Add incline on pad post-lift for extra burn<br>
+      &#8250; Track weights every session in a notebook<br>
+      &#8250; <b style="color:#2980B9;">Win condition: every lift heavier than 6 weeks ago</b>
+    </div>
+  </div>
+
+  <div style="background:#0d1117;border:2px solid #8E44AD;border-radius:12px;padding:16px;margin-bottom:10px;">
+    <div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#8E44AD;margin-bottom:4px;font-family:monospace;">PHASE 3 &#8212; OCT 25 &#8594; DEC 5</div>
+    <div style="font-size:16px;font-weight:900;color:#fff;margin-bottom:4px;">Volume Increase</div>
+    <div style="font-size:11px;color:#555;margin-bottom:10px;">6 weeks. More exercises, supersets, 60-70 min sessions.</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.9;">
+      &#8250; Add a second exercise per major muscle group<br>
+      &#8250; Introduce supersets to keep intensity high<br>
+      &#8250; Drop sets on final set of each exercise<br>
+      &#8250; Bump pad speed slightly on post-lift walk<br>
+      &#8250; <b style="color:#8E44AD;">Win condition: 215 lbs or below by Dec 5</b>
+    </div>
+  </div>
+
+  <div style="background:#0d1117;border:2px solid #27AE60;border-radius:12px;padding:16px;margin-bottom:10px;">
+    <div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#27AE60;margin-bottom:4px;font-family:monospace;">PHASE 4 &#8212; DEC 6 &#8594; MAR 1</div>
+    <div style="font-size:16px;font-weight:900;color:#fff;margin-bottom:4px;">Strength + Knee Rebuild</div>
+    <div style="font-size:11px;color:#555;margin-bottom:10px;">12 weeks. Sports medicine consult. Potentially unlock controlled leg work.</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.9;">
+      &#8250; Book sports medicine appointment &#8212; Dec 6 target<br>
+      &#8250; Add goblet squats or leg press if cleared<br>
+      &#8250; Lower rep ranges on key lifts (6-8 reps, heavier)<br>
+      &#8250; Add 2x/week dedicated core sessions<br>
+      &#8250; <b style="color:#27AE60;">Win condition: 205 lbs by Mar 1</b>
+    </div>
+  </div>
+
+  <div style="background:#0d1117;border:2px solid #C0392B;border-radius:12px;padding:16px;margin-bottom:10px;">
+    <div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#C0392B;margin-bottom:4px;font-family:monospace;">PHASE 5 &#8212; MAR 1 &#8594; MAY 12</div>
+    <div style="font-size:16px;font-weight:900;color:#fff;margin-bottom:4px;">Finishing Phase</div>
+    <div style="font-size:11px;color:#555;margin-bottom:10px;">10 weeks to deadline. Final push to 195.</div>
+    <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.9;">
+      &#8250; 6 training days/week if body is recovered<br>
+      &#8250; Tighten calories, keep protein at 200g<br>
+      &#8250; Full lower body if knee is cleared<br>
+      &#8250; <b style="color:#C0392B;">Win condition: 195 lbs on the scale May 12, 2027</b>
+    </div>
+  </div>
+
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">The Math</div></div></div>
+  <div class="card">
+    <div class="row"><div class="ri"><div class="rl">Current</div><div class="rv">230 lbs</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Goal</div><div class="rv" style="color:var(--gold)">195 lbs by May 12, 2027</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Required rate</div><div class="rv" style="color:var(--green)">~0.9 lbs/week</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Protein target</div><div class="rv" style="color:var(--gold)">200g daily</div></div></div>
+    <div class="row" style="background:#F0FBF6;border-color:#A9DFBF;"><div class="ri"><div class="rl" style="font-weight:800;">Walking pad alone</div><div class="rv" style="color:var(--green)">~0.6 lb/week</div></div><div class="rs">300 cal/day x 7 = 2,100 extra calories burned. That&#8217;s more than half your weekly deficit from walking at your desk.</div></div>
+  </div>
+
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Knee Protocol</div></div></div>
+  <div class="card">
+    <div class="ii"><div class="in">&#10003;</div><div class="it">Lift first &#8212; full output, no compromise</div></div>
+    <div class="ii"><div class="in">&#10003;</div><div class="it">Walk after lifting &#8212; depleted glycogen = maximum fat burn</div></div>
+    <div class="ii"><div class="in">&#10003;</div><div class="it">Hip thrusts + leg curls &#8212; build the posterior chain that protects the knee</div></div>
+    <div class="ii"><div class="in">&#10007;</div><div class="it">No running, jumping, squats, or lunges until sports medicine clears you (Phase 4 target)</div></div>
   </div>
 </div>
 
-<!-- ═══ SLEEP FIX ═══ -->
-<div class="content" id="tab-sleep">
-  <div class="alert" style="background:#FFFBF0;border:1px solid var(--gold);">
-    <span class="alert-label" style="color:var(--gold)">NOTE —</span>
-    Sleep is the infrastructure every other system runs on. Your cortisol, willpower, prospecting sharpness, and ability to not doom scroll all run on sleep.
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">The 3-Phase Sleep Transition</div></div></div>
-
-  <div class="phase-card" style="background:#FFFBF0;border:1px solid #DDB830;">
-    <div class="phase-title-bar" style="color:var(--gold);">PHASE 1 — THIS WEEK</div>
-    <div class="row"><div class="row-inner"><div class="row-label">Bedtime Target</div><div class="row-value" style="color:var(--gold);">11:00 PM</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Wake Target</div><div class="row-value">6:00 AM</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Wind-Down Starts</div><div class="row-value">9:30 PM — phone on DND</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Pass Condition</div><div class="row-value">5 of 7 nights at 11 PM</div></div></div>
-  </div>
-
-  <div class="phase-card" style="background:#F0FBF6;border:1px solid #A9DFBF;margin-top:12px;">
-    <div class="phase-title-bar" style="color:var(--green);">PHASE 2 — WEEKS 3–4</div>
-    <div class="row"><div class="row-inner"><div class="row-label">Bedtime Target</div><div class="row-value" style="color:var(--green);">10:30 PM</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Wind-Down Starts</div><div class="row-value">9:15 PM</div></div></div>
-  </div>
-
-  <div class="phase-card" style="background:#EBF5FB;border:1px solid #85C1E9;margin-top:12px;">
-    <div class="phase-title-bar" style="color:var(--blue);">PHASE 3 — OPERATING STATE</div>
-    <div class="row"><div class="row-inner"><div class="row-label">Bedtime Target</div><div class="row-value" style="color:var(--blue);">10:00 PM</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Wind-Down Starts</div><div class="row-value">9:00 PM</div></div></div>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Sleep Stack</div></div></div>
+<!-- SLEEP -->
+<div class="pg" id="tab-sleep">
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">The Protocol</div></div></div>
   <div class="card">
-    <div class="row"><div class="row-inner"><div class="row-label">Magnesium Glycinate</div><div class="row-value" style="color:var(--blue);">400mg — 45 min before bed</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Room Temperature</div><div class="row-value">65–68°F — A/C down</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Darkness</div><div class="row-value">Blackout curtains or eye mask</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Sunrise Lamp</div><div class="row-value" style="color:var(--gold);">Begins 5:30 AM every morning</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Phone Location</div><div class="row-value" style="color:var(--red);">In a drawer — not on nightstand</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Lights out</div><div class="rv" style="color:var(--red)">10:00 PM sharp</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Wake time</div><div class="rv" style="color:var(--gold)">6:00 AM</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Magnesium glycinate</div><div class="rv">400mg at 9:45 PM</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Phone</div><div class="rv" style="color:var(--red)">Drawer at 9:30 PM</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Sunrise lamp</div><div class="rv">Set for 5:30 AM</div></div></div>
+  </div>
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Why It Matters</div></div></div>
+  <div class="card">
+    <p>Bad sleep spikes hunger hormones 15-25%. You will eat more without knowing it. That kills the weight goal silently.</p>
+    <p>Sleep is when your body burns fat, repairs muscle, and consolidates memory. Everything you are trying to build requires good sleep as the foundation.</p>
+    <p>15 minutes of morning sunlight fixes your sleep that night. Get outside in the first hour of waking when possible.</p>
   </div>
 </div>
 
-<!-- ═══ MINDSET ═══ -->
-<div class="content" id="tab-mindset">
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">The Authors — Applied To You</div></div></div>
-
+<!-- MINDSET -->
+<div class="pg" id="tab-mindset">
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">The Framework</div></div></div>
   <div class="card">
-    <div class="card-title">NAPOLEON HILL — THINK AND GROW RICH</div>
-    <ul class="bullet-list">
-      <li><span class="bullet-arrow">→</span><strong>Burning Desire:</strong> Not a wish. "By May 12, 2027 I earn $250,000, I own my first home with Grace, I weigh 195 lbs, I am debt-free." Specific. Dated. Non-negotiable.</li>
-      <li><span class="bullet-arrow">→</span>Auto-suggestion: read your chief aim out loud every morning. Repetition of specific self-directed statements rewires your reticular activating system. Your brain filters for what you repeat.</li>
-      <li><span class="bullet-arrow">→</span>The Mastermind: Matt, Jake (now Mike and Dave), Pat, Paladin. Show up as a full contributor. Find 3–5 people outside work doing what you want to do financially.</li>
-      <li><span class="bullet-arrow">→</span>Specialized Knowledge: Call 1 qualification is your specialized knowledge. Becoming the best in the country at surfacing income goals and sequencing correctly is worth more than being generally good at sales.</li>
-    </ul>
+    <div class="ii"><div class="in">01</div><div class="it">"Identity precedes production. You cannot produce at a level you haven't identified with yet." &#8212; Matt Weaver</div></div>
+    <div class="ii"><div class="in">02</div><div class="it">"Live by design, not by default. Your calendar reveals your strategy." &#8212; Napoleon Hill</div></div>
+    <div class="ii"><div class="in">03</div><div class="it">"Stop calling yourself lazy. Your brain is listening. The words you use about yourself become the ceiling you live under."</div></div>
+    <div class="ii"><div class="in">04</div><div class="it">"Skipping workouts because you're tired is why you're tired." &#8212; The pad is at the office. You just have to show up.</div></div>
   </div>
-
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Where You Stand</div></div></div>
   <div class="card">
-    <div class="card-title">BRIAN TRACY — NEW PSYCHOLOGY OF ACHIEVEMENT</div>
-    <ul class="bullet-list">
-      <li><span class="bullet-arrow">→</span>Law of Control: you feel positive about yourself to the degree you feel in control of your life. Right now debt and anxiety create external locus of control. Every kept commitment moves the locus internal. One at a time.</li>
-      <li><span class="bullet-arrow">→</span>Law of Belief: your intensely held beliefs become your realities. The morning goals rewrite and chief aim are how you change the beliefs.</li>
-      <li><span class="bullet-arrow">→</span>Self-Efficacy: as you raise your self-esteem your performance ceiling rises with it. Every kept promise — every run, every clean call, every frog eaten — raises your self-efficacy.</li>
-    </ul>
+    <div class="row"><div class="ri"><div class="rl">Age</div><div class="rv">23</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Weight</div><div class="rv">230 &#8594; 195 lbs</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Debt</div><div class="rv" style="color:var(--red)">$30K &#8594; $0</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Income goal</div><div class="rv" style="color:var(--gold)">$20K/month</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Grace</div><div class="rv" style="color:var(--green)">Moved in &#10003;</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Walking pad</div><div class="rv" style="color:var(--green)">At office &#10003;</div></div></div>
+    <div class="row" style="background:#FFFBF0;border-color:#DDB830;"><div class="ri"><div class="rl" style="font-weight:800;">Deadline</div><div class="rv" style="color:var(--gold);font-size:16px;">May 12, 2027</div></div></div>
   </div>
-
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">What's Actually True</div></div></div>
   <div class="card">
-    <div class="card-title">DARREN HARDY — THE COMPOUND EFFECT</div>
-    <ul class="bullet-list">
-      <li><span class="bullet-arrow">→</span>You are at the flat part of the compound curve right now. Nothing seems to be working. This is exactly where most people quit — right before the bend upward.</li>
-      <li><span class="bullet-arrow">→</span>Track behaviors not outcomes. Did you write 3 outcomes today — yes or no. Did you hit protein — yes or no. Did you run calls with the income gate — yes or no.</li>
-      <li><span class="bullet-arrow">→</span>The first 30 days are the hardest. After that the habits start running themselves because the identity starts shifting. Don't stop during the flat part of the curve.</li>
-    </ul>
-  </div>
-
-  <div class="card">
-    <div class="card-title">TIM GROVER — RELENTLESS</div>
-    <ul class="bullet-list">
-      <li><span class="bullet-arrow">→</span>The Cleaner doesn't wait for the right moment. They make the moment right. You act first. The feelings follow the action — not the other way around.</li>
-      <li><span class="bullet-arrow">→</span>The weed, the doom scrolling, the late nights — these are negotiations with the version of you that wants to stay comfortable. Grover calls it: your instinct is already telling you what to do. The question is whether you listen.</li>
-      <li><span class="bullet-arrow">→</span>Clean body, clean mind, clean execution. Every decision either moves you toward the person you want to be or away from them. There is no neutral.</li>
-    </ul>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">The 4 Identity Commitments — Read Weekly</div></div></div>
-  <div class="card">
-    <div class="identity-item"><div class="identity-num">01</div><div class="identity-text">"I do not negotiate with the version of me that wants to stay comfortable. That version has already had its turn."</div></div>
-    <div class="identity-item"><div class="identity-num">02</div><div class="identity-text">"I run every prospecting call clean — income goals before the model, every time. The pipeline depends on it. The money depends on it."</div></div>
-    <div class="identity-item"><div class="identity-num">03</div><div class="identity-text">"I treat my body like the asset it is. Not perfectly — consistently. The gap between 245 and 195 is math and time."</div></div>
-    <div class="identity-item"><div class="identity-num">04</div><div class="identity-text">"I am getting out of debt by executing the system. Action produces the result. Anxiety burns the fuel I need for action."</div></div>
+    <p>You are 23 with a walking pad at your desk, Grace living with you, working under the #1 purchase originator in the country, with a system built to execute. That is not a bad starting position.</p>
+    <p>35 lbs is math and time at 0.9 lbs/week. $30K is a number. The income goal is a function of execution. None of it requires a miracle &#8212; it requires the system running consistently.</p>
+    <p>Today you went for a long walk and decided to start. That is the actual decision. Everything else is just following through.</p>
   </div>
 </div>
 
-<!-- ═══ WEEKLY OS ═══ -->
-<div class="content" id="tab-weekly">
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Sunday Planning Session — 45 Minutes</div><div class="sh-sub">5–7 PM Sunday. The week is decided before it begins.</div></div></div>
+<!-- WEEKLY OS -->
+<div class="pg" id="tab-weekly">
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Sunday Review &#8212; 45 Min</div></div></div>
   <div class="card">
-    <div class="workout-item"><div class="workout-day">0:00–0:10</div><div class="workout-name">Last Week Honest Debrief</div><div class="workout-detail">How many days did each non-negotiable land? Where did the week break down — one honest sentence. No rumination. Just data.</div></div>
-    <div class="workout-item"><div class="workout-day">0:10–0:20</div><div class="workout-name">This Week's 3 Outcomes</div><div class="workout-detail">One work outcome: specific pipeline number. One body outcome: specific training days. One personal outcome.</div></div>
-    <div class="workout-item"><div class="workout-day">0:20–0:30</div><div class="workout-name">Block The Calendar</div><div class="workout-detail">LO prospecting blocks, RE prospecting blocks, gym windows, 10 PM bedtime — placed as events for every day this week.</div></div>
-    <div class="workout-item"><div class="workout-day">0:30–0:40</div><div class="workout-name">Meal Decisions</div><div class="workout-detail">Decide what you're eating this week. Buy it Sunday. Prep ground beef + rice + veg Sunday. Remove all food decision-making from the workweek.</div></div>
-    <div class="workout-item" style="border:none;"><div class="workout-day">0:40–0:45</div><div class="workout-name">Read Identity Commitments</div><div class="workout-detail">Out loud. One minute. Remind yourself who you're becoming.</div></div>
+    <div class="wo"><div class="wd">0:00&#8211;0:10</div><div class="wn">Last Week Audit</div><div class="wt">MMA % for the week. Income gates surfaced. Pipeline movement. Pad days hit. Protein target hit.</div></div>
+    <div class="wo"><div class="wd">0:10&#8211;0:20</div><div class="wn">Rewrite Chief Aim + Goals</div><div class="wt">By hand. Out loud. Non-negotiable start to every week.</div></div>
+    <div class="wo"><div class="wd">0:20&#8211;0:30</div><div class="wn">Block the Calendar</div><div class="wt">LO prospecting, RE prospecting, gym, walk blocks, 10 PM bedtime &#8212; placed as events for every day.</div></div>
+    <div class="wo"><div class="wd">0:30&#8211;0:40</div><div class="wn">Meal Decisions</div><div class="wt">Buy Sunday. Prep ground beef + rice. Remove all food decision-making from the workweek.</div></div>
+    <div class="wo"><div class="wd">0:40&#8211;0:45</div><div class="wn">Read Identity Commitments</div><div class="wt">Out loud. One minute. Remind yourself who you're becoming.</div></div>
   </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Daily Tracking — 5 Minutes Max</div></div></div>
+  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Weekly Numbers to Track</div></div></div>
   <div class="card">
-    <div class="row"><div class="row-inner"><div class="row-label">Wake time</div><div class="row-value">Actual vs 6 AM</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Phone away during work blocks</div><div class="row-value" style="color:var(--gold);">Yes / No</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">3 outcomes written before work</div><div class="row-value" style="color:var(--gold);">Yes / No</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Income goal surfaced before model</div><div class="row-value" style="color:var(--gold);">% of calls today</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Protein target hit</div><div class="row-value">Yes / No / Partial</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Night binge</div><div class="row-value">Yes / No — data only</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Day score</div><div class="row-value">1–10 gut feeling</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">MMA % this week</div><div class="rv" style="color:var(--gold)">Target: 70%+</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Income gates surfaced</div><div class="rv" style="color:var(--gold)">Every call</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Pad days</div><div class="rv">5 of 5</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Gym sessions</div><div class="rv">5 of 5</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">Protein target</div><div class="rv">5 of 5 days</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">6 AM wakes</div><div class="rv">5 of 7</div></div></div>
+    <div class="row"><div class="ri"><div class="rl">10 PM lights out</div><div class="rv">5 of 7</div></div></div>
   </div>
-
-  <div class="sh"><div class="sh-bar"></div><div class="sh-text"><div class="sh-title">Your 30-Day Targets</div></div></div>
-  <div class="card">
-    <div class="row"><div class="row-inner"><div class="row-label">Wake time consistency</div><div class="row-value" style="color:var(--gold);">6 AM — 5 of 7 days</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Phone away during work blocks</div><div class="row-value" style="color:var(--gold);">5 of 5 workdays</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Income goal gate</div><div class="row-value" style="color:var(--gold);">Zero premature pitches — 30 days</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Sleep average</div><div class="row-value">11 PM or earlier consistently</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Knee</div><div class="row-value" style="color:var(--red);">See a doctor this week</div></div></div>
-    <div class="row"><div class="row-inner"><div class="row-label">Training</div><div class="row-value">5 sessions/week</div></div></div>
-  </div>
-
-  <a class="nav-link" href="planner.html">Open Daily Planner →</a>
+  <a class="nl" href="planner.html">Open Daily Planner &#8594;</a>
 </div>
 
 <script>
-function showTab(id, el) {
-  document.querySelectorAll('.content').forEach(c => c.classList.remove('active'));
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.getElementById('tab-' + id).classList.add('active');
-  el.classList.add('active');
-  window.scrollTo(0, 0);
+function sw(id,el){
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+  document.getElementById('tab-'+id).classList.add('on');
+  el.classList.add('on');
+  window.scrollTo(0,0);
 }
 </script>
-
 <script>
-
-// ── PIN LOCK ─────────────────────────────────────────────
-var CORRECT_PIN = '1107';
-var PIN_SESSION_KEY = 'pin_blueprint_unlocked';
-var pinEntry = '';
-
-function checkPinSession() {
-  // Stays unlocked for the session (until browser is closed)
-  if(sessionStorage.getItem(PIN_SESSION_KEY) === '1') {
-    document.getElementById('pinOverlay').style.display = 'none';
-    return true;
-  }
-  return false;
+var CORRECT_PIN='1107';
+var PIN_SESSION_KEY='pin_blueprint_unlocked';
+var pinEntry='';
+function checkPinSession(){if(sessionStorage.getItem(PIN_SESSION_KEY)==='1'){document.getElementById('pinOverlay').style.display='none';return true;}return false;}
+function pinPress(d){if(pinEntry.length>=4)return;pinEntry+=d;updatePinDots();if(pinEntry.length===4)setTimeout(checkPin,150);}
+function pinDel(){pinEntry=pinEntry.slice(0,-1);updatePinDots();document.getElementById('pinError').textContent='';}
+function updatePinDots(){for(var i=0;i<4;i++)document.getElementById('pd'+i).classList.toggle('filled',i<pinEntry.length);}
+function checkPin(){
+  if(pinEntry===CORRECT_PIN){sessionStorage.setItem(PIN_SESSION_KEY,'1');var o=document.getElementById('pinOverlay');o.style.transition='opacity 0.3s';o.style.opacity='0';setTimeout(function(){o.style.display='none';},300);}
+  else{document.getElementById('pinError').textContent='Incorrect PIN.';pinEntry='';updatePinDots();var d=document.getElementById('pinDots');d.style.transform='translateX(8px)';setTimeout(function(){d.style.transform='translateX(-8px)';},100);setTimeout(function(){d.style.transform='translateX(0)';},200);}
 }
-
-function pinPress(d) {
-  if(pinEntry.length >= 4) return;
-  pinEntry += d;
-  updatePinDots();
-  if(pinEntry.length === 4) {
-    setTimeout(checkPin, 150);
-  }
-}
-
-function pinDel() {
-  pinEntry = pinEntry.slice(0,-1);
-  updatePinDots();
-  document.getElementById('pinError').textContent = '';
-}
-
-function updatePinDots() {
-  for(let i=0;i<4;i++) {
-    document.getElementById('pd'+i).classList.toggle('filled', i < pinEntry.length);
-  }
-}
-
-function checkPin() {
-  if(pinEntry === CORRECT_PIN) {
-    sessionStorage.setItem(PIN_SESSION_KEY, '1');
-    var ov = document.getElementById('pinOverlay');
-    ov.style.transition = 'opacity 0.3s';
-    ov.style.opacity = '0';
-    setTimeout(() => ov.style.display = 'none', 300);
-  } else {
-    document.getElementById('pinError').textContent = 'Incorrect PIN. Try again.';
-    pinEntry = '';
-    updatePinDots();
-    // Shake animation
-    var dots = document.getElementById('pinDots');
-    dots.style.transition = 'transform 0.1s';
-    dots.style.transform = 'translateX(8px)';
-    setTimeout(()=>dots.style.transform='translateX(-8px)',100);
-    setTimeout(()=>dots.style.transform='translateX(0)',200);
-  }
-}
-
-// Check on load
-if(!checkPinSession()) {
-  document.getElementById('pinOverlay').style.display = 'flex';
-}
-
-// Run pin check on load
-document.addEventListener('DOMContentLoaded', function() {
-  if(!checkPinSession()) {
-    document.getElementById('pinOverlay').style.display = 'flex';
-  }
-});
+if(!checkPinSession())document.getElementById('pinOverlay').style.display='flex';
+document.addEventListener('DOMContentLoaded',function(){if(!checkPinSession())document.getElementById('pinOverlay').style.display='flex';});
 </script>
-
 </body>
-</html>
 </html>

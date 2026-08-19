@@ -5,80 +5,220 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<meta name="theme-color" content="#F4F4F0">
-<title>Personal Blueprint</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
-:root{--bg:#F4F4F0;--w:#fff;--b:#E0E0DA;--t:#111;--t2:#444;--mu:#888;--gold:#C8960C;--red:#C0392B;--green:#27AE60;--blue:#2980B9;}
-html,body{background:var(--bg);font-family:-apple-system,sans-serif;color:var(--t);min-height:100vh;}
-.hd{background:#111;padding:env(safe-area-inset-top,18px) 16px 14px;position:sticky;top:0;z-index:100;}
-.hd-lbl{font-size:9px;letter-spacing:3px;color:var(--gold);font-weight:800;margin-bottom:3px;font-family:monospace;}
-.hd-ttl{font-size:20px;font-weight:900;color:#fff;}
-.hd-sub{font-size:12px;color:#555;margin-top:2px;}
-.tabs{display:flex;background:#fff;border-bottom:1px solid var(--b);position:sticky;top:0;z-index:99;overflow-x:auto;-webkit-overflow-scrolling:touch;}
-.tab{padding:11px 14px;font-size:11px;font-weight:700;color:var(--mu);border:none;background:transparent;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;flex-shrink:0;}
-.tab.on{color:var(--t);border-bottom-color:#111;}
-.pg{padding:16px 16px 100px;max-width:700px;margin:0 auto;display:none;}
-.pg.on{display:block;}
-.sh{display:flex;align-items:flex-start;gap:10px;margin-bottom:14px;margin-top:20px;}
-.sh-bar{width:4px;min-height:20px;background:var(--gold);border-radius:2px;flex-shrink:0;margin-top:2px;}
-.sh-title{font-size:12px;font-weight:900;color:#111;letter-spacing:1.5px;text-transform:uppercase;}
-.sh-sub{font-size:12.5px;color:#666;line-height:1.6;margin-top:4px;}
-.card{background:var(--w);border:1px solid var(--b);border-radius:10px;padding:16px 18px;margin-bottom:12px;}
-.card p{font-size:13px;color:var(--t2);line-height:1.75;margin-bottom:10px;}
-.card p:last-child{margin-bottom:0;}
-.alert{border-radius:8px;padding:13px 16px;margin-bottom:16px;font-size:13px;line-height:1.7;}
-.al{font-weight:900;margin-right:6px;}
-.goal-item{display:flex;gap:12px;padding:10px 0;border-bottom:1px solid #EEE;align-items:flex-start;}
-.goal-item:last-child{border-bottom:none;}
-.gn{width:28px;height:28px;border-radius:50%;background:var(--gold);color:#fff;font-size:11px;font-weight:900;font-family:monospace;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
-.gt{font-size:13.5px;color:#111;line-height:1.5;font-weight:500;}
-.ca{font-size:13px;color:#8B6914;line-height:1.9;font-style:italic;font-weight:500;}
-.ii{display:flex;gap:14px;padding:13px;background:#F8F8F4;border-radius:8px;border:1px solid #EBEBEB;margin-bottom:8px;}
-.in{font-family:monospace;font-size:18px;color:var(--gold);font-weight:700;flex-shrink:0;min-width:28px;}
-.it{font-size:13px;color:#333;line-height:1.8;font-style:italic;}
-.row{padding:11px 14px;margin-bottom:6px;background:#F9F9F7;border-radius:7px;border:1px solid #E5E5E0;}
-.ri{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;}
-.rl{font-size:13px;color:#444;font-weight:500;flex:1;}
-.rv{font-size:13px;font-weight:700;text-align:right;flex-shrink:0;}
-.rs{font-size:12px;color:#777;margin-top:5px;line-height:1.5;}
-.bi{display:flex;gap:10px;padding:12px 0;border-bottom:1px solid #EBEBEB;align-items:flex-start;}
-.bi:last-child{border-bottom:none;}
-.bt{min-width:68px;font-family:monospace;font-size:11px;color:#888;font-weight:700;padding-top:3px;flex-shrink:0;}
-.bb{flex:1;}
-.br{display:flex;align-items:center;gap:8px;margin-bottom:4px;flex-wrap:wrap;}
-.btl{font-size:14px;font-weight:700;color:#111;}
-.btl.u{color:var(--red);}
-.btag{font-size:8px;font-weight:800;letter-spacing:1px;padding:2px 8px;border-radius:3px;}
-.bn{font-size:12.5px;color:#555;line-height:1.6;}
-.wb{font-size:8px;font-weight:900;background:rgba(39,174,96,0.12);color:#1a8a4a;border:1px solid rgba(39,174,96,0.3);padding:2px 7px;border-radius:3px;}
-.wo{padding:10px 0;border-bottom:1px solid #EBEBEB;}
-.wo:last-child{border-bottom:none;}
-.wd{font-family:monospace;font-size:10px;color:var(--gold);font-weight:800;margin-bottom:3px;}
-.wn{font-size:14px;font-weight:700;color:#111;margin-bottom:3px;}
-.wt{font-size:12px;color:#666;line-height:1.6;}
-.nl{display:block;text-align:center;padding:12px;background:#111;color:#fff;border-radius:8px;text-decoration:none;font-size:13px;font-weight:700;margin-top:16px;}
-.pin-overlay{position:fixed;inset:0;background:#111;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;}
-.pin-label{font-size:9px;letter-spacing:3px;color:#C8960C;font-weight:800;margin-bottom:16px;font-family:monospace;}
-.pin-title{font-size:26px;font-weight:900;color:#fff;margin-bottom:8px;}
-.pin-sub{font-size:13px;color:#555;margin-bottom:32px;text-align:center;}
+<meta name="theme-color" content="#111111">
+<title>Daily Planner — OFL</title>
+<style>*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+:root{--bg:#F4F4F0;--w:#fff;--b:#E0E0DA;--t:#111;--t2:#444;--mu:#888;--gold:#C8960C;--red:#C0392B;--green:#27AE60;}
+html,body{height:100%;background:var(--bg);font-family:-apple-system,'SF Pro Display',sans-serif;color:var(--t);overflow-x:hidden;}
+.pin-ov{position:fixed;inset:0;background:#111;z-index:9999;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:32px;}
+.pin-lbl{font-size:9px;letter-spacing:3px;color:#C8960C;font-weight:800;margin-bottom:16px;font-family:monospace;}
+.pin-ttl{font-size:26px;font-weight:900;color:#fff;margin-bottom:8px;}
+.pin-sub{font-size:13px;color:#555;margin-bottom:32px;}
 .pin-dots{display:flex;gap:16px;margin-bottom:32px;}
 .pin-dot{width:16px;height:16px;border-radius:50%;border:2px solid #333;background:transparent;transition:all 0.15s;}
 .pin-dot.filled{background:#C8960C;border-color:#C8960C;}
 .pin-pad{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;width:240px;}
 .pin-btn{height:64px;border-radius:12px;border:1px solid #222;background:#1a1a1a;color:#fff;font-size:22px;font-weight:700;cursor:pointer;transition:all 0.1s;}
 .pin-btn:active{background:#2a2a2a;transform:scale(0.95);}
-.pin-btn.z{grid-column:2;}
-.pin-btn.d{background:transparent;border-color:#333;color:#555;font-size:16px;}
-.pin-error{font-size:13px;color:#C0392B;margin-top:16px;font-weight:700;min-height:20px;}
+.pin-z{grid-column:2;}.pin-del{background:transparent;border-color:#333;color:#555;font-size:16px;}
+.pin-err{font-size:13px;color:#C0392B;margin-top:16px;font-weight:700;min-height:20px;}
+.hd{background:#111;padding:env(safe-area-inset-top,8px) 14px 6px;position:sticky;top:0;z-index:100;}
+.hd-top{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px;}
+.hd-lbl{font-size:8px;letter-spacing:2px;color:#C8960C;font-weight:800;margin-bottom:3px;font-family:monospace;}
+.hd-right{display:flex;align-items:center;gap:8px;}
+.hd-date{font-size:16px;font-weight:900;color:#fff;letter-spacing:-0.3px;}
+.save-btn{padding:6px 12px;border-radius:7px;border:none;background:#C8960C;color:#111;font-size:11px;font-weight:800;cursor:pointer;flex-shrink:0;}
+.save-btn.saved{background:#27AE60;color:#fff;}
+.mma-bar-wrap{background:rgba(255,255,255,0.06);border-radius:6px;padding:5px 10px;}
+.mma-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:3px;}
+.mma-label{font-size:9px;color:#C8960C;font-weight:800;letter-spacing:2px;font-family:monospace;}
+.mma-val{font-size:11px;font-weight:800;}
+.mma-track{height:3px;background:rgba(255,255,255,0.1);border-radius:2px;overflow:hidden;}
+.mma-fill{height:100%;border-radius:2px;background:#C8960C;transition:width 0.4s;}
+.wasted-row{margin-top:5px;font-size:9px;color:#555;font-family:monospace;}
+.ig-badge{display:inline-flex;align-items:center;gap:5px;background:rgba(200,150,12,0.1);border:1px solid rgba(200,150,12,0.2);border-radius:5px;padding:3px 9px;margin-top:5px;}
+.ig-label-sm{font-size:9px;color:#555;}
+.ig-count{font-size:13px;font-weight:900;color:#C8960C;}
+.tabs{display:flex;background:var(--w);border-bottom:1px solid var(--b);overflow-x:auto;position:sticky;top:0;z-index:99;}
+.tab{padding:11px 14px;font-size:11px;font-weight:700;color:var(--mu);border:none;background:transparent;cursor:pointer;white-space:nowrap;border-bottom:2px solid transparent;flex-shrink:0;}
+.tab.on{color:var(--t);border-bottom-color:#111;}
+.pg{display:none;padding:12px 14px 100px;max-width:680px;margin:0 auto;}
+#pg-pipeline{padding:12px 14px 0;max-width:none;overflow:hidden;}.pg.on{display:block;}
+.outcomes-card{background:#FFFBF0;border:1px solid #DDB830;border-radius:12px;padding:14px;margin-bottom:12px;}
+.oc-label{font-size:9px;font-weight:800;letter-spacing:2px;color:#C8960C;margin-bottom:10px;}
+.oc-row{display:flex;align-items:center;gap:10px;margin-bottom:7px;}
+.oc-num{font-size:12px;color:#C8960C;font-weight:900;font-family:monospace;width:22px;flex-shrink:0;}
+.oc-input{flex:1;background:rgba(255,255,255,0.8);border:1px solid var(--b);border-radius:6px;padding:7px 10px;color:var(--t);font-size:13px;font-family:inherit;}
+.frog-lbl{font-size:9px;color:var(--red);font-weight:800;letter-spacing:1.5px;margin-bottom:6px;margin-top:10px;padding-top:10px;border-top:1px solid rgba(200,150,12,0.2);}
+.frog-input{width:100%;background:#FFF5F0;border:1px solid rgba(192,57,43,0.3);border-radius:6px;padding:7px 10px;color:var(--red);font-size:13px;font-weight:600;font-family:inherit;}
+.audit-card{background:#0d1117;border:1px solid rgba(200,150,12,0.3);border-radius:12px;padding:14px;margin-bottom:12px;}
+.audit-title{font-size:9px;font-weight:800;letter-spacing:2px;color:#C8960C;margin-bottom:12px;font-family:monospace;}
+.audit-stat-row{display:flex;gap:8px;margin-bottom:10px;}
+.audit-stat{flex:1;background:rgba(255,255,255,0.05);border-radius:8px;padding:10px;text-align:center;}
+.audit-num{font-size:22px;font-weight:900;color:#fff;margin-bottom:2px;}
+.audit-num.gold{color:#C8960C;}.audit-num.green{color:#27AE60;}.audit-num.red{color:#C0392B;}
+.audit-lbl{font-size:8px;color:#555;font-weight:700;letter-spacing:0.5px;text-transform:uppercase;}
+.wasted-banner{background:rgba(192,57,43,0.1);border:1px solid rgba(192,57,43,0.2);border-radius:8px;padding:10px 12px;display:flex;justify-content:space-between;align-items:center;}
+.wb-text{font-size:12px;color:rgba(255,255,255,0.6);line-height:1.4;flex:1;}
+.wb-num{font-size:20px;font-weight:900;color:#C0392B;text-align:right;flex-shrink:0;}
+.wb-sub{font-size:9px;color:#555;text-align:right;}
+.income-gate-row{margin-top:10px;display:flex;justify-content:space-between;align-items:center;}
+.ig-label{font-size:11px;color:rgba(255,255,255,0.5);}
+.ig-input{background:rgba(255,255,255,0.06);border:1px solid rgba(200,150,12,0.3);border-radius:6px;padding:5px 10px;color:#C8960C;font-size:14px;font-weight:800;font-family:monospace;width:64px;text-align:center;}
+.block{background:var(--w);border:1px solid var(--b);border-left:4px solid #ccc;border-radius:8px;padding:11px 12px;margin-bottom:6px;transition:opacity 0.2s;}
+.block.done{opacity:0.42;}
+.block.mma-block{border-left-color:#C8960C !important;background:linear-gradient(to right,rgba(200,150,12,0.05),transparent 50%);}
+.bi{display:flex;gap:10px;align-items:flex-start;}
+.check{width:20px;height:20px;border-radius:50%;border:2px solid var(--b);background:transparent;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:2px;transition:all 0.15s;}
+.check.checked{background:#27AE60;border-color:#27AE60;}
+.chk-mark{font-size:9px;color:#fff;font-weight:900;display:none;}
+.check.checked .chk-mark{display:block;}
+.bb{flex:1;min-width:0;}
+.bm{display:flex;align-items:center;gap:6px;margin-bottom:3px;flex-wrap:wrap;}
+.bt{font-size:11px;color:var(--mu);font-family:monospace;font-weight:700;background:#F0F0EC;padding:2px 6px;border-radius:3px;flex-shrink:0;}
+.btag{font-size:8px;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:3px;flex-shrink:0;}
+.mma-badge{font-size:8px;font-weight:900;background:rgba(200,150,12,0.12);color:#C8960C;border:1px solid rgba(200,150,12,0.25);padding:1px 6px;border-radius:3px;letter-spacing:0.5px;}
+.btitle{font-size:13.5px;font-weight:700;color:var(--t);margin-bottom:2px;line-height:1.3;}
+.block.done .btitle{text-decoration:line-through;color:var(--mu);}
+.bnote{font-size:12px;color:var(--t2);line-height:1.6;}
+.bacts{display:flex;gap:4px;flex-shrink:0;}
+.act{width:26px;height:26px;border-radius:5px;border:1px solid var(--b);background:#F8F8F4;color:var(--mu);cursor:pointer;font-size:11px;display:flex;align-items:center;justify-content:center;}
+.act.del{background:#FFF0F0;border-color:#FFCCCC;color:#CC4444;}
+.ef{display:flex;flex-direction:column;gap:7px;}
+.er{display:flex;gap:7px;}
+.ei{width:100%;background:#F8F8F4;border:1px solid var(--b);border-radius:6px;padding:7px 9px;color:var(--t);font-size:13px;font-family:inherit;}
+.esel{flex:1;background:#F8F8F4;border:1px solid var(--b);border-radius:6px;padding:7px 9px;color:var(--t);font-size:12px;font-family:inherit;}
+.etm{width:86px;background:#F8F8F4;border:1px solid var(--b);border-radius:6px;padding:7px 9px;color:#C8960C;font-size:12px;font-family:monospace;font-weight:700;}
+.eta{width:100%;background:#F8F8F4;border:1px solid var(--b);border-radius:6px;padding:7px 9px;color:var(--t2);font-size:12px;font-family:inherit;resize:vertical;}
+.ed-done{background:#111;border:none;color:#fff;padding:8px;border-radius:6px;cursor:pointer;font-size:12px;font-weight:800;width:100%;}
+.mma-toggle{display:flex;align-items:center;gap:8px;padding:7px 10px;background:#FFFBF0;border:1px solid rgba(200,150,12,0.3);border-radius:6px;cursor:pointer;}
+.mma-toggle input{accent-color:#C8960C;width:16px;height:16px;}
+.mma-toggle-lbl{font-size:12px;font-weight:700;color:#C8960C;}
+.mma-toggle-sub{font-size:10px;color:#888;margin-left:auto;}
+.add-btn{width:100%;background:var(--w);border:1px dashed #C8960C;color:#C8960C;padding:11px;border-radius:8px;cursor:pointer;font-size:13px;font-weight:700;margin-top:8px;}
+.add-form{background:var(--w);border:1px dashed #C8960C;border-radius:10px;padding:14px;margin-top:7px;}
+.add-lbl{font-size:9px;color:#C8960C;font-weight:800;letter-spacing:2px;margin-bottom:10px;}
+.add-acts{display:flex;gap:8px;margin-top:8px;}
+.add-ok{flex:1;background:#111;border:none;color:#fff;padding:10px;border-radius:7px;cursor:pointer;font-size:13px;font-weight:800;}
+.add-x{background:#F8F8F4;border:1px solid var(--b);color:var(--mu);padding:10px 14px;border-radius:7px;cursor:pointer;font-size:13px;}
+.reset-btn{width:100%;background:#FFF5F5;border:1px solid #FFCCCC;color:#CC4444;padding:10px;border-radius:8px;cursor:pointer;font-size:12px;font-weight:700;margin-top:7px;}
+.ai-card{background:#0d1117;border:2px solid #C8960C;border-radius:14px;padding:16px;margin-bottom:14px;}
+.ai-lbl{font-size:9px;font-weight:800;letter-spacing:2px;color:#C8960C;margin-bottom:8px;font-family:monospace;}
+.ai-ttl{font-size:15px;font-weight:900;color:#fff;margin-bottom:5px;}
+.ai-sub{font-size:12px;color:#555;margin-bottom:12px;line-height:1.5;}
+.ai-upload{border:2px dashed #333;border-radius:10px;padding:20px;text-align:center;cursor:pointer;margin-bottom:10px;transition:border-color 0.2s;}
+.ai-upload:hover,.ai-upload.has-img{border-color:#C8960C;}
+.ai-build-btn{width:100%;padding:13px;border-radius:10px;border:none;background:#C8960C;color:#111;font-size:14px;font-weight:800;cursor:pointer;}
+.ai-build-btn:disabled{background:#333;color:#555;cursor:default;}
+.ai-status{font-size:12px;text-align:center;margin-top:8px;min-height:18px;}
+.ai-status.loading{color:#C8960C;}.ai-status.success{color:#27AE60;}.ai-status.error{color:#C0392B;}
+.week-row{display:flex;gap:4px;margin-bottom:12px;}
+.week-day{flex:1;text-align:center;}
+.wd-name{font-size:9px;color:var(--mu);font-weight:700;margin-bottom:3px;}
+.wd-bar{height:44px;border-radius:4px;background:#F0F0EC;position:relative;overflow:hidden;}
+.wd-fill{position:absolute;bottom:0;left:0;right:0;border-radius:4px;transition:height 0.4s;}
+.wd-fill.low{background:#C0392B;}.wd-fill.mid{background:#F39C12;}.wd-fill.high{background:#27AE60;}
+.wd-pct{font-size:9px;color:var(--mu);margin-top:3px;font-weight:700;}
+.wd-today{border:2px solid #C8960C;border-radius:6px;padding:1px;}
+.ns{background:var(--w);border:1px solid var(--b);border-radius:10px;padding:14px;margin-bottom:10px;}
+.ns-lbl{font-size:9px;font-weight:800;letter-spacing:2px;color:#C8960C;margin-bottom:8px;}
+.ns-ta{width:100%;background:#F8F8F4;border:1px solid var(--b);border-radius:7px;padding:9px 11px;color:var(--t);font-size:13px;font-family:inherit;line-height:1.7;resize:vertical;}
+.chief-aim{font-size:13px;color:#8B6914;line-height:1.85;font-style:italic;font-weight:500;}
+.goal-item{display:flex;gap:11px;padding:8px 0;border-bottom:1px solid #EEEEEE;align-items:flex-start;}
+.gnum{color:#7B68EE;font-family:monospace;font-size:11px;font-weight:800;flex-shrink:0;min-width:24px;}
+.gtxt{font-size:13px;color:var(--t);line-height:1.5;}
+.win-row{display:flex;align-items:center;gap:10px;margin-bottom:8px;}
+.add-section{margin-top:8px;}
+.btm{position:fixed;bottom:0;left:0;right:0;background:#111;padding:9px 14px env(safe-area-inset-bottom,10px);display:flex;justify-content:space-between;align-items:center;z-index:200;}
+.btm-hint{font-size:9px;color:#333;letter-spacing:0.3px;}
+.btm-save{padding:8px 18px;border-radius:7px;border:none;background:#C8960C;color:#111;font-size:11px;font-weight:800;cursor:pointer;}
+.btm-save.saved{background:#27AE60;color:#fff;}
+/* KANBAN BOARD */
+.kanban-wrap{display:flex;flex-direction:column;height:calc(100vh - 130px);}
+.kanban-topbar{display:flex;align-items:center;gap:8px;padding:0 0 10px;flex-shrink:0;}
+.pl-search{flex:1;background:#fff;border:1px solid var(--b);border-radius:8px;padding:8px 12px;color:var(--t);font-size:14px;font-family:inherit;}
+.pl-stats{display:flex;gap:6px;flex-shrink:0;}
+.pl-stat{background:var(--w);border:1px solid var(--b);border-radius:8px;padding:6px 10px;text-align:center;min-width:52px;}
+.pl-stat-num{font-size:16px;font-weight:900;line-height:1;}
+.pl-stat-lbl{font-size:7px;color:var(--mu);font-weight:700;letter-spacing:0.5px;text-transform:uppercase;margin-top:2px;}
+.kanban-board{display:flex;gap:10px;overflow-x:auto;overflow-y:hidden;flex:1;padding-bottom:12px;-webkit-overflow-scrolling:touch;}
+.kanban-board::-webkit-scrollbar{height:4px;}
+.kanban-board::-webkit-scrollbar-track{background:#F0F0EC;border-radius:2px;}
+.kanban-board::-webkit-scrollbar-thumb{background:#ccc;border-radius:2px;}
+.pipe-col{display:flex;flex-direction:column;min-width:220px;max-width:220px;height:100%;flex-shrink:0;}
+.pipe-col-hd{display:flex;align-items:center;gap:7px;padding:9px 10px;background:var(--w);border:1px solid var(--b);border-radius:10px 10px 0 0;border-bottom:3px solid #ccc;flex-shrink:0;}
+.pipe-dot{width:9px;height:9px;border-radius:50%;flex-shrink:0;}
+.pipe-col-name{font-size:11px;font-weight:800;flex:1;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pipe-col-count{font-size:10px;color:var(--mu);background:#F0F0EC;padding:2px 6px;border-radius:8px;font-weight:700;flex-shrink:0;}
+.pipe-col-cards{border:1px solid var(--b);border-top:none;border-radius:0 0 10px 10px;overflow-y:auto;flex:1;min-height:60px;transition:background 0.15s,border-color 0.15s;background:var(--w);}
+.pipe-col-cards.drag-over{background:rgba(200,150,12,0.08) !important;border-color:#C8960C !important;}
+.pcard{padding:10px 11px;border-bottom:1px solid var(--b);cursor:grab;user-select:none;-webkit-user-select:none;transition:opacity 0.15s;background:var(--w);}
+.pcard:last-child{border-bottom:none;}
+.pcard.dragging{opacity:0.3;cursor:grabbing;}
+.pcard:active:not(.dragging){background:#FAFAF8;}
+.pc-name{font-size:13px;font-weight:800;margin-bottom:2px;line-height:1.3;}
+.pc-vol{font-size:9px;color:var(--mu);background:#F0F0EC;padding:1px 5px;border-radius:3px;display:inline-block;margin-bottom:3px;}
+.pc-sub{font-size:10px;color:var(--mu);margin-bottom:3px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.pc-row{display:flex;gap:5px;flex-wrap:wrap;align-items:center;margin-top:3px;}
+.pc-chip{font-size:10px;color:var(--t2);}
+.pc-warn{font-size:9px;font-weight:700;color:var(--red);}
+.fu-badge{font-size:8px;font-weight:800;padding:2px 5px;border-radius:3px;}
+.fu-o{background:#FFF0F0;color:#C0392B;border:1px solid #FFCCCC;}
+.fu-t{background:#FFF8E1;color:#E65100;border:1px solid #FFECB3;}
+.fu-k{background:#F0FBF6;color:#27AE60;border:1px solid #A9DFBF;}
+.pl-hint{font-size:9px;color:var(--mu);padding:0 0 6px;letter-spacing:0.3px;}
+.cmodal-ov{position:fixed;inset:0;background:rgba(0,0,0,0.55);z-index:500;display:none;align-items:flex-end;}
+.cmodal-ov.on{display:flex;}
+.cmodal{background:var(--w);border-radius:20px 20px 0 0;width:100%;max-height:92vh;overflow-y:auto;padding-bottom:env(safe-area-inset-bottom,20px);}
+.cm-hdr{padding:12px 14px;border-bottom:1px solid var(--b);display:flex;justify-content:space-between;align-items:flex-start;}
+.cm-name{font-size:19px;font-weight:900;}
+.cm-co{font-size:12px;color:var(--mu);margin-top:1px;}
+.cm-close{background:transparent;border:none;font-size:22px;color:var(--mu);cursor:pointer;padding:2px 6px;}
+.cm-body{padding:14px;}
+.cm-sec{margin-bottom:16px;}
+.cm-sec-lbl{font-size:9px;font-weight:800;letter-spacing:2px;text-transform:uppercase;color:#C8960C;margin-bottom:8px;}
+.cm-fi{width:100%;background:#F8F8F4;border:1px solid var(--b);border-radius:7px;padding:8px 10px;color:var(--t);font-size:13px;font-family:inherit;margin-bottom:7px;}
+.cm-g2{display:grid;grid-template-columns:1fr 1fr;gap:8px;}
+.cm-fl{font-size:10px;color:var(--mu);font-weight:700;margin-bottom:4px;}
+.cm-ta{width:100%;background:#F8F8F4;border:1px solid var(--b);border-radius:7px;padding:8px 10px;color:var(--t);font-size:13px;font-family:inherit;resize:vertical;min-height:70px;}
+.cm-stage-sel{width:100%;background:#F8F8F4;border:1px solid var(--b);border-radius:7px;padding:8px 10px;color:var(--t);font-size:13px;font-family:inherit;}
+.cm-save-btn{width:100%;padding:13px;border-radius:10px;border:none;background:#111;color:#fff;font-size:14px;font-weight:800;cursor:pointer;margin-top:4px;}
+.cm-x-btn{width:100%;padding:10px;border-radius:8px;border:1px solid var(--b);background:transparent;color:var(--mu);font-size:12px;font-weight:700;cursor:pointer;margin-top:6px;}
+.cn-box{background:#F9F9F7;border:1px solid var(--b);border-radius:7px;padding:10px;margin-bottom:7px;}
+.cn-hd{display:flex;justify-content:space-between;margin-bottom:4px;}
+.cn-tag{font-size:8px;font-weight:800;letter-spacing:1px;padding:2px 7px;border-radius:3px;color:#fff;}
+.cn-dt{font-size:10px;color:var(--mu);}
+.cn-txt{font-size:12.5px;color:var(--t2);line-height:1.6;}
+.nt-row{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:8px;}
+.nt{font-size:10px;font-weight:700;padding:4px 9px;border-radius:4px;border:1px solid var(--b);background:var(--w);cursor:pointer;}
+.nt.on{background:#111;color:#fff;border-color:#111;}
+.ig-warn{font-size:11px;color:#C0392B;font-weight:700;margin-top:4px;}
+
+/* ── TO-DO LIST ── */
+.todo-add-row{display:flex;gap:8px;margin-bottom:14px;}
+.todo-input{flex:1;background:#fff;border:1px solid var(--b);border-radius:8px;padding:10px 13px;color:var(--t);font-size:14px;font-family:inherit;}
+.todo-add-btn{padding:10px 16px;border-radius:8px;border:none;background:#C8960C;color:#111;font-size:13px;font-weight:800;cursor:pointer;flex-shrink:0;}
+.todo-section{margin-bottom:20px;}
+.todo-sec-lbl{font-size:9px;font-weight:800;letter-spacing:2px;color:var(--mu);margin-bottom:8px;font-family:monospace;}
+.todo-item{display:flex;align-items:flex-start;gap:10px;padding:10px 13px;background:#fff;border:1px solid var(--b);border-radius:8px;margin-bottom:6px;}
+.todo-item.done-item{opacity:0.45;}
+.todo-check{width:22px;height:22px;border-radius:50%;border:2px solid var(--b);background:transparent;flex-shrink:0;cursor:pointer;display:flex;align-items:center;justify-content:center;margin-top:1px;transition:all 0.15s;}
+.todo-check.checked{background:#27AE60;border-color:#27AE60;}
+.todo-check-mark{font-size:10px;color:#fff;display:none;font-weight:900;}
+.todo-check.checked .todo-check-mark{display:block;}
+.todo-text{flex:1;font-size:13.5px;color:var(--t);line-height:1.4;padding-top:1px;}
+.todo-item.done-item .todo-text{text-decoration:line-through;color:var(--mu);}
+.todo-del{background:transparent;border:none;color:#ddd;cursor:pointer;font-size:16px;padding:0 2px;flex-shrink:0;line-height:1;}
+.todo-del:hover{color:#C0392B;}
+.todo-clear-btn{width:100%;padding:9px;border-radius:7px;border:1px solid #FFCCCC;background:#FFF5F5;color:#C0392B;font-size:12px;font-weight:700;cursor:pointer;margin-top:4px;}
 </style>
 </head>
 <body>
 
-<div class="pin-overlay" id="pinOverlay">
-  <div class="pin-label">PERSONAL BLUEPRINT</div>
-  <div class="pin-title">Enter PIN</div>
-  <div class="pin-sub">Your blueprint is private.</div>
+<div class="pin-ov" id="pinOv">
+  <div class="pin-lbl">DAILY OPERATING SYSTEM</div>
+  <div class="pin-ttl">Enter PIN</div>
+  <div class="pin-sub">Your planner is private.</div>
   <div class="pin-dots" id="pinDots">
     <div class="pin-dot" id="pd0"></div><div class="pin-dot" id="pd1"></div>
     <div class="pin-dot" id="pd2"></div><div class="pin-dot" id="pd3"></div>
@@ -93,401 +233,983 @@ html,body{background:var(--bg);font-family:-apple-system,sans-serif;color:var(--
     <button class="pin-btn" onclick="pinPress('7')">7</button>
     <button class="pin-btn" onclick="pinPress('8')">8</button>
     <button class="pin-btn" onclick="pinPress('9')">9</button>
-    <button class="pin-btn z" onclick="pinPress('0')">0</button>
-    <button class="pin-btn d" onclick="pinDel()">&#x232b;</button>
+    <button class="pin-btn pin-z" onclick="pinPress('0')">0</button>
+    <button class="pin-btn pin-del" onclick="pinDel()">&#x232b;</button>
   </div>
-  <div class="pin-error" id="pinError"></div>
+  <div class="pin-err" id="pinErr"></div>
 </div>
 
+<input type="file" id="calUpload" accept="image/*" style="display:none" onchange="handleImg(event)" />
+
 <div class="hd">
-  <div class="hd-lbl">PERSONAL BLUEPRINT &#8212; JULY 2026</div>
-  <div class="hd-ttl">Your Operating System</div>
-  <div class="hd-sub">Matt Weaver Team &middot; Originate for Life &middot; CrossCountry Mortgage</div>
+  <div class="hd-top">
+    <div>
+      <div class="hd-lbl">DAILY OPERATING SYSTEM</div>
+      <div class="hd-date" id="hdDate">Loading...</div>
+    </div>
+    <div class="hd-right">
+      <button onclick="toggleSettings()" style="width:32px;height:32px;border-radius:8px;border:none;background:rgba(255,255,255,0.08);color:#888;font-size:16px;cursor:pointer;flex-shrink:0;" title="Settings">&#9881;</button>
+      <button class="save-btn" id="saveBtn" onclick="saveData()">SAVE</button>
+    </div>
+  </div>
+  <div class="mma-bar-wrap">
+    <div class="mma-row">
+      <span class="mma-label">MMA SCORE</span>
+      <span class="mma-val" id="mmaVal" style="color:#C8960C">0%</span>
+    </div>
+    <div class="mma-track"><div class="mma-fill" id="mmaFill" style="width:0%"></div></div>
+    <div class="wasted-row" id="wastedVal"></div>
+    <div class="ig-badge">
+      <span class="ig-label-sm">Income goals surfaced (Call 1s):</span>
+      <span class="ig-count" id="igCount">0</span>
+    </div>
+  </div>
 </div>
 
 <div class="tabs">
-  <button class="tab on" onclick="sw('start',this)">&#128293; Start Here</button>
-  <button class="tab" onclick="sw('daily',this)">&#9201; Daily Schedule</button>
-  <button class="tab" onclick="sw('call1',this)">&#128222; Call 1 OS</button>
-  <button class="tab" onclick="sw('workday',this)">&#128188; Workday OS</button>
-  <button class="tab" onclick="sw('body',this)">&#9889; Body & Knee</button>
-  <button class="tab" onclick="sw('sleep',this)">&#127769; Sleep Fix</button>
-  <button class="tab" onclick="sw('mindset',this)">&#129504; Mindset</button>
-  <button class="tab" onclick="sw('weekly',this)">&#128200; Weekly OS</button>
+  <button class="tab on" onclick="sw('today',this)">&#128203; Today</button>
+  <button class="tab" onclick="sw('tomorrow',this)">&#9197; Tomorrow</button>
+  <button class="tab" onclick="sw('audit',this)">&#128200; Audit</button>
+  <button class="tab" onclick="sw('pipeline',this)">&#128222; Pipeline</button>
+  <button class="tab" onclick="sw('todos',this)">&#9989; To-Do</button>
+  <button class="tab" onclick="sw('notes',this)">&#128221; Notes</button>
 </div>
 
-<!-- START HERE -->
-<div class="pg on" id="tab-start">
-  <div class="alert" style="background:#FFF5F0;border:1px solid var(--red);">
-    <span class="al" style="color:var(--red)">START HERE &#8212;</span>
-    Read this every morning before anything else. This is your foundation.
-  </div>
+<div class="pg on" id="pg-today"></div>
+<div class="pg" id="pg-tomorrow"></div>
+<div class="pg" id="pg-audit"></div>
+<div class="pg" id="pg-pipeline"></div>
+<div class="pg" id="pg-todos"></div>
+<div class="pg" id="pg-notes"></div>
 
-  <div class="sh"><div class="sh-bar"></div><div>
-    <div class="sh-title">Your Definite Chief Aim</div>
-    <div class="sh-sub">Read out loud every single morning. Non-negotiable.</div>
-  </div></div>
-  <div class="card">
-    <p class="ca">"By May 12, 2027 I earn $250,000 or more annually, I own my first home with Grace, I weigh 195 lbs, I am completely debt-free, and I am healthy, confident, and happy. I achieve this by executing my daily system without negotiation, every single day."</p>
-    <p style="margin-top:12px;font-size:12px;color:#888;">The subconscious cannot distinguish between a vividly repeated belief and current reality. Read this out loud every morning.</p>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div>
-    <div class="sh-title">10 Goals &#8212; Rewrite By Hand Every Morning</div>
-    <div class="sh-sub">4 minutes. Burns into your subconscious. Non-negotiable.</div>
-  </div></div>
-  <div class="card">
-    <div class="goal-item"><div class="gn">01</div><div class="gt">I earn $20,000 per month by December 31, 2026</div></div>
-    <div class="goal-item"><div class="gn">02</div><div class="gt">I am completely debt-free &#8212; all $30,000 cleared &#8212; by May 12, 2027</div></div>
-    <div class="goal-item"><div class="gn">03</div><div class="gt">I weigh 195 lbs by May 12, 2027</div></div>
-    <div class="goal-item"><div class="gn">04</div><div class="gt">I own my first home by May 12, 2027</div></div>
-    <div class="goal-item"><div class="gn">05</div><div class="gt">Grace and I are building our life together in our home</div></div>
-    <div class="goal-item"><div class="gn">06</div><div class="gt">I have $50,000 in savings by May 12, 2027</div></div>
-    <div class="goal-item"><div class="gn">07</div><div class="gt">I run every prospecting call with a clean income goal conversation &#8212; zero premature pitches</div></div>
-    <div class="goal-item"><div class="gn">08</div><div class="gt">I lift 5 days per week and walk every workday &#8212; 195 lbs by May 12, 2027</div></div>
-    <div class="goal-item"><div class="gn">09</div><div class="gt">I am completely free from weed by December 31, 2026</div></div>
-    <div class="goal-item"><div class="gn">10</div><div class="gt">I am the most reliable and precise operator on the Matt Weaver Team by September 2026</div></div>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">5 Non-Negotiables &#8212; Your Daily Floor</div></div></div>
-  <div class="card">
-    <div class="ii"><div class="in">01</div><div class="it">Wake at 6 AM every day. This anchors everything downstream.</div></div>
-    <div class="ii"><div class="in">02</div><div class="it">Hit 200g protein daily. This is the single biggest lever for your weight goal.</div></div>
-    <div class="ii"><div class="in">03</div><div class="it">Lift first, walk after. Every training day, every time.</div></div>
-    <div class="ii"><div class="in">04</div><div class="it">Surface income goal on every LO call before showing the model. Zero exceptions.</div></div>
-    <div class="ii"><div class="in">05</div><div class="it">Write 3 wins before bed. Even on your worst day. Especially on your worst day.</div></div>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">The 4 Identity Commitments</div></div></div>
-  <div class="card">
-    <div class="ii"><div class="in">01</div><div class="it">"I do not negotiate with the version of me that wants to stay comfortable. That version has already had its turn."</div></div>
-    <div class="ii"><div class="in">02</div><div class="it">"I run every prospecting call clean. Income goal before the model. Every time. The pipeline depends on it."</div></div>
-    <div class="ii"><div class="in">03</div><div class="it">"The gap between 230 and 195 is 35 lbs. That is math and time. I lift first, I walk after, I hit my protein. The rest is automatic."</div></div>
-    <div class="ii"><div class="in">04</div><div class="it">"$30K is a number, not a sentence. I am executing my way out of it one day at a time."</div></div>
-  </div>
-  <a class="nl" href="planner.html">Open Daily Planner &#8594;</a>
-</div>
-
-<!-- DAILY SCHEDULE -->
-<div class="pg" id="tab-daily">
-  <div class="alert" style="background:#FFFBF0;border:1px solid var(--gold);">
-    <span class="al" style="color:var(--gold)">RULE &#8212;</span>
-    Lift first. Walk after. Always. Lifting depleted tanks output. Walk after lifting burns fat on already-depleted glycogen.
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Morning &#8212; Before The World Touches You</div></div></div>
-  <div class="card">
-    <div class="bi"><div class="bt">5:30 AM</div><div class="bb"><div class="br"><span class="btl">Sunrise Lamp On</span><span class="btag" style="background:#5D6D7E;color:#fff">AUTO</span></div><div class="bn">Cortisol rises naturally before you open your eyes.</div></div></div>
-    <div class="bi"><div class="bt">6:00 AM</div><div class="bb"><div class="br"><span class="btl u">Wake &#8212; Hard Start</span><span class="btag" style="background:#C8960C;color:#111">NON-NEG</span></div><div class="bn">Feet on floor. No snooze. 16oz water immediately. Phone face down 30 min.</div></div></div>
-    <div class="bi"><div class="bt">6:10 AM</div><div class="bb"><div class="br"><span class="btl">Chief Aim + 10 Goals</span><span class="btag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="bn">Read chief aim out loud. Rewrite 10 goals by hand. 4 minutes total.</div></div></div>
-    <div class="bi"><div class="bt">6:30 AM</div><div class="bb"><div class="br"><span class="btl">Read 20 Min + Coffee</span><span class="btag" style="background:#76D7C4;color:#111">READING</span></div><div class="bn">Tracy, Hill, Hardy, OFL craft. Physical book only. No phone.</div></div></div>
-    <div class="bi"><div class="bt">6:50 AM</div><div class="bb"><div class="br"><span class="btl">3 Outcomes + Frog</span><span class="btag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="bn">3 specific pipeline actions. Names and actions &#8212; not vague goals. Paper only.</div></div></div>
-    <div class="bi"><div class="bt">7:00 AM</div><div class="bb"><div class="br"><span class="btl">GYM &#8212; Lift First</span><span class="btag" style="background:#E74C3C;color:#fff">GYM</span></div><div class="bn">50 min lifting. See Body tab for split. No walk before lifting.</div></div></div>
-    <div class="bi"><div class="bt">7:55 AM</div><div class="bb"><div class="br"><span class="btl">Post-Lift Walk &#8212; 20 Min</span><span class="btag" style="background:#27AE60;color:#fff">WALK</span><span class="wb">&#128694; PAD</span></div><div class="bn">Glycogen depleted from lifting = maximum fat burning. This is the most effective walk of your day.</div></div></div>
-    <div class="bi"><div class="bt">8:20 AM</div><div class="bb"><div class="br"><span class="btl">Shower + Dressed</span><span class="btag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="bn">Cold 30s finish. Fully dressed before leaving.</div></div></div>
-    <div class="bi"><div class="bt">8:35 AM</div><div class="bb"><div class="br"><span class="btl">Meal 1</span><span class="btag" style="background:#F7DC6F;color:#111">NUTRITION</span></div><div class="bn">5 scrambled eggs + banana. 50g protein. Consistent. Non-negotiable.</div></div></div>
-    <div class="bi"><div class="bt">8:50 AM</div><div class="bb"><div class="br"><span class="btl">Drive / Commute</span><span class="btag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="bn">Car = classroom. Audio book or OFL content. Say income gate question 3x out loud.</div></div></div>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Workday &#8212; MMAs Protected, Pad Built In</div></div></div>
-  <div class="card">
-    <div class="bi"><div class="bt">9:00 AM</div><div class="bb"><div class="br"><span class="btl">LO Prospecting Block 1 &#8212; 90 Min</span><span class="btag" style="background:#F5C518;color:#111">&#9733; MMA</span></div><div class="bn">Income goal on EVERY call. No comp model first. Log immediately after each call.</div></div></div>
-    <div class="bi"><div class="bt">10:30 AM</div><div class="bb"><div class="br"><span class="btl">Walk Break &#8212; 20 Min</span><span class="btag" style="background:#27AE60;color:#fff">WALK</span><span class="wb">&#128694; PAD</span></div><div class="bn">No phone. Cortisol reset. Blood sugar stable. Back sharp for afternoon MMAs.</div></div></div>
-    <div class="bi"><div class="bt">10:50 AM</div><div class="bb"><div class="br"><span class="btl">Follow-Up Block &#8212; 50 Min</span><span class="btag" style="background:#F5C518;color:#111">&#9733; MMA</span></div><div class="bn">Day 1/3/7/14 cadence. Text first, call if no response.</div></div></div>
-    <div class="bi"><div class="bt">11:40 AM</div><div class="bb"><div class="br"><span class="btl">CRM + Admin &#8212; 20 Min</span><span class="btag" style="background:#BFC9CA;color:#111">ADMIN</span></div><div class="bn">90s per call logged. Stage accuracy. Handoffs coordinated.</div></div></div>
-    <div class="bi"><div class="bt">12:00 PM</div><div class="bb"><div class="br"><span class="btl">Meal 2 + Walk &#8212; 30 Min</span><span class="btag" style="background:#F7DC6F;color:#111">NUTRITION</span><span class="wb">&#128694; PAD</span></div><div class="bn">Ground beef + rice. Then 20 min on pad. Post-meal walk keeps blood sugar flat and kills afternoon hunger.</div></div></div>
-    <div class="bi"><div class="bt">12:50 PM</div><div class="bb"><div class="br"><span class="btl">RE Prospecting Block</span><span class="btag" style="background:#8E44AD;color:#fff">&#9733; MMA</span></div><div class="bn">Coordinate with Pat. Never mix LO and RE tracks in same Paladin sequence.</div></div></div>
-    <div class="bi"><div class="bt">1:20 PM</div><div class="bb"><div class="br"><span class="btl">Research + Call Prep</span><span class="btag" style="background:#5DADE2;color:#111">RESEARCH</span></div><div class="bn">LinkedIn, production numbers, previous call notes before afternoon blocks.</div></div></div>
-    <div class="bi"><div class="bt">1:40 PM</div><div class="bb"><div class="br"><span class="btl">Follow-Up Block 2</span><span class="btag" style="background:#F5C518;color:#111">&#9733; MMA</span></div><div class="bn">Re-engage stalled pipeline. Text preferred for afternoon.</div></div></div>
-    <div class="bi"><div class="bt">2:10 PM</div><div class="bb"><div class="br"><span class="btl">Scheduled Calls Window</span><span class="btag" style="background:#E67E22;color:#fff">&#9733; MMA</span></div><div class="bn">Decision calls, pro formas, Call 3s with Mike and Dave.</div></div></div>
-    <div class="bi"><div class="bt">3:00 PM</div><div class="bb"><div class="br"><span class="btl">Meal 3 + Walk &#8212; 15 Min</span><span class="btag" style="background:#F7DC6F;color:#111">NUTRITION</span><span class="wb">&#128694; PAD</span></div><div class="bn">Chicken + cottage cheese. Walk on pad after. Second post-meal walk.</div></div></div>
-    <div class="bi"><div class="bt">3:20 PM</div><div class="bb"><div class="br"><span class="btl">Pipeline Audit &#8212; 30 Min</span><span class="btag" style="background:#2ECC71;color:#111">PIPELINE</span></div><div class="bn">Every active candidate. Stage correct? Income goal logged? Next touch scheduled?</div></div></div>
-    <div class="bi"><div class="bt">3:50 PM</div><div class="bb"><div class="br"><span class="btl">LO Prospecting Block 2</span><span class="btag" style="background:#F5C518;color:#111">&#9733; MMA</span></div><div class="bn">Warm re-engagements and new dials.</div></div></div>
-    <div class="bi"><div class="bt">4:30 PM</div><div class="bb"><div class="br"><span class="btl">Tracy Two Questions + Walk</span><span class="btag" style="background:#F5C518;color:#111">REVIEW</span><span class="wb">&#128694; PAD</span></div><div class="bn">15 min walk. (1) What did I do right? (2) What would I do differently? Wind down while moving.</div></div></div>
-    <div class="bi"><div class="bt">5:00 PM</div><div class="bb"><div class="br"><span class="btl">Screenshot &#8594; AI Builder &#8594; Plan Tomorrow</span><span class="btag" style="background:#5D6D7E;color:#fff">ROUTINE</span></div><div class="bn">Screenshot calendar. Upload to planner AI builder. Set 3 outcomes + frog for tomorrow.</div></div></div>
-    <div class="bi"><div class="bt">6:00 PM</div><div class="bb"><div class="br"><span class="btl u">HARD STOP</span><span class="btag" style="background:#C0392B;color:#fff">NON-NEG</span></div><div class="bn">Laptop closed. No work after 6 PM. Evening is personal time with Grace.</div></div></div>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div>
-    <div class="sh-title">Walking Pad Daily Total</div>
-    <div class="sh-sub">~90 min built into dead time. Zero extra time cost. ~4.5 miles/day.</div>
-  </div></div>
-  <div class="card">
-    <div class="row"><div class="ri"><div class="rl">7:55 AM &#8212; Post-lift (most effective fat burn)</div><div class="rv" style="color:var(--green)">20 min</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">10:30 AM &#8212; Cortisol reset break</div><div class="rv" style="color:var(--green)">20 min</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">12:00 PM &#8212; Post-meal (blood sugar control)</div><div class="rv" style="color:var(--green)">20 min</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">3:00 PM &#8212; Post-meal</div><div class="rv" style="color:var(--green)">15 min</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">4:30 PM &#8212; Wind-down review</div><div class="rv" style="color:var(--green)">15 min</div></div></div>
-    <div class="row" style="background:#F0FBF6;border-color:#A9DFBF;"><div class="ri"><div class="rl" style="font-weight:800;">Daily Total</div><div class="rv" style="color:var(--green);font-size:16px;">~90 min / ~4.5 mi</div></div><div class="rs">At 3 mph = ~300 cal/day extra = 2,100/week = ~0.6 lb fat/week from walking alone</div></div>
-  </div>
-  <a class="nl" href="planner.html">Open Daily Planner &#8594;</a>
-</div>
-
-<!-- CALL 1 OS -->
-<div class="pg" id="tab-call1">
-  <div class="alert" style="background:#FFF5F0;border:1px solid var(--red);">
-    <span class="al" style="color:var(--red)">RULE #1 &#8212;</span>
-    Income goal surfaces before any comp model. Every call. No exceptions.
-  </div>
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">5-Stage Call 1 Structure</div></div></div>
-  <div class="card">
-    <div class="row"><div class="ri"><div class="rl"><b>Stage 1</b> &#8212; Opener + Rapport</div><div class="rv">2 min</div></div><div class="rs">Earn the right to ask questions. Peer-to-peer. No recruiter language.</div></div>
-    <div class="row"><div class="ri"><div class="rl"><b>Stage 2</b> &#8212; Discovery</div><div class="rv">10 min</div></div><div class="rs">Candidate talks 70%. Current setup, production, named constraint. Do not move until constraint is named.</div></div>
-    <div class="row"><div class="ri"><div class="rl"><b>Stage 3</b> &#8212; Model Intro</div><div class="rv">5 min</div></div><div class="rs">Three points only, connected to their discovery. No math yet.</div></div>
-    <div class="row"><div class="ri"><div class="rl"><b>Stage 4</b> &#8212; Income Goals</div><div class="rv" style="color:var(--red)">MANDATORY</div></div><div class="rs">"Before I walk you through what this looks like &#8212; what are you currently earning and where do you need to be in the next 12 months?" Gross first, take-home clarified. Never suggest a number.</div></div>
-    <div class="row"><div class="ri"><div class="rl"><b>Stage 5</b> &#8212; Close for Call 2</div><div class="rv">2 min</div></div><div class="rs">Specific date and time booked before hanging up. Not a decision ask &#8212; a logical next step.</div></div>
-  </div>
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Required Handoff Package</div></div></div>
-  <div class="card">
-    <div class="ii"><div class="in">01</div><div class="it">Current income (gross + take-home confirmed)</div></div>
-    <div class="ii"><div class="in">02</div><div class="it">Target income (12-month goal stated by candidate)</div></div>
-    <div class="ii"><div class="in">03</div><div class="it">Timeline and stated reason for considering a move</div></div>
-    <div class="ii"><div class="in">04</div><div class="it">Named constraint &#8212; what is actually capping them right now</div></div>
-  </div>
-  <a class="nl" href="planner.html">Open Daily Planner &#8594;</a>
-</div>
-
-<!-- WORKDAY OS -->
-<div class="pg" id="tab-workday">
-  <div class="sh"><div class="sh-bar"></div><div>
-    <div class="sh-title">The MMA Principle</div>
-    <div class="sh-sub">Your calendar reveals your strategy. Every block is an MMA or support work. MMAs fill the calendar first.</div>
-  </div></div>
-  <div class="card">
-    <div class="row" style="background:#FFFBF0;border-color:#DDB830;"><div class="ri"><div class="rl" style="font-weight:800;color:var(--gold)">&#9733; MMA Blocks</div></div><div class="rs">LO Prospecting, Follow-Up, Decision Calls, Scheduled Calls, RE Prospecting. Fill calendar with these first. Every gap is inventory.</div></div>
-    <div class="row"><div class="ri"><div class="rl">Support Blocks</div></div><div class="rs">CRM, research, admin, pipeline audit. Necessary but secondary. Delegate what you can.</div></div>
-    <div class="row" style="background:#FFF5F0;border-color:#FFCCCC;"><div class="ri"><div class="rl" style="color:var(--red);font-weight:800;">Wasted Inventory</div></div><div class="rs">1 hour/day wasted = 9 work weeks/year. Every gap in your calendar is a strategy &#8212; a bad one.</div></div>
-  </div>
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Income Gate &#8212; #1 Daily Metric</div></div></div>
-  <div class="card">
-    <div class="row"><div class="ri"><div class="rl">The question</div></div><div class="rs">"Before I walk you through what this looks like &#8212; what are you currently earning and where do you need to be in the next 12 months?"</div></div>
-    <div class="row"><div class="ri"><div class="rl">Target</div><div class="rv" style="color:var(--gold)">Every LO call</div></div></div>
-    <div class="row" style="background:#FFF5F0;border-color:#FFCCCC;"><div class="ri"><div class="rl">Failure mode</div><div class="rv" style="color:var(--red)">Zero exceptions</div></div><div class="rs">No comp model, no pro forma, no watermelon until income goals are confirmed.</div></div>
-  </div>
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Call Sequence</div></div></div>
-  <div class="card">
-    <div class="row"><div class="ri"><div class="rl"><b>Call 1 (Pat)</b></div><div class="rv">Qualify + income gate</div></div></div>
-    <div class="row"><div class="ri"><div class="rl"><b>Call 2</b></div><div class="rv">Pro forma + operations</div></div></div>
-    <div class="row"><div class="ri"><div class="rl"><b>Call 3 (Mike + Dave)</b></div><div class="rv">Peer validation</div></div></div>
-    <div class="row"><div class="ri"><div class="rl"><b>Call 4</b></div><div class="rv">Decision conversation</div></div><div class="rs">Yes, hard no, or dated timeline. No open-ended nurture.</div></div>
-  </div>
-  <a class="nl" href="planner.html">Open Daily Planner &#8594;</a>
-</div>
-
-<!-- BODY & KNEE -->
-<div class="pg" id="tab-body">
-  <div class="alert" style="background:#FFF5F0;border:1px solid var(--red);">
-    <span class="al" style="color:var(--red)">STATUS &#8212;</span>
-    230 lbs. Goal: 195. 35 lbs. Patellar tendinitis. No running. Lift first, walk after, every time.
-  </div>
-
-  <div class="alert" style="background:#F0FBF6;border:1px solid #A9DFBF;">
-    <span class="al" style="color:var(--green)">THIS WEEK (Aug 2-8) &#8212;</span>
-    Chest/Tri done Sunday Aug 2. Shift everything forward one day this week only. Back to normal Mon Aug 10.
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">This Week &#8212; Aug 2-8 (Shifted)</div></div></div>
-  <div class="card">
-    <div class="wo"><div class="wd">SUN AUG 2 &#10003;</div><div class="wn">Chest + Triceps &#8212; DONE</div><div class="wt">DB Bench 4x10 | Incline DB 3x10 | Cable Fly 3x12 | Tricep Pushdown 3x15 | Overhead Extension 3x12</div></div>
-    <div class="wo"><div class="wd">MON AUG 3</div><div class="wn">Back + Biceps</div><div class="wt">Lat Pulldown 4x10 | Seated Row 3x12 | Single-Arm Row 3x10 | Face Pulls 3x15 | DB Curl 3x12</div></div>
-    <div class="wo"><div class="wd">TUE AUG 4</div><div class="wn">Shoulders + Core</div><div class="wt">DB Shoulder Press 4x10 | Lateral Raises 3x15 | Front Raise 3x12 | Plank 3x45s | Dead Bug 3x10</div></div>
-    <div class="wo"><div class="wd">WED AUG 5</div><div class="wn">Lower Body &#8212; Knee-Safe</div><div class="wt">Hip Thrusts 4x12 | Seated Leg Curl 4x12 | Calf Raises 4x20 | Wall Sit 3x30s | Straight Leg Raise 3x15</div></div>
-    <div class="wo"><div class="wd">THU AUG 6</div><div class="wn">Full Body</div><div class="wt">DB Bench 3x10 | Lat Pulldown 3x10 | Hip Thrusts 3x12 | Lateral Raises 3x15 | Farmer Carries 3x40 steps | Plank 3x45s</div></div>
-    <div class="wo"><div class="wd">FRI AUG 7</div><div class="wn">Active Recovery &#8212; Long Walk</div><div class="wt">45-60 min walk. No lifting. Stretch + foam roll.</div></div>
-    <div class="wo"><div class="wd">SAT AUG 8</div><div class="wn">Rest + Meal Prep</div><div class="wt">Full recovery. Grocery run. Prep ground beef + rice + veg for the week.</div></div>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Normal Weekly Split &#8212; From Aug 10</div></div></div>
-  <div class="card">
-    <div class="wo"><div class="wd">MONDAY</div><div class="wn">Chest + Triceps</div><div class="wt">DB Bench 4x10 | Incline DB 3x10 | Cable Fly 3x12 | Tricep Pushdown 3x15 | Overhead Extension 3x12</div></div>
-    <div class="wo"><div class="wd">TUESDAY</div><div class="wn">Back + Biceps</div><div class="wt">Lat Pulldown 4x10 | Seated Row 3x12 | Single-Arm Row 3x10 | Face Pulls 3x15 | DB Curl 3x12</div></div>
-    <div class="wo"><div class="wd">WEDNESDAY</div><div class="wn">Shoulders + Core</div><div class="wt">DB Shoulder Press 4x10 | Lateral Raises 3x15 | Front Raise 3x12 | Plank 3x45s | Dead Bug 3x10</div></div>
-    <div class="wo"><div class="wd">THURSDAY</div><div class="wn">Lower Body &#8212; Knee-Safe</div><div class="wt">Hip Thrusts 4x12 | Seated Leg Curl 4x12 | Calf Raises 4x20 | Wall Sit 3x30s | Straight Leg Raise 3x15</div></div>
-    <div class="wo"><div class="wd">FRIDAY</div><div class="wn">Full Body</div><div class="wt">DB Bench 3x10 | Lat Pulldown 3x10 | Hip Thrusts 3x12 | Lateral Raises 3x15 | Farmer Carries 3x40 steps | Plank 3x45s</div></div>
-    <div class="wo"><div class="wd">SATURDAY</div><div class="wn">Active Recovery &#8212; Long Walk</div><div class="wt">45-60 min walk. No lifting. Stretch + foam roll.</div></div>
-    <div class="wo"><div class="wd">SUNDAY</div><div class="wn">Rest + Meal Prep</div><div class="wt">Full recovery. Weekly review. Grocery + food prep.</div></div>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div>
-    <div class="sh-title">Training Phases &#8212; Aug 2026 to May 2027</div>
-    <div class="sh-sub">Each phase builds on the last. Don&#8217;t skip ahead.</div>
-  </div></div>
-
-  <div style="background:#0d1117;border:2px solid #C8960C;border-radius:12px;padding:16px;margin-bottom:10px;">
-    <div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#C8960C;margin-bottom:4px;font-family:monospace;">PHASE 1 &#8212; AUG 2 &#8594; SEP 12</div>
-    <div style="font-size:16px;font-weight:900;color:#fff;margin-bottom:4px;">Build the Habit</div>
-    <div style="font-size:11px;color:#555;margin-bottom:10px;">6 weeks. Show up. The goal is consistency, not intensity.</div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.9;">
-      &#8250; 50 min sessions, 5 days/week<br>
-      &#8250; Moderate weight &#8212; learn movements, perfect form<br>
-      &#8250; 3-4 sets, 10-12 reps per exercise<br>
-      &#8250; Walking pad 90 min/day every workday<br>
-      &#8250; 200g protein daily &#8212; non-negotiable<br>
-      &#8250; <b style="color:#C8960C;">Win condition: 5 sessions/week for 6 straight weeks</b>
-    </div>
-  </div>
-
-  <div style="background:#0d1117;border:2px solid #2980B9;border-radius:12px;padding:16px;margin-bottom:10px;">
-    <div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#2980B9;margin-bottom:4px;font-family:monospace;">PHASE 2 &#8212; SEP 13 &#8594; OCT 24</div>
-    <div style="font-size:16px;font-weight:900;color:#fff;margin-bottom:4px;">Progressive Overload</div>
-    <div style="font-size:11px;color:#555;margin-bottom:10px;">6 weeks. Add weight every 1-2 weeks. Sessions get harder naturally.</div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.9;">
-      &#8250; Same movements, heavier weight each week<br>
-      &#8250; Bump to 4-5 sets per exercise<br>
-      &#8250; Sessions reach 60 min &#8212; normal and expected<br>
-      &#8250; Add incline on pad post-lift for extra burn<br>
-      &#8250; Track weights every session in a notebook<br>
-      &#8250; <b style="color:#2980B9;">Win condition: every lift heavier than 6 weeks ago</b>
-    </div>
-  </div>
-
-  <div style="background:#0d1117;border:2px solid #8E44AD;border-radius:12px;padding:16px;margin-bottom:10px;">
-    <div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#8E44AD;margin-bottom:4px;font-family:monospace;">PHASE 3 &#8212; OCT 25 &#8594; DEC 5</div>
-    <div style="font-size:16px;font-weight:900;color:#fff;margin-bottom:4px;">Volume Increase</div>
-    <div style="font-size:11px;color:#555;margin-bottom:10px;">6 weeks. More exercises, supersets, 60-70 min sessions.</div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.9;">
-      &#8250; Add a second exercise per major muscle group<br>
-      &#8250; Introduce supersets to keep intensity high<br>
-      &#8250; Drop sets on final set of each exercise<br>
-      &#8250; Bump pad speed slightly on post-lift walk<br>
-      &#8250; <b style="color:#8E44AD;">Win condition: 215 lbs or below by Dec 5</b>
-    </div>
-  </div>
-
-  <div style="background:#0d1117;border:2px solid #27AE60;border-radius:12px;padding:16px;margin-bottom:10px;">
-    <div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#27AE60;margin-bottom:4px;font-family:monospace;">PHASE 4 &#8212; DEC 6 &#8594; MAR 1</div>
-    <div style="font-size:16px;font-weight:900;color:#fff;margin-bottom:4px;">Strength + Knee Rebuild</div>
-    <div style="font-size:11px;color:#555;margin-bottom:10px;">12 weeks. Sports medicine consult. Potentially unlock controlled leg work.</div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.9;">
-      &#8250; Book sports medicine appointment &#8212; Dec 6 target<br>
-      &#8250; Add goblet squats or leg press if cleared<br>
-      &#8250; Lower rep ranges on key lifts (6-8 reps, heavier)<br>
-      &#8250; Add 2x/week dedicated core sessions<br>
-      &#8250; <b style="color:#27AE60;">Win condition: 205 lbs by Mar 1</b>
-    </div>
-  </div>
-
-  <div style="background:#0d1117;border:2px solid #C0392B;border-radius:12px;padding:16px;margin-bottom:10px;">
-    <div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#C0392B;margin-bottom:4px;font-family:monospace;">PHASE 5 &#8212; MAR 1 &#8594; MAY 12</div>
-    <div style="font-size:16px;font-weight:900;color:#fff;margin-bottom:4px;">Finishing Phase</div>
-    <div style="font-size:11px;color:#555;margin-bottom:10px;">10 weeks to deadline. Final push to 195.</div>
-    <div style="font-size:12px;color:rgba(255,255,255,0.65);line-height:1.9;">
-      &#8250; 6 training days/week if body is recovered<br>
-      &#8250; Tighten calories, keep protein at 200g<br>
-      &#8250; Full lower body if knee is cleared<br>
-      &#8250; <b style="color:#C0392B;">Win condition: 195 lbs on the scale May 12, 2027</b>
-    </div>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">The Math</div></div></div>
-  <div class="card">
-    <div class="row"><div class="ri"><div class="rl">Current</div><div class="rv">230 lbs</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Goal</div><div class="rv" style="color:var(--gold)">195 lbs by May 12, 2027</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Required rate</div><div class="rv" style="color:var(--green)">~0.9 lbs/week</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Protein target</div><div class="rv" style="color:var(--gold)">200g daily</div></div></div>
-    <div class="row" style="background:#F0FBF6;border-color:#A9DFBF;"><div class="ri"><div class="rl" style="font-weight:800;">Walking pad alone</div><div class="rv" style="color:var(--green)">~0.6 lb/week</div></div><div class="rs">300 cal/day x 7 = 2,100 extra calories burned. That&#8217;s more than half your weekly deficit from walking at your desk.</div></div>
-  </div>
-
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Knee Protocol</div></div></div>
-  <div class="card">
-    <div class="ii"><div class="in">&#10003;</div><div class="it">Lift first &#8212; full output, no compromise</div></div>
-    <div class="ii"><div class="in">&#10003;</div><div class="it">Walk after lifting &#8212; depleted glycogen = maximum fat burn</div></div>
-    <div class="ii"><div class="in">&#10003;</div><div class="it">Hip thrusts + leg curls &#8212; build the posterior chain that protects the knee</div></div>
-    <div class="ii"><div class="in">&#10007;</div><div class="it">No running, jumping, squats, or lunges until sports medicine clears you (Phase 4 target)</div></div>
-  </div>
-</div>
-
-<!-- SLEEP -->
-<div class="pg" id="tab-sleep">
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">The Protocol</div></div></div>
-  <div class="card">
-    <div class="row"><div class="ri"><div class="rl">Lights out</div><div class="rv" style="color:var(--red)">10:00 PM sharp</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Wake time</div><div class="rv" style="color:var(--gold)">6:00 AM</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Magnesium glycinate</div><div class="rv">400mg at 9:45 PM</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Phone</div><div class="rv" style="color:var(--red)">Drawer at 9:30 PM</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Sunrise lamp</div><div class="rv">Set for 5:30 AM</div></div></div>
-  </div>
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Why It Matters</div></div></div>
-  <div class="card">
-    <p>Bad sleep spikes hunger hormones 15-25%. You will eat more without knowing it. That kills the weight goal silently.</p>
-    <p>Sleep is when your body burns fat, repairs muscle, and consolidates memory. Everything you are trying to build requires good sleep as the foundation.</p>
-    <p>15 minutes of morning sunlight fixes your sleep that night. Get outside in the first hour of waking when possible.</p>
-  </div>
-</div>
-
-<!-- MINDSET -->
-<div class="pg" id="tab-mindset">
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">The Framework</div></div></div>
-  <div class="card">
-    <div class="ii"><div class="in">01</div><div class="it">"Identity precedes production. You cannot produce at a level you haven't identified with yet." &#8212; Matt Weaver</div></div>
-    <div class="ii"><div class="in">02</div><div class="it">"Live by design, not by default. Your calendar reveals your strategy." &#8212; Napoleon Hill</div></div>
-    <div class="ii"><div class="in">03</div><div class="it">"Stop calling yourself lazy. Your brain is listening. The words you use about yourself become the ceiling you live under."</div></div>
-    <div class="ii"><div class="in">04</div><div class="it">"Skipping workouts because you're tired is why you're tired." &#8212; The pad is at the office. You just have to show up.</div></div>
-  </div>
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Where You Stand</div></div></div>
-  <div class="card">
-    <div class="row"><div class="ri"><div class="rl">Age</div><div class="rv">23</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Weight</div><div class="rv">230 &#8594; 195 lbs</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Debt</div><div class="rv" style="color:var(--red)">$30K &#8594; $0</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Income goal</div><div class="rv" style="color:var(--gold)">$20K/month</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Grace</div><div class="rv" style="color:var(--green)">Moved in &#10003;</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Walking pad</div><div class="rv" style="color:var(--green)">At office &#10003;</div></div></div>
-    <div class="row" style="background:#FFFBF0;border-color:#DDB830;"><div class="ri"><div class="rl" style="font-weight:800;">Deadline</div><div class="rv" style="color:var(--gold);font-size:16px;">May 12, 2027</div></div></div>
-  </div>
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">What's Actually True</div></div></div>
-  <div class="card">
-    <p>You are 23 with a walking pad at your desk, Grace living with you, working under the #1 purchase originator in the country, with a system built to execute. That is not a bad starting position.</p>
-    <p>35 lbs is math and time at 0.9 lbs/week. $30K is a number. The income goal is a function of execution. None of it requires a miracle &#8212; it requires the system running consistently.</p>
-    <p>Today you went for a long walk and decided to start. That is the actual decision. Everything else is just following through.</p>
-  </div>
-</div>
-
-<!-- WEEKLY OS -->
-<div class="pg" id="tab-weekly">
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Sunday Review &#8212; 45 Min</div></div></div>
-  <div class="card">
-    <div class="wo"><div class="wd">0:00&#8211;0:10</div><div class="wn">Last Week Audit</div><div class="wt">MMA % for the week. Income gates surfaced. Pipeline movement. Pad days hit. Protein target hit.</div></div>
-    <div class="wo"><div class="wd">0:10&#8211;0:20</div><div class="wn">Rewrite Chief Aim + Goals</div><div class="wt">By hand. Out loud. Non-negotiable start to every week.</div></div>
-    <div class="wo"><div class="wd">0:20&#8211;0:30</div><div class="wn">Block the Calendar</div><div class="wt">LO prospecting, RE prospecting, gym, walk blocks, 10 PM bedtime &#8212; placed as events for every day.</div></div>
-    <div class="wo"><div class="wd">0:30&#8211;0:40</div><div class="wn">Meal Decisions</div><div class="wt">Buy Sunday. Prep ground beef + rice. Remove all food decision-making from the workweek.</div></div>
-    <div class="wo"><div class="wd">0:40&#8211;0:45</div><div class="wn">Read Identity Commitments</div><div class="wt">Out loud. One minute. Remind yourself who you're becoming.</div></div>
-  </div>
-  <div class="sh"><div class="sh-bar"></div><div><div class="sh-title">Weekly Numbers to Track</div></div></div>
-  <div class="card">
-    <div class="row"><div class="ri"><div class="rl">MMA % this week</div><div class="rv" style="color:var(--gold)">Target: 70%+</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Income gates surfaced</div><div class="rv" style="color:var(--gold)">Every call</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Pad days</div><div class="rv">5 of 5</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Gym sessions</div><div class="rv">5 of 5</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">Protein target</div><div class="rv">5 of 5 days</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">6 AM wakes</div><div class="rv">5 of 7</div></div></div>
-    <div class="row"><div class="ri"><div class="rl">10 PM lights out</div><div class="rv">5 of 7</div></div></div>
-  </div>
-  <a class="nl" href="planner.html">Open Daily Planner &#8594;</a>
+<div class="btm">
+  <span class="btm-hint">Upload calendar anytime — Claude builds from right now</span>
+  <button class="btm-save" id="btmSave" onclick="saveData()">SAVE</button>
 </div>
 
 <script>
-function sw(id,el){
-  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
-  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
-  document.getElementById('tab-'+id).classList.add('on');
-  el.classList.add('on');
-  window.scrollTo(0,0);
+
+var CORRECT_PIN = '1107';
+var PIN_KEY = 'pin_planner_unlocked';
+var pinEntry = '';
+
+function pinPress(d){
+  if(pinEntry.length>=4)return;
+  pinEntry+=d; updatePinDots();
+  if(pinEntry.length===4)setTimeout(checkPin,150);
 }
-</script>
-<script>
-var CORRECT_PIN='1107';
-var PIN_SESSION_KEY='pin_blueprint_unlocked';
-var pinEntry='';
-function checkPinSession(){if(sessionStorage.getItem(PIN_SESSION_KEY)==='1'){document.getElementById('pinOverlay').style.display='none';return true;}return false;}
-function pinPress(d){if(pinEntry.length>=4)return;pinEntry+=d;updatePinDots();if(pinEntry.length===4)setTimeout(checkPin,150);}
-function pinDel(){pinEntry=pinEntry.slice(0,-1);updatePinDots();document.getElementById('pinError').textContent='';}
-function updatePinDots(){for(var i=0;i<4;i++)document.getElementById('pd'+i).classList.toggle('filled',i<pinEntry.length);}
+function pinDel(){
+  pinEntry=pinEntry.slice(0,-1);updatePinDots();
+  document.getElementById('pinErr').textContent='';
+}
+function updatePinDots(){
+  for(var i=0;i<4;i++)document.getElementById('pd'+i).classList.toggle('filled',i<pinEntry.length);
+}
 function checkPin(){
-  if(pinEntry===CORRECT_PIN){sessionStorage.setItem(PIN_SESSION_KEY,'1');var o=document.getElementById('pinOverlay');o.style.transition='opacity 0.3s';o.style.opacity='0';setTimeout(function(){o.style.display='none';},300);}
-  else{document.getElementById('pinError').textContent='Incorrect PIN.';pinEntry='';updatePinDots();var d=document.getElementById('pinDots');d.style.transform='translateX(8px)';setTimeout(function(){d.style.transform='translateX(-8px)';},100);setTimeout(function(){d.style.transform='translateX(0)';},200);}
+  if(pinEntry===CORRECT_PIN){
+    sessionStorage.setItem(PIN_KEY,'1');
+    var o=document.getElementById('pinOv');
+    o.style.transition='opacity 0.3s';o.style.opacity='0';
+    setTimeout(function(){o.style.display='none';},300);
+  } else {
+    document.getElementById('pinErr').textContent='Incorrect PIN.';
+    pinEntry='';updatePinDots();
+    var d=document.getElementById('pinDots');
+    d.style.transform='translateX(8px)';
+    setTimeout(function(){d.style.transform='translateX(-8px)';},100);
+    setTimeout(function(){d.style.transform='translateX(0)';},200);
+  }
 }
-if(!checkPinSession())document.getElementById('pinOverlay').style.display='flex';
-document.addEventListener('DOMContentLoaded',function(){if(!checkPinSession())document.getElementById('pinOverlay').style.display='flex';});
+if(sessionStorage.getItem(PIN_KEY)==='1'){
+  document.getElementById('pinOv').style.display='none';
+}
+
+var TYPES = {
+  LO_PROSPECT: {label:'LO PROSPECTING',color:'#111',bg:'#F5C518',mma:true},
+  RE_PROSPECT: {label:'RE PROSPECTING',color:'#fff',bg:'#8E44AD',mma:true},
+  FOLLOWUP:    {label:'FOLLOW-UP',color:'#111',bg:'#E8A0BF',mma:true},
+  DECISION:    {label:'DECISION CALL',color:'#fff',bg:'#C0392B',mma:true},
+  SCHEDULED:   {label:'SCHEDULED CALL',color:'#fff',bg:'#E67E22',mma:true},
+  PIPELINE:    {label:'PIPELINE AUDIT',color:'#111',bg:'#2ECC71',mma:false},
+  RESEARCH:    {label:'RESEARCH',color:'#111',bg:'#5DADE2',mma:false},
+  ADMIN:       {label:'ADMIN',color:'#111',bg:'#BFC9CA',mma:false},
+  READING:     {label:'READING',color:'#111',bg:'#76D7C4',mma:false},
+  NUTRITION:   {label:'NUTRITION',color:'#111',bg:'#F7DC6F',mma:false},
+  GYM:         {label:'GYM',color:'#fff',bg:'#E74C3C',mma:false},
+  ROUTINE:     {label:'ROUTINE',color:'#fff',bg:'#5D6D7E',mma:false},
+  BREAK:       {label:'BREAK',color:'#111',bg:'#D5DBDB',mma:false},
+  REVIEW:      {label:'REVIEW',color:'#111',bg:'#F5C518',mma:false},
+};
+
+var TEMPLATE = [
+  {id:'t01',time:'6:00 AM',type:'ROUTINE',title:'Wake + Water',note:'Feet on floor. No snooze. 16oz water. No phone 30 min.',mma:false},
+  {id:'t02',time:'6:10 AM',type:'ROUTINE',title:'Chief Aim + 10 Goals',note:'Read chief aim out loud. Rewrite 10 goals by hand. 4 minutes.',mma:false},
+  {id:'t03',time:'6:30 AM',type:'READING',title:'Read 20 Min + Coffee',note:'Tracy / Hill / Hardy / OFL craft. Physical book only.',mma:false},
+  {id:'t04',time:'6:50 AM',type:'ROUTINE',title:'3 Outcomes + Frog',note:'3 specific pipeline actions with names. Paper only.',mma:false},
+  {id:'t05',time:'7:00 AM',type:'GYM',title:'Gym - Lift First - 50 Min',note:'Mon=Chest/Tri  Tue=Back/Bi  Wed=Shoulders  Thu=Lower Body  Fri=Full Body.',mma:false},
+  {id:'t06',time:'7:55 AM',type:'LO_PROSPECT',title:'Post-Lift Walk + Warm Calls - 20 Min',note:'Walk pad while making warm re-engagement calls or texts. CRM on phone. Walk and prospect simultaneously.',mma:true},
+  {id:'t07',time:'8:20 AM',type:'ROUTINE',title:'Shower + Fully Dressed',note:'Cold 30s finish. Shirt, pants, shoes.',mma:false},
+  {id:'t08',time:'8:35 AM',type:'NUTRITION',title:'Meal 1',note:'5 scrambled eggs + banana. 50g protein.',mma:false},
+  {id:'t09',time:'8:50 AM',type:'ROUTINE',title:'Drive - Car = Classroom',note:'Audio book or OFL content. Review today market. Income gate question 3x out loud.',mma:false},
+  {id:'t10',time:'9:00 AM',type:'FOLLOWUP',title:'Follow-Up Blitz - 45 Min (All Markets)',note:'Every day starts here. Day 1/3/7/14 cadence across all markets. Walk pad + CRM on phone.',mma:true},
+  {id:'t11',time:'9:45 AM',type:'LO_PROSPECT',title:'F13 + Market Prospecting Block 1 - 75 Min',note:'F13 MAIN FOCUS - target Rainmaker and BM-level producers in today market who want to scale infrastructure. Call it the model, never say F13. Close = book a direct conversation with Matt before hanging up. MON=Florida | TUE=Philadelphia PA Rookstool | WED=DC Northern VA Gina Myers | THU AM=F13 national outreach | THU PM=CA Villegas + WA Buckles after 12pm ET | FRI=Overflow + decisions all markets. NJ=Brian Homowitz market anytime. Walk pad + CRM on phone.',mma:true},
+  {id:'t12',time:'11:00 AM',type:'LO_PROSPECT',title:'F13 + Market Prospecting Block 2 - 60 Min',note:'Continue F13 priority then Advisor-track LOs in today market. Same story same proof points stay in context. Walk pad + phone.',mma:true},
+  {id:'t13',time:'12:00 PM',type:'FOLLOWUP',title:'Meal 2 + Walk + Follow-Ups - 30 Min',note:'Eat first 10 min. Then pad + phone follow-ups across all markets. Blood sugar flat steps hit pipeline moving.',mma:true},
+  {id:'t14',time:'12:30 PM',type:'LO_PROSPECT',title:'F13 + Market Prospecting Block 3 - 60 Min',note:'MON=FL continued | TUE=PA continued | WED=DC continued | THU=Switch to CA Villegas + WA Buckles - Pacific time 9:30 AM | FRI=Overflow. NJ Brian Homowitz market anytime. Walk pad + phone.',mma:true},
+  {id:'t15',time:'1:30 PM',type:'RE_PROSPECT',title:'RE BD Prospecting Block',note:'Track A - RE teams $30M+ buy-side. Pat-led discovery call. Never mix with LO track in Paladin. Active: Stone Realty Charlotte NC, Canopy Realty Valdosta GA. Walk pad during calls.',mma:true},
+  {id:'t16',time:'2:00 PM',type:'RESEARCH',title:'Research + Call Prep - 30 Min',note:'LinkedIn, production numbers, previous call notes for afternoon scheduled calls. Sit for this.',mma:false},
+  {id:'t17',time:'2:30 PM',type:'SCHEDULED',title:'Scheduled Calls Window - 90 Min',note:'Decision calls, pro formas, Call 3s with Mike and Dave. F13 candidates close = book direct call with Matt before hanging up. Sit-down focused calls.',mma:true},
+  {id:'t18',time:'4:00 PM',type:'FOLLOWUP',title:'Meal 3 + Walk + Final Follow-Ups - 25 Min',note:'Eat then straight to pad. Texts and calls to anyone who did not pick up today. CRM on phone.',mma:true},
+  {id:'t19',time:'4:25 PM',type:'PIPELINE',title:'Pipeline Audit - 20 Min',note:'Every active candidate. Stage correct? Income goal logged? F13 candidate ready to book with Matt? Next touch scheduled?',mma:false},
+  {id:'t20',time:'4:45 PM',type:'ADMIN',title:'CRM Logging + Admin - 15 Min',note:'Log everything from today. 90s per call. Stage updates. Coordinate handoffs to Mike and Dave.',mma:false},
+  {id:'t21',time:'5:00 PM',type:'REVIEW',title:'Tracy Two Questions + Walk - 15 Min',note:'Walk pad. (1) What did I do right? (2) What would I do differently?',mma:false},
+  {id:'t22',time:'5:15 PM',type:'ROUTINE',title:'Screenshot to AI Builder - Plan Tomorrow',note:'Screenshot calendar. Upload to Today tab AI builder. Set 3 outcomes + frog. Note tomorrow market.',mma:false},
+  {id:'t23',time:'6:00 PM',type:'ROUTINE',title:'HARD STOP',note:'Laptop closed. No work after 6 PM.',mma:false},
+  {id:'t24',time:'6:30 PM',type:'NUTRITION',title:'Dinner with Grace',note:'High protein + veg.',mma:false},
+  {id:'t25',time:'9:00 PM',type:'ROUTINE',title:'Evening Journal',note:'3 wins. 1 lesson. Read chief aim out loud.',mma:false},
+  {id:'t26',time:'9:30 PM',type:'ROUTINE',title:'Sleep Setup',note:'Magnesium 400mg. Phone in drawer. Lamp set 5:30 AM.',mma:false},
+  {id:'t27',time:'10:00 PM',type:'ROUTINE',title:'Lights Out',note:'Non-negotiable.',mma:false},
+];
+
+var GOALS = [
+  'I earn $20,000 per month by December 31, 2026',
+  'I am completely debt-free — all $30,000 cleared — by May 12, 2027',
+  'I weigh 195 lbs by May 12, 2027',
+  'I own my first home by May 12, 2027',
+  'Grace and I are building our life together in our home',
+  'I have $50,000 in savings by May 12, 2027',
+  'I run every prospecting call with a clean income goal conversation — zero premature pitches',
+  'I lift 5 days per week and walk every workday — 195 lbs by May 12, 2027',
+  'I am completely free from weed by December 31, 2026',
+  'I am the most reliable and precise operator on the Matt Weaver Team by September 2026'
+];
+
+var AK = '$2a$10$NyyXvn9j8.HX5rM0oKCjnuo9GxmQVT/hRnTLslt.ks00E/ViRfF0G';
+var BIN = localStorage.getItem('planner_bin') || '';
+var curTab = 'today';
+var editingId = null;
+var showAdd = false;
+var newBlock = {time:'',type:'LO_PROSPECT',title:'',note:'',mma:true};
+var aiImg = '';
+var aiBuilding = false;
+var aiStatus = {type:'',msg:''};
+
+var STATE = {
+  today:    {blocks:cloneTemplate(),outcomes:['','',''],frog:'',wins:['','',''],notes:'',incomeGate:0},
+  tomorrow: {blocks:cloneTemplate(),outcomes:['','',''],frog:''},
+  weekData: {},
+};
+
+function cloneTemplate(){
+  return TEMPLATE.map(function(b){return Object.assign({},b,{done:false,id:'t'+Math.random().toString(36).slice(2,8)});});
+}
+
+function loadCloud(){
+  var local = localStorage.getItem('planner_state');
+  if(local){try{var s=JSON.parse(local);if(s.today)STATE=s;}catch(e){}}
+  if(!STATE.weekData)STATE.weekData={};
+  if(!BIN){
+    fetch('https://api.jsonbin.io/v3/b',{
+      method:'POST',headers:{'Content-Type':'application/json','X-Master-Key':AK,'X-Bin-Name':'ofl-planner-v3'},
+      body:JSON.stringify(STATE)
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.metadata&&d.metadata.id){BIN=d.metadata.id;localStorage.setItem('planner_bin',BIN);}
+      render();
+    }).catch(function(){render();});
+  } else {
+    fetch('https://api.jsonbin.io/v3/b/'+BIN+'/latest',{headers:{'X-Master-Key':AK}})
+    .then(function(r){return r.json();}).then(function(d){
+      if(d.record&&d.record.today){STATE=d.record;}
+      if(!STATE.weekData)STATE.weekData={};
+      render();
+    }).catch(function(){render();});
+  }
+}
+
+function saveData(){
+  saveWeekData();
+  localStorage.setItem('planner_state',JSON.stringify(STATE));
+  setSaveBtns('saving');
+  if(BIN){
+    fetch('https://api.jsonbin.io/v3/b/'+BIN,{
+      method:'PUT',headers:{'Content-Type':'application/json','X-Master-Key':AK},
+      body:JSON.stringify(STATE)
+    }).then(function(){setSaveBtns('saved');setTimeout(function(){setSaveBtns('idle');},2500);
+    }).catch(function(){setSaveBtns('idle');});
+  } else { setSaveBtns('local');setTimeout(function(){setSaveBtns('idle');},2000); }
+}
+
+function setSaveBtns(state){
+  var map={saving:'...',saved:'✓ SAVED',local:'✓ LOCAL',idle:'SAVE'};
+  var cls={saving:'',saved:'saved',local:'saved',idle:''};
+  ['saveBtn','btmSave'].forEach(function(id){
+    var el=document.getElementById(id);if(!el)return;
+    el.textContent=map[state];
+    el.className=el.className.replace(' saved','');
+    if(cls[state])el.className+=' '+cls[state];
+  });
+}
+
+function saveWeekData(){
+  var blocks=STATE.today.blocks||[];
+  var done=blocks.filter(function(b){return b.done;});
+  var mmaDone=done.filter(function(b){return b.mma;});
+  var mmaTotal=blocks.filter(function(b){return b.mma;}).length;
+  var pct=mmaTotal>0?Math.round(mmaDone.length/mmaTotal*100):0;
+  var key=todayKey();
+  STATE.weekData[key]={pct:pct,done:done.length,total:blocks.length,ig:STATE.today.incomeGate||0};
+}
+
+function todayKey(){var d=new Date();return d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();}
+
+function mmaStats(blocks){
+  var done=blocks.filter(function(b){return b.done;});
+  var mmaDone=done.filter(function(b){return b.mma;});
+  var mmaTotal=blocks.filter(function(b){return b.mma;}).length;
+  var pct=mmaTotal>0?Math.round(mmaDone.length/mmaTotal*100):0;
+  var nonMmaDone=done.filter(function(b){return !b.mma;}).length;
+  return {done:done.length,total:blocks.length,mmaDone:mmaDone.length,mmaTotal:mmaTotal,pct:pct,nonMmaDone:nonMmaDone};
+}
+
+function render(){
+  updateHeader();
+  if(curTab==='today'){renderTodayAI();renderDay('pg-today','today');}
+  else if(curTab==='tomorrow')renderTomorrow();
+  else if(curTab==='audit')renderAudit();
+  else renderNotes();
+}
+
+function updateHeader(){
+  var days=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var months=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  var d=new Date();
+  document.getElementById('hdDate').textContent=days[d.getDay()]+', '+months[d.getMonth()]+' '+d.getDate();
+  var s=mmaStats(STATE.today.blocks||[]);
+  var pct=s.pct;
+  var col=pct>=80?'#27AE60':pct>=50?'#C8960C':'#C0392B';
+  document.getElementById('mmaVal').textContent=pct+'% MMA';
+  document.getElementById('mmaVal').style.color=col;
+  document.getElementById('mmaFill').style.width=pct+'%';
+  document.getElementById('mmaFill').style.background=col;
+  var wasted=s.nonMmaDone*22;
+  var weeks=(wasted/60/8*5/50).toFixed(2);
+  var ig=STATE.today.incomeGate||0;
+  var wastedEl = document.getElementById('wastedVal');
+  if(wastedEl) wastedEl.innerHTML = '<span style="color:#555;font-size:9px;">'+wasted+'min non-MMA &nbsp;&nbsp; <span style="color:'+(ig>=3?'#27AE60':ig>=1?'#C8960C':'#C0392B')+'">IG: '+ig+'</span></span>';
+  var igEl=document.getElementById('igCount');
+  if(igEl){igEl.textContent=ig;igEl.style.color=ig>=5?'#27AE60':ig>=2?'#C8960C':'#C0392B';}
+}
+
+function renderTodayAI(){
+  var el=document.getElementById('pg-today');
+  if(!el)return;
+  var now=new Date();
+  var h=now.getHours();
+  var timeStr=now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
+  var ttl=h<12?'Build Today From '+timeStr:h<16?'Fill Remaining Today From '+timeStr:'Build Today — Late Blocks';
+  var sub=h<12
+    ?'Upload your calendar screenshot. Claude builds your full day starting right now at '+timeStr+' — MMAs protected, no gaps.'
+    :h<16?'Upload your calendar. Claude fills the rest of today from '+timeStr+' to 6:00 PM hard stop.'
+    :'Upload your calendar. Claude builds whatever time is left in your day from '+timeStr+'.';
+
+  var html='<div class="ai-card">';
+  html+='<div class="ai-lbl">&#9889; AI SCHEDULE BUILDER</div>';
+  html+='<div class="ai-ttl">'+ttl+'</div>';
+  html+='<div class="ai-sub">'+sub+'</div>';
+  html+='<div class="ai-upload'+(aiImg?' has-img':'')+'" onclick="document.getElementById(\'calUpload\').click()">';
+  if(aiImg){
+    html+='<div style="font-size:14px;color:#C8960C;font-weight:700;">&#128197; Calendar loaded</div>';
+    html+='<div style="font-size:11px;color:#27AE60;margin-top:3px;font-weight:700;">Ready to build from '+timeStr+'</div>';
+  } else {
+    html+='<div style="font-size:28px;margin-bottom:6px;">&#128248;</div>';
+    html+='<div style="font-size:13px;color:#555;font-weight:600;">Tap to upload calendar screenshot</div>';
+    html+='<div style="font-size:10px;color:#444;margin-top:3px;">Takes your calendar + current time → builds your day</div>';
+  }
+  html+='</div>';
+  html+='<button class="ai-build-btn" onclick="buildSchedule()" '+(aiBuilding||!aiImg?'disabled':'')+'>'+( aiBuilding?'&#9203; Building...':'&#9889; Build From '+timeStr)+'</button>';
+  html+='<div class="ai-status '+aiStatus.type+'">'+aiStatus.msg+'</div>';
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+function renderDay(elId,tabKey){
+  var data=STATE[tabKey];
+  var blocks=data.blocks||[];
+  var html='';
+
+  html+='<div class="outcomes-card">';
+  html+='<div class="oc-label">'+(tabKey==='today'?"TODAY'S":"TOMORROW'S")+' 3 OUTCOMES</div>';
+  for(var i=0;i<3;i++){
+    html+='<div class="oc-row"><span class="oc-num">0'+(i+1)+'</span>';
+    html+='<input class="oc-input" data-tab="'+tabKey+'" data-idx="'+i+'" value="'+esc((data.outcomes&&data.outcomes[i])||'')+'" oninput="STATE[this.dataset.tab].outcomes[+this.dataset.idx]=this.value" placeholder="Specific pipeline action '+(i+1)+'..." /></div>';
+  }
+  html+='<div class="frog-lbl">THE FROG — HIGHEST LEVERAGE ACTION</div>';
+  html+='<input class="frog-input" data-tab="'+tabKey+'" value="'+esc(data.frog||'')+'" oninput="STATE[this.dataset.tab].frog=this.value" placeholder="The one thing..." /></div>';
+
+  if(tabKey==='today'){
+    var s=mmaStats(blocks);
+    var annualWeeks=(s.nonMmaDone*22/60*250/40).toFixed(1);
+    html+='<div class="audit-card">';
+    html+='<div class="audit-title">CALENDAR AUDIT — YOUR STRATEGY IS VISIBLE</div>';
+    html+='<div class="audit-stat-row">';
+    html+='<div class="audit-stat"><div class="audit-num gold">'+s.mmaDone+'/'+s.mmaTotal+'</div><div class="audit-lbl">MMAs Done</div></div>';
+    html+='<div class="audit-stat"><div class="audit-num green">'+s.done+'</div><div class="audit-lbl">Blocks Done</div></div>';
+    html+='<div class="audit-stat"><div class="audit-num" style="color:'+(s.total-s.done>0?'#C0392B':'#27AE60')+'">'+( s.total-s.done)+'</div><div class="audit-lbl">Remaining</div></div>';
+    html+='<div class="audit-stat"><div class="audit-num red">'+s.nonMmaDone+'</div><div class="audit-lbl">Non-MMA Used</div></div>';
+    html+='</div>';
+    html+='<div class="wasted-banner">';
+    html+='<div class="wb-text">At this non-MMA pace annually:<br><span style="font-size:10px;color:#555;">1 hr/day = 9 work weeks. — Jake Harper</span></div>';
+    html+='<div><div class="wb-num">'+annualWeeks+'</div><div class="wb-sub">work wks/yr</div></div>';
+    html+='</div>';
+    html+='<div class="income-gate-row"><span class="ig-label">Income goals surfaced on Call 1s today:</span>';
+    html+='<input class="ig-input" type="number" min="0" value="'+(data.incomeGate||0)+'" oninput="STATE.today.incomeGate=+this.value;updateHeader()" /></div>';
+    html+='</div>';
+  }
+
+  blocks.forEach(function(b){
+    var ty=TYPES[b.type]||TYPES.ROUTINE;
+    var isMma=b.mma!==undefined?b.mma:ty.mma;
+    if(editingId===b.id){html+=editBlock(b,tabKey);}
+    else{
+      html+='<div class="block'+(b.done?' done':'')+(isMma?' mma-block':'')+'" style="border-left-color:'+ty.bg+'">';
+      html+='<div class="bi">';
+      html+='<div class="check'+(b.done?' checked':'')+'" data-tab="'+tabKey+'" data-id="'+b.id+'" onclick="toggle(this.dataset.tab,this.dataset.id)">';
+      html+='<span class="chk-mark">✓</span></div>';
+      html+='<div class="bb">';
+      html+='<div class="bm"><span class="bt">'+esc(b.time)+'</span>';
+      html+='<span class="btag" style="color:'+ty.color+';background:'+ty.bg+'">'+ty.label+'</span>';
+      if(isMma)html+='<span class="mma-badge">★ MMA</span>';
+      html+='</div>';
+      html+='<div class="btitle">'+esc(b.title)+'</div>';
+      if(b.note)html+='<div class="bnote">'+esc(b.note)+'</div>';
+      html+='</div>';
+      html+='<div class="bacts"><div class="act" data-id="'+b.id+'" onclick="startEdit(this.dataset.id)">✎</div>';
+      html+='<div class="act del" data-tab="'+tabKey+'" data-id="'+b.id+'" onclick="delBlock(this.dataset.tab,this.dataset.id)">×</div></div></div></div>';
+      html+='</div></div>';
+    }
+  });
+
+  html+='<div class="add-section">';
+  if(showAdd&&curTab===tabKey){
+    html+='<div class="add-form"><div class="add-lbl">NEW BLOCK</div>';
+    html+='<div class="er"><input class="etm" value="'+esc(newBlock.time)+'" oninput="newBlock.time=this.value" placeholder="9:00 AM" />';
+    html+='<select class="esel" onchange="newBlock.type=this.value;newBlock.mma=TYPES[this.value].mma">';
+    Object.keys(TYPES).forEach(function(k){html+='<option value="'+k+'"'+(newBlock.type===k?' selected':'')+'>'+TYPES[k].label+'</option>';});
+    html+='</select></div>';
+    html+='<input class="ei" value="'+esc(newBlock.title)+'" oninput="newBlock.title=this.value" placeholder="Block title..." style="margin-top:6px;" />';
+    html+='<textarea class="eta" rows="2" oninput="newBlock.note=this.value" placeholder="Notes..." style="margin-top:6px;">'+esc(newBlock.note)+'</textarea>';
+    html+='<label class="mma-toggle" style="margin-top:6px;"><input type="checkbox"'+(newBlock.mma?' checked':'')+' onchange="newBlock.mma=this.checked" /><span class="mma-toggle-lbl">★ Money-Making Activity</span><span class="mma-toggle-sub">Counts toward MMA score</span></label>';
+    html+='<div class="add-acts"><button class="add-ok" data-tab="'+tabKey+'" onclick="addBlock(this.dataset.tab)">+ Add</button><button class="add-x" onclick="showAdd=false;render()">Cancel</button></div></div>';
+  } else {
+    html+='<button class="add-btn" onclick="showAdd=true;render()">+ Add Block</button>';
+  }
+  html+='<button class="reset-btn" data-tab="'+tabKey+'" onclick="resetDay(this.dataset.tab)">&#8634; Reset to Default Schedule</button></div>';
+  // AI builder on Today tab
+  if(tabKey==='today'){
+    var now=new Date(),h=now.getHours();
+    var tStr=now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
+    var ttl=h<12?'Build Today From '+tStr:h<16?'Fill Remaining Today From '+tStr:'Build Remaining From '+tStr;
+    var sub=h<12?'Upload your calendar. Claude builds your day from '+tStr+'.'
+      :h<16?'Upload your calendar. Claude fills today from '+tStr+' to 6:00 PM.'
+      :'Upload your calendar. Claude builds remaining time from '+tStr+'.';
+    var ac='<div class="ai-card">';
+    ac+='<div class="ai-lbl">&#9889; AI SCHEDULE BUILDER</div>';
+    ac+='<div class="ai-ttl">'+ttl+'</div>';
+    ac+='<div class="ai-sub">'+sub+'</div>';
+    ac+='<div class="ai-upload'+(aiImg?' has-img':'')+'" onclick="triggerCalUpload()">';
+    if(aiImg){
+      ac+='<div style="font-size:14px;color:#C8960C;font-weight:700;">&#128197; Calendar loaded</div>';
+      ac+='<div style="font-size:11px;color:#27AE60;margin-top:3px;font-weight:700;">Will build from '+tStr+'</div>';
+    }else{
+      ac+='<div style="font-size:26px;margin-bottom:6px;">&#128248;</div>';
+      ac+='<div style="font-size:13px;color:#555;font-weight:600;">Tap to upload calendar screenshot</div>';
+    }
+    ac+='</div>';
+    ac+='<button class="ai-build-btn" onclick="buildSchedule(\'today\')" '+(aiBuilding||!aiImg?'disabled':'')+'>'+( aiBuilding?'&#9203; Building...':'&#9889; Build From '+tStr)+'</button>';
+    ac+='<div class="ai-status '+aiStatus.type+'">'+aiStatus.msg+'</div>';
+    ac+='</div>';
+    html=ac+html;
+  }
+  document.getElementById(elId).innerHTML=html;
+}
+
+function editBlock(b,tabKey){
+  var isMma=b.mma!==undefined?b.mma:(TYPES[b.type]||{}).mma;
+  var html='<div class="block" style="border-left-color:#C8960C"><div class="ef">';
+  var html='<div class="block" style="border-left-color:#C8960C"><div class="ef">';
+  html+='<div class="er">';
+  html+='<input class="etm" data-tab="'+tabKey+'" data-id="'+b.id+'" value="'+esc(b.time)+'" oninput="upd(this.dataset.tab,this.dataset.id,\'time\',this.value)" />';
+  html+='<select class="esel" data-tab="'+tabKey+'" data-id="'+b.id+'" onchange="upd(this.dataset.tab,this.dataset.id,\'type\',this.value)">';
+  Object.keys(TYPES).forEach(function(k){html+='<option value="'+k+'"'+(b.type===k?' selected':'')+'>'+TYPES[k].label+'</option>';});
+  html+='</select></div>';
+  html+='<input class="ei" data-tab="'+tabKey+'" data-id="'+b.id+'" value="'+esc(b.title)+'" oninput="upd(this.dataset.tab,this.dataset.id,\'title\',this.value)" />';
+  html+='<textarea class="eta" rows="2" data-tab="'+tabKey+'" data-id="'+b.id+'" oninput="upd(this.dataset.tab,this.dataset.id,\'note\',this.value)">'+esc(b.note||'')+'</textarea>';
+  html+='<label class="mma-toggle"><input type="checkbox"'+(isMma?' checked':'')+' data-tab="'+tabKey+'" data-id="'+b.id+'" onchange="upd(this.dataset.tab,this.dataset.id,\'mma\',this.checked)" /><span class="mma-toggle-lbl">★ MMA</span><span class="mma-toggle-sub">Money-Making Activity</span></label>';
+  html+='<button class="ed-done" onclick="editingId=null;render()">Done</button></div></div>';
+  return html;
+}
+
+function renderTomorrow(){
+  renderDay('pg-tomorrow','tomorrow');
+  var el=document.getElementById('pg-tomorrow');
+  var aiHtml='<div class="ai-card">';
+  aiHtml+='<div class="ai-lbl">⚡ AI SCHEDULE BUILDER</div>';
+  aiHtml+='<div class="ai-ttl">Build Tomorrow\'s Schedule</div>';
+  aiHtml+='<div class="ai-sub">Upload your calendar the evening before. Claude builds the full next day around your appointments — MMAs first, every gap filled.</div>';
+  
+  aiHtml+='<div class="ai-upload'+(aiImg?' has-img':'')+'" onclick="document.getElementById(\'calUpload\').click()">';
+  if(aiImg){
+    var h=new Date().getHours();
+    var ctx=h<12?'Will build TODAY from now':h<16?'Will fill remaining TODAY':h<17?'Will build TOMORROW':'Will build TOMORROW';
+    aiHtml+='<div style="font-size:14px;color:#C8960C;font-weight:700;">&#128197; Calendar loaded</div>';
+    aiHtml+='<div style="font-size:11px;color:#27AE60;margin-top:4px;font-weight:700;">'+ctx+'</div>';
+  }
+  else{aiHtml+='<div style="font-size:28px;margin-bottom:8px;">📸</div><div style="font-size:13px;color:#555;font-weight:600;">Tap to upload calendar screenshot</div>';}
+  aiHtml+='</div>';
+  aiHtml+='<button class="ai-build-btn" onclick="buildSchedule()" '+(aiBuilding||!aiImg?'disabled':'')+'>'+( aiBuilding?'⏳ Building...':'⚡ Build My Schedule')+'</button>';
+  aiHtml+='<div class="ai-status '+aiStatus.type+'">'+aiStatus.msg+'</div>';
+  aiHtml+='</div>';
+  el.innerHTML = aiHtml + el.innerHTML;
+}
+
+function renderAudit(){
+  var el=document.getElementById('pg-audit');
+  var days=['Sun','Mon','Tue','Wed','Thu','Fri','Sat'];
+  var now=new Date();
+  var html='';
+
+  html+='<div style="background:#111;border-radius:12px;padding:14px;margin-bottom:12px;">';
+  html+='<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#C8960C;margin-bottom:14px;font-family:monospace;">WEEKLY CALENDAR AUDIT — IS YOUR STRATEGY INTENTIONAL OR BY DEFAULT?</div>';
+  html+='<div class="week-row">';
+  for(var i=0;i<7;i++){
+    var d=new Date(now); d.setDate(now.getDate()-now.getDay()+i);
+    var key=d.getFullYear()+'-'+(d.getMonth()+1)+'-'+d.getDate();
+    var wd=STATE.weekData&&STATE.weekData[key];
+    var pct=wd?wd.pct:0;
+    var isToday=i===now.getDay();
+    var fc=pct>=80?'high':pct>=50?'mid':'low';
+    html+='<div class="week-day'+(isToday?' wd-today':'')+'">';
+    html+='<div class="wd-name">'+days[i]+'</div>';
+    html+='<div class="wd-bar"><div class="wd-fill '+fc+'" style="height:'+pct+'%"></div></div>';
+    html+='<div class="wd-pct">'+pct+'%</div>';
+    if(wd&&wd.ig)html+='<div style="font-size:8px;color:#C8960C;text-align:center;">'+wd.ig+' IG</div>';
+    html+='</div>';
+  }
+  html+='</div></div>';
+
+  var todayBlocks=STATE.today.blocks||[];
+  var s=mmaStats(todayBlocks);
+  var annualWks=(s.nonMmaDone*22/60*250/40).toFixed(1);
+
+  html+='<div style="background:#0d1117;border:1px solid rgba(192,57,43,0.3);border-radius:12px;padding:14px;margin-bottom:12px;">';
+  html+='<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#C0392B;margin-bottom:10px;font-family:monospace;">INVENTORY WASTE CALCULATOR</div>';
+  html+='<div style="font-size:12px;color:rgba(255,255,255,0.55);line-height:1.8;">';
+  html+='Non-MMA blocks completed today: <b style="color:#fff">'+s.nonMmaDone+'</b> (~'+Math.round(s.nonMmaDone*22/60*10)/10+' hrs)<br>';
+  html+='Projected annual waste at this rate: <b style="color:#C0392B;font-size:16px;">'+annualWks+' work weeks</b><br>';
+  html+='<span style="font-size:10px;color:#444;">"If you wasted one hour a day you would be wasting nine work weeks." — Jake Harper</span><br>';
+  html+='<span style="font-size:10px;color:#444;">Napoleon Hill: live by design, not default. Every gap is inventory.</span>';
+  html+='</div></div>';
+
+  var ig=STATE.today.incomeGate||0;
+  var igColor=ig>=5?'#27AE60':ig>=2?'#C8960C':'#C0392B';
+  html+='<div style="background:#0d1117;border:1px solid rgba(200,150,12,0.2);border-radius:12px;padding:14px;margin-bottom:12px;">';
+  html+='<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#C8960C;margin-bottom:10px;font-family:monospace;">INCOME GATE TRACKER — YOUR #1 DAILY METRIC</div>';
+  html+='<div style="display:flex;align-items:center;gap:14px;">';
+  html+='<div style="font-size:52px;font-weight:900;color:'+igColor+'">'+ig+'</div>';
+  html+='<div><div style="font-size:13px;color:rgba(255,255,255,0.65);">Income goals surfaced today</div>';
+  html+='<div style="font-size:11px;color:#555;margin-top:4px;">Target: every Initial Presentation (Call 1).<br>Cold calls qualify and book. Income goal is surfaced on Call 1 — not before.</div>';
+  html+='<div style="font-size:10px;color:#333;margin-top:4px;">Update on Today tab after each call.</div></div>';
+  html+='</div></div>';
+
+  html+='<div style="background:#0d1117;border:1px solid #1a2a1a;border-radius:12px;padding:14px;">';
+  html+='<div style="font-size:9px;font-weight:800;letter-spacing:2px;color:#27AE60;margin-bottom:10px;font-family:monospace;">STRATEGY REFLECTION</div>';
+  html+='<div style="font-size:12px;color:rgba(255,255,255,0.5);margin-bottom:8px;line-height:1.7;">Which activities this week had the highest conversion? What should you do more of next week? What should you delegate?</div>';
+  html+='<textarea class="ns-ta" rows="4" style="background:#111;color:#fff;border-color:#222;" oninput="STATE.today.notes=this.value" placeholder="My highest conversion activities this week were...">'+esc(STATE.today.notes||'')+'</textarea>';
+  html+='</div>';
+
+  el.innerHTML=html;
+}
+
+function renderNotes(){
+  var el=document.getElementById('pg-notes');
+  var d=STATE.today;
+  var html='';
+
+  html+='<div class="ns">';
+  html+='<div class="ns-lbl">DEFINITE CHIEF AIM</div>';
+  html+='<p class="chief-aim">"By May 12, 2027 I earn $250,000 or more annually, I live in my first home with Grace, I weigh 195 lbs, I am debt-free, and I am healthy, confident, and happy. I achieve this by executing my daily system without negotiation, every single day."</p>';
+  html+='<div style="font-size:10px;color:#888;margin-top:8px;line-height:1.5;">Hill: the subconscious cannot distinguish between a vividly repeated belief and current reality. Read this out loud every morning.</div></div>';
+
+  html+='<div class="ns"><div class="ns-lbl">10 GOALS — REWRITE BY HAND EVERY MORNING</div>';
+  html+='<div style="font-size:10px;color:#888;margin-bottom:10px;">Brian Tracy: rewriting goals daily burns them into your subconscious. Takes 4 minutes.</div>';
+  html+='<ul style="list-style:none">';
+  GOALS.forEach(function(g,i){
+    html+='<li class="goal-item"><span class="gnum">0'+(i+1)+'</span><span class="gtxt">'+esc(g)+'</span></li>';
+  });
+  html+='</ul></div>';
+
+  html+='<div class="ns" style="background:#F0FBF6;border-color:#A9DFBF;">';
+  html+='<div class="ns-lbl" style="color:#1E8449;">3 WINS TODAY</div>';
+  for(var i=0;i<3;i++){
+    html+='<div class="win-row"><span style="font-size:14px">🔥</span>';
+    html+='<input class="oc-input" style="background:rgba(255,255,255,0.8)" value="'+esc((d.wins&&d.wins[i])||'')+'" oninput="STATE.today.wins['+i+']=this.value" placeholder="Win '+(i+1)+'..." /></div>';
+  }
+  html+='</div>';
+  el.innerHTML=html;
+}
+
+
+function handleCheck(e){
+  var el = e.currentTarget || e.target;
+  var id = el.getAttribute('data-bid');
+  var tab = el.getAttribute('data-tab');
+  if(id && tab) toggle(tab, id);
+}
+
+function toggle(tab,id){
+  var b=(STATE[tab].blocks||[]).find(function(x){return x.id===id;});
+  if(b){b.done=!b.done;}render();
+}
+function startEdit(id){editingId=id;showAdd=false;render();}
+function upd(tab,id,field,val){
+  var b=(STATE[tab].blocks||[]).find(function(x){return x.id===id;});
+  if(b)b[field]=val;
+}
+function delBlock(tab,id){
+  if(!confirm('Delete this block?'))return;
+  STATE[tab].blocks=(STATE[tab].blocks||[]).filter(function(x){return x.id!==id;});render();
+}
+function addBlock(tab){
+  if(!newBlock.time||!newBlock.title){alert('Add time and title');return;}
+  var b=Object.assign({},newBlock,{id:'u'+Math.random().toString(36).slice(2,8),done:false});
+  (STATE[tab].blocks=STATE[tab].blocks||[]).push(b);
+  STATE[tab].blocks.sort(function(a,b){return toMin(a.time)-toMin(b.time);});
+  newBlock={time:'',type:'LO_PROSPECT',title:'',note:'',mma:true};
+  showAdd=false;render();
+}
+function resetDay(tab){
+  if(!confirm('Reset to default schedule?'))return;
+  STATE[tab].blocks=cloneTemplate();render();
+}
+function toMin(t){
+  if(!t)return 9999;
+  var p=t.trim().split(' '),mer=p[1]||'AM',hm=(p[0]||'0:0').split(':').map(Number),h=hm[0];
+  if(mer==='PM'&&h!==12)h+=12;if(mer==='AM'&&h===12)h=0;
+  return h*60+(hm[1]||0);
+}
+function esc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function triggerCalUpload(){document.getElementById('calUpload').click();}
+function handleImg(ev){
+  var file=ev.target.files[0];if(!file)return;
+  var reader=new FileReader();
+  reader.onload=function(e){aiImg=e.target.result;aiStatus={type:'',msg:'Calendar loaded — tap Build My Schedule.'};render();};
+  reader.readAsDataURL(file);
+}
+
+function buildSchedule(forceTab){
+  if(!aiImg||aiBuilding)return;
+  var storedKey = localStorage.getItem('ak') || '';
+  if(!storedKey){
+    aiStatus={type:'error',msg:'Enter your Anthropic API key above first.'};
+    render();return;
+  }
+  aiBuilding=true;
+
+  var now = new Date();
+  var hour = now.getHours();
+  var mins = now.getMinutes();
+  var timeStr = now.toLocaleTimeString('en-US',{hour:'numeric',minute:'2-digit',hour12:true});
+  var dayNames=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  var todayName = dayNames[now.getDay()];
+  var tomorrowName = dayNames[(now.getDay()+1)%7];
+
+  // Which day to build and which tab to put it in
+  var targetTab = forceTab || (hour >= 16 ? 'tomorrow' : 'today');
+  var targetDay = targetTab === 'tomorrow' ? tomorrowName : todayName;
+
+  aiStatus={type:'loading',msg:'Building '+targetDay+' from '+timeStr+'...'};
+  render();
+
+  var gymMap={Monday:'Chest + Triceps',Tuesday:'Back + Biceps',Wednesday:'Shoulders + Core',Thursday:'Lower Body',Friday:'Full Body',Saturday:'Active Recovery',Sunday:'Rest'};
+  var b64=aiImg.split(',')[1], mt=aiImg.split(';')[0].split(':')[1];
+
+  // Very explicit time instruction to Claude
+  var timeInstruction = targetTab === 'today'
+    ? 'The current time RIGHT NOW is '+timeStr+' on '+todayName+'. Build the schedule for the REST of today only. Start the first block at '+timeStr+'. Do NOT include any blocks before '+timeStr+'. Hard stop at 6:00 PM — no work or MMA blocks after 6 PM.'
+    : 'The current time is '+timeStr+' on '+todayName+'. Build the FULL schedule for tomorrow ('+tomorrowName+') from 6:00 AM to 10:00 PM.';
+
+  var sys = 'You are a scheduling assistant for Joey, a recruiting operator at CrossCountry Mortgage on the Matt Weaver Team (Originate for Life). '
+    + timeInstruction
+    + ' His MMAs (mark mma:true): LO_PROSPECT, FOLLOWUP, DECISION, SCHEDULED, RE_PROSPECT. Protect these — fill every gap with them. Gym for '+targetDay+': '+gymMap[targetDay]+'.'
+    + ' Office: 9AM start, 6:00 PM hard stop — no MMA or work blocks after 6 PM. Return ONLY a valid JSON array, nothing else. Each block: {id,time,type,title,note,done:false,mma:bool}.'
+    + ' Valid types: LO_PROSPECT,RE_PROSPECT,FOLLOWUP,DECISION,SCHEDULED,PIPELINE,RESEARCH,ADMIN,READING,NUTRITION,GYM,ROUTINE,BREAK,REVIEW.';
+
+  fetch('https://api.anthropic.com/v1/messages',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':storedKey,'anthropic-version':'2023-06-01','anthropic-dangerous-direct-browser-access':'true'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-5',
+      max_tokens:3000,
+      system:sys,
+      messages:[{role:'user',content:[
+        {type:'image',source:{type:'base64',media_type:mt,data:b64}},
+        {type:'text',text:'Current time: '+timeStr+'. '+timeInstruction+' Look at the calendar screenshot for any existing appointments and build around them. Return JSON array only — no explanation, no markdown.'}
+      ]}]
+    })
+  }).then(function(r){return r.json();}).then(function(d){
+    if(d.error)throw new Error(d.error.message);
+    var text=d.content[0].text.trim();
+    // Strip any markdown fences
+    text=text.replace(/```json/gi,'').replace(/```/g,'').trim();
+    var match=text.match(/\[[\s\S]*\]/);
+    if(!match)throw new Error('No JSON found in response');
+    var blocks=JSON.parse(match[0]);
+    var valid=Object.keys(TYPES);
+    blocks=blocks.map(function(b,i){
+      var t=valid.includes(b.type)?b.type:'SCHEDULED';
+      return{
+        id:b.id||'ai'+i,
+        time:b.time||'9:00 AM',
+        type:t,
+        title:b.title||'Block',
+        note:b.note||'',
+        done:false,
+        mma:b.mma!==undefined?b.mma:(TYPES[t]||{}).mma||false
+      };
+    });
+    blocks.sort(function(a,b){return toMin(a.time)-toMin(b.time);});
+    STATE[targetTab].blocks=blocks;
+    aiBuilding=false;
+    aiImg='';
+    aiStatus={type:'success',msg:'&#10003; '+blocks.length+' blocks built for '+targetDay+' starting '+timeStr+'. Review and Save.'};
+    // Switch to the built tab
+    curTab=targetTab;
+    document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+    document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
+    var btn=document.querySelector('[onclick*="\''+targetTab+'\'"]');
+    if(btn)btn.classList.add('on');
+    var pg=document.getElementById('pg-'+targetTab);
+    if(pg)pg.classList.add('on');
+    render();
+  }).catch(function(e){
+    aiBuilding=false;
+    aiStatus={type:'error',msg:'Error: '+(e.message||'Try again.')};
+    render();
+  });
+}
+
+function sw(id,el){
+  curTab=id;editingId=null;showAdd=false;
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+  document.querySelectorAll('.pg').forEach(function(p){p.classList.remove('on');});
+  el.classList.add('on');
+  document.getElementById('pg-'+id).classList.add('on');
+  if(id==='pipeline')renderPipeline(); else if(id==='todos')renderTodos(); else render();
+}
+
+if(!STATE.weekData)STATE.weekData={};
+
+function toggleSettings(){
+  var m = document.getElementById('settingsModal');
+  if(!m) return;
+  var showing = m.style.display === 'flex';
+  m.style.display = showing ? 'none' : 'flex';
+  if(!showing){
+    var inp = document.getElementById('settingsKeyInput');
+    if(inp) inp.value = localStorage.getItem('ak') || '';
+  }
+}
+function saveApiKey(){
+  var inp = document.getElementById('settingsKeyInput');
+  if(!inp) return;
+  var key = inp.value.trim();
+  if(!key){ document.getElementById('settingsMsg').textContent = 'Enter your API key first.'; return; }
+  localStorage.setItem('ak', key);
+  document.getElementById('settingsMsg').innerHTML = '<span style="color:#27AE60;font-weight:700;">&#10003; Key saved — AI builder ready</span>';
+  setTimeout(toggleSettings, 1200);
+}
+
+
+// ── TO-DO LIST ─────────────────────────────────────────────
+if(!STATE.todos) STATE.todos = [];
+var todoInput = '';
+
+function renderTodos(){
+  var el = document.getElementById('pg-todos');
+  if(!el) return;
+  var todos = STATE.todos || [];
+  var active = todos.filter(function(t){ return !t.done; });
+  var done = todos.filter(function(t){ return t.done; });
+
+  var html = '';
+  // Add input
+  html += '<div class="todo-add-row">';
+  html += '<input class="todo-input" id="todoInp" placeholder="Add a to-do..." onkeydown="if(event.key===\'Enter\')addTodo()" />';
+  html += '<button class="todo-add-btn" onclick="addTodo()">+ Add</button>';
+  html += '</div>';
+
+  // Active
+  if(active.length){
+    html += '<div class="todo-section">';
+    html += '<div class="todo-sec-lbl">TO DO — '+active.length+'</div>';
+    active.forEach(function(t){
+      html += '<div class="todo-item" id="td-'+t.id+'">';
+      html += '<div class="todo-check" onclick="toggleTodo(\''+t.id+'\')"><span class="todo-check-mark">&#10003;</span></div>';
+      html += '<div class="todo-text">'+plEsc(t.text)+'</div>';
+      html += '<button class="todo-del" onclick="deleteTodo(\''+t.id+'\')">&#215;</button>';
+      html += '</div>';
+    });
+    html += '</div>';
+  } else {
+    html += '<div style="text-align:center;padding:30px 0;color:var(--mu);font-size:13px;">All clear. Add something above.</div>';
+  }
+
+  // Done
+  if(done.length){
+    html += '<div class="todo-section">';
+    html += '<div class="todo-sec-lbl">DONE — '+done.length+'</div>';
+    done.forEach(function(t){
+      html += '<div class="todo-item done-item">';
+      html += '<div class="todo-check checked" onclick="toggleTodo(\''+t.id+'\')"><span class="todo-check-mark">&#10003;</span></div>';
+      html += '<div class="todo-text">'+plEsc(t.text)+'</div>';
+      html += '<button class="todo-del" onclick="deleteTodo(\''+t.id+'\')">&#215;</button>';
+      html += '</div>';
+    });
+    html += '<button class="todo-clear-btn" onclick="clearDoneTodos()">Clear completed</button>';
+    html += '</div>';
+  }
+
+  el.innerHTML = html;
+}
+
+function addTodo(){
+  var inp = document.getElementById('todoInp');
+  var txt = inp ? inp.value.trim() : '';
+  if(!txt) return;
+  if(!STATE.todos) STATE.todos = [];
+  STATE.todos.unshift({id:'td'+Date.now(),text:txt,done:false,created:new Date().toISOString()});
+  inp.value = '';
+  saveData();
+  renderTodos();
+}
+
+function toggleTodo(id){
+  var t = (STATE.todos||[]).find(function(x){return x.id===id;});
+  if(t){ t.done = !t.done; saveData(); renderTodos(); }
+}
+
+function deleteTodo(id){
+  STATE.todos = (STATE.todos||[]).filter(function(x){return x.id!==id;});
+  saveData(); renderTodos();
+}
+
+function clearDoneTodos(){
+  STATE.todos = (STATE.todos||[]).filter(function(x){return !x.done;});
+  saveData(); renderTodos();
+}
+
+loadCloud();
+loadContacts();
+
 </script>
+
+<div class="cmodal-ov" id="cmodal-ov" onclick="if(event.target===this)closeContactCard()">
+  <div class="cmodal">
+    <div style="width:40px;height:4px;background:#ddd;border-radius:2px;margin:12px auto 0;"></div>
+    <div class="cm-hdr">
+      <div><div class="cm-name" id="cm-name"></div><div class="cm-co" id="cm-co"></div></div>
+      <button class="cm-close" onclick="closeContactCard()">&#10005;</button>
+    </div>
+    <div class="cm-body" id="cm-body"></div>
+  </div>
+</div>
+<script>
+var STAGES=[{"id": "prospect", "name": "Prospect", "color": "#5D6D7E"}, {"id": "cold-call-attempted", "name": "Cold Call Attempted", "color": "#85929E"}, {"id": "initial-presentation-scheduled", "name": "Initial Presentation", "color": "#2980B9"}, {"id": "pro-forma-scheduled", "name": "Pro Forma Scheduled", "color": "#8E44AD"}, {"id": "mike-dave-scheduled", "name": "Mike + Dave Scheduled", "color": "#27AE60"}, {"id": "decision-call-scheduled", "name": "Decision Call Scheduled", "color": "#E67E22"}, {"id": "decision-pending", "name": "Decision Pending", "color": "#C0392B"}, {"id": "onboarding", "name": "Onboarding", "color": "#1ABC9C"}, {"id": "nurture-long-term", "name": "Long-Term Nurture", "color": "#F39C12"}, {"id": "closed-not-qualified", "name": "Not a Fit", "color": "#BFC9CA"}, {"id": "closed-not-interested", "name": "Active LO (DNC)", "color": "#BFC9CA"}, {"id": "stage-1778860440487", "name": "Not Interested", "color": "#BFC9CA"}];
+var SM={};
+STAGES.forEach(function(s){SM[s.id]=s;});
+var contacts=[{"id": "7817f5a2", "name": "Kerry Victor", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "closed-not-interested", "volume": 3000000, "followUp": "2026-05-16", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Active LO", "date": "2026-05-15", "notes": "From Prospect"}]}, {"id": "a9ca3131", "name": "Kathleen Ward", "company": "KK Homes Team", "phone": "", "email": "", "state": "VA", "pipeline": "re", "stage": "prospect", "volume": 22000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Follow up next week, brought up L&F internal mortgage, squashed it.", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a02f9e5a", "name": "Mitchell Payne", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "mike-dave-scheduled", "volume": 20000000, "followUp": "2026-05-18", "lastContact": "2026-05-15", "notes": "Following Up", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Left Voicemail", "date": "2026-05-15", "notes": ""}, {"type": "Stage moved to Mike - Dave Call Scheduled", "date": "2026-05-15", "notes": "From Prospect"}]}, {"id": "2e94e290", "name": "Bryan Doorman", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "2026-05-15", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Cold Call Attempted", "date": "2026-05-15", "notes": "From Prospect"}]}, {"id": "46874e58", "name": "Chris Money Man Greek", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 6000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Going to an andy elliott conference follow up in a week", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "5be75290", "name": "Kenneth Natasi", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "stage-1778860440487", "volume": 6000000, "followUp": "2026-06-25", "lastContact": "", "notes": "Near orlando, probably making 60-100k on his 6M book there, he would easily take a raise by coming here", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Not Interested", "date": "2026-05-15", "notes": "From Prospect"}]}, {"id": "d7ac4bd9", "name": "Jorge Gonzalez", "company": "Broker", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 8000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Got priced out by Matt on too many deals so he switched to the broker world. Said he did 30 last year and could have done 30 more if he didnt lose to Matt", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "77c893c7", "name": "Giovanni Matia", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 16000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Big family guy, super happy at NAF has a good thing going, but said he will always make the best decision for his family. He will be in delray this week, wifes an insurance agent and is doing an event", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "c7462a72", "name": "Allyson Cain", "company": "Atlantic Bay", "phone": "", "email": "", "state": "NC", "pipeline": "lo", "stage": "prospect", "volume": 136000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Josh Tacketts preferred lender", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a7a9dc33", "name": "Nate Connor", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 8000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Has a few closings over next week, but knows Matt, and is open to a new opportunity once hes out of the weeds", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e0ebcb3a", "name": "Brent Foster", "company": "", "phone": "", "email": "", "state": "SC", "pipeline": "lo", "stage": "decision-call-scheduled", "volume": 0, "followUp": "2026-05-15", "lastContact": "", "notes": "Warm - meeting w mike & Dave 5/14 -", "incomeGoal": null, "temperature": "Warm", "activities": [{"type": "Stage moved to Decision Call Scheduled", "date": "2026-05-15", "notes": "From Cold Call Attempted"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-15", "notes": "Meeting scheduled for May 17, 2026"}]}, {"id": "6c7a85de", "name": "Justin Johnson", "company": "", "phone": "", "email": "", "state": "SC", "pipeline": "lo", "stage": "initial-presentation-scheduled", "volume": 0, "followUp": "2026-05-15", "lastContact": "", "notes": "Call 1 scheduled", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "04073fa1", "name": "Ray Evans", "company": "RE/MAX Broker", "phone": "", "email": "", "state": "NC", "pipeline": "re", "stage": "prospect", "volume": 125000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Great rapport, was planning on entering mortgage Q1 of next yr. Will call back in a few weeks and bring up Bernie this time to get a sooner appointment", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "32d653bd", "name": "Kiki Saldico", "company": "K2 Omni", "phone": "", "email": "", "state": "NM", "pipeline": "re", "stage": "prospect", "volume": 92000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Has a JV with NAF, does business in TX, FL, MA,, and asked if we could do this in all of those states. in follow up", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e1f6fd17", "name": "Chloe Bringerud", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "pro-forma-scheduled", "volume": 0, "followUp": "2026-05-15", "lastContact": "", "notes": "Call 2 (Pro Forma set) - wants to get back to making 250-300k -just getting bacvk into flow of prospecting and buiilding busiess back up", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a34a063c", "name": "Michael Palopoli", "company": "Supreme", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 3000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Family ties at supreme", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "cce7c53b", "name": "Patrick Kuhlman", "company": "NextHome", "phone": "", "email": "", "state": "AR", "pipeline": "re", "stage": "prospect", "volume": 36000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Current P&L with Revolution. Not going as well as he thought and hes almost a year in. only 14 deals have gone to his Rev branch", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e8628638", "name": "Joshua Tackett", "company": "Local R.E. Inc", "phone": "", "email": "", "state": "NC", "pipeline": "re", "stage": "pro-forma-scheduled", "volume": 42000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Really Likes his current lender Allyson Crain, would want to make a play at her. She has a great relationship with team", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Call 2 Scheduled", "date": "2026-05-14", "notes": "From New Lead"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-14", "notes": "Meeting scheduled for May 17, 2026 at 22:00"}]}, {"id": "0571cfb5", "name": "Blake Elder", "company": "KW", "phone": "", "email": "", "state": "AK", "pipeline": "re", "stage": "prospect", "volume": 150000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Him and Annie Bjerkstrand run it together, need to get both of them on a call together.", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "94591bf4", "name": "Chase Delperdang", "company": "KW", "phone": "", "email": "", "state": "AZ", "pipeline": "re", "stage": "prospect", "volume": 35000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Circling back end of this week, ]the brokerage he is at does business with another CCM, but his team does 0 business with one of our own", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "f8fae194", "name": "Michael Samuels", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "decision-call-scheduled", "volume": 15000000, "followUp": "2026-05-15", "lastContact": "", "notes": "Asking ?s about health insurance and stuff, but went radio silent", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Decision Call Scheduled", "date": "2026-05-15", "notes": "From Prospect"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-15", "notes": "Meeting scheduled for May 17, 2026"}]}, {"id": "79187ca6", "name": "Stephen Casterline", "company": "", "phone": "", "email": "", "state": "KS", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 9000000, "followUp": "2026-06-05", "lastContact": "", "notes": "Wants to join but not a culture fit", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Lost", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}]}, {"id": "a85a1c70", "name": "Rusty Davis", "company": "", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "nurture-long-term", "volume": 12000000, "followUp": "2026-05-18", "lastContact": "", "notes": "Not really ready to make a move, but if something drastic happens at current company that can change", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "619e1f33", "name": "Jeanine Henrion", "company": "", "phone": "", "email": "", "state": "KS", "pipeline": "lo", "stage": "prospect", "volume": 20000000, "followUp": "", "lastContact": "", "notes": "Neice is a big motivating factor, she loves her company but if her neice could make more she may move. Dont think Katie wants a necessarily new person taking her files.", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a44ee6a6", "name": "Ryan Boody", "company": "Grate", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 15000000, "followUp": "2026-05-22", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "5db56ce2", "name": "Keith Stocker", "company": "", "phone": "", "email": "", "state": "SC", "pipeline": "lo", "stage": "prospect", "volume": 10000000, "followUp": "", "lastContact": "", "notes": "2 years left, make as much money as he can and get out", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "6db48bdd", "name": "Mike Callahan", "company": "Movement Mtg", "phone": "", "email": "", "state": "SC", "pipeline": "lo", "stage": "prospect", "volume": 7000000, "followUp": "", "lastContact": "", "notes": "Older guy wont end up being a good fit", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "3e23a53d", "name": "Kurt Heide", "company": "Heide Intl", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 10000000, "followUp": "", "lastContact": "", "notes": "Broker doesnt want to sell", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a8063303", "name": "Jamie Bardeen", "company": "Grate", "phone": "931-980-7689", "email": "", "state": "TN", "pipeline": "lo", "stage": "decision-pending", "volume": 20000000, "followUp": "2026-04-23", "lastContact": "", "notes": "Didnt say the right things", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Offer Sent", "date": "2026-04-22", "notes": "From Bernie Wendy Meeting"}]}, {"id": "36c8abc6", "name": "David Drake", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "decision-call-scheduled", "volume": 6000000, "followUp": "2026-05-17", "lastContact": "2026-05-15", "notes": "Builder Specialty", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Follow-Up Meeting Scheduled", "date": "2026-05-06", "notes": "Meeting scheduled for May 9, 2026"}, {"type": "Spoke \u2013 Meaningful", "date": "2026-05-06", "notes": ""}, {"type": "Stage moved to Decision Call Scheduled", "date": "2026-05-15", "notes": "From Initial Presentation Scheduled"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-15", "notes": "Meeting scheduled for May 17, 2026"}, {"type": "Meeting Held", "date": "2026-05-15", "notes": ""}]}, {"id": "1c253c41", "name": "Chad Williams", "company": "Ridgeview", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "nurture-long-term", "volume": 35000000, "followUp": "2026-05-07", "lastContact": "", "notes": "Total Acquisition", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Lost", "date": "2026-05-06", "notes": "From New Lead"}]}, {"id": "ab277d2b", "name": "Giselle Falla", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "prospect", "volume": 13900000, "followUp": "", "lastContact": "", "notes": "107k buyout but does a lot of FHA", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "cce29bae", "name": "Jon Ray", "company": "Trailblazer", "phone": "", "email": "", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 80000000, "followUp": "", "lastContact": "", "notes": "Consumer Direct", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e655610e", "name": "Chasten Gerhart", "company": "NAF", "phone": "", "email": "", "state": "KS", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 12170000, "followUp": "2026-05-22", "lastContact": "", "notes": "Wants to join but Not a culture fit", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Lost", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}]}, {"id": "be94ca2c", "name": "Erick Cantele", "company": "NAF", "phone": "", "email": "", "state": "FL", "pipeline": "lo", "stage": "nurture-long-term", "volume": 13790000, "followUp": "2026-05-18", "lastContact": "", "notes": "Offer out", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "88945d54", "name": "Rob Shell", "company": "MOH", "phone": "", "email": "", "state": "TN", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 10300000, "followUp": "2026-05-15", "lastContact": "", "notes": "Wants to join but Not a culture fit", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "51c12506", "name": "Cliff Rains", "company": "CMG", "phone": "(931) 335-1418", "email": "", "state": "TN", "pipeline": "lo", "stage": "nurture-long-term", "volume": 10000000, "followUp": "2026-05-09", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to FOLLOW UP", "date": "2026-03-11", "notes": "From Call 2 Complete"}, {"type": "Stage moved to Reschedule", "date": "2026-05-06", "notes": "From Pro Forma"}, {"type": "Stage manually resolved to Not Interested \u2014 Stay in Touch", "date": "2026-05-14", "notes": "Manual review"}]}, {"id": "2988419f", "name": "Andrew Hickman", "company": "", "phone": "(404) 454-9995", "email": "", "state": "", "pipeline": "lo", "stage": "nurture-long-term", "volume": 0, "followUp": "2026-05-22", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to FL Visit Invited", "date": "2026-03-05", "notes": "From New Lead"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-03-05", "notes": "Meeting scheduled for Mar 17, 2026"}, {"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From FL Visit Invited"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "db8f3611", "name": "John Weaver", "company": "Edge Home Finance", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "stage-1778860440487", "volume": 0, "followUp": "2026-06-18", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Warm Nurturing", "date": "2026-03-09", "notes": "From New Lead"}, {"type": "Stage moved to Not Interested", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "a125bda7", "name": "Ben Zoeller", "company": "Cornerstone", "phone": "(502) 649-0295", "email": "bzoeller1119@gmail.com", "state": "TN", "pipeline": "lo", "stage": "closed-not-interested", "volume": 13400000, "followUp": "2026-05-06", "lastContact": "2026-03-04", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Spoke \u2013 Meaningful", "date": "2026-03-04", "notes": ""}, {"type": "Stage moved to Closed \u2014 Won", "date": "2026-05-06", "notes": "From Offer Sent"}, {"type": "Stage moved to Active LO", "date": "2026-05-15", "notes": "From Onboarding"}]}, {"id": "c01e0471", "name": "Austin Wyrick", "company": "FLAT BRANCH", "phone": "(828) 449-7053", "email": "austin_g_w@yahoo.com", "state": "TN", "pipeline": "lo", "stage": "nurture-long-term", "volume": 22880000, "followUp": "2026-05-18", "lastContact": "2026-05-06", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Follow-Up Meeting Scheduled", "date": "2026-03-09", "notes": "Meeting scheduled for Mar 10, 2026 at 16:00"}, {"type": "Stage moved to Reschedule", "date": "2026-03-17", "notes": "From Call 2 Scheduled"}, {"type": "Spoke \u2013 Short", "date": "2026-05-06", "notes": ""}, {"type": "Stage manually resolved to Warm Nurturing", "date": "2026-05-14", "notes": "Manual review"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}]}, {"id": "2408ea22", "name": "Gregory Tucker", "company": "Fusion", "phone": "321-229-7485", "email": "gregoryftucker88@gmail.com", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "97a0efa8", "name": "JC Sommer", "company": "Movement Mortgage", "phone": "", "email": "jc.sommer@movement.com", "state": "FL", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 29080000, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Call 1 Complete", "date": "2026-03-09", "notes": "From Call 1 Scheduled"}, {"type": "Stage moved to Call 1 Scheduled", "date": "2026-05-06", "notes": "From Call 1 Complete"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-05-06", "notes": "Meeting scheduled for May 8, 2026"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Initial Presentation Scheduled"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}]}, {"id": "fab1da8b", "name": "Amber Smith", "company": "Grate", "phone": "407-435-3665", "email": "amber.fla@icloud.net", "state": "FL", "pipeline": "lo", "stage": "closed-not-qualified", "volume": 12820000, "followUp": "2026-05-22", "lastContact": "", "notes": "Wants to join but Not a culture fit", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Call 2 Scheduled", "date": "2026-03-05", "notes": "From Call 1 Scheduled"}, {"type": "Follow-Up Meeting Scheduled", "date": "2026-03-05", "notes": "Meeting scheduled for Mar 5, 2026 at 13:00"}, {"type": "Stage moved to FOLLOW UP", "date": "2026-03-11", "notes": "From Call 2 Scheduled"}, {"type": "Stage moved to Not Interested \u2014 Stay in Touch", "date": "2026-05-06", "notes": "From Pro Forma"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}]}, {"id": "70b7da35", "name": "John Ray", "company": "", "phone": "407-595-6057", "email": "jraygator15@gmail.com", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "6844e3a7", "name": "Denise Pantaleon", "company": "", "phone": "321-278-4656", "email": "denise@dmpmortgage.com", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "07f7b0d3", "name": "Justin Lopatin", "company": "", "phone": "", "email": "justin.lopatin@originpoint.com", "state": "", "pipeline": "lo", "stage": "nurture-long-term", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "4c4a4c8c", "name": "Jeannine Henrion", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "5152f531", "name": "Antony Gemmell", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "e342c974", "name": "Evelyn Dean", "company": "", "phone": "(501) 730-1958", "email": "", "state": "", "pipeline": "re", "stage": "cold-call-attempted", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "75c5faa4", "name": "Brian Curtis", "company": "", "phone": "479-531-2317", "email": "", "state": "", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "00df06ae", "name": "Alan Cheiman", "company": "", "phone": "561-441-7777", "email": "", "state": "", "pipeline": "lo", "stage": "nurture-long-term", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "6196f6c0", "name": "Mike Brustad", "company": "Grate", "phone": "850-830-3557", "email": "mike.brustad@gmail.com", "state": "FL", "pipeline": "lo", "stage": "stage-1778860440487", "volume": 15460000, "followUp": "2026-05-22", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Call 2 Complete", "date": "2026-03-05", "notes": "From Call 2 Scheduled"}, {"type": "Stage moved to Not Interested \u2014 Stay in Touch", "date": "2026-03-05", "notes": "From Call 2 Complete"}, {"type": "Stage moved to Not a Fit", "date": "2026-05-15", "notes": "From Long-Term Nurture"}, {"type": "Stage moved to Not Interested", "date": "2026-05-15", "notes": "From Not a Fit"}]}, {"id": "1512dddc", "name": "Andrew Acosta", "company": "", "phone": "", "email": "", "state": "", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "", "notes": "", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "4d676506", "name": "Juan Florez", "company": "Summit Funding", "phone": "423-503-5777", "email": "juan.florez@summitfunding.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 21065432, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "7c321612", "name": "Christopher Kloc", "company": "Summit Funding", "phone": "423-755-3038", "email": "chris.kloc@summitfunding.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 50095445, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "53127055", "name": "Lucas Johnson", "company": "Movement Mortgage", "phone": "423-794-8541", "email": "lucas.johnson@movement.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 72329502, "followUp": "", "lastContact": "2026-01-29", "notes": "Johnson City; high response rate", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "b760e82f", "name": "Todd Wiggins", "company": "Studio Bank", "phone": "615-554-1983", "email": "twiggins@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a02ce8ab", "name": "Shannon Coates", "company": "Studio Bank", "phone": "615-906-4741", "email": "scoates@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "9dbb900f", "name": "Jeff Devereaux", "company": "Studio Bank", "phone": "615-218-8217", "email": "jdevereaux@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "caba96e4", "name": "Will Cordell", "company": "Studio Bank", "phone": "", "email": "wcordell@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Just moved; bringing business", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "ea1aa6e5", "name": "Diana Ely", "company": "Lending Hand", "phone": "615-997-5512", "email": "diana@lendinghand.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 0, "followUp": "", "lastContact": "2026-01-29", "notes": "Active; Bilingual (Spanish)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "dff6c8b9", "name": "Kyle Chubboy", "company": "Acrisure Mtg", "phone": "352-978-1811", "email": "kchubboy@acrisure.com", "state": "TN", "pipeline": "lo", "stage": "cold-call-attempted", "volume": 0, "followUp": "2026-05-13", "lastContact": "2026-01-29", "notes": "Active; Team Jagoe partner", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}]}, {"id": "c95cf689", "name": "Richard Aldana", "company": "Loan Factory", "phone": "305-684-7281", "email": "raldana@loanfactory.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 1500000, "followUp": "", "lastContact": "2026-01-29", "notes": "Heavy Purchase focus", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "40a07103", "name": "Heather Frost", "company": "Studio Bank", "phone": "615-500-1175", "email": "hfrost@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 9701768, "followUp": "", "lastContact": "2026-01-29", "notes": "New builds focus", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a2544653", "name": "Jeff Tucker", "company": "Studio Bank", "phone": "615-400-0255", "email": "jtucker@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12215432, "followUp": "", "lastContact": "2026-01-29", "notes": "Consistent mid-range", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "65208e4e", "name": "Alden Mason", "company": "Studio Bank", "phone": "615-715-9477", "email": "amason@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12735207, "followUp": "", "lastContact": "2026-01-29", "notes": "Joined Studio Bank Dec 2025", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "8988a3eb", "name": "Andrew Chelton", "company": "Guaranteed Rate", "phone": "615-400-2086", "email": "andrew.chelton@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12877198, "followUp": "", "lastContact": "2026-01-16", "notes": "Active Jan 2026", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a9406d0b", "name": "Yanisleidy Lopez", "company": "Guaranteed Rate", "phone": "615-479-8156", "email": "yanisleidy.lopez@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12944275, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/21; No response", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "94fc980e", "name": "Parker Seabolt", "company": "Studio Bank", "phone": "615-414-7294", "email": "pseabolt@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 13012032, "followUp": "", "lastContact": "2026-01-29", "notes": "35 transactions", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "55e135f4", "name": "Allie Conway", "company": "Guild Mortgage", "phone": "865-705-8763", "email": "aconway@guildmortgage.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 13235841, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No pickup)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "7dee7a4a", "name": "Clinton Haynes", "company": "Preferred Rate", "phone": "615-288-4452", "email": "clint@preferredrate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 14967918, "followUp": "", "lastContact": "2026-01-29", "notes": "Mt Juliet", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "077f1dfd", "name": "James Cheney", "company": "Mutual of Omaha", "phone": "786-897-3515", "email": "jcheney@mutualofomaha.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 15927000, "followUp": "", "lastContact": "2026-01-16", "notes": "Spoke 1/16; Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "73d10d30", "name": "Brad Daniel", "company": "Mutual of Omaha", "phone": "615-975-7400", "email": "bdaniel@mutualofomaha.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 16746461, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "5127bbaf", "name": "Matthew Glover", "company": "American Pacific", "phone": "615-429-9532", "email": "matthew.glover@preferredrate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 17257120, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "1d1ab57f", "name": "Damon Kindred", "company": "Silverton Mtg", "phone": "615-878-6998", "email": "dkindred@silvertonmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 17992081, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "c94530c4", "name": "John Conyer", "company": "MTH Mortgage", "phone": "615-815-6179", "email": "jconyer@mthmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 18918637, "followUp": "", "lastContact": "2026-01-16", "notes": "Booked for 1/16; Franklin", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "82b7e6bc", "name": "Michael Dilucchio", "company": "Guild Mortgage", "phone": "615-969-6889", "email": "mdilucchio@guildmortgage.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 19603753, "followUp": "", "lastContact": "2026-05-14", "notes": "Active Jan 2026", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Touchpoint", "date": "2026-05-14", "notes": ""}]}, {"id": "ed323b1c", "name": "Joseph Buffler", "company": "Guaranteed Rate", "phone": "615-415-0418", "email": "joseph.buffler@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 19897223, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "88099da7", "name": "John Elmer McCabe", "company": "Cornerstone First", "phone": "256-759-1411", "email": "jmccabe@cornerstone.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 22000000, "followUp": "", "lastContact": "2026-01-29", "notes": "Active; Moved Aug 2025", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "1d3bd7d6", "name": "Brandon Keane", "company": "Studio Bank", "phone": "615-585-8887", "email": "bkeane@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "nurture-long-term", "volume": 24107326, "followUp": "2026-05-18", "lastContact": "2026-05-15", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": [{"type": "Stage moved to Nurturing", "date": "2026-05-06", "notes": "From New Lead"}, {"type": "Stage moved to Long-Term Nurture", "date": "2026-05-15", "notes": "From Cold Call Attempted"}, {"type": "Left Voicemail", "date": "2026-05-15", "notes": ""}]}, {"id": "4f3fc457", "name": "Philip May", "company": "Studio Bank", "phone": "901-848-6874", "email": "pmay@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 25485784, "followUp": "", "lastContact": "2026-01-29", "notes": "Nashville office", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "cd293a5a", "name": "Jeffrey Osburn", "company": "Guaranteed Rate", "phone": "615-804-4804", "email": "jeffrey.osburn@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 27000664, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "54219904", "name": "Anthony Fragale", "company": "Mutual of Omaha", "phone": "615-579-2835", "email": "afragale@mutualofomaha.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 27615205, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "44db562d", "name": "Ronald Cox", "company": "Studio Bank", "phone": "615-338-9232", "email": "rcox@studiobank.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 28065000, "followUp": "", "lastContact": "2026-01-29", "notes": "Active; Nashville BM", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "31aeea3a", "name": "Brendan Donelson", "company": "Guild Mortgage", "phone": "615-207-8254", "email": "bdonelson@guildmortgage.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29093710, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/16 1/21 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "37199216", "name": "Mackenzie Curtis", "company": "Mutual of Omaha", "phone": "352-258-9162", "email": "mcurtis@mutualofomaha.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29336736, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "5ca3a79b", "name": "Tracy Woodside", "company": "FirstTrust", "phone": "615-319-7480", "email": "twoodside@firsttrust.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29621020, "followUp": "", "lastContact": "2026-01-16", "notes": "Hendersonville", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "acf125a1", "name": "Donald Lee Eden II", "company": "SFMC LP", "phone": "615-330-3547", "email": "deden@sfmc.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29934781, "followUp": "", "lastContact": "2026-01-21", "notes": "Spoke 1/21; Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "065c3800", "name": "Joseph Lamanna", "company": "Silverton Mtg", "phone": "352-989-2282", "email": "jlamanna@silvertonmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 29957298, "followUp": "", "lastContact": "2026-01-16", "notes": "Brentwood", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "48d0ec60", "name": "Jackie Hurtis", "company": "Guild Mortgage", "phone": "608-347-0756", "email": "jhurtis@guildmortgage.net", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 32635585, "followUp": "", "lastContact": "2026-01-15", "notes": "Spoke 1/15; Sweetheart", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "55a66d5e", "name": "Brian Maggart", "company": "FirstTrust", "phone": "615-714-5652", "email": "bmaggart@firsttrust.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 39050182, "followUp": "", "lastContact": "2026-01-29", "notes": "Hendersonville; goes by Jarred", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "0c5d33b6", "name": "James Kofahl Jr", "company": "American Pacific", "phone": "615-504-8304", "email": "james.kofahl@preferredrate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 40929678, "followUp": "", "lastContact": "2026-01-29", "notes": "Active BM; Spring Hill", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "6b481590", "name": "Gregory Goodman", "company": "SWBC Mortgage", "phone": "615-400-5626", "email": "ggoodman@swbc.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 42948247, "followUp": "", "lastContact": "2026-01-16", "notes": "Branch Manager", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a487bc97", "name": "Justin Lee", "company": "Guaranteed Rate", "phone": "865-406-8486", "email": "justin.lee@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 45618805, "followUp": "", "lastContact": "2026-01-26", "notes": "Called 1/16 1/26 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "2e994868", "name": "Kurt Johansson", "company": "Shelter Lending", "phone": "615-482-7252", "email": "kjohansson@shelterlending.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 46278049, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/15 1/21 (No pickup)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "49f88589", "name": "Jack McGrath", "company": "Rocket Mortgage", "phone": "800-226-6308", "email": "jackmcgrath@rocketmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 48460948, "followUp": "", "lastContact": "2026-01-29", "notes": "President's Club; active Jan 2026", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "cfbe3885", "name": "Heath Albritton", "company": "Guaranteed Rate", "phone": "615-347-0578", "email": "heath.albritton@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 52810903, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/16 1/21 (No answer)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "9a495d62", "name": "Michael Smalling", "company": "Legacy Home Loans", "phone": "615-300-6599", "email": "msmalling@legacylending.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 55322300, "followUp": "", "lastContact": "2026-01-21", "notes": "Called 1/15 1/21 (Texted back)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "fcdc67f5", "name": "Christopher Haynes", "company": "American Pacific", "phone": "615-945-3994", "email": "chrishaynesteam@preferredrate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 58401957, "followUp": "", "lastContact": "2026-01-20", "notes": "Called 1/16 1/20 (No pickup)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "ac125a32", "name": "Michele Ballard", "company": "Guaranteed Rate", "phone": "615-330-3885", "email": "michele.ballard@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 60195390, "followUp": "", "lastContact": "2026-01-16", "notes": "Spoke 1/16; Nice; sending refs", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "b5a458b9", "name": "Rory Lithgow", "company": "InterLinc Mortgage", "phone": "615-300-3853", "email": "rory.lithgow@interlincmortgage.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 78000489, "followUp": "", "lastContact": "2026-01-16", "notes": "BM - Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "111c1ad9", "name": "Garrett Locklear", "company": "Guaranteed Rate", "phone": "615-933-2080", "email": "garrett.locklear@rate.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 101566845, "followUp": "", "lastContact": "2026-01-16", "notes": "Called 1/16 (No pickup)", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "4cbf3d03", "name": "Dalton Ponchillia", "company": "CMG Mortgage", "phone": "615-504-7320", "email": "ponchilliamortgageteam@cmgfi.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 98611068, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "7a4f1029", "name": "Christi Wedig", "company": "CMG Mortgage", "phone": "435-773-7031", "email": "cwedig@cmgfi.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 34604929, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "931d664a", "name": "Lucero Rose", "company": "CMG Mortgage", "phone": "865-599-6693", "email": "lrose@cmgfi.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 36956898, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "f3a0e853", "name": "Michael Castronovo", "company": "CMG Mortgage", "phone": "847-612-5626", "email": "mcastronovo@cmghomeloans.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 21331657, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "362416d3", "name": "Eddie Cooke", "company": "CMG Mortgage", "phone": "615-300-6262", "email": "ecooke@cmgfi.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 9728974, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "349cf6d4", "name": "Timothy Awad", "company": "PennyMac", "phone": "818-926-1248", "email": "timothy.awad@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 74428806, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "046e41b9", "name": "Christopher Bledsoe", "company": "PennyMac", "phone": "615-475-7370", "email": "christopher.bledsoe@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 74280967, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "9b72c260", "name": "Peter Munguia", "company": "PennyMac", "phone": "931-219-2263", "email": "peter.munguia@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 54494611, "followUp": "", "lastContact": "2026-01-29", "notes": "User busy during attempt", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a21c55a3", "name": "Nathan Raphan", "company": "PennyMac", "phone": "616-558-1929", "email": "nathan.raphan@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 50707540, "followUp": "", "lastContact": "2026-01-29", "notes": "Spoke; Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "a9c12f35", "name": "Tyler Johnston", "company": "PennyMac", "phone": "423-326-4266", "email": "tyler.johnston@pennymac.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 46369481, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No pickup", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "90bd6f5d", "name": "Parker Borofsky", "company": "Movement Mortgage", "phone": "865-292-4436", "email": "parker.borofsky@movement.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 190972111, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "98c7bfa5", "name": "Robert Breckenridge", "company": "Movement Mortgage", "phone": "865-804-3288", "email": "rob.breckenridge@movement.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 65851431, "followUp": "", "lastContact": "2026-01-29", "notes": "Spoke; Not interested", "incomeGoal": null, "temperature": "Cold", "activities": []}, {"id": "3114bb38", "name": "Casey Shaffer", "company": "Movement Mortgage", "phone": "606-515-8362", "email": "casey.shaffer@movement.com", "state": "TN", "pipeline": "lo", "stage": "prospect", "volume": 12118936, "followUp": "", "lastContact": "2026-01-29", "notes": "Called; No answer", "incomeGoal": null, "temperature": "Cold", "activities": []}];
+var PLANNER_AK='$2a$10$NyyXvn9j8.HX5rM0oKCjnuo9GxmQVT/hRnTLslt.ks00E/ViRfF0G';
+var PLANNER_NB_BIN=localStorage.getItem('planner_nb_bin')||'';
+var plSearch='';
+var curOpenCid=null;
+var selNoteType='Call 1';
+var _dragCid=null;
+
+function loadContacts(){
+  var local=localStorage.getItem('planner_contacts');
+  if(local){try{var d=JSON.parse(local);if(d&&d.length)contacts=d;}catch(e){}}
+  if(!PLANNER_NB_BIN){
+    fetch('https://api.jsonbin.io/v3/b',{method:'POST',
+      headers:{'Content-Type':'application/json','X-Master-Key':PLANNER_AK,'X-Bin-Name':'ofl-contacts-v1'},
+      body:JSON.stringify({contacts:contacts})
+    }).then(function(r){return r.json();}).then(function(d){
+      if(d.metadata&&d.metadata.id){PLANNER_NB_BIN=d.metadata.id;localStorage.setItem('planner_nb_bin',PLANNER_NB_BIN);}
+    }).catch(function(){});
+  } else {
+    fetch('https://api.jsonbin.io/v3/b/'+PLANNER_NB_BIN+'/latest',{headers:{'X-Master-Key':PLANNER_AK}})
+    .then(function(r){return r.json();}).then(function(d){
+      if(d.record&&d.record.contacts)contacts=d.record.contacts;
+    }).catch(function(){});
+  }
+}
+
+function saveContacts(){
+  localStorage.setItem('planner_contacts',JSON.stringify(contacts));
+  if(PLANNER_NB_BIN){
+    fetch('https://api.jsonbin.io/v3/b/'+PLANNER_NB_BIN,{method:'PUT',
+      headers:{'Content-Type':'application/json','X-Master-Key':PLANNER_AK},
+      body:JSON.stringify({contacts:contacts})
+    }).catch(function(){});
+  }
+}
+
+function fv(v){return v?'$'+(v/1e6).toFixed(1)+'M':'';}
+function fd(s){if(!s)return'';var d=new Date(s);return isNaN(d)?s:d.toLocaleDateString('en-US',{month:'short',day:'numeric'});}
+function fuC(s){if(!s)return'';var d=new Date(s),t=new Date();t.setHours(0,0,0,0);d.setHours(0,0,0,0);return d<t?'fu-o':d.getTime()===t.getTime()?'fu-t':'fu-k';}
+function plEsc(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+function renderPipeline(){
+  var el=document.getElementById('pg-pipeline');if(!el)return;
+  var q=plSearch.toLowerCase();
+  var lo=contacts.filter(function(c){return c.pipeline!=='re';});
+  if(q)lo=lo.filter(function(c){return(c.name||'').toLowerCase().indexOf(q)!==-1||(c.company||'').toLowerCase().indexOf(q)!==-1;});
+  var closed=['closed-not-qualified','closed-not-interested','stage-1778860440487'];
+  var active=lo.filter(function(c){return closed.indexOf(c.stage)===-1;});
+  var hotS=['mike-dave-scheduled','decision-call-scheduled','decision-pending','pro-forma-scheduled','initial-presentation-scheduled'];
+  var hot=lo.filter(function(c){return hotS.indexOf(c.stage)!==-1;});
+  var noGoal=hot.filter(function(c){return!c.incomeGoal;});
+  var td=new Date();td.setHours(0,0,0,0);
+  var overdue=lo.filter(function(c){return c.followUp&&new Date(c.followUp)<td;});
+
+  var html='<div class="kanban-wrap">';
+  // Top bar: search + stats
+  html+='<div class="kanban-topbar">';
+  html+='<input class="pl-search" placeholder="&#128269; Search..." value="'+plEsc(plSearch)+'" oninput="plSearch=this.value;renderPipeline()" />';
+  html+='<div class="pl-stats">';
+  html+='<div class="pl-stat"><div class="pl-stat-num">'+active.length+'</div><div class="pl-stat-lbl">Active</div></div>';
+  html+='<div class="pl-stat"><div class="pl-stat-num" style="color:#C8960C">'+hot.length+'</div><div class="pl-stat-lbl">Hot</div></div>';
+  html+='<div class="pl-stat"><div class="pl-stat-num" style="color:#C0392B">'+noGoal.length+'</div><div class="pl-stat-lbl">No Goal</div></div>';
+  html+='<div class="pl-stat"><div class="pl-stat-num" style="color:'+(overdue.length?'#C0392B':'#27AE60')+'">'+overdue.length+'</div><div class="pl-stat-lbl">Overdue</div></div>';
+  html+='</div></div>';
+  html+='<div class="pl-hint">Double-tap to open &nbsp;&#8729;&nbsp; Drag left/right to move stage</div>';
+
+  // Kanban board - horizontal scroll
+  html+='<div class="kanban-board" id="kanbanBoard">';
+  var ORDER=['decision-call-scheduled','decision-pending','mike-dave-scheduled','pro-forma-scheduled','initial-presentation-scheduled','nurture-long-term','cold-call-attempted','prospect','onboarding','closed-not-interested','closed-not-qualified'];
+  ORDER.forEach(function(sid){
+    var st=SM[sid]||{name:sid,color:'#888'};
+    var cards=lo.filter(function(c){return c.stage===sid;});
+    cards.sort(function(a,b){var da=a.followUp?new Date(a.followUp):new Date('2099'),db=b.followUp?new Date(b.followUp):new Date('2099');return da-db;});
+    html+='<div class="pipe-col">';
+    html+='<div class="pipe-col-hd" style="border-bottom-color:'+st.color+'">';
+    html+='<div class="pipe-dot" style="background:'+st.color+'"></div>';
+    html+='<div class="pipe-col-name">'+plEsc(st.name)+'</div>';
+    html+='<span class="pipe-col-count">'+cards.length+'</span></div>';
+    html+='<div class="pipe-col-cards" data-stage="'+sid+'" ondragover="plDragOver(event)" ondragleave="plDragLeave(event)" ondrop="plDrop(event,this.dataset.stage)">';
+    if(!cards.length){
+      html+='<div style="padding:16px;text-align:center;font-size:11px;color:#ccc;">Empty</div>';
+    }
+    cards.forEach(function(c){
+      var fc=fuC(c.followUp);
+      var calls=(c.callNotes||[]).length;
+      html+='<div class="pcard" draggable="true" data-cid="'+c.id+'" ondblclick="openContactCard(this.dataset.cid)" ondragstart="plDragStart(event)" ondragend="plDragEnd(event)">';
+      html+='<div class="pc-name">'+plEsc(c.name)+'</div>';
+      if(c.volume)html+='<span class="pc-vol">'+fv(c.volume)+'</span>';
+      if(c.company)html+='<div class="pc-sub">'+plEsc(c.company)+(c.state?' &middot; '+plEsc(c.state):'')+'</div>';
+      html+='<div class="pc-row">';
+      html+=c.incomeGoal?'<span class="pc-chip">$'+Number(c.incomeGoal).toLocaleString()+'</span>':'<span class="pc-warn">&#9888; No goal</span>';
+      if(calls)html+='<span class="pc-chip">'+calls+' note'+(calls!==1?'s':'')+'</span>';
+      if(c.followUp)html+='<span class="fu-badge '+fc+'">'+fd(c.followUp)+'</span>';
+      html+='</div></div>';
+    });
+    html+='</div></div>';
+  });
+  html+='</div></div>'; // close kanban-board + kanban-wrap
+  el.innerHTML=html;
+}
+
+function plDragStart(e){_dragCid=e.currentTarget.dataset.cid;e.currentTarget.classList.add('dragging');e.dataTransfer.effectAllowed='move';e.dataTransfer.setData('text/plain',_dragCid);}
+function plDragEnd(e){e.currentTarget.classList.remove('dragging');document.querySelectorAll('.pipe-col-cards').forEach(function(el){el.classList.remove('drag-over');});}
+function plDragOver(e){e.preventDefault();e.dataTransfer.dropEffect='move';e.currentTarget.classList.add('drag-over');}
+function plDragLeave(e){e.currentTarget.classList.remove('drag-over');}
+function plDrop(e,newStage){
+  e.preventDefault();e.currentTarget.classList.remove('drag-over');
+  var cid=e.dataTransfer.getData('text/plain')||_dragCid;
+  if(!cid||!newStage)return;
+  var c=contacts.find(function(x){return x.id===cid;});
+  if(!c)return;
+  c.stage=newStage;c.stageName=(SM[newStage]||{}).name||newStage;
+  saveContacts();renderPipeline();
+}
+
+function openContactCard(id){
+  curOpenCid=id;
+  var c=contacts.find(function(x){return x.id===id;});if(!c)return;
+  var cns=c.callNotes||[];
+  document.getElementById('cm-name').textContent=c.name;
+  document.getElementById('cm-co').textContent=[c.company,c.state].filter(Boolean).join(' \u00b7 ');
+  var b='';
+  b+='<div class="cm-sec"><div class="cm-sec-lbl">Stage</div>';
+  b+='<select class="cm-stage-sel" id="cm-stage">'+STAGES.map(function(s){return'<option value="'+s.id+'"'+(c.stage===s.id?' selected':'')+'>'+s.name+'</option>';}).join('')+'</select></div>';
+  b+='<div class="cm-sec"><div class="cm-sec-lbl">Income Goals</div>';
+  b+='<div class="cm-g2"><div><div class="cm-fl">CURRENT INCOME</div><input class="cm-fi" id="cm-ig" type="number" value="'+(c.incomeGoal||'')+'"></div>';
+  b+='<div><div class="cm-fl">TARGET INCOME</div><input class="cm-fi" id="cm-it" type="number" value="'+(c.incomeTarget||'')+'"></div></div>';
+  if(!c.incomeGoal)b+='<div class="ig-warn">&#9888; Surface income goal before any comp model</div>';
+  b+='</div>';
+  b+='<div class="cm-sec"><div class="cm-sec-lbl">Contact Info</div>';
+  b+='<div class="cm-g2"><div><div class="cm-fl">PHONE</div><input class="cm-fi" id="cm-ph" value="'+plEsc(c.phone||'')+'"></div>';
+  b+='<div><div class="cm-fl">EMAIL</div><input class="cm-fi" id="cm-em" value="'+plEsc(c.email||'')+'"></div></div>';
+  b+='<div class="cm-g2"><div><div class="cm-fl">FOLLOW-UP DATE</div><input class="cm-fi" id="cm-fu" type="date" value="'+(c.followUp||'')+'"></div>';
+  b+='<div><div class="cm-fl">VOLUME</div><input class="cm-fi" id="cm-vol" type="number" value="'+(c.volume||'')+'"></div></div></div>';
+  b+='<div class="cm-sec"><div class="cm-sec-lbl">Notes</div><textarea class="cm-ta" id="cm-notes">'+plEsc(c.notes||'')+'</textarea></div>';
+  b+='<div class="cm-sec"><div class="cm-sec-lbl">Call Notes ('+cns.length+')</div>';
+  if(cns.length){cns.slice().reverse().forEach(function(n){var tc=n.type==='Decision Call'?'#C0392B':n.type.indexOf('Pro')!==-1?'#8E44AD':n.type.indexOf('Mike')!==-1?'#27AE60':n.type==='Call 1'?'#C8960C':'#555';b+='<div class="cn-box"><div class="cn-hd"><span class="cn-tag" style="background:'+tc+'">'+plEsc(n.type)+'</span><span class="cn-dt">'+plEsc(n.date)+'</span></div><div class="cn-txt">'+plEsc(n.text)+'</div></div>';});}
+  else b+='<div style="font-size:12px;color:var(--mu);padding:4px 0;">No call notes yet.</div>';
+  b+='<div style="margin-top:12px;padding-top:12px;border-top:1px solid var(--b);">';
+  b+='<div class="cm-sec-lbl">ADD CALL NOTE</div>';
+  b+='<div class="nt-row">'+['Call 1','Pro Forma','Mike + Dave','Decision Call','Follow-Up','Other'].map(function(t){return'<button class="nt'+(selNoteType===t?' on':'')+'" onclick="selNoteType=\''+t+'\';document.querySelectorAll(\'.nt\').forEach(function(b){b.classList.remove(\'on\')});this.classList.add(\'on\')">'+t+'</button>';}).join('')+'</div>';
+  b+='<textarea class="cm-ta" id="cm-nnt" placeholder="Income goal surfaced? Objections? Next step?" rows="3"></textarea>';
+  b+='<button style="width:100%;padding:10px;border-radius:8px;border:none;background:#C8960C;color:#111;font-size:13px;font-weight:800;cursor:pointer;margin-top:8px;" onclick="addCallNote()">+ Save Call Note</button></div>';
+  b+='<button class="cm-save-btn" onclick="saveContactCard()">Save &amp; Close</button>';
+  b+='<button class="cm-x-btn" onclick="closeContactCard()">Close</button>';
+  document.getElementById('cm-body').innerHTML=b;
+  document.getElementById('cmodal-ov').classList.add('on');
+}
+function saveContactCard(){
+  var c=contacts.find(function(x){return x.id===curOpenCid;});if(!c)return;
+  function g(id){var e=document.getElementById(id);return e?e.value:'';}
+  var st=g('cm-stage');if(st){c.stage=st;c.stageName=(SM[st]||{}).name||st;}
+  c.incomeGoal=parseFloat(g('cm-ig'))||null;c.incomeTarget=parseFloat(g('cm-it'))||null;
+  c.phone=g('cm-ph');c.email=g('cm-em');c.followUp=g('cm-fu');c.volume=parseFloat(g('cm-vol'))||0;c.notes=g('cm-notes');
+  saveContacts();closeContactCard();renderPipeline();
+}
+function closeContactCard(){document.getElementById('cmodal-ov').classList.remove('on');curOpenCid=null;}
+function addCallNote(){
+  var c=contacts.find(function(x){return x.id===curOpenCid;});
+  var txt=(document.getElementById('cm-nnt')||{}).value||'';txt=txt.trim();
+  if(!c||!txt)return;
+  if(!c.callNotes)c.callNotes=[];
+  c.callNotes.push({id:'n'+Date.now(),type:selNoteType,date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),text:txt});
+  saveContacts();openContactCard(curOpenCid);
+}
+loadContacts();
+</script>
+
+
+<div id="settingsModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.6);z-index:9000;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#1a1a1a;border:1px solid #333;border-radius:16px;padding:24px;width:100%;max-width:400px;">
+    <div style="font-size:9px;font-weight:800;letter-spacing:3px;color:#C8960C;margin-bottom:8px;font-family:monospace;">SETTINGS</div>
+    <div style="font-size:18px;font-weight:900;color:#fff;margin-bottom:16px;">AI Builder Setup</div>
+    <div style="font-size:11px;color:#666;margin-bottom:6px;font-weight:700;">ANTHROPIC API KEY</div>
+    <input id="settingsKeyInput" type="password" placeholder="Paste your API key here..."
+      style="width:100%;background:rgba(255,255,255,0.07);border:1px solid #333;border-radius:8px;padding:10px 12px;color:#fff;font-size:13px;font-family:monospace;margin-bottom:6px;"
+      oninput="this.style.borderColor=this.value.length>20?'#27AE60':'#333'" />
+    <div style="font-size:10px;color:#444;margin-bottom:14px;">Get your key at console.anthropic.com → API Keys. Stored only on this device.</div>
+    <button onclick="saveApiKey()" style="width:100%;padding:12px;border-radius:9px;border:none;background:#C8960C;color:#111;font-size:14px;font-weight:800;cursor:pointer;margin-bottom:8px;">Save Key</button>
+    <button onclick="toggleSettings()" style="width:100%;padding:10px;border-radius:9px;border:1px solid #333;background:transparent;color:#666;font-size:13px;cursor:pointer;">Cancel</button>
+    <div id="settingsMsg" style="font-size:12px;text-align:center;margin-top:8px;min-height:18px;"></div>
+  </div>
+</div>
 </body>
 </html>
